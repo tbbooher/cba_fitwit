@@ -1,0 +1,24 @@
+<!-- #bg: applies the site width and footer background -->
+<div id="bg" class="width">
+  <ul>
+    <li><%= link_to "New Account",
+      :controller => "users",
+    :action => 'new' %></li>
+    <li>
+      <%= link_to "Register",
+        :controller => :registration,
+      :action => :all_fitness_camps %>
+    </li>
+    <% if @cart %>
+    <li>
+      <%= link_to "View Cart",
+        :controller => :registration,
+      :action => :view_cart %>
+    </li>
+    <% end %>
+    <li>
+      <%= link_to "&copy; 2008 FitWit", root_url, {:class => 'last'} %>
+    </li>
+  </ul>
+</div>
+<!-- #bg end -->

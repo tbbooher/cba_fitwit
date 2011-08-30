@@ -1,0 +1,64 @@
+<!-- NAVIGATION SECTION -->
+<!-- #header: holds the logo and top links -->
+<div id="header" class="width">
+  <%= image_tag "/images/front_page/FitWitFront.png", :alt => "fit wit logo" %>
+  <ul>
+    <li><%= link_to 'Main Page', \
+      {:action => 'home', :controller => 'base'} %></li>
+    <li><%= link_to 'About Us', \
+        {:action => 'about_us', :controller => 'base'} %></li>
+    <% if admin? %>
+    <li><%= link_to 'Admin',
+          {:action => 'index', :controller => 'admin'} %></li>
+    <% end %>
+    <% if logged_in? %>
+    <li><%= link_to 'My FitWit', \
+            {:action => 'index', :controller => 'my_fit_wit'} %></li>
+    <li><%= link_to "Logout", {:action => 'logout',
+            :controller => 'login'}, {:class => "last"} %></li>
+    <% else %>
+    <li><%= link_to "Login", {:action => 'login',
+            :controller => 'login'}, {:class => "last"} %></li>
+    <% end %>
+  </ul>
+</div>
+<!-- #header end -->
+      <!-- #headerImg: holds the main header image or flash -->
+<% if @bigpic %>
+  <div id="headerImg" class="width">
+      <object type="application/x-shockwave-flash" data="/images/front_page/FitWIt_Banner2.swf" width="776" height="143">
+        <param name="movie" value="/images/front_page/FitWIt_Banner2.swf" />
+      </object>
+  </div>
+<% end %>
+<!-- #menu: the main large box site menu -->
+<div id="menu" class="width">
+  <ul>
+    <!-- 1 -->
+    <li>
+      <%= link_to "<span class=\"title\">Fitness Camps</span>", \
+          {:action => "index", :controller => 'fitness_camp_info'}, \
+              {:onfocus => "blur()"} \
+       %>
+    </li>
+    <!-- 2 -->
+    <li>
+          <%= link_to "<span class=\"title\">Locations</span>",  {:controller => :location_info} %>
+    </li>
+    <!-- 3 -->
+    <li>
+          <%= link_to "<span class=\"title\">Sponsors</span>", \
+                {:action => "index", :controller => 'base', :action => 'all_sponsors'}, \
+                      {:onfocus => "blur()"} \
+          %>
+    </li>
+        <!-- 4 -->
+    <li>
+          <%= link_to "<span class=\"title\">The FitWit Foundation</span>", \
+          {:action => "Foundation", :controller => 'base'}, \
+              {:onfocus => "blur()"} \
+          %>
+    </li>
+  </ul>
+</div>
+<!-- #menu end -->

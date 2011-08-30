@@ -4,6 +4,11 @@
   border-bottom: solid 1px $color-border;
 }
 
+div#wrapper {
+  width: 903px;
+  margin: 0 auto;
+  padding: 0;
+}
 
 #flashes {
   margin: 0px;
@@ -25,15 +30,17 @@
 }
 
 .main-frame {
-  width: 1000px;
+/*  width: 1000px;
   position: absolute;
   top: 120px;
-  left: 180px;
-  background: lighten($color-paper,18%);
+  left: 180px;*/
+/*  background: lighten($color-paper,18%);
   border: 1px solid $color-border;
   box-shadow: 3px 3px 3px $color-shadow;
-  border-radius: 0px 0px 3px 3px;
-  
+  border-radius: 0px 0px 3px 3px;*/
+  background: transparent url(/assets/booher_design/mainBackgroundTile.png) repeat-y scroll left top;
+  padding: 0 2px;
+
   #container {
     padding: 20px 20px;
     padding-top: 10px;
@@ -238,7 +245,7 @@
   	  box-shadow: none;
   	}
   	
-  	img {
+  	/*img {
   	  -moz-border-radius: 5px 5px 5px 5px;
   	  -webkit-border-radius: 5px 5px 5px 5px;
   	  -moz-box-shadow: 5px 5px 3px #888;
@@ -246,7 +253,7 @@
   	  box-shadow: 5px 5px 3px #888;
   	  border: none;
   	  padding: 0px;
-  	}
+  	}*/
   	
   	.item_link_buttons {
   	  padding: 0px;

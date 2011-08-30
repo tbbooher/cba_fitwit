@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Item text:</b>
+  <%= @news_item.item_text %>
+</p>
+
+<p>
+  <b>Display:</b>
+  <%= @news_item.display %>
+</p>
+
+
+<%= link_to 'Edit', edit_news_item_path(@news_item) %> |
+<%= link_to 'Back', news_items_path %>
