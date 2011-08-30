@@ -2,6 +2,22 @@
 
 Cba::Application.routes.draw do
 
+  resources :news_items
+
+  # FitWit Routes
+  get 'base/error'
+  get 'base/home'
+  get 'base/create_your_own_fitwit'
+  get 'base/community'
+  get 'base/contact_us'
+  get 'base/about_us'
+  get 'base/not_authorize'
+  get 'base/login_success'
+  get 'base/logoff_success'
+  get 'base/all_sponsors'
+  get 'fitness_camp_info/index'
+  get 'fitness_camp_info/the_fitwit_difference'
+
   # Switch locales
   match 'switch_lcoale/:locale' => "home#set_locale", :as => 'switch_locale'
   
@@ -81,6 +97,7 @@ Cba::Application.routes.draw do
   match '/auth/failure' => 'authentications#auth_failure'
 
   # ROOT
-  root :to => 'home#index'
+  #root :to => 'home#index'
+  root :to => "base#home"
 
 end

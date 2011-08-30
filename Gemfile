@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'simplecov', '>= 0.4.0', :require => false, :group => :test
 
-gem "rails", "3.1.0.rc6"
+gem "rails", "3.1.0.rc8"
 # Rails 3.1 - Asset Pipeline
 
 group :assets do
@@ -21,7 +21,7 @@ gem "mongoid", "2.1.6" #  :path => "/Users/aa/Development/R31/mongoid-1" #"2.1.6
 gem "bson_ext"  #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
-gem "devise", "~>1.4.0" # ,"1.1.7"
+gem "devise", :git => 'git://github.com/plataformatec/devise.git'# "~>1.4.0" # ,"1.1.7"
 gem "cancan"
 gem "omniauth", "0.2.6"
 
@@ -36,7 +36,7 @@ gem 'mongoid_fulltext'
 gem "haml"
 gem "will_paginate", "3.0.pre4"
 gem 'escape_utils'
-gem "RedCloth", "4.2.5" #"4.2.4.pre3 doesn't work with ruby 1.9.2-p180
+gem "RedCloth", "4.2.2" #"4.2.4.pre3 doesn't work with ruby 1.9.2-p180
 
 # Gems by iboard.cc <andreas@altendorfer.at>
 gem "jsort", "~> 0.0.1"
@@ -79,4 +79,25 @@ group :test do
   gem "mocha"
   gem "gherkin"
 end
+
+# custom FitWit gems
+gem 'activemerchant', :git => 'git://github.com/tbbooher/active_merchant.git'
+#gem 'gibberish'
+gem 'ssl_requirement'
+#gem 'white_list_formatted_content'
+#gem 'activerecord-tableless-0.1.0'
+#gem 'google_charts_on_rails'
+gem 'table_builder'
+#gem 'ym4r_gm'
+#gem 'acts_as_list'
+#gem 'newrelic_rpm'
+#gem 'us_states'
+gem 'transitions'
+#gem 'validates_multiparameter_assignments'
+#gem 'gemsonrails'
+#gem 'query_reviewer'
+#gem 'white_list'
+gem 'wkhtmltopdf-binary'
+gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
+
 

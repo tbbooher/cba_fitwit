@@ -1,11 +1,21 @@
-# -*- encoding : utf-8 -*-
+MAILSERVER_ADDRESS   = 'smtp.gmail.com'
+MAILSERVER_PORT      = '587'
+MAILSERVER_USERNAME  = 'admin@polco.us'
+MAILSERVER_PASSWORD  = '282ma2a@'
+MAILSERVER_DOMAIN    = 'polco.us'
+ADMIN_EMAIL_ADDRESS  = 'admin@polco.us'
+DEFAULT_URL          = 'www.polco.us'
+DEFAULT_MAIL_FROM    = "admin@polco.us"
+DEVELOPMENT_MAIL_RECIPIENT = 'admin@theboohers.org'
 
-MAILSERVER_ADDRESS   = 'smtp.your.site'
-MAILSERVER_PORT      = '25'
-MAILSERVER_USERNAME  = 'your_smtp_username'
-MAILSERVER_PASSWORD  = 'your_smtp_password'
-MAILSERVER_DOMAIN    = 'your.site'
-ADMIN_EMAIL_ADDRESS  = 'admin@your.site'
-DEFAULT_URL          = 'http://your.site'
-DEFAULT_MAIL_FROM    = "noreply@your.site"
-DEVELOPMENT_MAIL_RECIPIENT = 'developers@personal.email.address'
+#ActionMailer::Base.smtp_settings = {
+#  #:enable_starttls_auto => true,
+#  :address              => "smtp.gmail.com",
+#  :port                 => 587,
+#  :tls                  => true,
+#  :domain               => "polco.us",
+#  :user_name            => "tim@polco.us",
+#  :password             => "hessisch",
+#  :authentication       => :plain,
+#  :enable_starttls_auto => true
+#}

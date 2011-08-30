@@ -37,3 +37,4 @@ app/views/layouts/disabled_layouts/*
 app/views/layouts/disabled_layouts/**/*
 redcloth/*
 redcloth/**/*
+.idea/

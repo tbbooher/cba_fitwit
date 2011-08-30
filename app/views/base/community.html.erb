@@ -1,0 +1,33 @@
+<div class="floatLeft" style="width:475px;">
+  <img src="/images/booher_design/FitWit_Community_new.jpg" width="472" height="536" alt="FitWit Community" longdesc="Picture showing an example of fitwit community"/>
+</div>
+<div class="floatRight" style="width:360px; padding:20px;">
+  <%= image_tag "headers/h1_community.gif" %>
+
+  <p>As a member of our family you'll stay connected with other FitWitters. Here are some of the other benefits you'll
+    have through the service:
+  </p>
+
+  <div id='communitylist'>
+    <ul style="margin-top:8px;">
+      <li>Track Workouts</li>
+      <li>Personal workout records</li>
+      <li>Trainer Tips</li>
+      <li>Community events</li>
+      <li>Calendar</li>
+      <li>View and upload pictures</li>
+      <li>Related news articles</li>
+      <li>Exercise technique videos and discussion forums</li>
+      <li>FitWit Swag!</li>
+    </ul>
+  </div>
+
+  <div id="links">
+    <p>Check out our current online communities:</p>
+    <p>Grant Park:  <%=  link_to "http://fitwit-grantpark.ning.com/", "http://fitwit-grantpark.ning.com/", :target => "_blank"  %></p>
+    <p>Decatur:  <%= link_to "http://fitwit-decatur.ning.com/",  "http://fitwit-decatur.ning.com/", :target => "_blank" %></p>
+  </div>
+  
+</div>
+
+<%= render :partial => 'shared/pic_banner' %>

@@ -1,0 +1,21 @@
+
+    <div id="schedule_top"></div>
+    <div id="schedule_middle">
+      <div>
+          <% @locations_and_times.each do |lt| %>
+             <div class="time_region">
+               <div class="location"><b><%= lt[0] %></b>: <br /> <%= lt[1] %></div>
+               <div class="times">
+                  <% lt[2].each do |t| %>
+                     <%= t %><br />
+                  <% end %>
+               </div>
+               <div style="clear:both;height:10px"></div>
+             </div>
+          <% end %>
+      </div>
+    </div><div id="schedule_footer">
+      <div id="registration_button_click">
+        <%= link_to "", {:controller => 'registration', :action => 'all_fitness_camps'}, :class => 'fullanchor' %>
+      </div>
+    </div>

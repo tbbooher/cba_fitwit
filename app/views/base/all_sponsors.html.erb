@@ -1,0 +1,30 @@
+<%= image_tag "headers/h1_sponsors.jpg" %>
+<p>Because building <strong>community</strong>
+is at the core of what we do,
+we feel it’s important to develop <strong>relationships</strong> with local business and organizations
+in the areas where we hold our camps.</p>
+<% unless @sponsors.empty? %>
+    <% @sponsors.each do |s| %>
+        <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <% unless s.logo.exists? then %>
+            <%= image_tag "partners/#{s.img_name}", {:alt => s.name} %>
+        <% else %>
+            <%= image_tag s.logo.url(s.logo_style.to_sym) %>
+        <% end %>
+        <h2 style="padding-top:10px;"><%= s.name %></h2>
+        <p><%= s.description %></p>
+        <div class="contactInfo">
+          <div class="myaddress"><%= s.address %></div>
+          <span class="phone"><%= s.phone %></span>
+      <span class="myurl">
+        <a href="http://<%= s.url %>" class="external_link" target="_blank">
+          <%= s.url %>
+        </a>
+      </span>
+        </div>
+    <% end %>
+<% else %>
+    <p class='last'>There are no sponsors in the database. We will have some soon.</p>
+<% end %>
+
+<%= render :partial => 'shared/pic_banner' %>

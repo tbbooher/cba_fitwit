@@ -10,10 +10,106 @@ class User
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # fitwit fields
+
   field :name
   field :roles_mask, :type => Fixnum, :default => 0
   field :use_gravatar, :type => Boolean, :default => true
   field :invitation_id, :type => BSON::ObjectId
+
+  field :first_name, :type => String
+  field :last_name, :type => String
+  field :gender, :type => Integer
+  field :occupation, :type => String
+  field :company, :type => String
+  field :street_address1, :type => String
+  field :street_address2, :type => String
+  field :city, :type => String
+  field :us_state, :type => String
+  field :zip, :type => String
+  field :primary_phone, :type => String
+  field :secondary_phone, :type => String
+  field :t_shirt_size, :type => String
+  field :emergency_contact_information, :type => String
+  field :weight, :type => Integer
+  field :how_did_you_hear_about_us, :type => String
+  field :history_of_heart_problems, :type => Boolean
+  field :cigarette_cigar_or_pipe_smoking, :type => Boolean
+  field :increased_blood_pressure, :type => Boolean
+  field :increased_total_blood_cholesterol, :type => Boolean
+  field :diabetes_mellitus, :type => Boolean
+  field :heart_problems_chest_pain_or_stroke, :type => Boolean
+  field :breathing_or_lung_problems, :type => Boolean
+  field :muscle_joint_or_back_disorder, :type => Boolean
+  field :hernia, :type => Boolean
+  field :chronic_illness, :type => Boolean
+  field :obesity, :type => Boolean
+  field :recent_surgery, :type => Boolean
+  field :pregnancy, :type => Boolean
+  field :difficulty_with_physical_exercise, :type => Boolean
+  field :advice_from_physician_not_to_exercise, :type => Boolean
+  field :fitness_level, :type => Integer
+  field :date_of_birth, :type => Date
+  field :height_inches, :type => Integer
+  field :height_feet, :type => Integer
+  field :veteran_status, :type => Integer
+  field :number_of_logins, :type => Integer
+  field :has_active_subscription, :type => Boolean
+  field :history_of_heart_problems_explanation, :type => String
+  field :cigarette_cigar_or_pipe_smoking_explanation, :type => String
+  field :increased_blood_pressure_explanation, :type => String
+  field :increased_total_blood_cholesterol_explanation, :type => String
+  field :diabetes_mellitus_explanation, :type => String
+  field :heart_problems_chest_pain_or_stroke_explanation, :type => String
+  field :breathing_or_lung_problems_explanation, :type => String
+  field :muscle_joint_or_back_disorder_explanation, :type => String
+  field :hernia_explanation, :type => String
+  field :chronic_illness_explanation, :type => String
+  field :obesity_explanation, :type => String
+  field :recent_surgery_explanation, :type => String
+  field :pregnancy_explanation, :type => String
+  field :difficulty_with_physical_exercise_explanation, :type => String
+  field :advice_from_physician_not_to_exercise_explanation, :type => String
+  field :participation_approved_explanation, :type => String
+  field :taking_medications_explanation, :type => String
+
+  # fitwit
+  # validates_numericality_of :weight, :height_feet, :height_inches
+  # validates_format_of :primary_phone, :with => /[0-9\-\.]+/i
+
+  # TODO get validations working
+  #validates_multiparameter_assignments :message => " is not entered correctly."
+
+  #validates_uniqueness_of :user_name
+
+
+  GENDER = [
+          #  Displayed        stored in db
+  ["male", 1],
+  ["female", 2]
+  ]
+
+  VETERAN_STATUS = [
+          # DISP              # IN DB
+  ['No previous camps', 0], # no vet
+  ['One to three camps', 1], # vet
+  ['Four or more camps', 2] #super-vet
+  ]
+
+  TSHIRT_SIZES = [
+          #  Displayed        stored in db
+  ["Small", "s"],
+  ["Medium", "m"],
+  ["Large", "l"],
+  ["Extra Large", "xl"]
+  ]
+
+  # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  def user_name
+    self.name
+  end
+
   def invitation
     @invitation ||= Invitation.criteria.for_ids(self.invitation_id).first
   end

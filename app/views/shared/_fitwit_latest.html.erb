@@ -1,0 +1,13 @@
+<div class="boxContainer imgCenter" style="width:308px;">
+	<div class="boxTitle">Latest on FitWit</div>
+	<div class="boxContent">
+	<% unless @news_items.empty? %>
+		<% @news_items[0..2].each do |s| %>
+			<p><span style="color:#ea241b;"><%= s.pub_date %></span><br/><%= s.item_text %></p>
+		<% end %>
+	<% else %>
+		<p class='last'>There are no news items in the database. We will have some soon.</p>
+	<% end %>
+
+	</div>
+</div>

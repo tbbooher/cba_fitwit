@@ -1,0 +1,59 @@
+<div id="rightpad"><!-- Left thumbnail column -->
+  <h2> Contact Information</h2>
+
+  <div class="floatLeft">
+    <b>Phone</b><br/>
+    1-888-5-FITWIT<br/>
+    (1-888-534-8948)<br/>
+  </div>
+  <div class="floatRight">
+    <b>FAX</b><br/>
+    (404) 624-9112
+  </div>
+  <div style="clear:both; height:10px;"></div>
+  <div class="floatLeft">
+    <b>Address</b><br/>
+    1270 Caroline St. Suite D120 - 403<br/>
+    Atlanta, GA 30307
+  </div>
+  <div style="clear:both; height:10px;"></div>  
+  <div class="floatLeft">
+    <b>Email</b><br/>
+    info@fitwit.com
+  </div>
+</div>
+
+<%= image_tag "headers/h1_contact.jpg" %>
+
+ <%= error_messages_for :message %>
+
+<p>
+  Questions, comments, concerns, funny jokes, or stories? Please let us know!
+</p>
+
+<div id='contact_form'>
+  <% form_for :message, @message do |f| %>
+      <li>
+        <%= desc_label(f,:name,'Name:') %>
+        <%= f.text_field :name %>
+      </li>
+      <li>
+        <%= desc_label(f,:email,'E-mail:') %>
+        <%= f.text_field :email %>
+      </li>
+      <li>
+        <%= desc_label(f,:subject,'Subject:', false) %>
+        <%= f.text_field :subject %>
+      </li>
+      <li>
+        <%= desc_label(f,:message,'Message:', false) %>
+        <%= f.text_area :message, :cols => '24', :rows => '4' %>
+      </li>
+      <li>
+        <%= label_tag("", "", {:class => 'desc'} ) %>
+        <input type="submit" value="SEND" class="button"/>
+      </li>
+  <% end %>
+</div>
+
+<%= render :partial => 'shared/pic_banner' %>
