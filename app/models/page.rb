@@ -63,9 +63,15 @@ class Page
     end
   end
 
+  # Set the template by name
+  # @param[String] new_template the name of the new template
+  def template_by_name=(new_template)
+    self.template_id = PageTemplate.where(:name => new_template).first.id
+  end
+
   # @return [Boolean] true if this page is derived from another page and the original page still exists!
   def derived?
-    return self.template != nil
+    return self.template_id != nil && self.template != nil
   end
 
   default_scope lambda { where( is_template: false) }
@@ -101,20 +107,42 @@ class Page
   # Render the body with RedCloth or Discount
   def render_body(view_context=nil)
     @view_context = view_context unless view_context.nil?
-    unless (@view_context && self.page_template)
+    unless self.page_template
       parts = [self.title_and_flags, self.t(I18n.locale,:body),"\nPLUSONE"]
       self.page_components.each do |component|
-        parts << ( [ (component.t(I18n.locale,:title)||''),
-                             ("-"*component.t(I18n.locale,:title).length),
-                             "\n"+(component.t(I18n.locale,:body) || '')
-                           ].join("\n")
-                         )
+        parts << [component.render_body(view_context)]
       end
       rc=render_for_html( parts.join("\n") )
     else
       rc=render_with_template
     end
     rc
+  end
+
+
+  def page_with_edit_component_buttons(view_context, &block )
+    rc = self.render_body(view_context)
+    rc.gsub(/\[EDIT_COMPONENT_LINK:(\S+)\]/) { |component_id|
+      _component_id = component_id.gsub(/\[EDIT_COMPONENT_LINK:/,'').gsub(/\]$/,'')
+      if view_context && view_context.can?(:edit, self)
+        component = self.page_components.find(_component_id)
+        unless block_given?
+          if view_context
+            view_context.link_to(
+              I18n.translate(:edit),
+              view_context.edit_page_page_component_path(self,_component_id),
+              :remote => true, :title => 'Edit component'
+            )
+          else
+            "<a href='/pages/#{self.page.id.to_s}/page_component/#{self.id.to_s}/edit' data-remote='true'>Edit</a>"
+          end
+        else
+          yield(component)
+        end
+      else
+        ""
+      end
+    }
   end
 
   # Same as short_title but will append a $-sign instead of '...'
@@ -134,46 +162,46 @@ class Page
   # TODO:   This code occurs in Page and PageComponent. Move it to a single
   # TODO:   place.
   def render_with_template
-    self.page_template.render do |template|
-      template.gsub(/TITLE/, self.title_and_flags)\
-              .gsub(/BODY/,  self.render_for_html(self.t(I18n.locale,:body)))\
-              .gsub(/COMPONENTS/, render_components )\
-              .gsub(/COVERPICTURE/, render_cover_picture)\
-              .gsub(/COMMENTS/, render_comments)\
-              .gsub(/BUTTONS/, render_buttons)\
-              .gsub(/PLUSONE/, ("<p><g:plusone size=\"small\"></g:plusone></p>".html_safe))\
-              .gsub(/ATTACHMENTS/, render_attachments)\
-              .gsub(/ATTACHMENT\[(\d)+\]/) { |attachment_number|
-                attachment_number.gsub! /\D/,''
-                if c= self.attachments[attachment_number.to_i-1]
-                  if c.file_content_type =~ /image/
-                    @view_context.image_tag c.file.url(:medium)
-                  elsif
-                    @view_context.link_to( c.file_file_name, c.file.url )
+    unless self.page_template && @view_context
+      raise "Can't render template if there is no view-context or template"
+    else
+      self.page_template.render do |template|
+        template.gsub(/TITLE/, self.title_and_flags)\
+                .gsub(/BODY/,  self.render_for_html(self.t(I18n.locale,:body)))\
+                .gsub(/COMPONENTS/, render_components )\
+                .gsub(/COVERPICTURE/, render_cover_picture)\
+                .gsub(/COMMENTS/, render_comments)\
+                .gsub(/BUTTONS/, render_buttons)\
+                .gsub(/PLUSONE/, ("<p><g:plusone size=\"small\"></g:plusone></p>".html_safe))\
+                .gsub(/ATTACHMENTS/, render_attachments)\
+                .gsub(/ATTACHMENT\[(\d)+\]/) { |attachment_number|
+                  attachment_number.gsub! /\D/,''
+                  if c= self.attachments[attachment_number.to_i-1] && @view_context
+                    if c.file_content_type =~ /image/ && @view_context
+                      @view_context.image_tag c.file.url(:medium)
+                    elsif @view_context
+                      @view_context.link_to( c.file_file_name, c.file.url )
+                    end
+                  else
+                    "ATTACHMENT #{attachment_number} NOT FOUND"
                   end
-                else
-                  "ATTACHMENT #{attachment_number} NOT FOUND"
-                end
-              }\
-              .gsub(/COMPONENT\[(\d)\]/) do |component_number|
-                component_number.gsub! /\D/,''
-                 c = self.components.where(:position => component_number.to_i-1).first
-                 if c
-                   c.render_body
-                 else
-                   "COMPONENT #{component_number} NOT FOUND"
-                 end
-              end
+                }\
+                .gsub(/COMPONENT\[(\d)\]/) { |component_number|
+                  component_number.gsub! /\D/,''
+                   c = self.components.where(:position => component_number.to_i-1).first
+                   if c
+                     rc = c.render_body(@view_context)
+                   else
+                     "COMPONENT #{component_number} NOT FOUND"
+                   end
+                }
+      end
     end
   end
 
   def render_components
-    self.page_components.asc(:title).map do |component|
-      if @view_context
-        component.render_body(@view_context)
-      else
-        component.body || ''
-      end
+    self.page_components.asc(:position).map do |component|
+      component.render_body(@view_context)
     end.join("\n")
   end
 
@@ -194,7 +222,7 @@ class Page
   end
 
   def render_cover_picture
-    if self.cover_picture_exists? && self.cover_picture.url(:medium)
+    if self.cover_picture_exists? && self.cover_picture.url(:medium) && @view_context
       @view_context.image_tag self.cover_picture.url(:medium)
     else
       ""
@@ -202,7 +230,10 @@ class Page
   end
 
   def render_buttons
-    @view_context.render :partial => "pages/buttons", :locals => { :page => self }
+    if @view_context
+      @view_context.render :partial => "pages/buttons", :locals => { :page => self }
+    end
   end
+
 
 end

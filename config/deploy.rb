@@ -35,7 +35,7 @@ after "deploy:update_code" do
   #run "chmod 0666 #{current_release}/log/production.log"
 end
 
-after "deploy:finalize_update", "uploads:symlink"
+#after "deploy:finalize_update", "uploads:symlink"
 # let's clean up those old files
 after :deploy, "deploy:cleanup"
 

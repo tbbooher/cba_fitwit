@@ -2,9 +2,9 @@ source 'http://rubygems.org'
 
 gem 'simplecov', '>= 0.4.0', :require => false, :group => :test
 
-gem "rails", "3.1.0.rc8"
-# Rails 3.1 - Asset Pipeline
+gem "rails", "~> 3.1.0" # prev was rc8
 
+# Rails 3.1 - Asset Pipeline
 group :assets do
   gem 'sass-rails', "~> 3.1.0.rc"
   gem 'coffee-script'
@@ -21,7 +21,7 @@ gem "mongoid", "2.1.6" #  :path => "/Users/aa/Development/R31/mongoid-1" #"2.1.6
 gem "bson_ext"  #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
-gem "devise", :git => 'git://github.com/plataformatec/devise.git'# "~>1.4.0" # ,"1.1.7"
+gem "devise", :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
 gem "omniauth", "0.2.6"
 
@@ -36,7 +36,7 @@ gem 'mongoid_fulltext'
 gem "haml"
 gem "will_paginate", "3.0.pre4"
 gem 'escape_utils'
-gem "RedCloth", "4.2.2" #"4.2.4.pre3 doesn't work with ruby 1.9.2-p180
+gem "RedCloth", "4.2.5" #"4.2.4.pre3 doesn't work with ruby 1.9.2-p180
 
 # Gems by iboard.cc <andreas@altendorfer.at>
 gem "jsort", "~> 0.0.1"
@@ -80,6 +80,7 @@ group :test do
   gem 'autotest-growl'
   gem "mocha"
   gem "gherkin"
+  gem 'syntax'
 end
 
 # custom FitWit gems
