@@ -51,6 +51,8 @@ gem "nokogiri", "1.4.6"
 
 # Bundle gems for development
 group :development do
+  gem 'capistrano'
+  gem 'capistrano-ext'
   gem "nifty-generators"
   gem "rails-erd"
   gem 'rdoc'

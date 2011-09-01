@@ -7,14 +7,14 @@ require 'bundler/capistrano'
 set :application, "fitwit"
 
 default_run_options[:pty] = true  # Must be set for the password prompt from git to work
-set :repository, "git@github.com:fitwit/FitWit.git"  # Your clone URL
+set :repository, "passenger@sweat:~/fw.git" # "git@github.com:fitwit/FitWit.git"  # Your clone URL
 set :scm, "git"
 set :branch, "master"
 
 set :deploy_to, "/var/www/#{application}"
 set :user, "passenger"
 
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :deploy_env, 'production'
 
 # i like to keep sudo away from the passenger user
@@ -25,9 +25,9 @@ set :keep_releases, 3 # saves space
 
 # would like to use the actual host-name for these
 
-role :app, "www.fitwit.com"
-role :web, "www.fitwit.com"
-role :db,  "www.fitwit.com", :primary => true
+role :app, "sweat" # fitwit.com ?
+role :web, "sweat"
+role :db,  "sweat", :primary => true
 
 after "deploy:update_code" do
   run "rvm rvmrc trust #{current_release}"

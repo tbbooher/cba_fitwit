@@ -1,7 +1,7 @@
 .bundle
 .yardoc
 .yardoc/**/*
-Gemfile.lock
+#Gemfile.lock
 db/*.sqlite3
 log/*.log
 doc/*
