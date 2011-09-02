@@ -79,11 +79,11 @@ end
 namespace :deploy do
 
   task :config_symlink do
-    run "ln -s #{shared_path}/application.yml #{release_path}/config/application.yml"
-    run "ln -s #{shared_path}/mongoid.yml #{release_path}/config/mongoid.yml"
-    run "ln -s #{shared_path}/mailserver_setting.rb #{release_path}/config/mailserver_setting.rb"
-    run "ln -s #{shared_path}/omniauth_settings.rb #{release_path}/config/omniauth_settings.rb"
-    run "ln -s #{shared_path}/google_analytics.head #{release_path}/config/omniauth_settings.rb"
+    run "ln -s #{shared_path}/config/application.yml #{release_path}/config/application.yml"
+    run "ln -s #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
+    run "ln -s #{shared_path}/config/mailserver_setting.rb #{release_path}/config/mailserver_setting.rb"
+    run "ln -s #{shared_path}/config/omniauth_settings.rb #{release_path}/config/omniauth_settings.rb"
+    run "ln -s #{shared_path}/config/google_analytics.head #{release_path}/config/google_analytics.head"
   end
 
 end
