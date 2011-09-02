@@ -3,6 +3,8 @@ set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
+set :ssh_options, {:forward_agent => true}
+
 set :rvm_ruby_string, '1.9.2@fitwit_cba'
 set :rvm_type, :user
 
@@ -42,6 +44,7 @@ end
 
 #after "deploy:finalize_update", "uploads:symlink"
 # let's clean up those old files
+after :deploy, "deploy:config_symlink"
 after :deploy, "deploy:cleanup"
 
 namespace :deploy do
@@ -69,6 +72,18 @@ namespace :uploads do
   task :symlink, :except => { :no_release => true } do
     run "rm -rf #{current_path}/public/system"
     run "ln -nfs /var/www/fitwit/shared/system #{current_path}/public/system"
+  end
+
+end
+
+namespace :deploy do
+
+  task :config_symlink do
+    run "ln -s #{shared_path}/application.yml #{release_path}/config/application.yml"
+    run "ln -s #{shared_path}/mongoid.yml #{release_path}/config/mongoid.yml"
+    run "ln -s #{shared_path}/mailserver_setting.rb #{release_path}/config/mailserver_setting.rb"
+    run "ln -s #{shared_path}/omniauth_settings.rb #{release_path}/config/omniauth_settings.rb"
+    run "ln -s #{shared_path}/google_analytics.head #{release_path}/config/omniauth_settings.rb"
   end
 
 end
