@@ -7,7 +7,7 @@ set :rvm_ruby_string, '1.9.2@fitwit_cba'
 set :rvm_type, :user
 
 set :bundle_cmd, '/usr/local/rvm/gems/ruby-1.9.2-p290@fitwit_cba/bin/bundle'
-
+# /usr/local/rvm/gems/ruby-1.9.2-p290@global/bin/bundle
 #require 'mongrel_cluster/recipes'
 set :application, "fitwit"
 
