@@ -16,14 +16,17 @@
                        t(:edit_for_another_count_minutes,:count => comment.time_left_to_edit) :\
                        t(:edit),
                 edit_comment_path(comment, (commentable.class.to_s.underscore.downcase+"_id").to_sym => commentable.id.to_s ),
-                :remote => true ) if can?( :manage, comment, session[:comments] )
+                :remote => true,
+                :class => "button edit tiny" ) if can?( :manage, comment, session[:comments] )
           %>
       
          <%= raw link_to( t(:destroy),
-                comment_path(comment, (commentable.class.to_s.underscore.downcase+"_id").to_sym => commentable.id.to_s ),
+                comment_path(comment,
+                 (commentable.class.to_s.underscore.downcase+"_id").to_sym => commentable.id.to_s ),
                 :method => :delete,
                 :remote => true,
-                :confirm => t(:are_you_sure)
+                :confirm => t(:are_you_sure),
+                :class =>  "button delete tiny"
                 ).gsub("rel=\"nofollow\"","") if can?( :destroy, session[:comments] )
           %>
       </address>

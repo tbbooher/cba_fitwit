@@ -82,22 +82,31 @@
           <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
       <% end %>
 
-      <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
-          <%= render :partial => 'users/notifications', :locals => {:user_notifications => current_user.user_notifications.displayed} %>
-      <% end %>
-    </div>
-    <div id="container">
-      <!--
-      <div class='google-search'>
-         %= insert_google_site_search %
+        <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
+          <%= render :partial => 'users/notifications', :locals => { :user_notifications => current_user.user_notifications.displayed } %>
+        <% end %>
       </div>
-      -->
-      <div id='container_main'>
-        <!-- google_search div id="cse" style="display: hidden; background: #fee;"></div -->
-        <%= content_tag(:h1, :id => 'title') do
-            yield(:title)
-        end if show_title? %>
-        <%= yield %>
+      <div id="container">
+        
+        <% if content_for? :resource_actions %>
+          <div id='resource-actions'>
+            <%= yield( :resource_actions) %>
+          </div>
+          <div class='clear'></div>
+        <% end %>
+        
+        
+        <!--
+        <div class='google-search'>
+           %= insert_google_site_search %
+        </div>
+        -->
+        <div id='container_main'>
+          <!-- google_search div id="cse" style="display: hidden; background: #fee;"></div -->
+          <%= content_tag(:h1,:id => 'title') do yield(:title) end if show_title? %>
+          <%= yield %>
+          <div class='clear'></div> 
+        </div>
       </div>
     </div>
     <div class='clear'></div>

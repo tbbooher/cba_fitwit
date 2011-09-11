@@ -236,6 +236,7 @@ de:
   welcome: 'Willkommen'
   list_registrations: 'Alle Registrationen'
   or_user_omni_auth: 'Oder einen Authentifizierungs-Provider benutzen'
+  edit_authentication_providers: 'Authentifizierungs-Provider bearbeiten'
   sign_in: 'Anmelden'
   authentications: 'Authentifizierungen'
   back_to: 'Zurück zu'
@@ -275,6 +276,7 @@ de:
   comment_deleted: 'Kommentar erfolgreich gelöscht'
   comment_successfully_updated: 'Kommentar erfolgreich geändert'
   edit_comment: 'Kommentar bearbeiten'
+  edit_component: 'Komponente bearbeiten'
   signed_in_successfully: "Erfolgreich angemeldet."
   authentication_successful: "Erfolgreich authentifiziert."
   signed_in_successfully: "Erfolgreich angemeldet"
@@ -448,3 +450,4 @@ de:
   invalid_search: 'Geben sie bitte mindestens 3 Zeichen ein'
   update_page_component: 'Änderungen speichern'
   page_component_successfully_updated: 'Änderungen wurden gespeichert'
+  navigation: 'Navigation'

@@ -112,7 +112,7 @@ class Page
       self.page_components.each do |component|
         parts << [component.render_body(view_context)]
       end
-      rc=render_for_html( parts.join("\n") )
+      rc=self.render_for_html( parts.join("\n") )
     else
       rc=render_with_template
     end
@@ -128,13 +128,14 @@ class Page
         component = self.page_components.find(_component_id)
         unless block_given?
           if view_context
-            view_context.link_to(
+            view_context.link_button(
               I18n.translate(:edit),
+              "button edit small",
               view_context.edit_page_page_component_path(self,_component_id),
-              :remote => true, :title => 'Edit component'
+              :remote => true, :title => I18n.translate(:edit_component)
             )
           else
-            "<a href='/pages/#{self.page.id.to_s}/page_component/#{self.id.to_s}/edit' data-remote='true'>Edit</a>"
+            "<a href='/pages/#{self.page.id.to_s}/page_component/#{self.id.to_s}/edit' data-remote='true' class='button edit tiny'>#{I18n.translate(:edit)}</a>"
           end
         else
           yield(component)
@@ -173,6 +174,17 @@ class Page
                 .gsub(/COMMENTS/, render_comments)\
                 .gsub(/BUTTONS/, render_buttons)\
                 .gsub(/PLUSONE/, ("<p><g:plusone size=\"small\"></g:plusone></p>".html_safe))\
+                .gsub(/YOUTUBE(_PLAYLIST)?:([\s|\d|\-|_])+/) { |tag|
+                  args = tag.split(":")
+                  case args[0]
+                  when 'YOUTUBE'
+                    args.inspect + embed_youtube_video(args[1])
+                  when 'YOUTUBE_PLAYLIST'
+                    args.inspect + embed_youtube_playlist(args[1])
+                  else
+                    "ARGUMENT ERROR: " + args.inspect
+                  end
+                }
                 .gsub(/ATTACHMENTS/, render_attachments)\
                 .gsub(/ATTACHMENT\[(\d)+\]/) { |attachment_number|
                   attachment_number.gsub! /\D/,''
@@ -180,7 +192,7 @@ class Page
                     if c.file_content_type =~ /image/ && @view_context
                       @view_context.image_tag c.file.url(:medium)
                     elsif @view_context
-                      @view_context.link_to( c.file_file_name, c.file.url )
+                      @view_context.link_button( c.file_file_name, "button download small", c.file.url )
                     end
                   else
                     "ATTACHMENT #{attachment_number} NOT FOUND"

@@ -1,5 +1,7 @@
 .bundle
 .yardoc
+.rspec
+.rvmrc
 .yardoc/**/*
 db/*.sqlite3
 log/*.log
@@ -34,6 +36,5 @@ public/stylesheets/disabled_styles/*
 public/stylesheets/disabled_styles/**/*
 app/views/layouts/disabled_layouts/*
 app/views/layouts/disabled_layouts/**/*
-redcloth/*
-redcloth/**/*
 .idea/
+spec/javascripts/generated/*

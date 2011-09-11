@@ -1,3 +1,9 @@
+# -*- encoding : utf-8 -*-
+# 
+# Open a side-tab when the mouse moves over a headline of a posting
+# Used in BlogsController::show 
+#
+
 sidetab_timeouts = []
 sidetab_focus    = null
 
@@ -7,7 +13,7 @@ hideLinks = ->
   $(".comment-links").hide()
   cancelSideTabTimeouts()
   
-hideSideTabs = ->
+self.hideSideTabs = ->
   $(".side-tab").hide()
   
 focusChanged = (new_focus) ->

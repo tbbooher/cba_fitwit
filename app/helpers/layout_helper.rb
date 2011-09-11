@@ -53,5 +53,20 @@ module LayoutHelper
   def w3c_url(url)
     url.gsub(' ', '%20')
   end
+  
+  # Links as buttons
+  def link_button( label_txt, button_options, *args )
+    link_to label_txt, *args, :class => button_options
+  end
+  
+  # render a pagination box if resource has items
+  # @param [Array] paginations the slected Items to display
+  def render_pagination_box paginations
+    if paginations.total_pages > 1
+      haml_tag(".pagination_box") do
+        concat(will_paginate(paginations))
+      end
+    end
+  end
 
 end

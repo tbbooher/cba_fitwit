@@ -15,7 +15,8 @@
   @include sidebar-background;
   /* @include container-shadow; */
   margin-right: 0px;
-  line-height: 180%;
+  line-height: 180%;  
+  
   a {
     padding: 5px;
     text-decoration: none;
@@ -68,5 +69,16 @@
 
     }
 
+  }
+}
+
+#site_menus {
+  li {
+    .site_menu_manage_buttons {
+      display: inline;
+      padding-left: 10px;
+    }
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }

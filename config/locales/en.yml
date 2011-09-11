@@ -23,6 +23,7 @@ en:
   role_label_maintainer: "Can do everything but system-configuration"
   role_label_admin: "Can do everything"
   edit_resource_named: "Edit %{resource} '%{name}'"
+  edit_authentication_providers: 'Edit authentication providers'
   save_changes: "Save changes"
   crop_avatar: "Crop avatar image"
   user_successfully_updated: 'User successfully updated'
@@ -80,6 +81,7 @@ en:
   comment_deleted: 'Comment successfully deleted'
   comment_successfully_updated: 'Comment successfully updated'
   edit_comment: 'Edit comment'
+  edit_component: 'Edit component'
   signed_in_successfully: "Signed in successfully."
   authentication_successful: "Authentication successful."
   signed_in_successfully: "Signed in successfully."
@@ -251,3 +253,4 @@ en:
   invalid_search: 'Please provide 3 characters or more'
   update_page_component: 'Update component'
   page_component_successfully_updated: 'Page component successfully updated'
+  navigation: 'Navigation'

@@ -33,7 +33,7 @@ module SiteMenusHelper # :nodoc:
   def current_root_path_include?(menu)
     path_menus = []
     menu.traverse { |m|
-      path_menus << m if current_page?(m.target) && menu.target[0] != '#'
+      path_menus << m if current_page?(m.target) && menu && menu.target && menu.target[0] != '#'
     }
     menu.ancestors.each do |anc|
       path_menus << anc if current_page?(anc.target) && menu.target[0] != '#'
@@ -108,9 +108,11 @@ module SiteMenusHelper # :nodoc:
   end
 
   def site_menu_manage_buttons(menu)
-    link_to( t(:edit), edit_site_menu_path(menu) ) + " | " +
-    link_to( t(:delete), menu, :method => :delete, :confirm => t(:are_you_sure)) + " | " +
-    link_to( t(:add_submenu_item), new_site_menu_path(:parent => menu.to_param))
+    ("<span style='height: 10px; vertical-align: middle;'>" +
+    link_to( t(:edit), edit_site_menu_path(menu), :class => 'button edit tiny' ) + sc(:nbsp) +
+    link_to( t(:delete), menu, :method => :delete, :confirm => t(:are_you_sure), :class => 'button delete tiny') + sc(:nbsp) +
+    link_to( t(:add_submenu_item), new_site_menu_path(:parent => menu.to_param), :class => 'button add tiny') +
+    "</span>").html_safe
   end
   
 end

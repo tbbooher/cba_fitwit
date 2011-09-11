@@ -1,10 +1,13 @@
-- title t('userlist.title')
+- title t('userlist.title'),false 
 = javascript 'endless_page'
 
-%div.top_right_box= t(:registered_users_count, :count => @user_count) 
+.pagination_box= will_paginate @users
 
-%div{ :style=>'text-align: center; clear: right; margin-top: 10px' }= will_paginate @users
-
+%h2<
+    =yield(:title)
+    .tiny
+        = t(:registered_users_count, :count => @user_count) 
+  
 %div#userlist
     - for user in @users
         %div{ :style=>'clear: right;'}= render user 
@@ -12,4 +15,4 @@
 
     = render :partial => '/home/load_more', :locals => { :resources => @users, :path => registrations_path }
 
-%div{ :style=> 'text-align: center;' }=  will_paginate @users
+.pagination_box= will_paginate @users

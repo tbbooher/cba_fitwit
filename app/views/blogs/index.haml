@@ -1,11 +1,18 @@
 - title t(:blogs), false
 
+- if can? :create, Blog
+  - content_for :resource_actions do
+    %div{:style => 'margin-right: 15px;'}
+      %p= link_button( t(:create_new_blog), "button add right", new_blog_path)
+
 
 %div
-  = will_paginate @blogs
+  -if @blogs.total_pages > 1
+    .pagination_box= will_paginate @blogs
 
   - @blogs.each do |blog|
     = render :partial => 'blog_intro', :locals => { :blog => blog }
     %p.content_seperator
-    
-  = will_paginate @blogs
+  
+  -if @blogs.total_pages > 1
+    .pagination_box= will_paginate @blogs
