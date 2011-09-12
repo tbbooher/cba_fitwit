@@ -2,6 +2,10 @@
 
 Cba::Application.routes.draw do
 
+  resources :events
+
+  get "calendar/index"
+
   resources :news_items
 
   # FitWit Routes

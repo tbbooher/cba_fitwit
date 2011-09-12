@@ -49,6 +49,8 @@ gem 'redcarpet'
 gem 'albino'
 gem "nokogiri", "1.4.6"
 
+# tim booher custom gems
+
 
 # Testing
 group :development, :test do
@@ -99,5 +101,5 @@ gem 'transitions'
 #gem 'white_list'
 gem 'wkhtmltopdf-binary'
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
-
+#gem "jquery-rest"
 
