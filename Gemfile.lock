@@ -356,7 +356,7 @@ DEPENDENCIES
   rspec-rails (= 2.6.1)
   ruby-growl
   sass-rails (~> 3.1.0.rc)
-  simplecov (>= 0.4.0)
+  simplecov
   spork (= 0.9.0.rc9)
   spork-testunit
   sprockets (~> 2.0.0.beta.12)
