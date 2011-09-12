@@ -42,13 +42,13 @@
   border-radius: 0px 0px 3px 3px; */
   background: transparent url(/assets/booher_design/mainBackgroundTile.png) repeat-y scroll left top;
   padding: 0 2px;
-  overflow: auto;
+  /* overflow: auto; */
   padding-bottom: 10px;
 
   #container {
     padding: 20px 20px;
     padding-top: 10px;
-    overflow: visible;
+    overflow: hidden;
 
     #right-column {
       float: right;

@@ -102,4 +102,5 @@ gem 'transitions'
 gem 'wkhtmltopdf-binary'
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 #gem "jquery-rest"
+gem 'table_builder'
 
