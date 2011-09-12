@@ -1,3 +1,11 @@
+<% content_for(:prototype) do %>
+    <%# stylesheet_link_tag "/javascripts/cropper/cropper.css" %>
+    <%= javascript_include_tag "/javascripts/fullcalendar/rails.js" %>
+    <%= javascript_include_tag "/javascripts/fullcalendar/jquery.rest.js" %>
+    <%= javascript_include_tag "/javascripts/fullcalendar/fullcalendar.min.js" %>
+    <%= javascript_include_tag "/javascripts/fullcalendar/calendar.js" %>
+<% end %>
+
 <%= link_to "new event", new_event_path %>
 
 <div id='calendar'></div>
