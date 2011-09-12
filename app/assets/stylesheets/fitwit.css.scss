@@ -4,3 +4,61 @@ div#wrapper {
   padding: 0;
 }
 
+img {
+  box-shadow:none;
+  -webkit-box-shadow:none;
+  -webkit-border-radius: none;
+}
+
+div.homeLeft {
+  color: #535353;
+  background: white;
+  width: 300px;
+  margin: 0 0;
+  min-height: 600px;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+div.homeRight {
+  font-size: normal;
+  color: #535353;
+  background: white;
+  width: 500px;
+  margin: 0 10px 0 0;
+  min-height: 600px;
+}
+
+p.big_red {
+  color: #EA241B;
+  text-align: center;
+  font-size: large;
+  padding-top: 15px;
+  font-family: "trebuchet ms", verdana;
+}
+
+.main-frame #container img {
+-moz-border-radius: none;
+-webkit-border-radius: none;
+-moz-box-shadow:none;
+-webkit-box-shadow: none;
+box-shadow: none;
+border: none;
+padding: 0px;
+margin: 5px;
+}
+
+div#footer {
+width: 903px;
+margin: 0 auto;
+padding:0px;
+/* this should be a mixin */
+height: 40px;
+background: transparent url(/images/booher_design/mainBackgroundEnd.png) no-repeat scroll left top;
+}
