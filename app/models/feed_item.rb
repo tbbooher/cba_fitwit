@@ -2,9 +2,9 @@
 
 # FeedItems are used to represent RSS atom items
 # Used e.g. in HomeController as
-#     FeedItem.new( ("%s %% %s" % [posting.title,comment.name]), 
-#                   comment.comment, 
-#                   comment.updated_at, 
+#     FeedItem.new( ("%s %% %s" % [posting.title,comment.name]),
+#                   comment.comment,
+#                   comment.updated_at,
 #                   posting_url(posting),comment)
 class FeedItem
 
@@ -12,7 +12,7 @@ class FeedItem
 
   # @param [String] title the title used for the rss-item
   # @param [String] body: the rss-item-body
-  # @param [Time] updated_at: 
+  # @param [Time] updated_at:
   # @param [Object] Object any object. Appreciate if responds to :name.
   def initialize(title, body, updated_at, url, object)
     @title,@body,@updated_at,@url,@object = title, body, updated_at, url, object
@@ -34,5 +34,5 @@ class FeedItem
   def method_missing(method_sym, *arguments, &block)
     object.send(method_sym,*arguments)
   end
+
 end
-  

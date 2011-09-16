@@ -10,6 +10,17 @@
 }
 
 #banner {
+  /*
+  background: $background-banner;
+  position: fixed;
+  z-index: 2;
+  top: 0px;
+  left: 0px;
+  width: 5000px;
+  overflow: hidden;
+  height: 90px;
+  padding-left: 20px;
+  */
   background: transparent url(/assets/common/banner_wide.png) no-repeat scroll left top;
   height: 116px;
   background-color:blue;
