@@ -1,0 +1,34 @@
+pending:
+  id: 1
+  description: pending order
+  user_id: 1
+  amount: 100
+  state: pending
+
+authorized:
+  id: 2
+  description: authorized order
+  user_id: 1
+  amount: 100
+  state: authorized
+  
+uncapturable:
+  id: 3
+  description: authorized, but uncapturable
+  user_id: 1  
+  amount: 100
+  state: authorized
+  
+uncapturable_error:
+  id: 4
+  description: authorized, but uncapturable due to error
+  user_id: 1
+  amount: 100
+  state: authorized
+
+subscription_test:
+  id: 5
+  description: this is an order for a subscription
+  user_id: 1
+  amount: 1300
+  state: authorized

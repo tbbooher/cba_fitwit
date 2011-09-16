@@ -22,6 +22,42 @@ end
 
 class ActiveSupport::TestCase
 
+  include ActiveMerchant::Billing
+
+  def credit_card_hash(options = {})
+    {:number => '4111111111111111',
+      :first_name => 'Demosthenes',
+      :last_name => 'Booher',
+      :month => 8,
+      :year => "#{Time.now.year + 1}",
+      :verification_value => '123',
+      :type => 'visa'    # needs to be an active merchant type
+    }.update(options)
+    # get the parameters we send the users
+  end
+
+  def credit_card(options = {})
+    ActiveMerchant::Billing::CreditCard.new( credit_card_hash(options))
+  end
+
+  def address(options = {})
+    { :name => 'Demosthenes Rex',
+      :address1 => '1 Areopagus',
+      :address2 => '',
+      :city => 'Athens',
+      :state => 'FL',
+      :country => 'US',
+      :zip => '32569',
+      :phone => '937-565-2727'
+    }.update(options)
+  end
+
+  def add_cart_with_items
+    @cart = Cart.new
+    @cart.add_timeslot(TimeSlot.find(:first))
+    @request.session[:cart] = @cart
+  end
+
   def create_valid_user_with_id(id=nil)
     begin
       unless id.nil?

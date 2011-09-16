@@ -1,3 +1,4 @@
+# -*- coding: undecided -*-
 Cba::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -28,4 +29,27 @@ Cba::Application.configure do
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
+
+  config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :production # :test
+  # TODO we should remove this . . .
+  ActiveMerchant::Billing::CreditCard.require_verification_value = false
+
+  # we need to open an external file to get the password
+  mypassphrase = File.open(File.join(Rails.root, 'passphrase.txt')).read
+  OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login    => 'v9526006',
+                                                    :password => mypassphrase.to_s,
+                                                    :test => false,
+                                                    :vat_reg_number => 'your VAT registration number',
+                                                    # sets the states/provinces where you have a physical presense for tax purposes
+                                                    :nexus => "GA OH",
+                                                    # don‘t want to use AVS so continue processing even if AVS would have failed
+                                                    :ignore_avs => true,
+                                                    # don‘t want to use CVV so continue processing even if CVV would have failed
+                                                    :ignore_cvv => true,
+                                                    :money_format => :dollars
+                                                    )
+end
+
+
 end

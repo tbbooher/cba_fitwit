@@ -33,4 +33,15 @@ Cba::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :test
+  OrderTransaction.gateway = ActiveMerchant::Billing::BogusGateway.new
+
+  # now prevent ActionMailer from performing deliveries
+  #ActionMailer::Base.delivery_method = :smtp # necessary?
+  #  ActionMailer::Base.perform_deliveries = false
+  #ActionMailer::Base.raise_delivery_errors = false
+end
+
 end
