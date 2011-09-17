@@ -164,7 +164,7 @@ class Order
     
     #transaction do
 
-      subscription = OrderTransaction.generate_subscription(credit_card, options)
+      subscription = OrderTransaction.generate_yearly_subscription(credit_card, options)
       transactions.push(subscription)
 
       if subscription.success?
