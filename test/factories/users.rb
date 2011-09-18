@@ -3,6 +3,8 @@ Factory.define :user do |u|
    u.name       'user'
    u.roles_mask 1
    u.password   "secret"
+   u.first_name "Bob"
+   u.last_name "The Builder"
    u.password_confirmation "secret"
 end
 

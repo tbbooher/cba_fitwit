@@ -10,16 +10,13 @@ class Order
   include Mongoid::Timestamps
   include Stateflow
 
-  #field :user_id, :type => Integer # association
   field :amount, :type => Integer
   field :state, :type => String, default: "pending"
-  #field :created_at, :type => Datetime
-  #field :updated_at, :type => Datetime
   field :description, :type => String
   field :coupon_code_id, :type => Integer
 
   has_many :registrations, :dependent => :destroy
-  has_many :transactions, 
+  has_many :order_transactions,
     :class_name => 'OrderTransaction', 
     :dependent => :destroy
   #  has_many :fitness_camps, :through => :registrations
@@ -59,8 +56,7 @@ class Order
   # FROM PEEPCODE
   # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   # BEGIN acts_as_state_machine
-  # acts_as_state_machine :initial => :pending
-  # TODO -- move to transitions
+
   stateflow do
     initial :pending
 
@@ -93,6 +89,16 @@ class Order
   end
   # END acts_as_state_machine
 
+  # BEGIN authorization_reference
+  def authorization_reference
+    if authorization = self.order_transactions.where(action: 'authorization').and(success: true).asc(:id).first
+      authorization.reference
+    else
+      raise "no authorization reference"
+    end
+  end
+  # END authorization_reference
+
   # BEGIN number
   def number
     # TODO have this be our order id 
@@ -104,6 +110,7 @@ class Order
 
   # BEGIN authorize_payment
   def authorize_payment(credit_card, options = {})
+
     # this is the major function that interacts with the credit card company
     options[:order_id] = number # currently just loading a date
     #    options[:email] = 'developer@fitwit.com'
@@ -119,14 +126,19 @@ class Order
 
     #transaction do
 
+    # amount is a property of the order
+
       authorization = OrderTransaction.authorize(amount, credit_card, options)
-      transactions.push(authorization)
+      order_transactions.push(authorization)
 
       if authorization.success?
         self.payment_authorized!
       else
         self.transaction_declined!
       end
+
+      # testing
+      self.save!
 
       authorization
     #end
@@ -137,7 +149,7 @@ class Order
   def capture_payment(options = {})
    # transaction do
       capture = OrderTransaction.capture(amount, authorization_reference, options)
-      transactions.push(capture)
+      order_transactions.push(capture)
       if capture.success?
         self.payment_captured!
       else
@@ -149,14 +161,6 @@ class Order
   end
   # END capture_payment
 
-  # BEGIN authorization_reference
-  def authorization_reference
-    if authorization = transactions.where(action: 'authorization').and(success: true).asc(:id).first
-      authorization.reference
-    end
-  end
-  # END authorization_reference
-
   # foray into the world of subscriptions (profiles)
   def create_subscription(credit_card, options = {})
 
@@ -165,7 +169,7 @@ class Order
     #transaction do
 
       subscription = OrderTransaction.generate_yearly_subscription(credit_card, options)
-      transactions.push(subscription)
+      order_transactions.push(subscription)
 
       if subscription.success?
         self.payment_captured!

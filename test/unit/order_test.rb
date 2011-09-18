@@ -14,10 +14,9 @@ class OrderTest < ActiveSupport::TestCase
 
     credit_card = credit_card(:number => '1')
 
-    assert_difference 'order.transactions.count' do
+    assert_difference 'order.order_transactions.size' do
       authorization = order.authorize_payment(credit_card)
-      assert_equal authorization.reference,
-      order.authorization_reference
+      assert_equal authorization.reference, order.authorization_reference
       assert authorization.success?
       assert order.authorized?
     end

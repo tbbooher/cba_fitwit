@@ -1,38 +1,39 @@
-FactoryGirl.define do
-  factory :order do
-    user {User.first}
-    amount 100
+  Factory.define :order do |o|
+    o.user {User.first}
+    o.amount 100
   end
 
-  factory :pending, :class => Order do
-    description "pending order"
-    user {User.first}
-    state 'pending'
+  Factory.define :pending, :class => Order do |o|
+    o.description "pending order"
+    o.user {User.first}
+    o.amount 100
+    o.state 'pending'
   end
 
-  factory :authorized, :class => Order do
-    description 'authorized order'
-    user {User.first}
-    state 'authorized'
+  Factory.define :authorized, :class => Order do |o|
+    o.description 'authorized order'
+    o.user {User.first}
+    o.amount 100
+    o.state 'authorized'
   end
 
-  factory :uncapturable, :class => Order do
-    user {User.first}
-    description 'authorized, but uncapturable'
-    state 'authorized'
+  Factory.define :uncapturable, :class => Order do |o|
+    o.user {User.first}
+    o.description 'authorized, but uncapturable'
+    o.amount 100
+    o.state 'authorized'
   end
 
-  factory :uncapturable_error, :class => Order  do
-    user {User.first}
-    description 'authorized, but uncapturable due to error'
-    state 'authorized'
+  Factory.define :uncapturable_error, :class => Order  do |o|
+    o.user {User.first}
+    o.description 'authorized, but uncapturable due to error'
+    o.amount 100
+    o.state 'authorized'
   end
 
-  factory :subscription_test, :class => Order  do
-    user {User.first}
-    description 'this is an order for a subscription'
-    amount '1300'
-    state 'authorized'
+  Factory.define :subscription_test, :class => Order  do |o|
+    o.user {User.first}
+    o.description 'this is an order for a subscription'
+    o.amount '1300'
+    o.state 'authorized'
   end
-
-end

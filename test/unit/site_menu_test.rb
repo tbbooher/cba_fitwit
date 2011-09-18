@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SiteMenuTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  test "SiteMenue should be a tree" do
+  test "SiteMenu should be a tree" do
     root_1 = SiteMenu.create name:'Root 1'
     child_1= SiteMenu.create name:'Child in R1'
     child_2= SiteMenu.create name:'Child in R1'

@@ -80,6 +80,7 @@ group :development, :test do
   gem 'rdoc'
   gem 'unicorn'
   gem 'yard'
+  gem 'test-unit'
 end
 
 # custom FitWit gems
