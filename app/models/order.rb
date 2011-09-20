@@ -2,7 +2,7 @@ require 'rubygems'
 require 'stateflow'
 
 # No persistence
-Stateflow.persistence = :none
+Stateflow.persistence = :mongoid
 # ??
 
 class Order
@@ -93,8 +93,6 @@ class Order
   def authorization_reference
     if authorization = self.order_transactions.where(action: 'authorization').and(success: true).asc(:id).first
       authorization.reference
-    else
-      raise "no authorization reference"
     end
   end
   # END authorization_reference
@@ -129,7 +127,8 @@ class Order
     # amount is a property of the order
 
       authorization = OrderTransaction.authorize(amount, credit_card, options)
-      order_transactions.push(authorization)
+      self.save!
+      self.order_transactions << authorization
 
       if authorization.success?
         self.payment_authorized!
@@ -138,7 +137,8 @@ class Order
       end
 
       # testing
-      self.save!
+
+      #self.order_transactions.reload
 
       authorization
     #end
@@ -149,7 +149,9 @@ class Order
   def capture_payment(options = {})
    # transaction do
       capture = OrderTransaction.capture(amount, authorization_reference, options)
-      order_transactions.push(capture)
+      self.save!
+      self.order_transactions << capture
+
       if capture.success?
         self.payment_captured!
       else
@@ -164,24 +166,35 @@ class Order
   # foray into the world of subscriptions (profiles)
   def create_subscription(credit_card, options = {})
 
+    u = self.user
     options[:order_id] = number # currently just loading a date
-    
-    #transaction do
+    options[:email] = u.email
+    options[:address] =  {
+                :first_name => u.first_name,
+                :last_name => u.last_name,
+                :address1 => u.street_address1,
+                :address2 => (u.street_address2 || ""),
+                :company => (u.company || ""),
+                :city => u.city,
+                :state => u.us_state,
+                :zip => u.zip,
+                :country => 'United States',
+                :phone => u.primary_phone
+    }
 
-      subscription = OrderTransaction.generate_yearly_subscription(credit_card, options)
-      order_transactions.push(subscription)
+    subscription = OrderTransaction.generate_yearly_subscription(credit_card, options)
 
-      if subscription.success?
-        self.payment_captured!
-      else
-        self.transaction_declined!
-      end
+    order_transactions.push(subscription)
 
-      subscription
-    #end
-    
+    if subscription.success?
+      self.payment_captured!
+    else
+      self.transaction_declined!
+    end
+
+    subscription
   end
-  
+
   # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   # END FROM PEEPCODE
   # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||

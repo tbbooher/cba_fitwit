@@ -17,7 +17,7 @@ group :assets do
 end
 
 # Bundle gems needed for Mongoid
-gem "mongoid", "2.1.6" #  :path => "/Users/aa/Development/R31/mongoid-1" #"2.1.6"
+gem "mongoid", "2.2.0" #  :path => "/Users/aa/Development/R31/mongoid-1" #"2.1.6"
 gem "bson_ext"  #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
@@ -81,6 +81,8 @@ group :development, :test do
   gem 'unicorn'
   gem 'yard'
   gem 'test-unit'
+  gem 'rails3-generators'
+  gem "haml-rails"
 end
 
 # custom FitWit gems

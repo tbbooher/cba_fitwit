@@ -27,8 +27,11 @@
   Factory.define :uncapturable_error, :class => Order  do |o|
     o.user {User.first}
     o.description 'authorized, but uncapturable due to error'
-    o.amount 100
+    o.amount 101
     o.state 'authorized'
+    o.order_transactions {|ot| [ot.association(:authorization_with_error_reference)]}
+    #association :order_transactions, :factory => :authorization_with_error_reference
+    #o.order_transactions { FactoryGirl.build(:authorization_with_error_reference) }
   end
 
   Factory.define :subscription_test, :class => Order  do |o|

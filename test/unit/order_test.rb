@@ -7,6 +7,19 @@ class OrderTest < ActiveSupport::TestCase
     User.delete_all
     user = Factory(:admin)
     @pending_order = Factory.build(:pending)
+    @subscription_options = {
+      :order_id => generate_unique_id,
+      :email => 'someguy1232@fakeemail.net',
+      :credit_card => credit_card(:number => '4111 1111 1111 1111'),
+      :billing_address => address.merge(:first_name => 'Jim', :last_name => 'Smith'),
+      :subscription => {
+        :frequency => "monthly",
+        :start_date => Date.today.end_of_month,
+        :occurrences => 20,
+        :auto_renew => true,
+        :amount => 100
+      }
+    }
   end
 
   def test_successful_order_authorization
@@ -14,8 +27,9 @@ class OrderTest < ActiveSupport::TestCase
 
     credit_card = credit_card(:number => '1')
 
-    assert_difference 'order.order_transactions.size' do
+    assert_difference 'order.order_transactions.count' do
       authorization = order.authorize_payment(credit_card)
+      order.order_transactions(true)
       assert_equal authorization.reference, order.authorization_reference
       assert authorization.success?
       assert order.authorized?
@@ -26,7 +40,7 @@ class OrderTest < ActiveSupport::TestCase
     order = @pending_order
     credit_card = credit_card(:number => '2')
 
-    assert_difference 'order.transactions.count' do
+    assert_difference 'order.order_transactions.count' do
       authorization = order.authorize_payment(credit_card)
       assert_nil order.authorization_reference
       assert !authorization.success?
@@ -38,7 +52,7 @@ class OrderTest < ActiveSupport::TestCase
     order = @pending_order
     credit_card = credit_card(:number => '3')
 
-    assert_difference 'order.transactions.count' do
+    assert_difference 'order.order_transactions.count' do
       authorization = order.authorize_payment(credit_card)
       assert_nil order.authorization_reference
       assert !authorization.success?
@@ -51,7 +65,7 @@ class OrderTest < ActiveSupport::TestCase
   def test_successful_payment_capture
     order = FactoryGirl.build(:authorized)
 
-    assert_difference 'order.transactions.count' do
+    assert_difference 'order.order_transactions.count' do
       capture = order.capture_payment
       assert order.paid?
       assert capture.success?
@@ -59,9 +73,10 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   def test_failed_payment_capture
-    order = FactoryGirl.build(:uncapturable)
+    order = FactoryGirl.create(:uncapturable)
+    order.order_transactions <<  FactoryGirl.create(:authorization_with_failing_reference)
 
-    assert_difference 'order.transactions.count' do
+    assert_difference 'order.order_transactions.count' do
       capture = order.capture_payment
       assert order.authorized?
       assert !capture.success?
@@ -69,9 +84,11 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   def test_error_during_payment_capture
-    order = FactoryGirl.build(:uncapturable_error)
+    order = FactoryGirl.create(:uncapturable_error)
+    order.order_transactions << FactoryGirl.create(:authorization_with_error_reference)
+    order.save!
 
-    assert_difference 'order.transactions.count' do
+    assert_difference 'order.order_transactions.count' do
       capture = order.capture_payment
       assert order.authorized?
       assert !capture.success?
@@ -82,14 +99,28 @@ class OrderTest < ActiveSupport::TestCase
   # now let's test subscriptions
   def test_order_subscriptions
     order = FactoryGirl.build(:subscription_test)
+    order.order_transactions << FactoryGirl.build(:authorization_for_subscription)
+
     credit_card = credit_card(:number => '4111 1111 1111 1111')
 
-    assert_difference 'order.transactions.count' do
-#      capture = order.capture_payment
+    assert_difference 'order.order_transactions.count' do
       capture = order.create_subscription(credit_card)
-      #assert order.authorized?
+      assert order.authorized?
       assert capture.success?
     end
+  end
+
+
+  def test_successful_create_subscription_with_cc_and_setup_fee
+    order = FactoryGirl.build(:subscription_test)
+    credit_card = credit_card(:number => '4111 1111 1111 1111')
+
+    assert_difference 'order.order_transactions.count' do
+      assert response = order.create_subscription(credit_card, options)
+      assert_equal 'Successful transaction', response.message
+      assert_success response
+      assert response.test?
+    end # assert_difference
   end
 
 end
