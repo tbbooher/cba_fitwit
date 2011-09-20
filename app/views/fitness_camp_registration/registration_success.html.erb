@@ -1,0 +1,25 @@
+
+
+  <h1 style="padding-top:10px;">Congratulations!</h1>
+  <% if @membership %>
+  <p>Congratulations! You are now an official FitWit Club Member. You will
+    be automatically enrolled in every camp at the location and time
+    indicated on your registration. If you want to make a change to your
+    FitWit? Club Membership, please call 1-888-5-FITWIT (888-534-8948) or
+    email info@fitwit.com. Thank you for committing to a healthier
+    lifestyle!</p>
+  <% end %>
+  <p>You have successfully registered for the following fitness camps:</p>
+  <ol>
+    <% @registrations.each do |r| %>
+    <li><%= r.time_slot.longer_title %></li>
+    <% end # registrations %>
+  </ol>
+  <p>We will send you a confirmation e-mail to <strong><%= @user.email_address %></strong>.<p>
+    
+<blockquote>
+  "Only those who risk going too
+  far can possibly find out how far one can go."
+  <br />
+  ~T.S. Eliot
+</blockquote>

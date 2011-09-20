@@ -1,0 +1,65 @@
+<dt>
+  <!-- camp title -->
+  <h2><%= cart_item_view.title_with_camp_dates %></h2>
+</dt>
+<% camp_cost = fitness_camp_price(@vet_status,cart_item_view, @user.has_active_subscription) %>
+<!-- # this displays for each cart item -->
+<dd style="border:none;">
+  <% unless (@vet_status > 0) %>
+    <div style="clear:both;"></div>
+    <div class="financial_info">
+      Bring a friend, get a $40 discount
+    </div>
+    <%= display_standard_price %>
+    <div>
+      <%= render :partial => 'friends_form',
+        :locals => {:cart_item => cart_item_view,
+        :cart_item_count => cart_item_view_counter,
+        :vet_status => @vet_status} %>
+      <!-- friend's form -->
+    </div>
+  <% else %>
+    <% if @cart.new_membership %>
+      <div class="financial_info">
+        <p>As a member, you do not need to pay for this registration.</p>
+        <p>Please continue the registration process to help us plan
+          for your participation. In the future, let us know which camp you will
+        participate in.</p>
+      </div>
+    <% else %>
+      <% unless cart_item_view.pay_by_session %>
+		  <% unless @cart.coupon_code %>
+			<%= render :partial => 'registration/cart_includes/regular_discounts',
+			  :locals => {:cart => cart_item_view,
+			  :item_count => cart_item_view_counter} -%>
+		  <% end %>
+      <% else %>
+      <!-- we pay by session -->
+        <%= render :partial => 'registration/cart_includes/pay_by_session',
+          :locals => {:cart => cart_item_view,
+          :item_count => cart_item_view_counter,
+          :camp_cost => camp_cost } -%>
+      <% end %>
+    <% end %>
+  <% end %>
+   <% unless cart_item_view.pay_by_session %>
+    <div class="coupon_code">
+      <% if @cart.coupon_code %>
+      <span class="price_desc">Coupon: <%=h @cart.coupon_code.code %></span>
+      <span class="price"><%= display_coupon_code_discount(@cart.coupon_code) %></span>
+      <% end %>
+      <div style="clear:both;"></div>
+      <%= text_field_tag :coupon_code %>
+      <%= submit_tag 'Add coupon', :class => 'button' %>
+    </div>
+  <% end %>
+  <div style="clear:both;">
+    <span class="price_desc">Your final price is</span>
+    <span class="price" style="text-decoration:underline;">
+      <%= @cart.new_membership ? "covered by membership" : number_to_currency(camp_cost) %>
+    </span>
+  </div>
+  <div style="clear:both;"></div>
+  <%= hidden_field("item#{cart_item_view_counter}",
+    :price, {:value => camp_cost}) %>
+</dd>

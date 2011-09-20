@@ -52,7 +52,7 @@ class OrderTransaction
       }
 
       # do we need to send this an amount?
-      process('subscription', grand_total_amount) do |gw|
+      process('subscription') do |gw|
         gw.create_subscription(credit_card, @subscription_options)
       end
     end

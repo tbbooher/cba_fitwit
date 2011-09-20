@@ -1,0 +1,149 @@
+<h1><%= @pagetitle %>: Registration step 3 of 6</h1>
+<p>Before completing registration, it is important that you have reported an up-to-date
+  health history. You can update your health history <%= link_to "here",
+                                                                 {:controller => 'my_fit_wit',
+                                                                  :action => 'health_history'}, :class => 'health_history_link' %>
+  if you haven't already
+  done so.</p>
+<div id="health_history_update">
+  <%= render :partial => 'my_fit_wit/includes/health_history', :object => @user %>
+</div>
+
+<% if @membership %>
+    <p>
+      As a FitWit Club member, it is important that you keep us informed of
+      any change in your medical status. Please fill out the Health Consent
+      questions and update your Health History as necessary. We will send
+      you an e-mail reminder prior to each camp to keep your Health Consent
+      and Health History current.
+    </p>
+<% end %>
+<p style="clear:both;">
+</p>
+<% form_for :health_approval,
+            :url => {:action => :release_and_waiver_of_liability},
+            :builder => ConsentFormBuilder do |f| %>
+    <div id="order_details">
+      <h2>Health history</h2>
+
+      <p>
+        <span> Does your physician approve of your participation
+        in this exercise program? </span>
+
+      <div id="radios">
+        <% subject = "participation_approved" %>
+        <% my_id = "'health_approval[#{subject}_explanation]'" %>
+        <%= f.radio_button(subject.to_sym, "Yes", {}, @checked_values) %>
+        <%= f.radio_button(subject.to_sym, "No", {}, @checked_values) %>
+        <%= f.text_area(subject, "Please explain", {}, @button_hash) %>
+      </div>
+      </p>
+      <p style="clear:both;">
+        <span> Are you taking any medications that affect your vital signs
+        (heart rate, blood pressure, breathing, etc.) or physical performance? </span>
+
+      <div>
+        <% subject = "taking_medications" %>
+        <% my_id = "'health_approval[#{subject}_explanation]'" %>
+        <%= f.radio_button(subject.to_sym, "Yes", {:onclick => "$(#{my_id}).show()"}, @checked_values) %>
+        <%= f.radio_button(subject.to_sym, "No", {:onclick => "$(#{my_id}).hide()"}, @checked_values) %>
+        <%= f.text_area(subject, "Please explain", {}, @button_hash) %>
+      </div>
+      </p>
+      <% if @user.gender == 2 %>
+          <div id="girl_stuff">
+            <p>
+              <span> Are you a post-menopausal female? </span>
+
+            <div>
+              <%= f.radio_button(:post_menopausal_female,
+                                 "Yes", {:onclick => "$('estrogen').show()"}, @checked_values) %>
+              <%= f.radio_button(:post_menopausal_female, "No", {:onclick => "$('estrogen').hide()"}, @checked_values) %>
+            </div>
+            </p>
+            <script type="text/javascript"> window.onload = function() {
+                $("estrogen").hide();
+            }</script>
+            <p id="estrogen">
+              <span> If yes, are you taking estrogen?</span>
+            <span id="estrogen_buttons">
+              <%= f.radio_button(:taking_estrogen, "Yes", {}, @checked_values) %>
+              <%= f.radio_button(:taking_estrogen, "No", {:checked => true}, @checked_values) %>
+            </span>
+            </p>
+          </div>
+      <% end %>
+    </div>
+    <hr style="margin-top:1em;"/>
+    <div id="verify_health_history">
+      <% health_conditions = @user.find_health_problems %>
+      <div style="float:left; width:49%;">
+        <% unless health_conditions[0].empty? -%>
+            <h3>You have a reported history of:</h3>
+            <ul>
+              <% health_conditions[0].each do |p| %>
+                  <li><%= p.humanize %></li>
+              <% end %>
+            </ul>
+            <p>If you would like to modify this list, please go to your <%= link_to "health history",
+                                                                                    {:controller => 'my_fit_wit',
+                                                                                     :action => 'health_history'}, {:class => 'health_history_link'} %>
+              .
+            </p>
+        <% else -%>
+            <p style="border:1px solid red; color:black; background-color:#ccc; padding:0.5em;">
+              You have not reported any previous medical conditions.
+              Are you sure you have never had any of the following conditions? If
+              this is incorrect, you can update your health history
+              <%= link_to "here",
+                          :controller => 'my_fit_wit',
+                          :action => 'health_history' %>.</p>
+        <% end -%>
+      </div>
+      <div style="float:right; width:49%;">
+        <h3>You did not report any previous:</h3>
+        <ul>
+          <% health_conditions[1].each do |p| %>
+              <li><%= p.humanize %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+    <hr/>
+    <%= f.submit "Proceed to Release and Waiver of Liability", :class => "button" %>
+<% end %>
+
+<script>
+    $(document).ready(function() {
+        // registration health consent
+        $("#health_history_update").hide();
+        // open any necessary windows
+        $("#health_approval_participation_approved_no").click(function () {
+            $("#health_approval_participation_approved_explanation").show().focus().select();
+        });
+        $("#health_approval_participation_approved_yes").click(function () {
+            $("#health_approval_participation_approved_explanation").hide('slow');
+        });
+        $("#health_approval_taking_medications_yes").click(function () {
+            $("#health_approval_taking_medications_explanation").show().focus().select();
+        });
+        $("#health_approval_taking_medications_no").click(function () {
+            $("#health_approval_taking_medications_explanation").hide('slow');
+        });
+        $(".health_history_link").click(function () {
+            $("#health_history_update").dialog({
+                autoOpen: false,
+                show: 'blind',
+                hide: 'explode',
+                resizable: false,
+                width: 900,
+                modal: true,
+                title: 'Your health history'
+            });
+            $("#health_history_update").dialog('open');
+            return false;
+        });
+    });
+</script>
+

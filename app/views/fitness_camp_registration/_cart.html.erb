@@ -1,0 +1,21 @@
+<div id="rightpad">
+  <h2 style="margin-top:10px;">Your Registrations</h2>
+  <table style="border:1px solid #cfcfcf;">
+    <%= render(:partial => "cart_item", :collection => cart.items) %>
+
+    <tr class="total-line" style="background:#cfcfcf;">
+      <td colspan="2">Total fitness camps</td>
+      <td class="total-cell"><%= cart.total_items %></td>
+    </tr>
+  </table>
+
+  <% unless @cart_view %>
+      <%= button_to "Checkout",
+                    {:action => :view_cart},
+                    :class => 'button', :style => 'width:80px; margin-top:5px; margin-bottom:-7px;' %>
+  <% end %>
+  <br />
+  <%= button_to "Empty cart",
+                empty_cart_url(@location), # {:controller => 'registration',:action => :empty_cart, :id => @location_id}
+                :class => 'button', :style => 'width:80px; margin-top:5px;' %>
+</div>

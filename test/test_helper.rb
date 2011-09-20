@@ -41,7 +41,8 @@ class ActiveSupport::TestCase
   end
 
   def address(options = {})
-    { :name => 'Demosthenes Rex',
+    { :first_name => 'Demosthenes',
+      :last_name => 'Rex',
       :address1 => '1 Areopagus',
       :address2 => '',
       :city => 'Athens',

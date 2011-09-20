@@ -1,0 +1,47 @@
+<% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
+    <%= render(:partial => "cart", :object => @cart) %>
+<% end %>
+<h1>Available FitWit Camps for <%= @location.summary %></h1>
+
+<% unless @fitnesscamps.empty? %>
+    <dl>
+      <% @fitnesscamps.each do |fitnesscamp| %>
+          <dt>
+          <h2><%= h fitnesscamp.full_title %></h2></dt>
+          <% if fitnesscamp.time_slots.empty? %>
+              <dd style="border:none">No timeslots for <%= fitnesscamp.title %></dd>
+          <% else %>
+              <dd style="border:none">
+                <% fitnesscamp.time_slots_ordered.each do |time_slot| %>
+                    <% unless @cart.in_cart?(time_slot.id) %>
+                        <% form_remote_tag :url => { :action => :add_to_cart,
+                                                     :id => time_slot }, :html => {:id => "form#{time_slot.id}"}  do %>
+                            <%= submit_tag(time_slot.start_to_finish,
+                                           :id => "reg_#{time_slot.id}",
+                                           :class => 'button') %>
+                            <% end %><!-- form remote tag -->
+                    <% else %>
+                        <p>You are already registered for <%= time_slot.show_meeting_txt %></p>
+                        <% end %><!-- cart check -->
+                    <% end %><!-- fitness camp enumeration -->
+              </dd>
+              <% end %><!-- time slots empty -->
+      <% end %>
+<% else %>
+    <p>There are no upcoming fitness camps scheduled for <%= @location.name %>.</p>
+<% end %>
+</dl>
+
+<% unless @locations.empty? %>
+    <p>Other Locations:</p>
+    <ul>
+      <% @locations.each do |l| %>
+          <li>
+            <%= link_to l.summary,
+                        {:action => "index", :id => l.id} %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>
+
+<p class="last"></p>

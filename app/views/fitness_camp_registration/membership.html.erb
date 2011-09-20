@@ -1,0 +1,28 @@
+<!-- left column -->
+<div class="floatLeft width25">
+  <!-- Left thumbnail column -->
+  <h3>FitWit Memberships (are fun, benni)</h3>
+  <hr />
+  <p>benni, any membership details?</p>
+  <%= display_cc_errors(@cc_errors) if @cc_errors %>
+  <h3>Health History Reported:</h3>
+  <% unless @health_approval.nil? %>
+    <ul>
+      <% @health_approval.each do |h| %>
+        <li><%= "#{h[0].humanize} : #{h[1]}" %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reported health history concerns.</p>
+  <% end %>
+  <!-- Left thumbnails end -->
+  <div style="width:90%">
+    <%= image_tag "/images/common/beez_and_hoops.gif",
+      :size => '100x100', :alt => 'FitWit logo', :class => 'beez_and_hoops' %>
+  </div>
+</div>
+<!-- Right column -->
+<p>Benni, memberships are a good idea -- you will enjoy and love them</p>
+<div class="floatRight width75">
+  <%= render :partial => 'membership_form' %>
+</div>

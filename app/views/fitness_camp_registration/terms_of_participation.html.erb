@@ -1,0 +1,82 @@
+  <h1><%= @pagetitle %> in the FitWit Fitness Camp: Registration step 5 of 6</h1>
+  <p class="notice">
+    Please read the Terms of Participation (ToP)
+    carefully then <b>check the box at the bottom of the
+    page</b> to continue.  You will be asked to sign a a hard copy
+    of the ToP upon the start of your
+    first camp each calendar year.
+  </p>
+<ol style="width:85%">
+  <li class="terms">
+    I agree to follow the instructions of the Lead Trainer and
+    Assistant Trainers to the best of my ability at all times.   
+  </li>
+  
+  <li class="terms">
+    I agree to be enthusiastic, polite, and encouraging to all
+    other participants and trainers.  
+  </li>
+  
+  <li class="terms">
+    I agree to give my best effort everyday.
+  </li>
+  
+  <li class="terms">   
+    I understand that to achieve the best possible results, I
+    need to workout 5 times each week—4 at FitWit and 1 outside of camp—and
+    that the weekly homework is a great way to achieve this.
+  </li>
+  
+  <li class="terms">
+    I agree to notify the Lead Trainer of ANY existing medical
+    conditions that may affect my ability to participate in the Exercise
+    Program on the “Medical History Form” and “Physical Activity and Readiness
+    Questionnaire (PAR-Q).”
+  </li>
+  
+  <li class="terms">
+    I agree to inform the lead trainer of any changes to either
+    the “Medical History Form” or “PAR-Q” in the future.
+  </li>
+  
+  <li class="terms">
+    I agree to contact my physician if medical attention is
+    needed.
+  </li>
+  
+  
+  <li class="terms">
+    I agree to attend camp every day unless it is an excused
+    absence from my doctor or pre-approved by the Lead Trainer.
+  </li>
+  
+  <li class="terms">
+    I agree to be punctual. I understand that camp starts
+    promptly at the scheduled time, and it is important that I be there on
+    time to get the best possible workout.
+  </li>
+  
+  
+  <li class="terms">
+    I agree to be mindful of my diet, and I understand that
+    logging my daily food and drink intake on my food log is the best way to
+    achieve this. I understand that I will receive dietary guidance by attending the camp nutrition talk and turning
+    in my food log to the lead trainer by 12:00 PM every Monday.
+  </li>
+  
+  <li class="terms" style="margin-bottom:15px;">
+    <b>I understand I will not receive a refund of any amounts
+    paid to FitWit, LLC under any circumstances.</b>    
+  </li>
+</ol>
+
+<% form_tag "save_order" do -%>
+  <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
+    <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this
+    box I acknowledge that I have read, understand, and will agree to the
+    terms and conditions in the Terms of of Participation.
+    </div>
+    <div>
+      <%= submit_tag "Proceed to Payment", :class => "button" %>
+    </div>
+  <% end -%>

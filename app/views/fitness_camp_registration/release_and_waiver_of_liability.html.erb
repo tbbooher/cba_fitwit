@@ -1,0 +1,118 @@
+
+  <h1><%= @pagetitle %>: Registration step 4 of 6</h1>
+
+  <p class="notice">
+    Please read the Release and Waiver of Liability (RWL)
+    carefully then <b>check the box at the bottom of the page</b> to continue.
+    You will be asked to sign a a hard copy
+    of the RWL upon the start of your first
+    camp each calendar year.    
+  </p>
+
+<p>
+  This Release and Waiver of Liability (the “Release”) sets forth
+  certain terms with respect to Participant’s participation in a structured
+  physical exercise program offered by FitWit, LLC. and/or The FitWit Foundation
+  (the “Exercise Program”) and is executed in favor of FitWit, LLC., The FitWit
+  Foundation, their directors, officers, employees, trainers and agents
+  (collectively, “FitWit”). Participant desires to participate in the Exercise
+  Program and engage in the activities related to being a Participant.
+  Participant understands that the activities may include vigorous physical
+  activity. Participant’s signature or that of Participant’s parent or guardian
+  below (if Participant is a minor) indicates Participant’s acknowledgement and
+  agreement, without duress, to the following terms:
+</p>
+
+<p>
+  <B>WAIVER AND RELEASE</B>. Participant does hereby release and
+  forever discharge and hold harmless FitWit and its successors and assigns from
+  any and all liability, claims and demands of whatever kind or nature, either
+  in law or in equity, which arise or may hereafter arise from Participant’s
+  participation in the Exercise Program. Participant understands and
+  acknowledges that this Release discharges FitWit from any liability or claim
+  that the Participant may have against FitWit with respect to any injury,
+  illness, or death that may result from Participant’s participation in the
+  Exercise Program, whether caused in whole or in part by Participant’s
+  negligence or the negligence of FitWit or its officers, directors, employees,
+  or agents or otherwise. Participant also understands that FitWit does not
+  assume any responsibility for or obligation to provide financial assistance or
+  other assistance, including but not limited to health or disability insurance,
+  in the event of injury or illness.
+</p>
+
+<p>
+  <b>MEDICAL TREATMENT</b>. Participant understands that FitWit has
+  no responsibility to detect factors that may increase illness or injury for
+  Participant and that Participant should consult a physician before beginning
+  the Exercise Program. Participant does hereby release and forever discharge
+  FitWit from any claim whatsoever that arises or may hereafter arise on account
+  of any first aid, treatment or service rendered in connection with the
+  Participant’s participation in the Exercise Program.
+</p>
+<p>
+  <b>ASSUMPTION OF THE RISK</b>. Participant understands that there
+  are certain risks of illness, injury or death that are inherent in any program
+  of physical exercise. Common risks include, but are not limited to, increased
+  pulse and respiration rate, joint stress on weight bearing joints, fatigue,
+  possible blood clotting which may cause fainting, sore and/or pulled muscles,
+  side cramps, charley horse, dehydration, broken bones, and heart failure.
+  Participant further understands that risks can be intensified and become
+  severe in participants with certain high level of risk factors identified as
+  high blood pressure, obesity, diabetes, high fat levels, alcohol use,
+  cigarette use, history of heart disease, and history of joint diseases,
+  especially back and knee disorders.
+</p>
+<p>
+  <b>INSURANCE</b>. The Participant understands that FitWit does
+  not carry or maintain health or disability insurance coverage for any
+  Participant. <I>Each Participant is expected and encouraged to obtain his or
+  her own health insurance coverage.</I>
+</p>
+<p>
+  <b>PUBLICITY</b>. Participant hereby irrevocably grants to
+  FitWit, the right and authority to film, videotape, photograph and/or record,
+  in any manner or medium, the Participant, and to use such film, videotape,
+  photography and/or recordings (“Products”) in perpetuity, any number of times,
+  for any purpose and in any manner or medium now or hereafter known in
+  connection with the display, distribution, promotion, marketing or sale of
+  Products by any means and through any channels, including, without limitation,
+  in or on any website, marketing, advertising, promotions and packaging
+  relating to FitWit.
+</p>
+<p>
+  <b>OTHER</b>. Participant expressly agrees that this Release is
+  intended to be as broad and inclusive as permitted by the laws of the State of
+  Georgia, and that this Release shall be governed by and interpreted in
+  accordance with the laws of the State of Georgia. Participant agrees that in
+  the event that any portion of the Release is held to be invalid, the
+  invalidity of such clause or provision shall not otherwise affect the
+  remaining provisions of this Release which shall continue to be
+  enforceable.
+
+</p>
+<p>
+  <b>IN WITNESS WHEREOF</b>, Participant has read and voluntarily
+  signed this Release, and further agrees that no oral representations,
+  statements, or inducements apart from the foregoing written agreement have
+  been made.
+</p>
+<!-- 
+<P  style=MARGIN-BOTTOM:0pt>
+  <b>SIGNATURE (Check one of the following)</b>
+</p>
+<P  style="MARGIN-TOP:0pt; MARGIN-BOTTOM:0pt">
+  <b>( ) I am 18 years of age or older ( ) I am Participant’s
+  parent/legal guardian, and in that capacity I have read, understood and agree to this
+  Release.</b>
+</p>
+-->
+
+  <% form_tag "terms_of_participation" do -%>
+    <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
+     <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this box I acknowledge that I have read, 
+     understand, and will agree to the terms and conditions in the Release and Waiver of Liability.
+    </div>
+    <div style="padding:1em;">
+      <%= submit_tag "Continue to Terms of Participation", :class => "button" %>
+    </div>
+  <% end -%>

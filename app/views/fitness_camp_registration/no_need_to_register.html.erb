@@ -1,0 +1,30 @@
+<div class="floatLeft width25">
+  <!-- Left thumbnail column -->  
+  &nbsp;
+  <!-- Left thumbnails end -->
+  <div style="width:90%">
+    <%= image_tag "/images/common/beez_and_hoops.gif",
+      :size => '100x100', :alt => 'FitWit logo', :class => 'beez_and_hoops' %>
+  </div>
+</div>
+<!-- Left thumbnails end -->
+<!-- Right column -->
+<div class="floatRight width75">
+  <h1>Registration not Required</h1>
+  
+  <p>
+    Our records show that you are already a FitWit Club member.  You will
+    automatically be registered for your normal fitness camp location and
+    time slot, so there is no need to register again.  If you have any
+    questions or want to change your membership status, please contact us
+    at 1-888-5-FITWIT (888-534-8948) or email <%= mail_to "info@fitwit.com",
+      "info@fitwit.com" %>
+  </p>
+  
+  <% # TODO space here for future links %>
+  
+  <p>Thanks,<br />
+  The FitWit Team</p>   
+  
+</div>
+<!-- Right column  end-->

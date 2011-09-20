@@ -1,0 +1,34 @@
+<!-- pay by session only -->
+<div class="financial_info">
+  <%= display_chance_to_toggle_session(cart.pay_by_session,item_count) %>
+</div>
+<% if cart.number_of_sessions > 0 %>
+  <span class="price_desc">
+    <%= cart.number_of_sessions.to_s %> sessions
+    <%= submit_tag '[change number]',
+      :name => "define_pay_by_sessions[#{item_count}_0]",
+      :class => 'no_button' %>
+  </span>
+  <span class="price">
+    <%= number_to_currency(camp_cost) %>
+  </span>
+<% else %><%#  the user still needs to pay by session %>
+  <p style="clear:both;margin-bottom:-3px;">
+    Please select one of the buttons below to pay by session:
+  </p>
+  <ul style="margin-bottom:3px;">
+    <li>12 Sessions: $<%= PRICE['pay_by_session'][12].to_s %></li>
+    <li>16 Sessions: $<%= PRICE['pay_by_session'][16].to_s %></li>
+    <li>20 Sessions: $<%= PRICE['pay_by_session'][20].to_s %></li>
+  </ul>
+  <div style="clear:both;"></div>
+  <%= submit_tag '12 Sessions',
+    :name => "define_pay_by_sessions[#{item_count}_12]",
+    :class => 'button' %>
+  <%= submit_tag '16 Sessions',
+    :name => "define_pay_by_sessions[#{item_count}_16]",
+    :class => 'button' %>
+  <%= submit_tag '20 Sessions',
+    :name => "define_pay_by_sessions[#{item_count}_20]",
+    :class => 'button' %>
+<% end %>

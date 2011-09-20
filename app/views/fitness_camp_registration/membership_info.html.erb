@@ -1,0 +1,36 @@
+<h1>Terms of Membership</h1>
+
+<p>
+  Congratulations on becoming a member. Please review the following
+  terms and proceed to the consent form to complete your
+  membership.
+</p>
+
+<p>Terms:</p>
+
+<ul>
+  <li>
+    I agree to a nonrefundable activation fee of $50.00 with a monthly charge of $115.00 on my credit card charged on
+    the last day of every month.
+  </li>
+  <li>
+    I understand that I will be enrolled in the FitWit program at the
+    time slot and location I designated on my registration, and that
+    FitWit runs 7 camps/year, with a short break between camps.
+  </li>
+  <li>
+    I understand that with 30 days written notice, I may cancel my FitWit Club membership at any time without penalty.
+  </li>
+</ul>
+
+
+<% form_tag "view_cart" do -%>
+    <div <%= flash[:notice].nil? ? "style=\"margin:8px; padding:5px; border: 1px solid gray;\"" : "class = \"errorExplanation\"" %>>
+      <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By checking
+      this box, you agree to the terms and conditions of this
+      membership.
+    </div>
+    <div>
+      <%= submit_tag "Return to cart", :class => "button" %>
+    </div>
+<% end -%>

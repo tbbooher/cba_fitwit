@@ -1,0 +1,48 @@
+  <h1>View Cart: Registration Step 2 of 6</h1>
+
+  <%= render(:partial => "cart", :object => @cart) %>
+  <div id="vet_status_changer">
+    <%= render :partial => "my_fit_wit/includes/fit_wit_history" %>
+  </div>
+
+  <% unless @cart.new_membership %>
+    <div style="width:550px;">
+      <%= render(:partial => "registration/cart_includes/show_vet_info") %>
+    </div>
+  <h1>You are registering for the following fitness camps:</h1>
+  <% else %>
+    <%= render(:partial => "registration/cart_includes/show_membership_info") %>
+  <p>
+    In addition to your new membership, you are registering for the
+    following classes:
+  </p>
+  <% end %>
+
+  <% form_tag :action => 'add_discounts' do %>
+    <dl>
+      <%= render(:partial => "registration/cart_includes/cart_item_view",
+      :collection => @cart.items) %>
+    </dl>
+    <!-- if all pay_by_sessions are ready-->
+    <%= submit_tag 'Proceed to health consent', :class => 'button' %>
+  <% end %>
+
+  <script>
+$( document ).ready (function() {
+    // code for registration
+    $("#vet_status_changer").hide();
+    $("#vet_status").click(function () {
+	$("#vet_status_changer").dialog({
+	    autoOpen: false,
+	    show: 'blind',
+	    hide: 'explode',
+	    resizable: false,
+	    width: 900,
+	    modal: true,
+	    title: 'Change your FitWit history'
+	});
+	$("#vet_status_changer").dialog('open');
+        return false;
+    });
+});    
+  </script>

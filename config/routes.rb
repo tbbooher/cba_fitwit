@@ -22,6 +22,25 @@ Cba::Application.routes.draw do
   get 'fitness_camp_info/index'
   get 'fitness_camp_info/the_fitwit_difference'
 
+  # fitness camp registrations
+  get 'fitness_camp_registration/index'
+  get 'fitness_camp_registration/add_to_cart'
+  get 'fitness_camp_registration/no_need_to_register'
+  get 'fitness_camp_registration/release_and_waiver_of_liability'
+  get 'fitness_camp_registration/terms_of_participation'
+  get 'fitness_camp_registration/process_fit_wit_history'
+  get 'fitness_camp_registration/view_cart'
+  get 'fitness_camp_registration/add_discounts'
+  get 'fitness_camp_registration/membership_info'
+  get 'fitness_camp_registration/consent'
+  get 'fitness_camp_registration/health_history'
+  get 'fitness_camp_registration/payment'
+  get 'fitness_camp_registration/pay'
+  get 'fitness_camp_registration/save_order'
+  get 'fitness_camp_registration/empty_cart'
+  get 'fitness_camp_registration/registration_success'
+  get 'fitness_camp_registration/all_fitness_camps'
+
   # Switch locales
   match 'switch_lcoale/:locale' => "home#set_locale", :as => 'switch_locale'
   

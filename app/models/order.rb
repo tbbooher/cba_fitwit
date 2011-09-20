@@ -183,8 +183,8 @@ class Order
     }
 
     subscription = OrderTransaction.generate_yearly_subscription(credit_card, options)
-
-    order_transactions.push(subscription)
+    self.save!
+    order_transactions << subscription
 
     if subscription.success?
       self.payment_captured!

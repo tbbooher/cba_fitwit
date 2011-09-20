@@ -1,0 +1,5 @@
+$("div#notice").hide();
+$("#cart").show();
+var cart_item = "<%= render(:partial => "cart", :object => @cart).gsub(/\n/,'\n').gsub(/"/,'\"') %>"
+$("#cart").html(cart_item);
+$("tr#current_item").hide().show("highlight");
