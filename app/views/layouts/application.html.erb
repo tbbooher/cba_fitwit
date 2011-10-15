@@ -22,7 +22,7 @@
     <%= javascript_include_tag "application" %>
     <!-- prototype-lib will be loaded only when needed -->
     <%= javascript_tag do %>
-      <%= "var google_api_key = '#{GOOGLE_PLACE_API_KEY}';" -%>
+      <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
     <% end %>
     <%= yield :prototype %>
     <%= yield :head %>
@@ -57,7 +57,6 @@
     <div id="banner">
       <%= render :partial => '/layouts/banner' %>
     </div>
-<% end %>
 <div id='overlay' class="ui-widget-content"></div>
 <div id="wrapper">
   <div id="banner">
