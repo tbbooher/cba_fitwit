@@ -16,8 +16,8 @@ Cba::Application.configure do
   config.action_controller.perform_caching = false
 
   ### ActionMailer Config
-  config.action_mailer.default_url_options ||= { :host => DEFAULT_URL} 
-  config.action_mailer.default_url_options[:host] = DEFAULT_URL
+  config.action_mailer.default_url_options ||= { :host => ENV['DEFAULT_URL']}
+  config.action_mailer.default_url_options[:host] = ENV['DEFAULT_URL']
   
   # A dummy setup for development - no deliveries, but logged
   config.action_mailer.delivery_method = :smtp

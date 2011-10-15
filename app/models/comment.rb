@@ -55,7 +55,7 @@ class Comment
   end
 
   def commentable_url
-    path = "http://#{DEFAULT_URL}/"
+    path = "http://#{ENV['DEFAULT_URL']}/"
     case self.commentable_type
     when Posting
       path += "blogs/#{self.commentable.blog_id.to_s}/postings/#{self.commentable_id}"

@@ -20,3 +20,9 @@ if File.exist?(config_file)
   APPLICATION_CONFIG.each{|k,v| ENV["APPLICATION_CONFIG_#{k}"] = v.to_s }
   CONSTANTS.each{|k,v| ENV["CONSTANTS_#{k}"] = v.to_s}
 end
+
+# MAILSERVER settings
+mailserver_file =  File.expand_path('../../config/mailserver_setting.yml', __FILE__)
+if File.exist?(mailserver_file)
+  YAML.load_file(mailserver_file).each{|k,v| ENV[k.to_s] = v.to_s}
+end

@@ -1,0 +1,23 @@
+MAILSERVER_ADDRESS: 'smtp.gmail.com'
+MAILSERVER_PORT: '587'
+MAILSERVER_USERNAME: 'messenger@fitwit.com'
+MAILSERVER_PASSWORD: 'kharoufeh'
+MAILSERVER_DOMAIN: 'fitwit.com'
+# not used in initial setup      |
+#                                v
+ADMIN_EMAIL_ADDRESS: 'messenger@fitwit.com'
+DEFAULT_URL: 'www.fitwit.com'
+DEFAULT_MAIL_FROM: 'messenger@fitwit.com'
+DEVELOPMENT_MAIL_RECIPIENT: 'messenger@fitwit.com'
+
+#ActionMailer::Base.smtp_settings = {
+#  #:enable_starttls_auto => true,
+#  :address              => "smtp.gmail.com",
+#  :port                 => 587,
+#  :tls                  => true,
+#  :domain               => "polco.us",
+#  :user_name            => "tim@polco.us",
+#  :password             => "hessisch",
+#  :authentication       => :plain,
+#  :enable_starttls_auto => true
+#}
