@@ -11,7 +11,7 @@
 <html lang='<%= I18n.locale.to_s -%>'>
   <head>
     <title><%=
-         raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
+         raw(strip_tags((APPLICATION_CONFIG['title_prefix']+
          " "+
          yield(:title))))
     -%></title>
@@ -22,24 +22,19 @@
     <%= javascript_include_tag "application" %>
     <!-- prototype-lib will be loaded only when needed -->
     <%= javascript_tag do %>
-      <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
+      <%= "var google_api_key = '#{GOOGLE_PLACE_API_KEY}';" -%>
     <% end %>
     <%= yield :prototype %>
     <%= yield :head %>
     <%= auto_discovery_link_tag(:atom, "/feed") %>
     <%= insert_google_analytics_script if  (Rails.env == 'production') %>
-    <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
-      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
+    <% if APPLICATION_CONFIG['twitter_profile'] %>
+      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['twitter_profile'] -%>"/>
     <% end %>    
-    <% if ENV['APPLICATION_CONFIG_google_profile'] %>
-      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
+    <% if APPLICATION_CONFIG['google_profile'] %>
+      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['google_profile'] -%>"/>
     <% end %>    
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <!-- custom scripts for the calendar -->
-    <!-- these are needed for the calendar. -->
-    <%#= javascript_include_tag "jquery-ui-1.8.11.custom.min.js" %>
-    <%#= javascript_include_tag "fullcalendar.js" %>
-    <%#= javascript_include_tag "calendar.js" %>
     <%= csrf_meta_tag %>
   </head>
   <body>
@@ -54,37 +49,35 @@
       <%= link_to image_tag("arrow_up_small.png"), '#', :title => t(:scroll_to_top) %>
       <span id='scroll-position'></span>
     </div>
-<div id='overlay' class="ui-widget-content"></div>
-<div id="wrapper">
-  <div id="banner">
-    <%= render :partial => '/layouts/banner' %>
-  </div>
+    <div id="banner">
+      <%= render :partial => '/layouts/banner' %>
+    </div>
 
-  <div id="session">
-    <ul>
-      <%= render 'home/menu/application' %>
-    </ul>
-    <ul style='float: right;'>
-      <%= render 'devise/menu/registration_items' %>
-      <%= render 'devise/menu/login_items' %>
-      <%= render '/home/menu/language_selection' %>
-    </ul>
-  </div>
+    <div id="session">
+        <ul>
+          <%= render 'home/menu/application' %>
+        </ul>
+        <ul style='float: right;'>
+          <%= render 'devise/menu/registration_items' %>
+          <%= render 'devise/menu/login_items' %>
+          <%= render '/home/menu/language_selection' %>
+        </ul>
+    </div>
 
 
-  <% if current_root(self) %>
+    <% if current_root(self) %>
       <div class='submenu_box'>
         <div id='searchbox'>
           <%= render 'search/form' %>
         </div>
         <ul>
-          <%=
-              raw(
-                      build_submenu_box(current_root(self)) do |entry|
-                          "<li>"+ entry +"</li>"
-                      end
-              )
-          %>
+        <%=
+            raw(
+              build_submenu_box(current_root(self)) do |entry|
+                "<li>"+ entry +"</li>"
+              end
+            )
+        %>
         </ul>
         <div id='tagcloud'>
           <%= tag_cloud -%>
@@ -93,15 +86,19 @@
       <div class='clear'></div>
       
       <div id='copyright'>
-        © <%= Time.now.year %> by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
+        <a href='http://www.pledgie.com/campaigns/15849'><img 
+               alt='Click here to lend your support to: CBA and make a donation at www.pledgie.com !' 
+               src='http://www.pledgie.com/campaigns/15849.png?skin_name=chrome' border='0' /></a>
+        <br />
+           © <%= Time.now.year %> by <%= link_to APPLICATION_CONFIG['copyright'], APPLICATION_CONFIG['copyright_url'] %>
       </div>
-
-  <% end %>
-  <div class='main-frame'>
-    <div id='flashes'>
-      <% flash.each do |name, msg| %>
+      
+    <% end %>
+    <div class='main-frame'>      
+      <div id='flashes'>
+        <% flash.each do |name, msg| %>
           <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
-      <% end %>
+        <% end %>
 
         <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
           <%= render :partial => 'users/notifications', :locals => { :user_notifications => current_user.user_notifications.displayed } %>
@@ -134,12 +131,9 @@
           <div style='clear: all;'></div> 
         </div>
       </div>
+      <div class='clear'></div> 
     </div>
     <div class='clear'></div>
-  </div>
-  <div class='clear'></div>
-  <%= render :partial => 'shared/footer' %>
-</div>
 
-</body>
+  </body>
 </html>
