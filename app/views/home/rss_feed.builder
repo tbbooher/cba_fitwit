@@ -1,5 +1,5 @@
 atom_feed(:url => feed_path) do |feed|
-   feed.title(APPLICATION_CONFIG['rss_title'])
+   feed.title(ENV['APPLICATION_CONFIG_rss_title'])
    feed.updated(Time.now) #@feed_items.first ? @feed_items.first.updated_at : Time.now.utc )
    for item in @feed_items
      feed.entry(item.object, :url => item.url) do |entry|

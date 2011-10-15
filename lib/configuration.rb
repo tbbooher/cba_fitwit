@@ -1,6 +1,7 @@
 #
 # Load configuration from
 # config/application.yml and config/user_db.yml
+# and populate this into environment variables (heroku convention)
 #
 
 # If you need to have the users been stored in a different place than
@@ -16,6 +17,6 @@ config_file =  File.expand_path('../../config/application.yml', __FILE__)
 if File.exist?(config_file)
   APPLICATION_CONFIG=YAML.load_file(config_file)[Rails.env]['application']
   CONSTANTS=YAML.load_file(config_file)[Rails.env]['constants']
-  APPLICATION_CONFIG.each{|k,v| ENV["APPLICATION_CONFIG#{k}"] = v }
-  CONSTANTS.each{|k,v| ENV[k] = v}
+  APPLICATION_CONFIG.each{|k,v| ENV["APPLICATION_CONFIG_#{k}"] = v.to_s }
+  CONSTANTS.each{|k,v| ENV["CONSTANTS_#{k}"] = v.to_s}
 end

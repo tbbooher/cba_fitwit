@@ -69,7 +69,7 @@ class Ability
         unless comment.new_record?
           # give 15mins to edit new comments
           Rails.logger.info(" COMMENTS #{session_comments.inspect}")
-          expire = comment.updated_at+CONSTANTS['max_time_to_edit_new_comments'].to_i.minutes
+          expire = comment.updated_at+ENV['CONSTANTS_max_time_to_edit_new_comments'].to_i.minutes
           begin
             session_comments.detect { |c| c[0].eql?(comment.id.to_s) } &&  (Time.now < expire)
           rescue

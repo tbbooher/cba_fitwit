@@ -41,7 +41,7 @@ module LayoutHelper
   #   title:
   #     HTML-Title to use
   def set_browser_address(page,title)
-    unless title.length > CONSTANTS['title_max_length'].to_i
+    unless title.length > ENV['CONSTANTS_title_max_length'].to_i
       address = "/p/"+title.txt_to_url
       "<script>
          history.replaceState( {page: '#{page}'},'#{title}', '#{address}');

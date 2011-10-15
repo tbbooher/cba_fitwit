@@ -5,7 +5,7 @@
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = APPLICATION_CONFIG['registration_from'] || "please-config-application.yml registration_from"
+  config.mailer_sender = ENV['APPLICATION_CONFIG_registration_from'] || "please-config-application.yml registration_from"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"

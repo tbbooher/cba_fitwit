@@ -5,27 +5,27 @@
 
 class Notifications < ActionMailer::Base
 
-  default :from => APPLICATION_CONFIG['registration_from']
+  default :from => ENV['APPLICATION_CONFIG_registration_from']
 
   # When a new user signed up, inform the adminstrator
   def sign_up(new_user)
     @user = new_user
-    @notify_subject = "NEW SIGN UP AT #{APPLICATION_CONFIG['name']}"
-    mail( :to => APPLICATION_CONFIG['admin_notification_address'], :subject => @notify_subject)
+    @notify_subject = "NEW SIGN UP AT #{ENV['APPLICATION_CONFIG_name']}"
+    mail( :to => ENV['APPLICATION_CONFIG_admin_notification_address'], :subject => @notify_subject)
   end
 
   # Inform the admin when a user cancel an account.
   def cancel_account(user_info)
     @user_info = user_info
-    @notify_subject = "USER CANCELED ACCOUNT AT #{APPLICATION_CONFIG['name']}"
-    mail( :to => APPLICATION_CONFIG['admin_notification_address'], :subject => @notify_subject)
+    @notify_subject = "USER CANCELED ACCOUNT AT #{ENV['APPLICATION_CONFIG_name']}"
+    mail( :to => ENV['APPLICATION_CONFIG_admin_notification_address'], :subject => @notify_subject)
   end
 
   # Inform the admin if a user confirms an account
   def account_confirmed(user)
-    @notify_subject = "USER CONFIRMED ACCOUNT AT #{APPLICATION_CONFIG['name']}"
+    @notify_subject = "USER CONFIRMED ACCOUNT AT #{ENV['APPLICATION_CONFIG_name']}"
     @user = user
-    mail( :to => APPLICATION_CONFIG['admin_notification_address'], :subject => @notify_subject)
+    mail( :to => ENV['APPLICATION_CONFIG_admin_notification_address'], :subject => @notify_subject)
   end
 
   # Inform admin when new postings created
@@ -37,7 +37,7 @@ class Notifications < ActionMailer::Base
     @username = posting.user.name
     @content  = posting.render_for_html(body).html_safe
     @url      = blog_posting_url(blog,posting)
-    @notify_subject = "A NEW POSTING WAS CREATED AT #{APPLICATION_CONFIG['name']}"
+    @notify_subject = "A NEW POSTING WAS CREATED AT #{ENV['APPLICATION_CONFIG_name']}"
 
     begin
       # Attach cover picture
@@ -64,7 +64,7 @@ class Notifications < ActionMailer::Base
       puts msg
     end
 
-    mail( :to => APPLICATION_CONFIG['admin_notification_address'], :subject => @notify_subject)
+    mail( :to => ENV['APPLICATION_CONFIG_admin_notification_address'], :subject => @notify_subject)
   end
 
   # Infrom owner of commentable, and admin when a comment was posted
@@ -80,7 +80,7 @@ class Notifications < ActionMailer::Base
     @from_mail = from_mail
     @link_to_commentable = link_to_commentable
     mail( :from => from_mail,
-          :to => [APPLICATION_CONFIG['admin_notification_address'],recipient].uniq,
+          :to => [ENV['APPLICATION_CONFIG_admin_notification_address'],recipient].uniq,
           :subjcect => @notify_subject
     )
   end

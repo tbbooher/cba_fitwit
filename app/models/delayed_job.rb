@@ -67,7 +67,7 @@ class DelayedJob
   end
 
   # run the queue until the processed will be killed.
-  # Sleep <code>CONSTANTS['sleep_in_delayed_jobs_worker']</code> seconds
+  # Sleep <code>ENV['CONSTANTS_sleep_in_delayed_jobs_worker']</code> seconds
   # between executing the next job. The delay-value can be configured in
   # the <code>application.yml</code> file.
   def self.run
@@ -92,8 +92,8 @@ class DelayedJob
           puts "" unless Rails.env == 'production'
         end
       end
-      puts "Sleeping #{CONSTANTS['sleep_in_delayed_jobs_worker']}" unless Rails.env == 'production'
-      sleep( (CONSTANTS['sleep_in_delayed_jobs_worker'] || "60" ).to_i )
+      puts "Sleeping #{ENV['CONSTANTS_sleep_in_delayed_jobs_worker']}" unless Rails.env == 'production'
+      sleep( (ENV['CONSTANTS_sleep_in_delayed_jobs_worker'] || "60" ).to_i )
     end
   end
 

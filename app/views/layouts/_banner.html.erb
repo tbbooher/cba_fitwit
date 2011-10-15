@@ -1,9 +1,9 @@
-<%#= APPLICATION_CONFIG['name'].html_safe -%>
+<%#= ENV['APPLICATION_CONFIG_name'].html_safe -%>
 <%#= (
-      APPLICATION_CONFIG['slogan'] || \
+      ENV['APPLICATION_CONFIG_slogan'] || \
       ("PLEASE DEFINE SLOGAN IN application YAML "+
       "<span style='font-face: Courier new; font-style: normal; "+
-      "font-weight: bold;'>APPLICATION_CONFIG['slogan']</span>")
+      "font-weight: bold;'>ENV['APPLICATION_CONFIG_slogan']</span>")
     ).html_safe
 -%>
 

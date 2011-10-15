@@ -2,6 +2,8 @@
 
 require 'openid/store/filesystem'
 require File.join(Rails.root,'config/omniauth_settings')
+# we need to modify this to populate ENV
+# eieio
 Rails.application.config.middleware.use OmniAuth::Builder do
   if defined? OMNIAUTH_GOOGLE
     #provider :google_apps, OpenID::Store::Filesystem.new('/tmp/openid.store')

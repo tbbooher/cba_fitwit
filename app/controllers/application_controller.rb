@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   after_filter :set_xhr_flash
 
   # Use a layout-file defined in application.yml
-  layout APPLICATION_CONFIG['layout'] ? APPLICATION_CONFIG['layout'].to_s.strip : 'application'
+  layout ENV['APPLICATION_CONFIG_layout'] ? ENV['APPLICATION_CONFIG_layout'].to_s.strip : 'application'
 
   # persistent language for this session/user
   before_filter  :set_language_from_cookie
@@ -61,22 +61,22 @@ class ApplicationController < ActionController::Base
 
   # Load link to pivotal tracker from config
   def pivotal_tracker_project
-    @pivotal_tracker_project ||= APPLICATION_CONFIG['pivotal_tracker_project']
+    @pivotal_tracker_project ||= ENV['APPLICATION_CONFIG_pivotal_tracker_project']
   end
 
   # Load link to github project from config
   def github_project
-    @github_project          ||= APPLICATION_CONFIG['github_project']
+    @github_project          ||= ENV['APPLICATION_CONFIG_github_project']
   end
 
   # Load twitter nickname (button-label) from config
   def twitter_name
-    @twitter_name            ||= APPLICATION_CONFIG['twitter_name']
+    @twitter_name            ||= ENV['APPLICATION_CONFIG_twitter_name']
   end
 
   # Load link to project's twitter-account from config
   def twitter_link
-    @twitter_link            ||= APPLICATION_CONFIG['twitter_link']
+    @twitter_link            ||= ENV['APPLICATION_CONFIG_twitter_link']
   end
 
   # Set a permanent coockie to due user sticks to the same lang with each

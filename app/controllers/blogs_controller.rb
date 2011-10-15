@@ -20,7 +20,7 @@ class BlogsController < ApplicationController
   def show
     @blog = scoped_blogs.find(params[:id])
     @postings = @blog.scoped_postings({:is_draft => draft_mode}).desc(:created_at)\
-      .paginate(:page => params[:page],:per_page => CONSTANTS['paginate_postings_per_page'].to_i)
+      .paginate(:page => params[:page],:per_page => ENV['CONSTANTS_paginate_postings_per_page'].to_i)
     respond_to do |format|
       format.js {
          @path = blog_path(@blog, :page => (params[:page] ? (params[:page].to_i+1) : 2) )

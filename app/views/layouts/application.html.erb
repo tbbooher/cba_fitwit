@@ -11,7 +11,7 @@
 <html lang='<%= I18n.locale.to_s -%>'>
 <head>
   <title><%=
-      raw(strip_tags((APPLICATION_CONFIG['title_prefix']+
+      raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
               " "+
               yield(:title))))
   -%></title>
@@ -25,11 +25,11 @@
   <%= yield :head %>
   <%= auto_discovery_link_tag(:atom, "/feed") %>
   <%= insert_google_analytics_script if  (Rails.env == 'production') %>
-  <% if APPLICATION_CONFIG['twitter_profile'] %>
-      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['twitter_profile'] -%>"/>
+  <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
+      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
   <% end %>
-  <% if APPLICATION_CONFIG['google_profile'] %>
-      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['google_profile'] -%>"/>
+  <% if ENV['APPLICATION_CONFIG_google_profile'] %>
+      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
   <% end %>
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
   <!-- custom scripts for the calendar -->
@@ -87,7 +87,7 @@
         <span id='scroll-position'></span>
       </div>
       <div id='copyright'>
-        © <%= Time.now.year %> by <%= link_to APPLICATION_CONFIG['copyright'], APPLICATION_CONFIG['copyright_url'] %>
+        © <%= Time.now.year %> by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
       </div>
 
   <% end %>

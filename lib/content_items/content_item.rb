@@ -57,7 +57,7 @@ module ContentItem
         # Will return a truncated version of the title if it exceeds the maximum
         # length of titles used in the menu (or wherever you can't display long titles)
         def short_title
-          title.truncate(CONSTANTS['title_max_length'].to_i, :omission => '...')
+          title.truncate(ENV['CONSTANTS_title_max_length'].to_i, :omission => '...')
         end
 
         # Display title with markers for templates and drafts

@@ -25,7 +25,7 @@ class Comment
   # Calculate the time left a user can edit a comment
   def time_left_to_edit
     unless self.new_record?
-      @time_left_to_edit ||= CONSTANTS['max_time_to_edit_new_comments'].to_i - ( (Time.now()-self.updated_at )/1.minute ).to_i
+      @time_left_to_edit ||= ENV['CONSTANTS_max_time_to_edit_new_comments'].to_i - ( (Time.now()-self.updated_at )/1.minute ).to_i
     else
       -1
     end
@@ -80,7 +80,7 @@ class Comment
     if self.commentable.respond_to?(:user)
       user = self.commentable.user
     end
-    recipient = user ? user.email : APPLICATION_CONFIG['admin_notification_address']
+    recipient = user ? user.email : ENV['APPLICATION_CONFIG_admin_notification_address']
 
     DelayedJob.enqueue('NewCommentNotifier',
       Time.now+10.second,
@@ -96,7 +96,7 @@ class Comment
   # Remove self and old comments from session (comments)
   def remove_old_comments(comments)
     (comments || []).reject { |r|
-        (r[1].to_i < (Time.now-CONSTANTS['max_time_to_edit_new_comments'].to_i.minutes).to_i) ||
+        (r[1].to_i < (Time.now-ENV['CONSTANTS_max_time_to_edit_new_comments'].to_i.minutes).to_i) ||
         r[0].to_s.eql?(self.id.to_s)
     }
   end

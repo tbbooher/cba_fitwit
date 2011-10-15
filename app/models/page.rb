@@ -153,7 +153,7 @@ class Page
   # ... smells in URLs and one can not see the difference if ... is just
   # part of the title or comes from truncation.
   def short_title_for_url
-    title.truncate(CONSTANTS['title_max_length'].to_i, :omission => '$' )
+    title.truncate(ENV['CONSTANTS_title_max_length'].to_i, :omission => '$' )
   end
 
   private

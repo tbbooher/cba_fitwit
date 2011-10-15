@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
       else
         remember_comment
         flash[:notice] = t(:comment_successfully_created_edit_for_minutes,
-          :count => CONSTANTS['max_time_to_edit_new_comments'].to_i
+          :count => ENV['CONSTANTS_max_time_to_edit_new_comments'].to_i
         ).html_safe
       end
       notice = nil
