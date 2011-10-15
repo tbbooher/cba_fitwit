@@ -1,0 +1,32 @@
+#users-location-map  {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  display: block;
+  float: right;
+  margin: 0px;
+  padding: 0px;
+}
+
+.user-location {
+  float: right;
+  width: 150px;
+  height: 150px;
+  background: #eee;
+  img {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    display: block;
+    float: right;
+    margin: 0px;
+    padding: 0px;    
+  }
+}
+
+#location-preview {
+  display: block;
+  float: right;
+  margin: 0px;
+  padding: 0px;
+}

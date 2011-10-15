@@ -50,6 +50,7 @@ module LayoutHelper
   end
 
   # Replace blanks by %20 to satisfy w3c-validators
+  # Attantion: This is implemented in BasePresenter too!
   def w3c_url(url)
     url.gsub(' ', '%20')
   end
@@ -67,6 +68,17 @@ module LayoutHelper
         concat(will_paginate(paginations))
       end
     end
+  end
+  
+  # render a tag-cloud
+  def tag_cloud
+    ContentItem::normalized_tags_with_weight(Posting).map { |tag,weight|
+      unless tag.blank?
+        content_tag :span, :class => "tag-weight-#{weight.to_s.gsub('.','-')}" do
+          link_to( "#{tag}", tags_path(tag))
+        end
+      end
+    }.compact.join(" ").html_safe
   end
 
 end

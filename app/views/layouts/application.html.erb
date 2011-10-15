@@ -9,42 +9,53 @@
 <% end %>
 
 <html lang='<%= I18n.locale.to_s -%>'>
-<head>
-  <title><%=
-      raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
-              " "+
-              yield(:title))))
-  -%></title>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-  <link rel="shortcut icon" href="/favicon.png"/>
-  <%= insert_extra_headers %>
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
-  <!-- prototype-lib will be loaded only when needed -->
-  <%= yield :prototype %>
-  <%= yield :head %>
-  <%= auto_discovery_link_tag(:atom, "/feed") %>
-  <%= insert_google_analytics_script if  (Rails.env == 'production') %>
-  <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
-      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
-  <% end %>
-  <% if ENV['APPLICATION_CONFIG_google_profile'] %>
-      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
-  <% end %>
-  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-  <!-- custom scripts for the calendar -->
-  <!-- these are needed for the calendar. -->
-  <%#= javascript_include_tag "jquery-ui-1.8.11.custom.min.js" %>
-  <%#= javascript_include_tag "fullcalendar.js" %>
-  <%#= javascript_include_tag "calendar.js" %>
-  <%= csrf_meta_tag %>
-  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
-</head>
-<body>
-<% setup_action_buttons %>
-<% if content_for? :action_buttons %>
-    <div id='action_buttons'>
-      <%= yield(:action_buttons) %>
+  <head>
+    <title><%=
+         raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
+         " "+
+         yield(:title))))
+    -%></title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <%= insert_extra_headers %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <!-- prototype-lib will be loaded only when needed -->
+    <%= javascript_tag do %>
+      <%= "var google_api_key = '#{GOOGLE_PLACE_API_KEY}';" -%>
+    <% end %>
+    <%= yield :prototype %>
+    <%= yield :head %>
+    <%= auto_discovery_link_tag(:atom, "/feed") %>
+    <%= insert_google_analytics_script if  (Rails.env == 'production') %>
+    <% if APPLICATION_CONFIG['twitter_profile'] %>
+      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['twitter_profile'] -%>"/>
+    <% end %>    
+    <% if APPLICATION_CONFIG['google_profile'] %>
+      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['google_profile'] -%>"/>
+    <% end %>    
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <!-- custom scripts for the calendar -->
+    <!-- these are needed for the calendar. -->
+    <%#= javascript_include_tag "jquery-ui-1.8.11.custom.min.js" %>
+    <%#= javascript_include_tag "fullcalendar.js" %>
+    <%#= javascript_include_tag "calendar.js" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <% setup_action_buttons %>
+    <% if content_for? :action_buttons %>
+      <div id='action_buttons'>
+          <%= yield(:action_buttons) %>
+      </div>
+    <% end %>
+    <div id='overlay' class="ui-widget-content"></div>
+    <div id='scroll-to-top'>
+      <%= link_to image_tag("arrow_up_small.png"), '#', :title => t(:scroll_to_top) %>
+      <span id='scroll-position'></span>
+    </div>
+    <div id="banner">
+      <%= render :partial => '/layouts/banner' %>
     </div>
 <% end %>
 <div id='overlay' class="ui-widget-content"></div>
@@ -79,13 +90,12 @@
               )
           %>
         </ul>
+        <div id='tagcloud'>
+          <%= tag_cloud -%>
+        </div>
       </div>
       <div class='clear'></div>
-
-      <div id='scroll-to-top'>
-        <%= link_to image_tag("arrow_up_small.png"), '#', :title => t(:scroll_to_top) %>
-        <span id='scroll-position'></span>
-      </div>
+      
       <div id='copyright'>
         © <%= Time.now.year %> by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
       </div>

@@ -325,13 +325,6 @@ li.load_more {
 
 #user_notifications {
   margin-top: 10px;
-  border: 1px solid #ddd;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  background: #F5EC4B;
-  color: black;
-  font-size: 0.8em;
-  margin-top: 5px;
   padding: 0px;
 
   ul {
@@ -339,8 +332,16 @@ li.load_more {
     margin-left: 0px;
     padding-left: 0px;
     li {
+      border: 1px solid #ddd;
+      -moz-border-radius: 5px 5px 5px 5px;
+      -webkit-border-radius: 5px 5px 5px 5px;
+      background: #F5EC4B;
+      color: black;
+      font-size: 0.8em;
+      margin-top: 5px;
       margin-top: 10px;
       margin-left: 5px;
+      padding: 10px;
     }
   }
 }
@@ -357,13 +358,6 @@ li.load_more {
 .site_menu_manage_buttons {
   font-size: 0.75em;
 }
-
-.without_shadow {
-  box-shadow: none;
-  width: 64px;
-  height: 64px;
-}
-
 
 /* Load new definitions and overwrite previous ones */
 @import "errors.css.scss";
@@ -383,3 +377,16 @@ li.load_more {
 @import "css3buttons.css.scss";
 @import "fitwit.css.scss";
 @import "fullcalendar.css.scss";
+@import "tags.css.scss";
+@import "user.css.scss";
+
+.main-frame #container img.without-shadow,
+.main-frame #container img.without_shadow,
+.no-shadow,
+.without-shadow,
+.without_shadow {
+  -webkit-box-shadow: 0 0 0 white;
+  box-shadow: 0 0 0 white;
+  width: 48px;
+  height: 48px;
+}

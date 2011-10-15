@@ -5,7 +5,7 @@ class Posting
   include ContentItem
   acts_as_content_item
   has_cover_picture
-
+  
   # Fields ======================================================
   referenced_in         :user, :inverse_of => :postings
   field                 :user_id
@@ -52,6 +52,16 @@ class Posting
       return ""
     else
       render_for_html(self.body).html_safe
+    end
+  end
+  
+  def new_tag
+  end
+  
+  def new_tag=(new_tag)
+    unless new_tag.blank?
+      self.tags_array += [new_tag]
+      self.tags_array.uniq!
     end
   end
 

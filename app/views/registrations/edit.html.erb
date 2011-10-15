@@ -1,6 +1,10 @@
 <!-- REVIEW: Should this view be splitted up in partials? -->
-<% title t("edit_resource_named", :resource => resource_name.to_s.humanize,:name => @user.name||'new') %>
+<% content_for :head do %>
+  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" -%>
+<% end %>
 
+<% title t("edit_resource_named", :resource => resource_name.to_s.humanize,:name => @user.name||'new') %>
+<div class='clear'></div>
 <% if @user.avatar %>
   <%= image_tag @user.avatar_url(:thumb), :style=>'float: right;' %>
 <% end %>
@@ -37,6 +41,27 @@
       <%= f.password_field :password_confirmation %>
     </div>
   <% end %>
+  
+  <div class='field'>
+    <div id='location-preview'>
+      &nbsp;
+    </div>
+    <%= f.label :location_token, t(:location_label) %>
+    <%= f.text_field :location_token %>
+  </div>
+
+  <div class='field'>
+    <%= f.label :search_by_address, t(:search_by_address) %>
+    <%= text_field_tag "address" %>
+  </div>
+  
+  <% if @user.authentications.empty? %>
+    <div class='field'>
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password %>
+      <address><i>(we need your current password to confirm your changes)</i></address></div>
+  <% end %>
+  
 
   <div class='field'>
     <%= f.label :submit %>
@@ -62,12 +87,6 @@
 
   <div class='clear'></div>
 
-  <% if @user.authentications.empty? %>
-    <div class='field'>
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password %>
-      <address><i>(we need your current password to confirm your changes)</i></address></div>
-  <% end %>
 <% end %>
 
 <div class='field'>
