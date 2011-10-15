@@ -82,7 +82,7 @@ namespace :deploy do
     run "ln -s #{shared_path}/config/application.yml #{release_path}/config/application.yml"
     run "ln -s #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
     run "ln -s #{shared_path}/config/mailserver_setting.yml #{release_path}/config/mailserver_setting.yml"
-    run "ln -s #{shared_path}/config/omniauth_settings.rb #{release_path}/config/omniauth_settings.rb"
+    run "ln -s #{shared_path}/config/omniauth_settings.yml #{release_path}/config/omniauth_settings.yml"
     run "ln -s #{shared_path}/config/google_analytics.head #{release_path}/config/google_analytics.head"
   end
 

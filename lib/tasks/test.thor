@@ -98,7 +98,7 @@ echo 'Spork stopped'
     appname  = 'cba'         if appname.strip.eql? ""
 
     # copy sample-files
-    sample_files = %w( application.yml mailserver_setting.yml mongoid.yml omniauth_settings.rb )
+    sample_files = %w( application.yml mailserver_setting.yml mongoid.yml omniauth_settings.yml )
     for target in sample_files
       copy_file( "config/#{target}.sample", "config/#{target}" )
     end
