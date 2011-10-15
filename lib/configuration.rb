@@ -13,5 +13,9 @@ else
 end
 
 config_file =  File.expand_path('../../config/application.yml', __FILE__)
-APPLICATION_CONFIG=YAML.load_file(config_file)[Rails.env]['application']
-CONSTANTS=YAML.load_file(config_file)[Rails.env]['constants']
+if File.exist?(config_file)
+  APPLICATION_CONFIG=YAML.load_file(config_file)[Rails.env]['application']
+  CONSTANTS=YAML.load_file(config_file)[Rails.env]['constants']
+  APPLICATION_CONFIG.each{|k,v| ENV["APPLICATION_CONFIG#{k}"] = v }
+  CONSTANTS.each{|k,v| ENV[k] = v}
+end
