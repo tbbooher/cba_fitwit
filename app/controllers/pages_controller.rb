@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   def index
     @pages = scoped_pages.order([:menu_order,:asc],[:created_at, :desc]).all.paginate(
       :page => params[:page],
-      :per_page => APPLICATION_CONFIG[:pages_per_page] || 5
+      :per_page => ENV['APPLICATION_CONFIG_pages_per_page'] || 5
     )
 
     respond_to do |format|

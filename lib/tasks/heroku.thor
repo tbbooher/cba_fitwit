@@ -35,9 +35,13 @@ module PrepHeroku
       @heroku_constants ||= PrepHeroku.heroku_config[environment]['constants']
     end
 
-    #def heroku_app
-    #  @heroku_app ||= PrepHeroku.heroku_config[:apps][environment]
-    #end
+    def omni_auth
+      @omni_auth = YAML.load_file(File.expand_path('../../../config/omniauth_settings.yml', __FILE__)).with_indifferent_access
+    end
+
+    def mail_settings
+      @mail_settings = YAML.load_file(File.expand_path('../../../config/mailserver_setting.yml', __FILE__)).with_indifferent_access
+    end
   end
 
   def self.commands_for_environment(app_env)
@@ -60,6 +64,12 @@ module PrepHeroku
             # CONSTANTS.each{|k,v| ENV["CONSTANTS_#{k}"] = v.to_s}
             heroku_constants.each do |key, value|
               e << "CONSTANTS_#{key}='#{value}'"
+            end
+            omni_auth.each do |key, value|
+              e << "#{key}='#{value}'"
+            end
+            mail_settings.each do |key, value|
+              e << "#{key}='#{value}'"
             end
           end
           heroku("config:add #{env_values.join(' ')}")

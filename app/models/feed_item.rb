@@ -24,7 +24,7 @@ class FeedItem
     if object.respond_to?(:name) && object.name !~ /anonymous|anonym/
       object.name
     else
-      APPLICATION_CONFIG[:name]
+      ENV['APPLICATION_CONFIG_name']
     end
   end
 
