@@ -2,8 +2,8 @@ require 'pp'
 
 class FitnessCampRegistrationController < ApplicationController
   # must change !!
-  ssl_required  :consent, :save_order, :payment, :pay,
-     :release_and_waiver_of_liability, :terms_of_participation
+  #ssl_required  :consent, :save_order, :payment, :pay,
+  #   :release_and_waiver_of_liability, :terms_of_participation
 
   before_filter :find_cart, :except => :empty_cart
   before_filter :ensure_items_in_cart, :only => [:view_cart, :consent, :payment]
