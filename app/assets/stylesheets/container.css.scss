@@ -6,13 +6,14 @@
 
 
 #flashes {
-  /* position: fixed;
+  position: fixed;
   left: 181px;
   top: 35px;
-  z-index: 101; */
+  z-index: 101;
   margin: 0px;
+  margin-top: -10px;
   margin-bottom: 5px;
-  width: 899px;
+  width: 975px;
   background: none;
   height: 40px;
   #flash_notice {
@@ -31,23 +32,21 @@
 }
 
 .main-frame {
-  /*width: 1000px;
+  width: 1000px;
   position: absolute;
   top: 119px;
   left: 180px;
   background: lighten($color-paper,18%);
   border: 1px solid $color-border;
   box-shadow: 3px 3px 3px $color-shadow;
-  border-radius: 0px 0px 3px 3px; */
-  background: transparent url(/assets/booher_design/mainBackgroundTile.png) repeat-y scroll left top;
-  padding: 0 2px;
-  /* overflow: auto; */
+  border-radius: 0px 0px 3px 3px;
+  overflow: visible;
   padding-bottom: 10px;
 
   #container {
     padding: 20px 20px;
     padding-top: 10px;
-    overflow: hidden;
+    overflow: visible;
 
     #right-column {
       float: right;

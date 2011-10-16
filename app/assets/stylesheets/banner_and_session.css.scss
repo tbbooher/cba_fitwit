@@ -1,16 +1,9 @@
-#footer {
-  background: transparent url(/images/booher_design/mainBackgroundEnd.png) no-repeat scroll left top;
-  height: 20px;
-  padding: 10px;
-  text-align: center;
-}
-
 @mixin horizontal-menu-background {
   background: lighten($background-banner, 30%);
 }
 
+
 #banner {
-  /*
   background: $background-banner;
   position: fixed;
   z-index: 2;
@@ -20,12 +13,7 @@
   overflow: hidden;
   height: 90px;
   padding-left: 20px;
-  */
-  background: transparent url(/assets/common/banner_wide.png) no-repeat scroll left top;
-  height: 116px;
-  background-color:blue;
 
-  /* background: $background-banner; */
 
   h1 {
     font-family: $font-headline;
@@ -49,22 +37,19 @@
 }
 
 #session {
-  background: transparent url(/assets/booher_design/nav-background.gif) repeat-x scroll left top;
-  height: 38px;
-  /*margin: 0 2px; */
-  /*position: fixed;*/
-  /*z-index: 3;*/
-  /*top: 90px;*/
-  /*left: 0px;*/
-  /*right: 0px;*/
-  /*padding: 0px;*/
-  /*padding-top: 5px;*/
-  /*margin: 0px;*/
-  /*height: 23px;*/
-  /*width: 100%;*/
+  position: fixed;
+  z-index: 3;
+  top: 90px;
+  left: 0px;
+  right: 0px;
+  padding: 0px;
+  padding-top: 5px;
+  margin: 0px;
+  height: 23px;
+  width: 100%;
   border-bottom: 1px solid $color-shadow;
-  /*@include bottom-shadow; */
-  /*@include horizontal-menu-background; */
+  @include bottom-shadow;
+  @include horizontal-menu-background;
 
   .not_selected {
     a {
@@ -75,34 +60,42 @@
     }
   }
 
+
   ul {
-    display: block;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
+    display: inline;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 5px;
+    margin-right: 10px;
+
+    .selected {
       li {
-       display: block;
-       float: left;
-       margin: 0;
-       padding: 0;
-       a {
-            background: transparent url(/images/booher_design/nav-divider.gif) no-repeat scroll right top;
-            border-bottom: medium none;
-            color: #3D3D3D;
-            display: block;
-            float: left;
-            font-size: 13px;
-            padding: 8px 16px 7px;
-            text-decoration: none;
-            margin: 0px;
-       }
-       a:hover {
-        background: #3C3C3C none repeat scroll 0 0;
-        border-bottom: 1px solid #3C3C3C;
-        color: white;
-       }
+        display: inline;
+        margin: 0px;
+        padding: 0px;
+        a {
+          @include button-shape($radius-small);
+          padding: 5px;
+          @include gradient-button-hover;
+        }
       }
+    }
+
+    li {
+      display: inline;
+      margin: 0px;
+      padding: 0px;
+      a {
+        @include button-shape($radius-small);
+        padding: 5px;
+        height: 30px;
+        &:hover {
+          @include gradient-button-hover;
+        }
+      }
+    }
   }
 }
 
