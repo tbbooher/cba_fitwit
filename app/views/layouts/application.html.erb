@@ -1,139 +1,158 @@
 <!DOCTYPE html>
 
 <% if content_for? :resource_actions %>
-   <% content_for :right_column_top do %>
-     <div id='resource-actions'>
-       <%= yield( :resource_actions) %>
-     </div>
-   <% end %>
+    <% content_for :right_column_top do %>
+        <div id='resource-actions'>
+          <%= yield(:resource_actions) %>
+        </div>
+    <% end %>
 <% end %>
 
 <html lang='<%= I18n.locale.to_s -%>'>
-  <head>
-    <title><%=
-         raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
-         " "+
-         yield(:title))))
-    -%></title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="/favicon.png" />
-    <%= insert_extra_headers %>
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application" %>
-    <!-- prototype-lib will be loaded only when needed -->
-    <%= javascript_tag do %>
+<head>
+  <title><%=
+      raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
+              " "+
+              yield(:title))))
+  -%></title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" href="/favicon.png"/>
+  <%= insert_extra_headers %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <!-- prototype-lib will be loaded only when needed -->
+  <%= javascript_tag do %>
       <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
-    <% end %>
-    <%= yield :prototype %>
-    <%= yield :head %>
-    <%= auto_discovery_link_tag(:atom, "/feed") %>
-    <%= insert_google_analytics_script if  (Rails.env == 'production') %>
-    <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
+  <% end %>
+  <%= yield :prototype %>
+  <%= yield :head %>
+  <%= auto_discovery_link_tag(:atom, "/feed") %>
+  <%= insert_google_analytics_script if  (Rails.env == 'production') %>
+  <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
       <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
-    <% end %>    
-    <% if ENV['APPLICATION_CONFIG_google_profile'] %>
+  <% end %>
+  <% if ENV['APPLICATION_CONFIG_google_profile'] %>
       <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
-    <% end %>    
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <%= csrf_meta_tag %>
-  </head>
-  <body>
-    <% setup_action_buttons %>
-    <% if content_for? :action_buttons %>
-      <div id='action_buttons'>
-          <%= yield(:action_buttons) %>
+  <% end %>
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div id="header_wrapper">
+  <div id="header">
+    <div class="leftside" id="logo">
+        <%= link_to "FitWit New Site", "/" %>
+    </div>
+    <div id="header_nav" class="rightside">
+      <div id="social_icons" class="leftside">
+        <a href="http://e404themes.com/contact/" title="Contact"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/contact.png" alt="Contact"></a>
+        <a href="http://e404themes.com/cold/?feed=rss2" title="RSS"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/rss.png" alt="RSS"></a>
+        <a href="http://twitter.com/e404themes" title="Twitter"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/twitter.png" alt="Twitter"></a>
+        <a href="http://www.facebook.com/" title="Facebook"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/facebook.png" alt="Facebook"></a>
+        <a href="http://dribbble.com/" title="Dribbble"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/dribbble.png" alt="Dribbble"></a>
       </div>
-    <% end %>
-    <div id='overlay' class="ui-widget-content"></div>
-    <div id='scroll-to-top'>
-      <%= link_to image_tag("arrow_up_small.png"), '#', :title => t(:scroll_to_top) %>
-      <span id='scroll-position'></span>
+      <div id="search" class="leftside">
+        <form action="http://e404themes.com/cold" method="get">
+          <input type="text" name="s" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}">
+          <input type="submit" value="Go">
+        </form>
+      </div>
     </div>
-    <div id="banner">
-      <%= render :partial => '/layouts/banner' %>
+  </div>
+</div>
+<% setup_action_buttons %>
+<% if content_for? :action_buttons %>
+    <div id='action_buttons'>
+      <%= yield(:action_buttons) %>
     </div>
+<% end %>
+<div id='overlay' class="ui-widget-content"></div>
+<div id='scroll-to-top'>
+  <%= link_to image_tag("arrow_up_small.png"), '#', :title => t(:scroll_to_top) %>
+  <span id='scroll-position'></span>
+</div>
+<%= render :partial => '/layouts/banner' %>
 
-    <div id="session">
-        <ul>
-          <%= render 'home/menu/application' %>
-        </ul>
-        <ul style='float: right;'>
-          <%= render 'devise/menu/registration_items' %>
-          <%= render 'devise/menu/login_items' %>
-          <%#= render '/home/menu/language_selection' %>
-        </ul>
-    </div>
+<div id="session">
+  <ul>
+    <%= render 'home/menu/application' %>
+  </ul>
+  <ul style='float: right;'>
+    <%= render 'devise/menu/registration_items' %>
+    <%= render 'devise/menu/login_items' %>
+    <%#= render '/home/menu/language_selection' %>
+  </ul>
+</div>
 
 
-    <% if current_root(self) %>
-      <div class='submenu_box'>
-        <div id='searchbox'>
-          <%= render 'search/form' %>
-        </div>
-        <ul>
+<% if current_root(self) %>
+    <div class='submenu_box'>
+      <div id='searchbox'>
+        <%= render 'search/form' %>
+      </div>
+      <ul>
         <%=
             raw(
-              build_submenu_box(current_root(self)) do |entry|
-                "<li>"+ entry +"</li>"
-              end
+                    build_submenu_box(current_root(self)) do |entry|
+                        "<li>"+ entry +"</li>"
+                    end
             )
         %>
-        </ul>
-        <div id='tagcloud'>
-          <%= tag_cloud -%>
-        </div>
+      </ul>
+      <div id='tagcloud'>
+        <%= tag_cloud -%>
       </div>
-      <div class='clear'></div>
-      
-      <div id='copyright'>
-        <a href='http://www.pledgie.com/campaigns/15849'><img 
-               alt='Click here to lend your support to: CBA and make a donation at www.pledgie.com !' 
-               src='http://www.pledgie.com/campaigns/15849.png?skin_name=chrome' border='0' /></a>
-        <br />
-           © <%= Time.now.year %> by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
-      </div>
-      
-    <% end %>
-    <div class='main-frame'>      
-      <div id='flashes'>
-        <% flash.each do |name, msg| %>
-          <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
-        <% end %>
-
-        <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
-          <%= render :partial => 'users/notifications', :locals => { :user_notifications => current_user.user_notifications.displayed } %>
-        <% end %>
-      </div>
-      <div id="container">
-              
-        <% if content_for?( :right_column) || content_for?(:right_column_top) %>
-          <div id='right-column'>
-            <% if content_for?(:right_column_top) %>
-              <div id='right-column-top'>
-                <%= yield(:right_column_top)    %>
-              </div>
-            <% end %>
-            <div id='right-column-bottom'>
-              <%= yield(:right_column) if content_for?(:right_column) %>
-            </div>
-          </div>
-        <% end %>
-        
-        <!--
-        <div class='google-search'>
-           %= insert_google_site_search %
-        </div>
-        -->
-        <div id='container_main'>
-          <!-- google_search div id="cse" style="display: hidden; background: #fee;"></div -->
-          <%= content_tag(:h1,:id => 'title') do yield(:title) end if show_title? %>
-          <%= yield %>
-          <div style='clear: all;'></div> 
-        </div>
-      </div>
-      <div class='clear'></div> 
     </div>
     <div class='clear'></div>
 
-  </body>
+    <div id='copyright'>
+      © <%= Time.now.year %>
+      by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
+    </div>
+
+<% end %>
+<div class='main-frame'>
+  <div id='flashes'>
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
+    <% end %>
+
+    <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
+        <%= render :partial => 'users/notifications', :locals => {:user_notifications => current_user.user_notifications.displayed} %>
+    <% end %>
+  </div>
+  <div id="container">
+
+    <% if content_for?(:right_column) || content_for?(:right_column_top) %>
+        <div id='right-column'>
+          <% if content_for?(:right_column_top) %>
+              <div id='right-column-top'>
+                <%= yield(:right_column_top) %>
+              </div>
+          <% end %>
+          <div id='right-column-bottom'>
+            <%= yield(:right_column) if content_for?(:right_column) %>
+          </div>
+        </div>
+    <% end %>
+
+    <!--
+    <div class='google-search'>
+       %= insert_google_site_search %
+    </div>
+    -->
+    <div id='container_main'>
+      <!-- google_search div id="cse" style="display: hidden; background: #fee;"></div -->
+      <%= content_tag(:h1, :id => 'title') do
+          yield(:title)
+      end if show_title? %>
+      <%= yield %>
+      <div style='clear: all;'></div>
+    </div>
+  </div>
+  <div class='clear'></div>
+</div>
+<div class='clear'></div>
+
+</body>
 </html>
