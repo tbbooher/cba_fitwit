@@ -1,0 +1,106 @@
+
+/*** ESSENTIAL STYLES ***/
+.sf-menu, .sf-menu * {
+	margin:			0;
+	padding:		0;
+	list-style:		none;
+	z-index: 9999;
+}
+.sf-menu ul {
+	position:		absolute;
+	top:			-999em;
+	width:			180px; /* left offset of submenus need to match (see below) */
+}
+.sf-menu ul li {
+	width:			100%;
+}
+.sf-menu li:hover {
+	visibility:		inherit; /* fixes IE7 'sticky bug' */
+}
+.sf-menu li {
+	float:			left;
+	position:		relative;
+}
+.sf-menu a {
+	display:		block;
+	position:		relative;
+}
+.sf-menu li li a {
+	width: 150px;
+}
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+	left:			0;
+	top:			51px; /* match top ul list item height */
+}
+ul.sf-menu li:hover li ul,
+ul.sf-menu li.sfHover li ul {
+	top:			-999em;
+}
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+	left:			180px; /* match ul width */
+	top:			0;
+}
+ul.sf-menu li li:hover li ul,
+ul.sf-menu li li.sfHover li ul {
+	top:			-999em;
+}
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+	left:			180px; /* match ul width */
+	top:			0;
+}
+
+/*** SKIN ***/
+.sf-menu {
+	float: right;
+}
+.sf-menu li ul {
+	border-top-width: 4px;
+	border-top-style: solid;
+	box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.15);
+	-moz-box-shadow: 2px 2px 3px rgba(51, 51, 51, 0.15);
+	-webkit-box-shadow: 2px 2px 3px rgba(51, 51, 51, 0.15);
+}
+.sf-menu li li ul {
+	border-top: none;
+}
+.sf-menu li {
+	float: left;
+	text-transform: uppercase;
+	font-size: 14px;
+	line-height: 18px;
+}
+.sf-menu li li {
+	font-size: 12px;
+	text-transform: none;
+}
+.sf-menu li:hover, .sf-menu li.sfHover,
+.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
+	outline:		0;
+}
+.sf-menu a {
+	text-decoration: none;
+	float: left;
+	padding: 17px 20px 16px;
+	border-bottom: 4px solid transparent;
+}
+.sf-menu li:hover a,
+.sf-menu li.current-menu-item a {
+	border-bottom-width: 4px;
+	border-bottom-style: solid;
+}
+.sf-menu li li a,
+.sf-menu li:hover li a {
+	border-bottom: none;
+	padding: 7px 15px 7px;
+	font-weight: normal;
+}
+.sf-menu li.current-menu-item li a,
+.sf-menu li li.current-menu-item a {
+	border: none;
+}
+.sf-sub-indicator {
+	font-weight: normal;
+}
