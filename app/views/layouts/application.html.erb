@@ -1,122 +1,154 @@
-<!DOCTYPE html>
-
-<% if content_for? :resource_actions %>
-    <% content_for :right_column_top do %>
-        <div id='resource-actions'>
-          <%= yield(:resource_actions) %>
-        </div>
-    <% end %>
-<% end %>
-
-<html lang='<%= I18n.locale.to_s -%>'>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang='<%= I18n.locale.to_s -%>'>
 <head>
-  <title><%=
-      raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
-              " "+
-              yield(:title))))
-  -%></title>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-  <link rel="shortcut icon" href="/favicon.png"/>
-  <%= insert_extra_headers %>
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
-  <!-- tim trying -->
-  <%= javascript_include_tag "at_top/l10n" %>
-  <%= javascript_include_tag "at_top/preloader" %>
-  <%= javascript_include_tag "at_top/hoverIntent" %>
-  <%= javascript_include_tag "at_top/superfish" %>
-  <%= javascript_include_tag "at_top/scrollable.min" %>
-  <%= javascript_include_tag "at_top/jquery.prettyphoto" %>
-  <%= javascript_include_tag "at_top/prettyphoto_init" %>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title><%=
+         raw(strip_tags((APPLICATION_CONFIG['title_prefix']+
+         " "+
+         yield(:title))))
+    -%></title>
+    <%= insert_extra_headers %>
+    <%#= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" -%>
 
-  <!-- prototype-lib will be loaded only when needed -->
-  <%= javascript_tag do %>
+    <%= javascript_include_tag "application" %>
+    <!-- prototype-lib will be loaded only when needed -->
+    <%= javascript_tag do %>
       <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
-  <% end %>
-  <%= yield :prototype %>
-  <%= yield :head %>
-  <%= auto_discovery_link_tag(:atom, "/feed") %>
-  <%= insert_google_analytics_script if  (Rails.env == 'production') %>
-  <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
-      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
-  <% end %>
-  <% if ENV['APPLICATION_CONFIG_google_profile'] %>
-      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
-  <% end %>
-  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-  <%= csrf_meta_tag %>
+    <% end %>
+    <%= yield :prototype %>
+    <%= yield :head %>
+    <%= auto_discovery_link_tag(:atom, "/feed") %>
+    <%= insert_google_analytics_script if  (Rails.env == 'production') %>
+    <% if APPLICATION_CONFIG['twitter_profile'] %>
+      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['twitter_profile'] -%>"/>
+    <% end %>
+    <% if APPLICATION_CONFIG['google_profile'] %>
+      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['google_profile'] -%>"/>
+    <% end %>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <%= csrf_meta_tag %>
+
+
+  <link rel="stylesheet" type="text/css" media="all" href="http://e404themes.com/cold/wp-content/themes/cold/style.css"/>
+  <link rel='stylesheet' id='galleria-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/galleria.classic.css?ver=3.2.1' type='text/css' media='all'/>
+  <link rel='stylesheet' id='superfish-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/menu.css?ver=3.2.1' type='text/css' media='all'/>
+  <link rel='stylesheet' id='scrollable-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/scrollable.css?ver=3.2.1' type='text/css' media='all'/>
+  <link rel='stylesheet' id='nivo-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/nivo-slider.css?ver=3.2.1' type='text/css' media='all'/>
+  <link rel='stylesheet' id='prettyphoto-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/prettyphoto.css?ver=3.2.1' type='text/css' media='all'/>
+  <link rel='stylesheet' id='Lato-css' href='http://fonts.googleapis.com/css?family=Lato&#038;ver=3.2.1' type='text/css' media='all'/>
+  <link rel='stylesheet' id='contact-form-7-css' href='http://e404themes.com/cold/wp-content/plugins/contact-form-7/styles.css?ver=2.4.4' type='text/css' media='all'/>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-includes/js/l10n.js?ver=20101110'></script>
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
+  <script type='text/javascript'>try {
+      jQuery.noConflict();
+  } catch(e) {
+  }
+  ;</script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/preloader.js?ver=3.2.1'></script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/hoverIntent.js?ver=3.2.1'></script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/superfish.js?ver=3.2.1'></script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/scrollable.min.js?ver=3.2.1'></script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/jquery.prettyphoto.js?ver=3.2.1'></script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/prettyphoto_init.js?ver=3.2.1'></script>
+  <script type='text/javascript' src='http://e404themes.com/cold/wp-includes/js/comment-reply.js?ver=20090102'></script>
+  <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://e404themes.com/cold/xmlrpc.php?rsd"/>
+  <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://e404themes.com/cold/wp-includes/wlwmanifest.xml"/>
+  <meta name="generator" content="WordPress 3.2.1"/>
+  <link rel='canonical' href='http://e404themes.com/cold/'/>
+  <link href="http://e404themes.com/cold/wp-content/themes/cold/styles/style_00.css" rel="stylesheet" type="text/css"/>
+  <link rel="shortcut icon" href="http://e404themes.com/cold/wp-content/themes/cold/admin/images/favicon.ico"/>
+
+  <script type="text/javascript">
+      jQuery(document).ready(function() {
+          jQuery(".stylespanel-toggle").click(function(e) {
+              e.preventDefault();
+              jQuery(".stylespanel-content").slideToggle();
+          });
+          jQuery(".stylespanel-content").hide();
+      });
+  </script>
 </head>
+
 <body>
+
 <div id="header_wrapper">
   <div id="header">
     <div class="leftside" id="logo">
-      <a href=""><%= image_tag "cold/logo.png" %></a>
+      <a href="http://e404themes.com/cold">
+        <%= image_tag "cold/logo.png" %>
+      </a>
     </div>
     <div id="header_nav" class="rightside">
       <div id="social_icons" class="leftside">
-        <%= link_to image_tag("cold/socialmedia/contact.png"), "contact" %>
-        <%= link_to image_tag("cold/socialmedia/rss.png"), "rss" %>
-        <%= link_to image_tag("cold/socialmedia/twitter.png"), "twitter" %>
-        <%= link_to image_tag("cold/socialmedia/facebook.png"), "contact" %>
+        <!-- HEADER ICONS -->
+        <a href="http://e404themes.com/contact/" title="Contact"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/contact.png" alt="Contact"/></a>
+        <a href="http://e404themes.com/cold/?feed=rss2" title="RSS"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/rss.png" alt="RSS"/></a>
+        <a href="http://twitter.com/e404themes" title="Twitter"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/twitter.png" alt="Twitter"/></a>
+        <a href="http://www.facebook.com/" title="Facebook"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/facebook.png" alt="Facebook"/></a>
+        <a href="http://dribbble.com/" title="Dribbble"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/dribbble.png" alt="Dribbble"/></a>
       </div>
       <div id="search" class="leftside">
-        <form action="" method="get">
-          <input type="text" name="s" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}">
-          <input type="submit" value="Go">
+        <form action="http://e404themes.com/cold" method="get">
+          <input type="text" name="s" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}"/>
+          <input type="submit" value="Go"/>
         </form>
       </div>
     </div>
   </div>
 </div>
 <div id="navigation">
-  <ul id="menu-top-menu" class="sf-menu sf-js-enabled sf-shadow">
+  <ul id="menu-top-menu" class="sf-menu">
     <li id="menu-item-427" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-5 current_page_item menu-item-427">
-      <a href="">Home</a>
-    </li>
-    <li id="menu-item-431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-431">
-      <a href="locations" class="sf-with-ul">Locations<span class="sf-sub-indicator"> »</span></a>
-      <ul class="sub-menu" style="display: none; visibility: hidden; ">
+      <a href="http://e404themes.com/cold/">Home</a></li>
+    <li id="menu-item-428" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-431">
+      <a href="http://e404themes.com/cold/features/">Locations</a>
+      <ul class="sub-menu">
         <li id="menu-item-433" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-433">
-          <a href="">Grant Park</a>
+          <a href="http://e404themes.com/cold/features/powerful-admin-panel/">Grant Park</a>
         </li>
-        <li id="menu-item-448" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-448">
-          <a href="">Decatur</a>
+        <li id="menu-item-434" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-433">
+          <a href="http://e404themes.com/cold/features/powerful-admin-panel/">Decatur</a>
         </li>
       </ul>
     </li>
-    <li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-430">
-      <a href="" class="sf-with-ul">Camp Details<span class="sf-sub-indicator"> »</span></a>
-      <ul class="sub-menu" style="display: none; visibility: hidden; ">
+    <li id="menu-item-429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-430">
+      <a href="FitWit_CampDetails_091911">Camp Details</a>
+      <ul class="sub-menu">
         <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
-          <a href="">Need Content</a>
+          <a href="http://e404themes.com/cold/shortcodes/columns/">What's included</a>
+        </li>
+        <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
+          <a href="http://e404themes.com/cold/shortcodes/columns/">FAQ</a>
+        </li>
+        <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
+          <a href="http://e404themes.com/cold/shortcodes/columns/">Price</a>
+        </li>
+        <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
+          <a href="http://e404themes.com/cold/shortcodes/columns/">Schedule</a>
         </li>
       </ul>
     </li>
-    <li id="menu-item-426" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-426">
-      <a href="">Blog</a></li>
-    <li id="menu-item-428" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-428">
-      <a href="" class="sf-with-ul">Non-profit<span class="sf-sub-indicator"> »</span></a>
-      <ul class="sub-menu" style="display: none; visibility: hidden; ">
-        <li id="menu-item-458" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-458">
-          <a href="">1 column with sidebar</a>
-        </li>
-      </ul>
+    <li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-426">
+      <a href="http://e404themes.com/cold/blog/">Blog</a></li>
+    <li id="menu-item-4" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-428">
+      <a href="http://e404themes.com/cold/portfolio/">Non-profit</a>
     </li>
     <li id="menu-item-429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-429">
-      <a href="" class="sf-with-ul">Stories<span class="sf-sub-indicator"> »</span></a>
-      <ul class="sub-menu" style="display: none; visibility: hidden; ">
-        <li id="menu-item-423" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
-          <a href="">Any?</a></li>
-        <li id="menu-item-447" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-447">
-          <a href="">Gallery with Galleria</a></li>
-        <li id="menu-item-663" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-663">
-          <a href="">Scrollable Gallery</a></li>
+      <a href="http://e404themes.com/cold/gallery/">Stories</a>
+      <ul class="sub-menu">
+        <li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
+          <a href="http://e404themes.com/cold/gallery/">Our Company Story</a>
+        </li>
+        <li id="menu-item-431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
+          <a href="http://e404themes.com/cold/gallery/">Camper Stories</a>
+        </li>
       </ul>
     </li>
     <li id="menu-item-459" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-459">
-      <a href="">Contact</a></li>
+      <a href="http://e404themes.com/cold/contact/">Contact</a></li>
   </ul>
-  <br class="clear">
+  <br class="clear"/>
 </div>
 <div id="wrapper">
 
@@ -124,20 +156,9 @@
   <div id="main_wrapper">
     <div id="featured" style="height: 460px;">
       <div class="ribbon"></div>
-      <div class="slider nivoSlider" id="slider" style="height: 350px; position: relative; opacity: 1; background-image: url(">
-        <img src="" title="Number twe12e by sykicktb" alt="Number twe12e by sykicktb" style="display: none; visibility: visible; opacity: 1; " class=""><img src="" title="Lettering by RhysDaven" alt="Lettering by RhysDaven" style="display: none; visibility: visible; opacity: 1; " class=""><img src="" title="Trial card designs by photojenni" alt="Trial card designs by photojenni" style="display: none; visibility: visible; opacity: 1; " class="">
-
-        <div class="nivo-caption" style="opacity: 0.6; ">
-          <p style="display: block; opacity: 0; ">Trial card designs by photojenni</p></div>
-        <div class="nivo-directionNav" style="top: 160px; display: none; ">
-          <a class="nivo-prevNav">Prev</a><a class="nivo-nextNav">Next</a></div>
-        <div class="nivo-controlNav">
-          <a class="nivo-control" rel="0">1</a><a class="nivo-control" rel="1">2</a><a class="nivo-control active" rel="2">3</a>
-        </div>
-        <div class="nivo-box" style="left: 464px; top: 264px; width: 116px; height: 88px; background-image: url("></div>
-        <div class="nivo-box" style="left: 580px; top: 264px; width: 116px; height: 88px; background-image: url("></div>
-        <div class="nivo-box" style="left: 696px; top: 264px; width: 116px; height: 88px; background-image: url("></div>
-        <div class="nivo-box" style="left: 812px; top: 264px; width: 118px; height: 88px; background-image: url("></div>
+      <div class="slider" id="slider" style="height: 350px;">
+        <%= image_tag "cold/front/slider_1.jpg" %>
+        <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img011.jpg&amp;w=930&amp;h=350&amp;zc=1" title="Trial card designs by photojenni" alt="Trial card designs by photojenni"/>
       </div>
       <script type="text/javascript">
           var slideParams = [];
@@ -157,156 +178,135 @@
       </script>
       <ul id="featured-boxes">
         <li class="featured_fourth icon-ruler featured-dark">
-          <div><h4><a href="">40+ Shortcodes</a></h4>
-
-            <p>Some of them have many different variations.</p></div>
+          <div>
+            <h4>What if &hellip;</h4>
+            <p><strong>I looked forward to exercise.</strong></p>
+          </div>
         </li>
         <li class="featured_fourth icon-paint-brush">
-          <div><h4><a href="">16 Color Variations</a></h4>
-
-            <p><strong>Cold Theme</strong> includes 16 different color variations.</p></div>
+          <div>
+            <h4>What if &hellip;</h4>
+            <p><strong>I felt in the best shape of my life.</strong></p>
+          </div>
         </li>
         <li class="featured_fourth icon-tools featured-dark">
-          <div><h4><a href="">Powerful Panel</a></h4>
-
-            <p>Which allows you to customize your website.</p></div>
+          <div>
+            <h4>What if &hellip;</h4>
+            <p><strong>Boot camp didn't mean yelling.</strong></p>
+          </div>
         </li>
         <li class="featured_fourth_last icon-help">
-          <div><h4>Customer Support</h4>
-
-            <p>We provide an extensive customer support.</p></div>
+          <div>
+            <h4>What if &hellip;</h4>
+            <p><strong>I found a new community.</strong></p>
+          </div>
         </li>
       </ul>
-      <br class="clear"></div>
+      <br class="clear"/></div>
 
     <div id="intro" class="text-intro">
       <div class="three_fifth">
-        <p><strong>Welcome to Cold Theme: The ultimate all-in-one template.</strong><br>
-          Create outstanding website or blog in minutes!</p>
+        <p><strong>FitWit (Fit - Wit)</strong> &mdash; noun.<br/>
+          1. A unique twist on the fitness boot camp where we get fit, give fit and live fit.
+          2. Fitness redefined to embrace individual potential AND healthy community.
+        </p>
       </div>
       <div class="two_fifth last center">
-        <a class="big-btn gradient-btn stroke-btn" href="http://themeforest.net/item/cold-theme-powerful-wordpress-theme/236148?ref=e404"><span><img src="" alt=""> Available on ThemeForest</span></a>
+        <a class="big-btn gradient-btn stroke-btn" href="http://themeforest.net/item/cold-theme-powerful-wordpress-theme/236148?ref=e404"><span>
+           Register Now</span></a>
       </div>
-      <br class="clear"></div>
+      <br class="clear"/></div>
 
     <div class="one_third">
       <div class="shadow shadow_medium">
-        <a href=""><%= image_tag "cold/front/donna.jpg" %></a>
+        <a href="http://e404themes.com/cold/features/custom-widgets/">
+          <%= image_tag "cold/front/mike.png", class: "border-img" %>
+        </a>
       </div>
-      <h2>8 Custom Widgets</h2>
+      <h2>Mike's Story</h2>
 
       <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
         feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum.
       </p></div>
     <div class="one_third">
       <div class="shadow shadow_medium">
-        <a href=""><%= image_tag "cold/front/donna.jpg" %></a>
+        <a href="http://e404themes.com/cold/contact/">
+          <%= image_tag "cold/front/donna.jpg", class: "border-img" %>
+        </a>
       </div>
-      <h2>Support for Contact Form 7</h2>
+      <h2>Donna's Story</h2>
 
       <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
         dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
       </p></div>
     <div class="one_third last">
       <div class="shadow shadow_medium">
-        <a href=""><%= image_tag "cold/front/donna.jpg" %></a>
+        <a href="http://e404themes.com/cold/shortcodes/dropcaps-boxes-icon-boxes/">
+          <%= image_tag "cold/front/greg.jpg", class: "border-img" %>
+        </a>
       </div>
-      <h2>72 Icon Boxes</h2>
+      <h2>Greg's Story</h2>
 
       <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer
         possim assum. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
         aliquip.
       </p></div>
-    <br class="clear">
-    <hr class="dotted">
-    <div class="one_third">
-      <h2 class="head-icon">
-        <%= image_tag "cold/icons/presentation.png", class: "icon" %>
-        <a href="">Slide Show</a><span>4 awesome sliders</span>
-      </h2>
-
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-
-      <p class="more"><a href="">More details</a></p>
-    </div>
-    <div class="one_third">
-      <h2 class="head-icon">
-        <%= image_tag "cold/icons/pencil.png", class: "icon" %>
-        <a href="http://www.google.com/webfonts">Google Web Fonts</a>
-        <span>Font replacement</span>
-      </h2>
-
-      <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer
-        possim assum. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-        aliquip.</p>
-
-      <p class="more"><a href="http://www.google.com/webfonts">More details</a></p>
-    </div>
-    <div class="one_third last">
-      <h2 class="head-icon">
-        <%= image_tag "cold/icons/magnifying-glass.png", class: "icon" %>
-        <a href="">PrettyPhoto</a><span>With video support</span>
-      </h2>
-
-      <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
-        feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum.</p>
-
-      <p class="more"><a href="">More details</a></p>
-    </div>
-    <br class="clear">
+    <br class="clear"/>
+    <hr class="dotted"/>
 
     <div class="fancy_list">
       <div class="one_fifth fancy_title"><h3>Recent Blog Posts</h3>
 
-        <p><a href="">view all</a></p></div>
+        <p><a href="http://e404themes.com/cold/blog/">view all</a></p></div>
       <div class="one_fifth fancy_list_item">
         <div class="shadow shadow_vsmall">
-          <a href=""><%= image_tag "cold/front/donna.jpg", width: "152px", height: "90px" %></a>
+          <a href="http://e404themes.com/cold/2011/04/image-aligned-left-right-center/">
+            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img06.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Image aligned left, right &#038; center" title="Image aligned left, right &#038; center" class="border-img aligncenter"/>
+          </a>
 
           <div class="fancy_meta">
-            <a href="" class="fancy_comments">5</a>
+            <a href="http://e404themes.com/cold/2011/04/image-aligned-left-right-center/#comments" class="fancy_comments">5</a>
           </div>
         </div>
         <h4>
-          <a href="">Image aligned left, right &amp;
+          <a href="http://e404themes.com/cold/2011/04/image-aligned-left-right-center/">Image aligned left, right &#038;
             center</a></h4></div>
       <div class="one_fifth fancy_list_item">
         <div class="shadow shadow_vsmall">
-          <a href=""><%= image_tag "cold/front/donna.jpg", width: "152px", height: "90px"  %></a>
+          <a href="http://e404themes.com/cold/2011/04/blog-entry-with-wordpress-gallery/">
+            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img05.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Blog entry with WordPress Gallery" title="Blog entry with WordPress Gallery" class="border-img aligncenter"/>
+          </a>
 
           <div class="fancy_meta">
-            <a href="" class="fancy_comments">3</a>
+            <a href="http://e404themes.com/cold/2011/04/blog-entry-with-wordpress-gallery/#comments" class="fancy_comments">3</a>
           </div>
         </div>
-        <h4><a href="">Blog entry with WordPress
+        <h4><a href="http://e404themes.com/cold/2011/04/blog-entry-with-wordpress-gallery/">Blog entry with WordPress
           Gallery</a></h4></div>
       <div class="one_fifth fancy_list_item">
         <div class="shadow shadow_vsmall">
-          <a href="">
-            <%= image_tag "cold/front/donna.jpg", width: "152px", height: "90px"  %>
-          </a>
+          <a href="http://e404themes.com/cold/2011/04/duis-aute-irure-dolor-in-reprehenderit/">
+            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img04.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Duis aute irure dolor in reprehenderit" title="Duis aute irure dolor in reprehenderit" class="border-img aligncenter"/></a>
 
           <div class="fancy_meta">
-            <a href="" class="fancy_comments">0</a>
+            <a href="http://e404themes.com/cold/2011/04/duis-aute-irure-dolor-in-reprehenderit/#comments" class="fancy_comments">0</a>
           </div>
         </div>
         <h4>
-          <a href="">Duis aute irure dolor in
+          <a href="http://e404themes.com/cold/2011/04/duis-aute-irure-dolor-in-reprehenderit/">Duis aute irure dolor in
             reprehenderit</a></h4></div>
       <div class="one_fifth last fancy_list_item">
         <div class="shadow shadow_vsmall">
-          <a href="">
-            <%= image_tag "cold/front/donna.jpg", width: "152px", height: "90px"  %>
-          </a>
+          <a href="http://e404themes.com/cold/2011/04/praesentium-voluptatum-deleniti/">
+            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img03.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Praesentium voluptatum deleniti" title="Praesentium voluptatum deleniti" class="border-img aligncenter"/></a>
 
           <div class="fancy_meta">
-            <a href="" class="fancy_comments">0</a>
+            <a href="http://e404themes.com/cold/2011/04/praesentium-voluptatum-deleniti/#comments" class="fancy_comments">0</a>
           </div>
         </div>
-        <h4><a href="">Praesentium voluptatum
+        <h4><a href="http://e404themes.com/cold/2011/04/praesentium-voluptatum-deleniti/">Praesentium voluptatum
           deleniti</a></h4></div>
-      <br class="clear"></div>
+      <br class="clear"/></div>
   </div>
 
 </div>
@@ -316,46 +316,58 @@
     <div class="one_fourth widgets"><h3>Flickr Photos</h3>
       <ul class="flickr">
         <li>
-          <a href="http://farm4.static.flickr.com/3034/3040991218_ca432f3dee_z.jpg?zz=1" rel="prettyphoto" title="Dziwne znaki"><img src="http://farm4.static.flickr.com/3034/3040991218_ca432f3dee_s.jpg" width="50" height="50" alt="Dziwne znaki"></a>
+          <a href="http://farm4.static.flickr.com/3034/3040991218_ca432f3dee_z.jpg?zz=1" rel="prettyphoto" title="Dziwne znaki">
+            <img src="http://farm4.static.flickr.com/3034/3040991218_ca432f3dee_s.jpg" width="50" height="50" alt="Dziwne znaki"/></a>
         </li>
         <li>
-          <a href="http://farm3.static.flickr.com/2084/2486881659_c0458003fa_b.jpg" rel="prettyphoto" title="DIC_Cup_20"><img src="http://farm3.static.flickr.com/2084/2486881659_c0458003fa_s.jpg" width="50" height="50" alt="DIC_Cup_20"></a>
+          <a href="http://farm3.static.flickr.com/2084/2486881659_c0458003fa_b.jpg" rel="prettyphoto" title="DIC_Cup_20">
+            <img src="http://farm3.static.flickr.com/2084/2486881659_c0458003fa_s.jpg" width="50" height="50" alt="DIC_Cup_20"/></a>
         </li>
         <li>
-          <a href="http://farm4.static.flickr.com/3010/2486884237_72840c6eb0_b.jpg" rel="prettyphoto" title="DIC_Cup_23"><img src="http://farm4.static.flickr.com/3010/2486884237_72840c6eb0_s.jpg" width="50" height="50" alt="DIC_Cup_23"></a>
+          <a href="http://farm3.static.flickr.com/2302/2487693822_0a30a656a6_b.jpg" rel="prettyphoto" title="DIC_Cup_16">
+            <img src="http://farm3.static.flickr.com/2302/2487693822_0a30a656a6_s.jpg" width="50" height="50" alt="DIC_Cup_16"/></a>
         </li>
         <li>
-          <a href="http://farm3.static.flickr.com/2302/2487693822_0a30a656a6_b.jpg" rel="prettyphoto" title="DIC_Cup_16"><img src="http://farm3.static.flickr.com/2302/2487693822_0a30a656a6_s.jpg" width="50" height="50" alt="DIC_Cup_16"></a>
+          <a href="http://farm3.static.flickr.com/2380/2486880571_0f57e3aac4_b.jpg" rel="prettyphoto" title="DIC_Cup_19">
+            <img src="http://farm3.static.flickr.com/2380/2486880571_0f57e3aac4_s.jpg" width="50" height="50" alt="DIC_Cup_19"/></a>
         </li>
         <li>
-          <a href="http://farm3.static.flickr.com/2320/2486883475_2814b1d244_b.jpg" rel="prettyphoto" title="DIC_Cup_22"><img src="http://farm3.static.flickr.com/2320/2486883475_2814b1d244_s.jpg" width="50" height="50" alt="DIC_Cup_22"></a>
+          <a href="http://farm3.static.flickr.com/2308/2486878937_d8ea8541db_b.jpg" rel="prettyphoto" title="DIC_Cup_17">
+            <img src="http://farm3.static.flickr.com/2308/2486878937_d8ea8541db_s.jpg" width="50" height="50" alt="DIC_Cup_17"/></a>
         </li>
         <li>
-          <a href="http://farm4.static.flickr.com/3243/2486879495_580f0a0fd6_b.jpg" rel="prettyphoto" title="DIC_Cup_18"><img src="http://farm4.static.flickr.com/3243/2486879495_580f0a0fd6_s.jpg" width="50" height="50" alt="DIC_Cup_18"></a>
+          <a href="http://farm4.static.flickr.com/3133/2487698424_43860d1392_b.jpg" rel="prettyphoto" title="DIC_Cup_21">
+            <img src="http://farm4.static.flickr.com/3133/2487698424_43860d1392_s.jpg" width="50" height="50" alt="DIC_Cup_21"/></a>
         </li>
         <li>
-          <a href="http://farm4.static.flickr.com/3180/2487692968_8849e63a8b_b.jpg" rel="prettyphoto" title="DIC_Cup_15"><img src="http://farm4.static.flickr.com/3180/2487692968_8849e63a8b_s.jpg" width="50" height="50" alt="DIC_Cup_15"></a>
+          <a href="http://farm4.static.flickr.com/3010/2486884237_72840c6eb0_b.jpg" rel="prettyphoto" title="DIC_Cup_23">
+            <img src="http://farm4.static.flickr.com/3010/2486884237_72840c6eb0_s.jpg" width="50" height="50" alt="DIC_Cup_23"/></a>
         </li>
         <li>
-          <a href="http://farm4.static.flickr.com/3146/2486885079_8f09320729_b.jpg" rel="prettyphoto" title="DIC_Cup_25"><img src="http://farm4.static.flickr.com/3146/2486885079_8f09320729_s.jpg" width="50" height="50" alt="DIC_Cup_25"></a>
+          <a href="http://farm4.static.flickr.com/3146/2486885079_8f09320729_b.jpg" rel="prettyphoto" title="DIC_Cup_25">
+            <img src="http://farm4.static.flickr.com/3146/2486885079_8f09320729_s.jpg" width="50" height="50" alt="DIC_Cup_25"/></a>
         </li>
         <li>
-          <a href="http://farm4.static.flickr.com/3066/3040991222_56e44cfe31_z.jpg?zz=1" rel="prettyphoto" title="Segway - promocja"><img src="http://farm4.static.flickr.com/3066/3040991222_56e44cfe31_s.jpg" width="50" height="50" alt="Segway - promocja"></a>
+          <a href="http://farm4.static.flickr.com/3066/3040991222_56e44cfe31_z.jpg?zz=1" rel="prettyphoto" title="Segway - promocja">
+            <img src="http://farm4.static.flickr.com/3066/3040991222_56e44cfe31_s.jpg" width="50" height="50" alt="Segway - promocja"/></a>
         </li>
         <li>
-          <a href="http://farm3.static.flickr.com/2308/2486878937_d8ea8541db_b.jpg" rel="prettyphoto" title="DIC_Cup_17"><img src="http://farm3.static.flickr.com/2308/2486878937_d8ea8541db_s.jpg" width="50" height="50" alt="DIC_Cup_17"></a>
+          <a href="http://farm4.static.flickr.com/3243/2486879495_580f0a0fd6_b.jpg" rel="prettyphoto" title="DIC_Cup_18">
+            <img src="http://farm4.static.flickr.com/3243/2486879495_580f0a0fd6_s.jpg" width="50" height="50" alt="DIC_Cup_18"/></a>
         </li>
         <li>
-          <a href="http://farm4.static.flickr.com/3133/2487698424_43860d1392_b.jpg" rel="prettyphoto" title="DIC_Cup_21"><img src="http://farm4.static.flickr.com/3133/2487698424_43860d1392_s.jpg" width="50" height="50" alt="DIC_Cup_21"></a>
+          <a href="http://farm3.static.flickr.com/2320/2486883475_2814b1d244_b.jpg" rel="prettyphoto" title="DIC_Cup_22">
+            <img src="http://farm3.static.flickr.com/2320/2486883475_2814b1d244_s.jpg" width="50" height="50" alt="DIC_Cup_22"/></a>
         </li>
         <li>
-          <a href="http://farm3.static.flickr.com/2380/2486880571_0f57e3aac4_b.jpg" rel="prettyphoto" title="DIC_Cup_19"><img src="http://farm3.static.flickr.com/2380/2486880571_0f57e3aac4_s.jpg" width="50" height="50" alt="DIC_Cup_19"></a>
+          <a href="http://farm4.static.flickr.com/3180/2487692968_8849e63a8b_b.jpg" rel="prettyphoto" title="DIC_Cup_15">
+            <img src="http://farm4.static.flickr.com/3180/2487692968_8849e63a8b_s.jpg" width="50" height="50" alt="DIC_Cup_15"/></a>
         </li>
       </ul>
     </div>
     <div class="one_fourth widgets"><h3>Blogroll</h3>
 
-      <ul class="xoxo blogroll">
+      <ul class='xoxo blogroll'>
         <li><a href="http://themeforest.net/user/e404">Our ThemeForest profile</a></li>
         <li><a href="http://e404themes.com">Our website</a></li>
         <li><a href="http://wordpress.org">WordPress</a></li>
@@ -368,12 +380,12 @@
       <ul class="tweets">
         <li>The first Ice Theme update is ready for a download.
           <a href="http://t.co/60lBWZp8" class="twitter-link">http://t.co/60lBWZp8</a>
-          <span><a href="http://twitter.com/e404themes/status/124879524314877954">about 1 day ago</a></span></li>
+          <span><a href="http://twitter.com/e404themes/status/124879524314877954">about 1 week ago</a></span></li>
         <li>The new version of Lunar Theme is ready for a download. The most important addition is the Shortcode
           Manager. <a href="http://t.co/ZjftyuW0" class="twitter-link">http://t.co/ZjftyuW0</a>
-          <span><a href="http://twitter.com/e404themes/status/123620637347557376">about 5 days ago</a></span></li>
+          <span><a href="http://twitter.com/e404themes/status/123620637347557376">about 1 week ago</a></span></li>
         <li>Meet our new theme - Ice Theme <a href="http://t.co/60lBWZp8" class="twitter-link">http://t.co/60lBWZp8</a>
-          <span><a href="http://twitter.com/e404themes/status/121984503018295297">about 1 week ago</a></span></li>
+          <span><a href="http://twitter.com/e404themes/status/121984503018295297">about 2 weeks ago</a></span></li>
       </ul>
     </div>
     <div class="one_fourth widgets"><h3>Contact Us</h3>
@@ -382,25 +394,26 @@
         <div class="wpcf7" id="wpcf7-f1-w1-o1">
           <form action="/cold/#wpcf7-f1-w1-o1" method="post" class="wpcf7-form">
             <div style="display: none;">
-              <input type="hidden" name="_wpcf7" value="1">
-              <input type="hidden" name="_wpcf7_version" value="2.4.4">
-              <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1-w1-o1">
+              <input type="hidden" name="_wpcf7" value="1"/>
+              <input type="hidden" name="_wpcf7_version" value="2.4.4"/>
+              <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1-w1-o1"/>
             </div>
-            <p>Your Name (required)<br>
-    <span class="wpcf7-form-control-wrap your-name"><br>
-<input type="text" name="your-name" value="" class="wpcf7-text wpcf7-validates-as-required" size="40"></span></p>
+            <p>Your Name (required)<br/>
+    <span class="wpcf7-form-control-wrap your-name"><br/>
+<input type="text" name="your-name" value="" class="wpcf7-text wpcf7-validates-as-required" size="40"/></span></p>
 
-            <p>Your Email (required)<br>
-    <span class="wpcf7-form-control-wrap your-email"><br>
-<input type="text" name="your-email" value="" class="wpcf7-text wpcf7-validates-as-email wpcf7-validates-as-required" size="40"></span>
+            <p>Your Email (required)<br/>
+    <span class="wpcf7-form-control-wrap your-email"><br/>
+<input type="text" name="your-email" value="" class="wpcf7-text wpcf7-validates-as-email wpcf7-validates-as-required" size="40"/></span>
             </p>
 
-            <p>Your Message<br>
+            <p>Your Message<br/>
               <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10"></textarea></span>
             </p>
 
             <p>
-              <input type="submit" value="Send Message" class="wpcf7-submit"><img class="ajax-loader" style="visibility: hidden;" alt="Sending ..." src="">
+              <input type="submit" value="Send Message" class="wpcf7-submit"/>
+              <img class="ajax-loader" style="visibility: hidden;" alt="Sending ..." src="http://e404themes.com/cold/wp-content/plugins/contact-form-7/images/ajax-loader.gif"/>
             </p>
 
             <div class="wpcf7-response-output wpcf7-display-none"></div>
@@ -409,24 +422,22 @@
         <div class="clear"></div>
       </div>
     </div>
-    <br class="clear">
+    <br class="clear"/>
   </div>
   <div id="copyright">
     <div class="one_half">Copyright © 2011 FitWit LLC. All rights reserved.</div>
-    <div class="one_half last right">Something cool over here?</div>
-    <br class="clear">
+    <div class="one_half last right">Powered by: Something Awesome.</div>
+    <br class="clear"/>
   </div>
 </div>
-
-<%= javascript_include_tag "at_bottom/galleria.min" %>
-<%= javascript_include_tag "at_bottom/galleria.classic.min" %>
-<%= javascript_include_tag "at_bottom/flowplayer.min" %>
-<%= javascript_include_tag "at_bottom/jquery.nivo.slider.pack" %>
-<%= javascript_include_tag "at_bottom/cold_custom" %>
-<%= javascript_include_tag "at_bottom/nivo_slider_init" %>
-<%= javascript_include_tag "at_bottom/jquery.form" %>
-<%= javascript_include_tag "at_bottom/scripts" %>
-
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/galleria.min.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/galleria.classic.min.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/flowplayer.min.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/jquery.nivo.slider.pack.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/cold_custom.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/nivo_slider_init.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/plugins/contact-form-7/jquery.form.js?ver=2.52'></script>
+<script type='text/javascript' src='http://e404themes.com/cold/wp-content/plugins/contact-form-7/scripts.js?ver=2.4.4'></script>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -443,7 +454,5 @@
     })();
 
 </script>
-
-
 </body>
 </html>
