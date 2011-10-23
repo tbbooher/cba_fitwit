@@ -2,61 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang='<%= I18n.locale.to_s -%>'>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title><%=
-         raw(strip_tags((APPLICATION_CONFIG['title_prefix']+
-         " "+
-         yield(:title))))
-    -%></title>
-    <%= insert_extra_headers %>
-    <%#= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" -%>
+  <title><%=
+      raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
+              " "+
+              yield(:title))))
+  -%></title>
+  <%= insert_extra_headers %>
 
-    <%= javascript_include_tag "application" %>
-    <!-- prototype-lib will be loaded only when needed -->
-    <%= javascript_tag do %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" -%>
+
+  <!-- eieio -->
+  <%= javascript_include_tag "application" %>
+  <!-- prototype-lib will be loaded only when needed -->
+  <%= javascript_tag do %>
       <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
-    <% end %>
-    <%= yield :prototype %>
-    <%= yield :head %>
-    <%= auto_discovery_link_tag(:atom, "/feed") %>
-    <%= insert_google_analytics_script if  (Rails.env == 'production') %>
-    <% if APPLICATION_CONFIG['twitter_profile'] %>
-      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['twitter_profile'] -%>"/>
-    <% end %>
-    <% if APPLICATION_CONFIG['google_profile'] %>
-      <link rel="me" type="text/html" href="<%= APPLICATION_CONFIG['google_profile'] -%>"/>
-    <% end %>
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <%= csrf_meta_tag %>
-
-
+  <% end %>
+  <%= yield :prototype %>
+  <%= yield :head %>
+  <%= auto_discovery_link_tag(:atom, "/feed") %>
+  <%= insert_google_analytics_script if  (Rails.env == 'production') %>
+  <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
+      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
+  <% end %>
+  <% if ENV['APPLICATION_CONFIG_google_profile'] %>
+      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
+  <% end %>
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  <%= csrf_meta_tag %>
+  <!--
   <link rel="stylesheet" type="text/css" media="all" href="http://e404themes.com/cold/wp-content/themes/cold/style.css"/>
   <link rel='stylesheet' id='galleria-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/galleria.classic.css?ver=3.2.1' type='text/css' media='all'/>
   <link rel='stylesheet' id='superfish-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/menu.css?ver=3.2.1' type='text/css' media='all'/>
   <link rel='stylesheet' id='scrollable-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/scrollable.css?ver=3.2.1' type='text/css' media='all'/>
   <link rel='stylesheet' id='nivo-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/nivo-slider.css?ver=3.2.1' type='text/css' media='all'/>
   <link rel='stylesheet' id='prettyphoto-css' href='http://e404themes.com/cold/wp-content/themes/cold/css/prettyphoto.css?ver=3.2.1' type='text/css' media='all'/>
-  <link rel='stylesheet' id='Lato-css' href='http://fonts.googleapis.com/css?family=Lato&#038;ver=3.2.1' type='text/css' media='all'/>
   <link rel='stylesheet' id='contact-form-7-css' href='http://e404themes.com/cold/wp-content/plugins/contact-form-7/styles.css?ver=2.4.4' type='text/css' media='all'/>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-includes/js/l10n.js?ver=20101110'></script>
-  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
+  -->
+  <link rel='stylesheet' id='Lato-css' href='http://fonts.googleapis.com/css?family=Lato&#038;ver=3.2.1' type='text/css' media='all'/>
+  <link href="http://e404themes.com/cold/wp-content/themes/cold/styles/style_00.css" rel="stylesheet" type="text/css"/>
+
   <script type='text/javascript'>try {
       jQuery.noConflict();
   } catch(e) {
   }
   ;</script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/preloader.js?ver=3.2.1'></script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/hoverIntent.js?ver=3.2.1'></script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/superfish.js?ver=3.2.1'></script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/scrollable.min.js?ver=3.2.1'></script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/jquery.prettyphoto.js?ver=3.2.1'></script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/prettyphoto_init.js?ver=3.2.1'></script>
-  <script type='text/javascript' src='http://e404themes.com/cold/wp-includes/js/comment-reply.js?ver=20090102'></script>
-  <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://e404themes.com/cold/xmlrpc.php?rsd"/>
-  <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://e404themes.com/cold/wp-includes/wlwmanifest.xml"/>
-  <meta name="generator" content="WordPress 3.2.1"/>
-  <link rel='canonical' href='http://e404themes.com/cold/'/>
-  <link href="http://e404themes.com/cold/wp-content/themes/cold/styles/style_00.css" rel="stylesheet" type="text/css"/>
+
   <link rel="shortcut icon" href="http://e404themes.com/cold/wp-content/themes/cold/admin/images/favicon.ico"/>
 
   <script type="text/javascript">
@@ -89,6 +80,7 @@
         <a href="http://dribbble.com/" title="Dribbble"><img src="http://e404themes.com/cold/wp-content/themes/cold/images/socialmedia/dribbble.png" alt="Dribbble"/></a>
       </div>
       <div id="search" class="leftside">
+        <%= render 'search/form' %>
         <form action="http://e404themes.com/cold" method="get">
           <input type="text" name="s" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}"/>
           <input type="submit" value="Go"/>
@@ -112,16 +104,16 @@
         </li>
       </ul>
     </li>
-    <li id="menu-item-429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-430">
+    <li id="menu-item-435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-430">
       <a href="FitWit_CampDetails_091911">Camp Details</a>
       <ul class="sub-menu">
-        <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
+        <li id="menu-item-436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
           <a href="http://e404themes.com/cold/shortcodes/columns/">What's included</a>
         </li>
-        <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
+        <li id="menu-item-437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
           <a href="http://e404themes.com/cold/shortcodes/columns/">FAQ</a>
         </li>
-        <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
+        <li id="menu-item-438" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
           <a href="http://e404themes.com/cold/shortcodes/columns/">Price</a>
         </li>
         <li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-439">
@@ -129,23 +121,23 @@
         </li>
       </ul>
     </li>
-    <li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-426">
+    <li id="menu-item-440" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-426">
       <a href="http://e404themes.com/cold/blog/">Blog</a></li>
     <li id="menu-item-4" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-428">
       <a href="http://e404themes.com/cold/portfolio/">Non-profit</a>
     </li>
-    <li id="menu-item-429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-429">
+    <li id="menu-item-441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-429">
       <a href="http://e404themes.com/cold/gallery/">Stories</a>
       <ul class="sub-menu">
-        <li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
+        <li id="menu-item-442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
           <a href="http://e404themes.com/cold/gallery/">Our Company Story</a>
         </li>
-        <li id="menu-item-431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
+        <li id="menu-item-443" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-423">
           <a href="http://e404themes.com/cold/gallery/">Camper Stories</a>
         </li>
       </ul>
     </li>
-    <li id="menu-item-459" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-459">
+    <li id="menu-item-444" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-459">
       <a href="http://e404themes.com/cold/contact/">Contact</a></li>
   </ul>
   <br class="clear"/>
@@ -154,160 +146,105 @@
 
 
   <div id="main_wrapper">
-    <div id="featured" style="height: 460px;">
-      <div class="ribbon"></div>
-      <div class="slider" id="slider" style="height: 350px;">
-        <%= image_tag "cold/front/slider_1.jpg" %>
-        <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img011.jpg&amp;w=930&amp;h=350&amp;zc=1" title="Trial card designs by photojenni" alt="Trial card designs by photojenni"/>
+    <!-- main content area -->
+    <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+    <% setup_action_buttons %>
+    <% if content_for? :action_buttons %>
+        <div id='action_buttons'>
+          <%= yield(:action_buttons) %>
+        </div>
+    <% end %>
+    <div id='overlay' class="ui-widget-content"></div>
+    <div id='scroll-to-top'>
+      <%= link_to image_tag("arrow_up_small.png"), '#', :title => t(:scroll_to_top) %>
+      <span id='scroll-position'></span>
+    </div>
+    <div id='overlay' class="ui-widget-content"></div>
+    <div id="wrapper">
+      <div id="banner">
+        <%= render :partial => '/layouts/banner' %>
       </div>
-      <script type="text/javascript">
-          var slideParams = [];
-          slideParams['effect'] = 'random';
-          slideParams['slices'] = '10';
-          slideParams['animSpeed'] = '600';
-          slideParams['pauseTime'] = '4000';
-          slideParams['directionNav'] = 1;
-          slideParams['directionNavHide'] = 1;
-          slideParams['controlNav'] = 1;
-          slideParams['keyboardNav'] = 1;
-          slideParams['pauseOnHover'] = 0;
-          slideParams['manualAdvance'] = false;
-          slideParams['captionOpacity'] = 0.6;
-          slideParams['stopAtEnd'] = 0;
-          slideParams['height'] = 350;
-      </script>
-      <ul id="featured-boxes">
-        <li class="featured_fourth icon-ruler featured-dark">
-          <div>
-            <h4>What if &hellip;</h4>
-            <p><strong>I looked forward to exercise.</strong></p>
+
+      <div id="session">
+        <ul>
+          <%= render 'home/menu/application' %>
+        </ul>
+        <ul style='float: right;'>
+          <%= render 'devise/menu/registration_items' %>
+          <%= render 'devise/menu/login_items' %>
+          <%= render '/home/menu/language_selection' %>
+        </ul>
+      </div>
+
+
+      <% if current_root(self) %>
+          <div class='submenu_box'>
+            <div id='searchbox'>
+              delete this!
+            </div>
+            <ul>
+              <%=
+                  raw(
+                          build_submenu_box(current_root(self)) do |entry|
+                              "<li>"+ entry +"</li>"
+                          end
+                  )
+              %>
+            </ul>
+            <div id='tagcloud'>
+              <%= tag_cloud -%>
+            </div>
           </div>
-        </li>
-        <li class="featured_fourth icon-paint-brush">
-          <div>
-            <h4>What if &hellip;</h4>
-            <p><strong>I felt in the best shape of my life.</strong></p>
+          <div class='clear'></div>
+
+      <% end %>
+      <div class='main-frame'>
+        <div id='flashes'>
+          <% flash.each do |name, msg| %>
+              <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
+          <% end %>
+
+          <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
+              <%= render :partial => 'users/notifications', :locals => {:user_notifications => current_user.user_notifications.displayed} %>
+          <% end %>
+        </div>
+        <div id="container">
+
+          <% if content_for?(:right_column) || content_for?(:right_column_top) %>
+              <div id='right-column'>
+                <% if content_for?(:right_column_top) %>
+                    <div id='right-column-top'>
+                      <%= yield(:right_column_top) %>
+                    </div>
+                <% end %>
+                <div id='right-column-bottom'>
+                  <%= yield(:right_column) if content_for?(:right_column) %>
+                </div>
+              </div>
+          <% end %>
+
+          <!--
+          <div class='google-search'>
+             %= insert_google_site_search %
           </div>
-        </li>
-        <li class="featured_fourth icon-tools featured-dark">
-          <div>
-            <h4>What if &hellip;</h4>
-            <p><strong>Boot camp didn't mean yelling.</strong></p>
-          </div>
-        </li>
-        <li class="featured_fourth_last icon-help">
-          <div>
-            <h4>What if &hellip;</h4>
-            <p><strong>I found a new community.</strong></p>
-          </div>
-        </li>
-      </ul>
-      <br class="clear"/></div>
-
-    <div id="intro" class="text-intro">
-      <div class="three_fifth">
-        <p><strong>FitWit (Fit - Wit)</strong> &mdash; noun.<br/>
-          1. A unique twist on the fitness boot camp where we get fit, give fit and live fit.
-          2. Fitness redefined to embrace individual potential AND healthy community.
-        </p>
-      </div>
-      <div class="two_fifth last center">
-        <a class="big-btn gradient-btn stroke-btn" href="http://themeforest.net/item/cold-theme-powerful-wordpress-theme/236148?ref=e404"><span>
-           Register Now</span></a>
-      </div>
-      <br class="clear"/></div>
-
-    <div class="one_third">
-      <div class="shadow shadow_medium">
-        <a href="http://e404themes.com/cold/features/custom-widgets/">
-          <%= image_tag "cold/front/mike.png", class: "border-img" %>
-        </a>
-      </div>
-      <h2>Mike's Story</h2>
-
-      <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
-        feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum.
-      </p></div>
-    <div class="one_third">
-      <div class="shadow shadow_medium">
-        <a href="http://e404themes.com/cold/contact/">
-          <%= image_tag "cold/front/donna.jpg", class: "border-img" %>
-        </a>
-      </div>
-      <h2>Donna's Story</h2>
-
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      </p></div>
-    <div class="one_third last">
-      <div class="shadow shadow_medium">
-        <a href="http://e404themes.com/cold/shortcodes/dropcaps-boxes-icon-boxes/">
-          <%= image_tag "cold/front/greg.jpg", class: "border-img" %>
-        </a>
-      </div>
-      <h2>Greg's Story</h2>
-
-      <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer
-        possim assum. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-        aliquip.
-      </p></div>
-    <br class="clear"/>
-    <hr class="dotted"/>
-
-    <div class="fancy_list">
-      <div class="one_fifth fancy_title"><h3>Recent Blog Posts</h3>
-
-        <p><a href="http://e404themes.com/cold/blog/">view all</a></p></div>
-      <div class="one_fifth fancy_list_item">
-        <div class="shadow shadow_vsmall">
-          <a href="http://e404themes.com/cold/2011/04/image-aligned-left-right-center/">
-            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img06.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Image aligned left, right &#038; center" title="Image aligned left, right &#038; center" class="border-img aligncenter"/>
-          </a>
-
-          <div class="fancy_meta">
-            <a href="http://e404themes.com/cold/2011/04/image-aligned-left-right-center/#comments" class="fancy_comments">5</a>
+          -->
+          <div id='container_main'>
+            <!-- google_search div id="cse" style="display: hidden; background: #fee;"></div -->
+            <%= content_tag(:h1, :id => 'title') do
+                yield(:title)
+            end if show_title? %>
+            <%= yield %>
+            <div style='clear: all;'></div>
           </div>
         </div>
-        <h4>
-          <a href="http://e404themes.com/cold/2011/04/image-aligned-left-right-center/">Image aligned left, right &#038;
-            center</a></h4></div>
-      <div class="one_fifth fancy_list_item">
-        <div class="shadow shadow_vsmall">
-          <a href="http://e404themes.com/cold/2011/04/blog-entry-with-wordpress-gallery/">
-            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img05.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Blog entry with WordPress Gallery" title="Blog entry with WordPress Gallery" class="border-img aligncenter"/>
-          </a>
-
-          <div class="fancy_meta">
-            <a href="http://e404themes.com/cold/2011/04/blog-entry-with-wordpress-gallery/#comments" class="fancy_comments">3</a>
-          </div>
-        </div>
-        <h4><a href="http://e404themes.com/cold/2011/04/blog-entry-with-wordpress-gallery/">Blog entry with WordPress
-          Gallery</a></h4></div>
-      <div class="one_fifth fancy_list_item">
-        <div class="shadow shadow_vsmall">
-          <a href="http://e404themes.com/cold/2011/04/duis-aute-irure-dolor-in-reprehenderit/">
-            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img04.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Duis aute irure dolor in reprehenderit" title="Duis aute irure dolor in reprehenderit" class="border-img aligncenter"/></a>
-
-          <div class="fancy_meta">
-            <a href="http://e404themes.com/cold/2011/04/duis-aute-irure-dolor-in-reprehenderit/#comments" class="fancy_comments">0</a>
-          </div>
-        </div>
-        <h4>
-          <a href="http://e404themes.com/cold/2011/04/duis-aute-irure-dolor-in-reprehenderit/">Duis aute irure dolor in
-            reprehenderit</a></h4></div>
-      <div class="one_fifth last fancy_list_item">
-        <div class="shadow shadow_vsmall">
-          <a href="http://e404themes.com/cold/2011/04/praesentium-voluptatum-deleniti/">
-            <img src="http://e404themes.com/cold/wp-content/themes/cold/lib/timthumb.php?src=http://e404themes.com/cold/wp-content/uploads/2011/04/img03.jpg&amp;w=152&amp;h=90&amp;zc=1" alt="Praesentium voluptatum deleniti" title="Praesentium voluptatum deleniti" class="border-img aligncenter"/></a>
-
-          <div class="fancy_meta">
-            <a href="http://e404themes.com/cold/2011/04/praesentium-voluptatum-deleniti/#comments" class="fancy_comments">0</a>
-          </div>
-        </div>
-        <h4><a href="http://e404themes.com/cold/2011/04/praesentium-voluptatum-deleniti/">Praesentium voluptatum
-          deleniti</a></h4></div>
-      <br class="clear"/></div>
+      </div>
+      <div class='clear'></div>
+    </div>
+    <div class='clear'></div>
+    <%#= render :partial => 'shared/footer' %>
   </div>
+  <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+</div>
 
 </div>
 
@@ -388,56 +325,24 @@
           <span><a href="http://twitter.com/e404themes/status/121984503018295297">about 2 weeks ago</a></span></li>
       </ul>
     </div>
-    <div class="one_fourth widgets"><h3>Contact Us</h3>
-
-      <div id="cf7_form_box">
-        <div class="wpcf7" id="wpcf7-f1-w1-o1">
-          <form action="/cold/#wpcf7-f1-w1-o1" method="post" class="wpcf7-form">
-            <div style="display: none;">
-              <input type="hidden" name="_wpcf7" value="1"/>
-              <input type="hidden" name="_wpcf7_version" value="2.4.4"/>
-              <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1-w1-o1"/>
-            </div>
-            <p>Your Name (required)<br/>
-    <span class="wpcf7-form-control-wrap your-name"><br/>
-<input type="text" name="your-name" value="" class="wpcf7-text wpcf7-validates-as-required" size="40"/></span></p>
-
-            <p>Your Email (required)<br/>
-    <span class="wpcf7-form-control-wrap your-email"><br/>
-<input type="text" name="your-email" value="" class="wpcf7-text wpcf7-validates-as-email wpcf7-validates-as-required" size="40"/></span>
-            </p>
-
-            <p>Your Message<br/>
-              <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10"></textarea></span>
-            </p>
-
-            <p>
-              <input type="submit" value="Send Message" class="wpcf7-submit"/>
-              <img class="ajax-loader" style="visibility: hidden;" alt="Sending ..." src="http://e404themes.com/cold/wp-content/plugins/contact-form-7/images/ajax-loader.gif"/>
-            </p>
-
-            <div class="wpcf7-response-output wpcf7-display-none"></div>
-          </form>
-        </div>
-        <div class="clear"></div>
-      </div>
+    <div class="one_fourth widgets">
+      <h3>Contact Us</h3>
+      <%= render :partial => "/layouts/contact_form" %>
     </div>
     <br class="clear"/>
   </div>
   <div id="copyright">
-    <div class="one_half">Copyright © 2011 FitWit LLC. All rights reserved.</div>
+    <div class="one_half">
+           © <%= Time.now.year %>
+            by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
+    </div>
     <div class="one_half last right">Powered by: Something Awesome.</div>
     <br class="clear"/>
   </div>
 </div>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/galleria.min.js?ver=3.2.1'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/galleria.classic.min.js?ver=3.2.1'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/flowplayer.min.js?ver=3.2.1'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/jquery.nivo.slider.pack.js?ver=3.2.1'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/cold_custom.js?ver=3.2.1'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/themes/cold/js/nivo_slider_init.js?ver=3.2.1'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/plugins/contact-form-7/jquery.form.js?ver=2.52'></script>
-<script type='text/javascript' src='http://e404themes.com/cold/wp-content/plugins/contact-form-7/scripts.js?ver=2.4.4'></script>
+<!-- should be for first page only -->
+<%= javascript_include_tag "at_bottom/galleria.min.js", "at_bottom/galleria.classic.min.js", "at_bottom/flowplayer.min.js", "at_bottom/jquery.nivo.slider.pack.js", "at_bottom/cold_custom.js", "at_bottom/nivo_slider_init.js" %>
+
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -454,5 +359,6 @@
     })();
 
 </script>
+
 </body>
 </html>

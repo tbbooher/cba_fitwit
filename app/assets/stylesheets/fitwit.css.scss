@@ -1,4 +1,4 @@
-h1 {
+  h1 {
       font-family: 'Lato', arial, serif;
   }
 
@@ -90,3 +90,11 @@ h1 {
       .stylespanel-toggle a:hover {
           color: #666;
       }
+
+@import "cold.css.scss";
+@import "galleria.classic.css.scss";
+@import "menu.css.scss";
+@import "nivo-slider.css.scss";
+@import "prettyphoto.css.scss";
+@import "scrollable.css.scss";
+@import "styles.css.scss";

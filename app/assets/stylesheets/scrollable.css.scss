@@ -1,0 +1,89 @@
+/*
+	root element for the scrollable.
+	when scrolling occurs this element stays still.
+*/
+#scroller {
+	margin: 30px 0;
+}
+#scroller .scrollable {
+	position: relative;
+	overflow: hidden;
+	width: 682px;
+	height: 97px;
+}
+
+.scrollable a {
+	float: left;
+	background: #efefef;
+	border: 1px solid #e5e5e5;
+	padding: 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+.scrollable a:hover {
+	background: #f5f5f5;
+	border-color: #d5d5d5;
+}
+
+/*
+	root element for scrollable items. Must be absolutely positioned
+	and it should have a extremely large width to accomodate scrollable items.
+	it's enough that you set the width and height for the root element and
+	not for this element.
+*/
+#scroller .scrollable .items {
+	/* this cannot be too large */
+	width: 20000em;
+	position: absolute;
+	clear: both;
+}
+
+#scroller .items div.panel {
+	float: left;
+	position: relative;
+}
+
+#scroller .items div.panel div {
+	float: left;
+	width: 97px;
+	margin-right: 20px;
+}
+
+/* single scrollable item */
+#scroller .scrollable img {
+	display: block;
+}
+
+/* this makes it possible to add next button beside scrollable */
+.scrollable {
+	float:left;	
+}
+
+/* prev, next, prevPage and nextPage buttons */
+a.browse {
+	display: block;
+	background-image: url('../images/arrows.png');
+	background-repeat: no-repeat;
+	width: 43px;
+	height: 43px;
+	float: left;
+	margin: 27px;
+	cursor: pointer;
+	font-size: 1px;
+}
+
+/* right */
+a.arrowright 		{ background-position:  -43px 0; clear:right; margin-left: 40px;}
+a.arrowright:hover 	{ background-position: -43px -43px; }
+
+/* left */
+a.arrowleft			{ margin-right: 40px; } 
+a.arrowleft:hover  	{ background-position: 0 -43px; }
+
+
+/* disabled navigational button */
+a.disabled {
+	filter: alpha(opacity=20) !important;
+	opacity: 0.2 !important;		
+}
