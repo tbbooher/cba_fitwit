@@ -8,19 +8,19 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: fitwit_development
+  database: polco_development
 
 test:
   <<: *defaults
-  database: fitwit_test
+  database: polco_test
 
 # set these environment variables on your prod server
+# TODO not sure if we need to set these . . .
 production:
-  #<<: *defaults
-  #database: polco_production
-  uri: <%= ENV['MONGOHQ_URL'] %>
-  #host: <%= ENV['MONGOID_HOST'] %>
-  #port: <%= ENV['MONGOID_PORT'] %>
-  #username: <%= ENV['MONGOID_USERNAME'] %>
-  #password: <%= ENV['MONGOID_PASSWORD'] %>
-  #database: <%= ENV['MONGOID_DATABASE'] %>
+  <<: *defaults
+  database: polco_production
+#  host: <%= ENV['MONGOID_HOST'] %>
+#  port: <%= ENV['MONGOID_PORT'] %>
+#  username: <%= ENV['MONGOID_USERNAME'] %>
+#  password: <%= ENV['MONGOID_PASSWORD'] %>
+#  database: <%= ENV['MONGOID_DATABASE'] %>
