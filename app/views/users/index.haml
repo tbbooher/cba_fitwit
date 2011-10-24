@@ -10,9 +10,9 @@
     .tiny
         = t(:registered_users_count, :count => @user_count) 
   
-%div#userlist
+%div#user-list
     - for user in @users
-        %div{ :style=>'clear: right;'}= render user 
+        = render user 
         %p{ :style=>'clear: left;' }
 
     = render :partial => '/home/load_more', :locals => { :resources => @users, :path => registrations_path }

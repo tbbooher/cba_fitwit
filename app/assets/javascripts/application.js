@@ -19,6 +19,7 @@
 //= require at_top/comment-reply
 
 //= require jquery_ujs
+//= require jquery-ui.min
 //= require jsort_sortable
 //= require progress_upload_field
 // require autocomplete

@@ -9,18 +9,19 @@ Cba::Application.routes.draw do
   resources :news_items
 
   # FitWit Routes
-  get 'base/error'
-  get 'base/home'
-  get 'base/create_your_own_fitwit'
-  get 'base/community'
-  get 'base/contact_us'
-  get 'base/about_us'
-  get 'base/not_authorize'
-  get 'base/login_success'
-  get 'base/logoff_success'
-  get 'base/all_sponsors'
-  get 'fitness_camp_info/index'
-  get 'fitness_camp_info/the_fitwit_difference'
+
+   get "base/locations", as: "locations"
+   get "base/camp_details", as: "camp_details"
+   get "base/whats_included", as: "whats_included"
+   get "base/faq", as: "faq"
+   get "base/price", as: "price"
+   get "base/schedule", as: "schedule"
+   get "base/non_profit", as: "non_profit"
+   get "base/stories", as: "stories"
+   get "base/company_story", as: "company_story"
+   get "base/camper_stories", as: "camper_stories"
+   get "base/contact", as: "contact"
+   get 'base/error'
 
   # fitness camp registrations
   get 'fitness_camp_registration/index'
@@ -111,13 +112,17 @@ Cba::Application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
   resources :users, :only => [:show,:destroy] do
-    resources :invitations
+    resources :invitations    
+    resources :user_groups
     member do
       get :crop_avatar
       put :crop_avatar
       get :edit_role
       put :update_role
       get :details
+    end
+    collection do
+      get :autocomplete_ids
     end
   end
 
