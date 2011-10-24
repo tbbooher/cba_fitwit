@@ -66,4 +66,48 @@ class BaseController < ApplicationController
     @pagetitle = "All FitWit Sponsors"
     @sponsors = Sponsor.find(:all)
   end
+
+  def locations
+
+  end
+
+  def camp_details
+
+  end
+
+  def whats_included
+
+  end
+
+  def faq
+
+  end
+
+  def price
+
+  end
+
+  def schedule
+
+  end
+
+  def non_profit
+
+  end
+
+  def stories
+
+  end
+
+  def company_story
+
+  end
+
+  def camper_stories
+
+  end
+
+  def contact
+
+  end
 end

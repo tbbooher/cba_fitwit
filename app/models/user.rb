@@ -131,6 +131,7 @@ class User
   references_many :invitations, :dependent => :delete
 
   embeds_many :user_notifications
+  embeds_many :user_groups
   has_many    :articles
 
   validates_presence_of   :name
@@ -183,7 +184,13 @@ class User
   end
 
   def new_avatar?
-    avatar.updated_at && ((Time::now() - Time::at(self.avatar.updated_at)) < 1.minute)
+    if avatar.updated_at && ((Time::now() - Time::at(self.avatar.updated_at)) < 1.minute)
+      self.use_gravatar = false
+      save
+      true
+    else
+      false
+    end
   end
 
   def admin?
@@ -262,6 +269,7 @@ class User
     }
   end
 
+  
 private
   def reprocess_avatar
     avatar.reprocess!

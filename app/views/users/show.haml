@@ -1,14 +1,14 @@
-- content_for :head do
-    = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false"
-  
 - title t("userlist.user_profile", :name => @user.name )
 
-- if @user.avatar
-    %div{ :style => 'float: right;' }=  link_to_function(     |
-       image_tag( w3c_url(@user.avatar_url(:thumb)), :class => "img-with-shadow" ),        |
-       "image_popup('#{w3c_url(@user.avatar_url(:popup))}')") |
-
 %div{:style => 'clear: right'}
+
+    %div{:id => 'users-location-map'}
+
+    - if @user.avatar
+        %div=  link_to_function(     |
+           image_tag( w3c_url(@user.avatar_url(:thumb)), :class => "img-with-shadow" ),        |
+           "image_popup('#{w3c_url(@user.avatar_url(:popup))}')") |
+
     %p 
         User: 
         %b= @user.name
@@ -21,12 +21,13 @@
         %p
             = t(:your_location)+": "
             %span{:id => 'user-location-token'}= current_user.location_token
-        %div{:id => 'users-location-map'}= t(:loading)
     %h3{:style => 'margin-top: 60px;'}= t(:your_account)
     %ul
         %li
             - if current_user == @user || current_user.role?(:admin  )
                 = link_to t(:edit_profile), edit_registration_path(@user)
+        %li
+            = link_to t(:your_groups), user_user_groups_path(@user)
             
                 
     %strong= t(:invite_user)
@@ -39,7 +40,6 @@
         = t(:location)+": "
         %span{:id => 'user-location-token'}= @user.location_token
         %br
-        %div{:id => 'users-location-map'}= t(:loading)
         
 - if current_user.role?(:maintainer)
     %h3{:style=>'clear: both'} Details

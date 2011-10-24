@@ -88,15 +88,15 @@ module ContentItem
           short_title_for_url.txt_to_url
         end
 
-        def render_intro
-          content_for_intro
+        def render_intro(interpret=true)
+          content_for_intro(interpret)
         end
 
         def render_for_html(txt)
           self.interpreter ||= :markdown
           case self.interpreter.to_sym
           when :markdown
-            markdown(txt)
+            markdown(txt).html_safe
           when :textile
             RedCloth.new(txt).to_html
           when :simple_text
@@ -111,7 +111,7 @@ module ContentItem
           }.gsub( /COMPONENT[\d+]/ ) { |component|
             component_i = component.gsub( /\D/,'' ).to_i
             render_page_component(component_i)
-          }.gsub(/YOUTUBE(_PLAYLIST)?:([a-z|A-Z|0-9|\\-|_]+)/) { |tag|
+          }.gsub(/YOUTUBE(_PLAYLIST)?:([a-z|A-Z|0-9|\\-|_])+/) { |tag|
             args = tag.split(':')
             case args[0]
             when 'YOUTUBE'
@@ -122,6 +122,12 @@ module ContentItem
               "ARGUMENT ERROR: " + args.inspect
             end
           }.gsub(/PLUSONE/, '<g:plusone size="small"></g:plusone>')
+          .gsub( /\\[LOCATION:([\\d\\., \\-]+)\\]/) {|location|
+            render_location_link(location.gsub('LOCATION','').gsub('[','').gsub(']','').gsub(':',''))
+          }
+          .gsub(/\\[PLACE:([a-z|A-Z|0-9|\\-| |,]+)\\]/) {|place|
+            render_place_link(place.gsub('PLACE','').gsub('[','').gsub(']','').gsub(':',''))
+          }.html_safe
         end
 
         private
@@ -160,6 +166,14 @@ module ContentItem
           "<iframe width='420' height='345' src='http://www.youtube.com/embed/"+
             youtube_tag +
             "' frameborder='0' allowfullscreen=''></iframe>"
+        end
+        
+        def render_location_link(location)
+          "<a href='#' class='open-location'>"+location+"</a>"
+        end
+
+        def render_place_link(place)
+          "<a href='#' class='open-place'>"+place+"</a>"
         end
       EOV
     end
