@@ -134,6 +134,6 @@ Cba::Application.routes.draw do
 
   # ROOT
   #root :to => 'home#index'
-  root :to => "base#home"
+  root :to => "home#start_page"
 
 end

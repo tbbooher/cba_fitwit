@@ -65,7 +65,7 @@
     right: 10px;
     z-index: 2;
     display: none;
-    background: url(../images/classic-loader.gif) no-repeat 2px 2px;
+    background: image-url("images/cold/classic-loader.gif") no-repeat 2px 2px;
 }
 .galleria-info {
     width: 50%;
@@ -199,6 +199,6 @@
 .galleria-info-close,
 .galleria-image-nav-left,
 .galleria-image-nav-right {
-    background-image: url(../images/classic-map.png);
+    background-image: image-url("images/cold/classic-map.png");
     background-repeat: no-repeat;
 }

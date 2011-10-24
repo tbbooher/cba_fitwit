@@ -1,24 +1,92 @@
-<!-- #bg: applies the site width and footer background -->
-<div id="bg" class="width">
-  <ul>
-    <li><%= link_to "New Account",
-      :controller => "users",
-    :action => 'new' %></li>
-    <li>
-      <%= link_to "Register",
-        :controller => :registration,
-      :action => :all_fitness_camps %>
-    </li>
-    <% if @cart %>
-    <li>
-      <%= link_to "View Cart",
-        :controller => :registration,
-      :action => :view_cart %>
-    </li>
-    <% end %>
-    <li>
-      <%= link_to "&copy; 2008 FitWit", root_url, {:class => 'last'} %>
-    </li>
-  </ul>
+<div id="footer_wrapper">
+  <div id="footer">
+    <div class="one_fourth widgets"><h3>Flickr Photos</h3>
+      <ul class="flickr">
+        <li>
+          <a href="http://farm4.static.flickr.com/3034/3040991218_ca432f3dee_z.jpg?zz=1" rel="prettyphoto" title="Dziwne znaki">
+            <img src="http://farm4.static.flickr.com/3034/3040991218_ca432f3dee_s.jpg" width="50" height="50" alt="Dziwne znaki"/></a>
+        </li>
+        <li>
+          <a href="http://farm3.static.flickr.com/2084/2486881659_c0458003fa_b.jpg" rel="prettyphoto" title="DIC_Cup_20">
+            <img src="http://farm3.static.flickr.com/2084/2486881659_c0458003fa_s.jpg" width="50" height="50" alt="DIC_Cup_20"/></a>
+        </li>
+        <li>
+          <a href="http://farm3.static.flickr.com/2302/2487693822_0a30a656a6_b.jpg" rel="prettyphoto" title="DIC_Cup_16">
+            <img src="http://farm3.static.flickr.com/2302/2487693822_0a30a656a6_s.jpg" width="50" height="50" alt="DIC_Cup_16"/></a>
+        </li>
+        <li>
+          <a href="http://farm3.static.flickr.com/2380/2486880571_0f57e3aac4_b.jpg" rel="prettyphoto" title="DIC_Cup_19">
+            <img src="http://farm3.static.flickr.com/2380/2486880571_0f57e3aac4_s.jpg" width="50" height="50" alt="DIC_Cup_19"/></a>
+        </li>
+        <li>
+          <a href="http://farm3.static.flickr.com/2308/2486878937_d8ea8541db_b.jpg" rel="prettyphoto" title="DIC_Cup_17">
+            <img src="http://farm3.static.flickr.com/2308/2486878937_d8ea8541db_s.jpg" width="50" height="50" alt="DIC_Cup_17"/></a>
+        </li>
+        <li>
+          <a href="http://farm4.static.flickr.com/3133/2487698424_43860d1392_b.jpg" rel="prettyphoto" title="DIC_Cup_21">
+            <img src="http://farm4.static.flickr.com/3133/2487698424_43860d1392_s.jpg" width="50" height="50" alt="DIC_Cup_21"/></a>
+        </li>
+        <li>
+          <a href="http://farm4.static.flickr.com/3010/2486884237_72840c6eb0_b.jpg" rel="prettyphoto" title="DIC_Cup_23">
+            <img src="http://farm4.static.flickr.com/3010/2486884237_72840c6eb0_s.jpg" width="50" height="50" alt="DIC_Cup_23"/></a>
+        </li>
+        <li>
+          <a href="http://farm4.static.flickr.com/3146/2486885079_8f09320729_b.jpg" rel="prettyphoto" title="DIC_Cup_25">
+            <img src="http://farm4.static.flickr.com/3146/2486885079_8f09320729_s.jpg" width="50" height="50" alt="DIC_Cup_25"/></a>
+        </li>
+        <li>
+          <a href="http://farm4.static.flickr.com/3066/3040991222_56e44cfe31_z.jpg?zz=1" rel="prettyphoto" title="Segway - promocja">
+            <img src="http://farm4.static.flickr.com/3066/3040991222_56e44cfe31_s.jpg" width="50" height="50" alt="Segway - promocja"/></a>
+        </li>
+        <li>
+          <a href="http://farm4.static.flickr.com/3243/2486879495_580f0a0fd6_b.jpg" rel="prettyphoto" title="DIC_Cup_18">
+            <img src="http://farm4.static.flickr.com/3243/2486879495_580f0a0fd6_s.jpg" width="50" height="50" alt="DIC_Cup_18"/></a>
+        </li>
+        <li>
+          <a href="http://farm3.static.flickr.com/2320/2486883475_2814b1d244_b.jpg" rel="prettyphoto" title="DIC_Cup_22">
+            <img src="http://farm3.static.flickr.com/2320/2486883475_2814b1d244_s.jpg" width="50" height="50" alt="DIC_Cup_22"/></a>
+        </li>
+        <li>
+          <a href="http://farm4.static.flickr.com/3180/2487692968_8849e63a8b_b.jpg" rel="prettyphoto" title="DIC_Cup_15">
+            <img src="http://farm4.static.flickr.com/3180/2487692968_8849e63a8b_s.jpg" width="50" height="50" alt="DIC_Cup_15"/></a>
+        </li>
+      </ul>
+    </div>
+    <div class="one_fourth widgets"><h3>Blogroll</h3>
+
+      <ul class='xoxo blogroll'>
+        <li><a href="http://themeforest.net/user/e404">Our ThemeForest profile</a></li>
+        <li><a href="http://e404themes.com">Our website</a></li>
+        <li><a href="http://wordpress.org">WordPress</a></li>
+        <li><a href="http://wordpress.org/extend/plugins/">WordPress Plugins</a></li>
+
+      </ul>
+    </div>
+
+    <div class="one_fourth widgets"><h3>Latest Tweets</h3>
+      <ul class="tweets">
+        <li>The first Ice Theme update is ready for a download.
+          <a href="http://t.co/60lBWZp8" class="twitter-link">http://t.co/60lBWZp8</a>
+          <span><a href="http://twitter.com/e404themes/status/124879524314877954">about 1 week ago</a></span></li>
+        <li>The new version of Lunar Theme is ready for a download. The most important addition is the Shortcode
+          Manager. <a href="http://t.co/ZjftyuW0" class="twitter-link">http://t.co/ZjftyuW0</a>
+          <span><a href="http://twitter.com/e404themes/status/123620637347557376">about 1 week ago</a></span></li>
+        <li>Meet our new theme - Ice Theme <a href="http://t.co/60lBWZp8" class="twitter-link">http://t.co/60lBWZp8</a>
+          <span><a href="http://twitter.com/e404themes/status/121984503018295297">about 2 weeks ago</a></span></li>
+      </ul>
+    </div>
+    <div class="one_fourth widgets">
+      <h3>Contact Us</h3>
+      <%= render :partial => "/layouts/contact_form" %>
+    </div>
+    <br class="clear"/>
+  </div>
+  <div id="copyright">
+    <div class="one_half">
+           © <%= Time.now.year %>
+            by <%= link_to ENV['APPLICATION_CONFIG_copyright'], ENV['APPLICATION_CONFIG_copyright_url'] %>
+    </div>
+    <div class="one_half last right">Powered by: Something Awesome.</div>
+    <br class="clear"/>
+  </div>
 </div>
-<!-- #bg end -->
