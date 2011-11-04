@@ -80,5 +80,83 @@ module LayoutHelper
       end
     }.compact.join(" ").html_safe
   end
+  
+  # render jquery-ui-buttons
+  def ui_button(icon,label_text,url,options={})
+    setup_button(icon,label_text,options)
+    link_to( icon_and_text(label_text,icon), url, options ).html_safe
+  end
+
+  # render button for link_to_function
+  def ui_link_to_function(icon,label_text,function_call,options={})
+    setup_button(icon,label_text,options)
+    link_to_function(icon_and_text(label_text,icon),function_call,options).html_safe
+  end
+
+private
+
+  def setup_button(icon,label_text,options)
+    class_names = 'ui-button ui-widget ui-state-default ui-corner-all'
+    if options[:add_class]
+      class_names += " " + options[:add_class]
+      options.delete(:add_class)
+    end                
+    options.merge!( class:  class_names,
+                    style: 'padding: 5px; padding-top: 2px; padding-bottom: 3px; text-align: left;'   )
+    options.merge!( title: I18n.translate(icon.to_sym)) if label_text.blank?
+  end
+
+  def icon_and_text(text, icon)
+    rc = ""
+    rc = icon ? content_tag( :span, 
+                 :style => 'display: inline-block; width: 16px; height: 16px;', 
+                 :class => "ui-icon ui-icon-#{map_icon(icon)}") {} : ''
+    rc +=  content_tag(:span, :class => 'button-label') { text }
+    rc.html_safe
+  end
+
+  def map_icon(shortcut)
+    case shortcut
+    when 'read', 'read-link'
+      'newwin'
+    when 'edit'
+      'pencil'
+    when 'destroy', 'delete'
+      'trash'
+    when 'add', 'plus'
+      'plusthick'
+    when 'back'
+      'circle-arrow-w'
+    when 'mark-read'
+      'mail-open'
+    when 'mark-unread'
+      'mail-closed'
+    when 'details', 'zoom'
+      'zoomin'
+    when 'sort'
+      'arrowthick-2-n-s'
+    when 'table'
+      'calculator'
+    when 'pdf'
+      'document'
+    when 'video'
+      'video'
+    when 'expand'
+      'folder-open'
+    when 'collapse'
+      'folder-collapsed'
+    when 'attachment'
+      'bookmark'
+    when 'todo'
+      'signal-diag'
+    when 'question'
+      'help'
+    when 'assets'
+      'suitcase'
+    else
+      shortcut
+    end
+  end
+
 
 end
