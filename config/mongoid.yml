@@ -17,7 +17,8 @@ test:
 # set these environment variables on your prod server
 # TODO not sure if we need to set these . . .
 production:
-  database: polco_production
+ uri: <%= ENV['MONGOHQ_URL'] %>
+#  database: polco_production
 #  host: <%= ENV['MONGOID_HOST'] %>
 #  port: <%= ENV['MONGOID_PORT'] %>
 #  username: <%= ENV['MONGOID_USERNAME'] %>
