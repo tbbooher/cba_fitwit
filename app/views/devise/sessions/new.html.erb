@@ -1,28 +1,35 @@
 <% title t(:sign_in) %>
+<div class="wpcf7">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'wpcf7-form') do |f| %>
+      <div class='field'>
+        <%= f.label :email %>
+        <span class='wpcf7-form-control-wrap'>
+      <%= f.text_field :email, class: 'wpcf7-text' %>
+    </span>
+      </div>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class='field'><%= f.label :email %>
-  <%= f.text_field :email %></div>
+      <div class='field'>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
 
-  <div class='field'><%= f.label :password %>
-  <%= f.password_field :password %></div>
+      <% if devise_mapping.rememberable? -%>
+          <div class='field'>
+            <%= f.label :remember_me %>
+            <%= f.check_box :remember_me %>
+            <%= t(:stay_logged_in) %>
+          </div>
+      <% end -%>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class='field'><%= f.label :remember_me %>
-     <%= f.check_box :remember_me %> <%= t(:stay_logged_in)%></div>
-  <% end -%>
-
-  <div class='field'>
-    <%= f.label :sign_in, sc(:nbsp).html_safe %>
-    <%= f.submit t(:sign_in), :class => "button save" %>
-  </div>
-<% end %>
+      <div class='field'>
+        <%= f.label :sign_in, sc(:nbsp).html_safe %>
+        <%= f.submit t(:sign_in), :class => "button save" %>
+      </div>
+  <% end %>
+</div>
 
 <h2><%= t(:or_user_omni_auth) -%></h2>
 
 <%= render '/authentications/authentications' %>
-
-
-
 
 <%= render :partial => "devise/shared/links" %>
