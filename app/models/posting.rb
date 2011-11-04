@@ -21,6 +21,8 @@ class Posting
 
   references_many       :comments, :inverse_of => :commentable, :as => 'commentable'
   validates_associated  :comments
+  
+  field                 :recipient_ids, type: Array, default: []
 
 
   # TODO: Move this definitions to a library-module
@@ -29,7 +31,15 @@ class Posting
   validates_associated  :attachments
   accepts_nested_attributes_for :attachments,
                                 :allow_destroy => true
+                                
 
+  scope :public, any_of({:recipient_ids => []}, {:recipient_ids => nil})
+  
+  scope :addressed_to, ->(user_id) { any_of( {:recipient_ids => nil}, 
+                                             {:recipient_ids => [] },
+                                             {:recipient_ids => [user_id] }
+                                           ) }
+                                   
 
   # Send notifications
   after_create  :send_notifications
@@ -64,8 +74,14 @@ class Posting
       self.tags_array.uniq!
     end
   end
+  
+  
+  def has_recipient?(recipient)
+    self.recipient_ids.include? recipient.id
+  end
 
-  private ################################################## private ####
+
+private ################################################## private ####
 
   # Render the intro (which is the first paragraph of the body)
   def content_for_intro(interpret=true)

@@ -4,10 +4,10 @@
 
   %h1= link_to page.title_and_flags, page
   %p
-    = link_button t(:read), "button tiny", "/p/#{page.link_to_title}"
+    = ui_button('read', '', "/p/#{page.link_to_title}")
     - if can? :manage, page
-      = link_button t(:edit), "button tiny", edit_page_path(page)
-      = link_to( t(:destroy), page, :class => "button tiny", :confirm => t(:are_you_sure), :method => :delete)
+      = ui_button('edit', '', edit_page_path(page), :title => t(:edit))
+      = ui_button('destroy','', page, :confirm => t(:are_you_sure), :method => :delete, :title =>  t(:destroy))
 
   = sanitize(page.render_intro(true)).html_safe
   %p.small
