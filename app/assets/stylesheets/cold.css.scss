@@ -567,8 +567,9 @@ form input[type="text"],
 form input[type="password"],
 textarea,
 select {
-    background: #fffimage-url("/images/form-bg.png") repeat;
-    line-height: 14px;
+    background: #fff image-url("/images/cold/form-bg.png") repeat;
+    /* test */
+    line-height: 15px;
     padding: 6px 8px;
     border: 1px solid #ddd;
     box-shadow: 1px 1px 3px rgba(119, 119, 119, 0.2);
