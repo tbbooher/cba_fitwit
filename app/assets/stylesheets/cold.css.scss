@@ -1544,11 +1544,14 @@ code {
 }
 .wpcf7 input[type="text"],
 .wpcf7 textarea {
-    width: 100%;
+    width:100%;
 }
+/* maybe .wpcf7 input[type="password"] */
+
 #footer .wpcf7 textarea {
     height: 100px;
 }
+
 span.wpcf7-not-valid-tip {
     border: 1px solid #ff7d98 !important;
     background: #fbe3e8 image-url("/images/cold/error.png") 5px 50% no-repeat !important;
