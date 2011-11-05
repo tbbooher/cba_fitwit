@@ -59,6 +59,12 @@ class ActiveSupport::TestCase
     @request.session[:cart] = @cart
   end
 
+  def login_as(user_label)
+    user = Factory.build(user_label.to_sym)
+    @request.session[:user_id] = user.id
+    return user
+  end
+
   def create_valid_user_with_id(id=nil)
     begin
       unless id.nil?

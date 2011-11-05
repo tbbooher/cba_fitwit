@@ -87,6 +87,7 @@ group :development, :test do
   gem 'test-unit'
   gem 'rails3-generators'
   gem "haml-rails"
+  gem 'faker'
 end
 
 # custom FitWit gems
