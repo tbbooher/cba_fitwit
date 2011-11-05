@@ -1,44 +1,69 @@
 <% title t(:sign_up) %>
 
 <% invited? %>
+<div class="one_third">
+  <h3>cool quote about taking some steps . . .</h3>
 
-<blockquote>
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
+  <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
+    Duis autem vel eum iriure dolor in hendrerit.</p>
+</div>
+<div class="two_third last">
+  <div class="wpcf7">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
 
+        <% if resource.invitation %>
+            <h3><%= t(:you_are_invited_by, :name => resource.invitation.user.name) %></h3>
 
-    <% if resource.invitation %>
-      <h3><%= t(:you_are_invited_by, :name => resource.invitation.user.name) %></h3>
-      <p>
-        <%= sanitize(resource.invitation.message||"")%>
-        <ul><li><%= resource.invitation.user.name %> &lt;<%= resource.invitation.user.email -%>&gt;</li></ul>
-      </p>
-      <%= f.hidden_field :invitation_id %>
+            <p>
+              <%= sanitize(resource.invitation.message||"") %>
+            <ul>
+              <li><%= resource.invitation.user.name %> &lt;<%= resource.invitation.user.email -%>&gt;</li>
+            </ul>
+            </p>
+            <%= f.hidden_field :invitation_id %>
+        <% end %>
+
+        <p>
+          <%= f.label :name %>
+          <span class='wpcf7-form-control-wrap'>
+      <%= f.text_field :name, class: 'wpcf7-text' %>
+      </span>
+        </p>
+
+        <p>
+          <%= f.label :email %>
+          <span class='wpcf7-form-control-wrap'>
+        <%= f.text_field :email, class: 'wpcf7-text' %>
+      </span>
+        </p>
+
+        <p>
+          <%= f.label :password %>
+          <span class='wpcf7-form-control-wrap'>
+        <%= f.password_field :password, class: 'wpcf7-text' %>
+      </span>
+        </p>
+
+        <p>
+          <%= f.label :password_confirmation %>
+          <span class='wpcf7-form-control-wrap'>
+        <%= f.password_field :password_confirmation, class: 'wpcf7-text' %>
+      </span>
+        </p>
+
+        <p>
+          <%= f.submit t(:sign_up), :class => "button save wpcf7-submit" %>
+        </p>
     <% end %>
+  </div>
+  <!-- wpcf7 -->
+  <h3><%= t(:or_user_omni_auth) -%></h3>
 
-    <div class='field'><%= f.label :name %>
-    <%= f.text_field :name %></div>
-
-    <div class='field'><%= f.label :email %>
-    <%= f.text_field :email %></div>
-
-    <div class='field'><%= f.label :password %>
-    <%= f.password_field :password %></div>
-
-    <div class='field'><%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %></div>
-
-    <div class='field'><%= f.submit t(:sign_up), :class => "button save" %></div>
-  <% end %>
-</blockquote>
-
-<h2><%= t(:or_user_omni_auth) -%></h2>
-<blockquote>
   <%= render '/authentications/authentications' %>
-</blockquote>
 
+  <h3><%= t(:links) %></h3>
 
-<h2><%= t(:links) %></h2>
-<blockquote>
   <%= render :partial => "devise/shared/links" %>
-</blockquote>
+</div>
+
