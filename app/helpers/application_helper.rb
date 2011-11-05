@@ -77,7 +77,7 @@ module ApplicationHelper
   def errors_for(resource)
     rc = ""
     if resource.errors.any?
-      rc += "<div id='error_explanation'>"+
+      rc += "<div class='wpcf7-validation-errors'>"+
               "<h2>"+
                 t(:errors, :count => resource.errors.count) + ": " +
                 t(:prohibited_this_resource_from_being_saved, :resource => t(resource.class.to_s.downcase.to_sym)) +
