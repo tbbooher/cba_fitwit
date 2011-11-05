@@ -68,6 +68,9 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'spork', '0.9.0.rc9'
+  #gem "spork", "> 0.9.0.rc"
+  gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'spork-testunit'
   gem 'launchy'
   gem 'factory_girl_rails', "1.1.0"
@@ -88,6 +91,7 @@ group :development, :test do
   gem 'rails3-generators'
   gem "haml-rails"
   gem 'faker'
+  gem 'ruby-prof', :git => 'git://github.com/wycats/ruby-prof.git'
 end
 
 # custom FitWit gems
