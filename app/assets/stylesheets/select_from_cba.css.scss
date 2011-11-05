@@ -1,0 +1,93 @@
+/* we might need this for the authentications */
+.authentications {
+  margin-bottom: 30px;
+  /* class authentication beginning */
+  .authentication {
+    float: left;
+    background-color: #EEE;
+    border: solid 1px #999;
+    padding: 5px 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    position: relative;
+    margin-right: 10px;
+
+    .remove {
+      text-decoration: none;
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      color: #333;
+      padding: 2px 4px;
+    }
+
+    .remove:hover {
+      color: #FFF;
+      background-color: #777;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+    }
+
+    img {
+      border: none;
+      box-shadow: none;
+      padding: 0px;
+      float: left;
+      margin: 0px 0px 0px 0px;
+    }
+
+    .provider, .uid {
+      margin-left: 38px;
+      margin-right: 20px;
+    }
+
+    .provider {
+      font-weight: bold;
+    }
+
+    .uid {
+      color: #666;
+    }
+  }
+}
+/* end of class authentication */
+
+.auth_provider img, .auth_provider {
+  padding: 0px;
+  -moz-box-shadow:     none;
+  -webkit-box-shadow:  none;
+  box-shadow: none;
+}
+
+.auth_provider {
+  float: left;
+  text-decoration: none;
+  margin-right: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+
+  img {
+    border: none;
+    padding: 0px;
+    display: block;
+  }
+
+  a {
+    border: none;
+    &:hover {
+      text-decoration: underline;
+    };
+  }
+}
+
+.omniauth_mini_icons {
+  margin: 0px;
+  padding: 0px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+

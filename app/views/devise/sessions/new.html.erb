@@ -43,10 +43,10 @@
         <% if devise_mapping.rememberable? -%>
             <p>
               <%= f.label :remember_me %>
-              <span>
+              <span class='wpcf7-form-control-wrap'>
               <%= f.check_box :remember_me %>
               <%= t(:stay_logged_in) %>
-
+              </span>
             </p>
         <% end -%>
 
