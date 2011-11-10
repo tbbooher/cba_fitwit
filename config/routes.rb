@@ -22,6 +22,7 @@ Cba::Application.routes.draw do
    get "base/camper_stories", as: "camper_stories"
    get "base/contact", as: "contact"
    get 'base/error'
+   get 'base/posts'
 
   # fitness camp registrations
   get 'fitness_camp_registration/index'
