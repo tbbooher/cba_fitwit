@@ -13,6 +13,23 @@ class BaseController < ApplicationController
     #schedule_data
   end
 
+  def posts
+    @blog = Blog.where(:title => t(:news)).first
+    if @blog
+      @postings = @blog.postings.desc(:created_at).paginate(
+        :page => params[:page],
+        :per_page => CONSTANTS['paginate_postings_per_page'].to_i
+      )
+    end
+    respond_to do |format|
+       format.js {
+         @path = blog_path(@blog, :page => (params[:page] ? (params[:page].to_i+1) : 2))
+         render :posts
+       }
+       format.html { render :posts }
+    end
+  end
+
   def create_your_own_fitwit
     @pagetitle = "Create Your Own FitWit"
   end

@@ -20,7 +20,7 @@ describe "UserNotifications" do
     .each_with_index do |email,idx|
       receiver = User.where(email: email).first
       unless idx == 2
-        assert_match receiver.user_notifications.last.message, /Lorem ipsum/
+        assert_match /Lorem ipsum/, receiver.user_notifications.last.message
       else
         assert !receiver.user_notifications.any?, 
           "staff@iboard.cc should not have any notification"
@@ -45,8 +45,8 @@ describe "UserNotifications" do
       { message: 'Lorem ipsum ...', recipients: "user@iboard.cc,staff@iboard.cc"  } 
     )
     
-    assert_match @sender.user_notifications.last.message, /user@iboard.cc/
-    assert_match @sender.user_notifications.last.message, /staff@iboard.cc/
+    assert_match /user@iboard.cc/, @sender.user_notifications.last.message
+    assert_match /staff@iboard.cc/, @sender.user_notifications.last.message
     
   end
 end
