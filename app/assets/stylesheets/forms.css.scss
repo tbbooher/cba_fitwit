@@ -1,10 +1,31 @@
+$form-width: 600px;
 $label-width: $form-width / 3;
 $field-width: $form-width / 3 * 2;
+$color-base: #888;
+$color-text: darken($color-base,80%);
+$color-paper: lighten($color-base,35%);
+$box-background: lighten($color-base,35%);
+$color-header: darken($color-base,25%);
+$color-shadow: darken($color-base,50%);
+$color-border: $color-shadow;
+$color-link: lighten($color-text,10%);
+$hud-background: lighten($color-base,50%);
+$color-action-delete: #99363C;
+$color-action-delete-text: white;
 
 
 #container #container_main {
   label {
     width: $label-width;
+    float: left;
+  }
+
+  .field {
+    margin-bottom: 5px;
+  }
+
+  input {
+    display: inline;
   }
   
   input[type="text"] {
@@ -49,7 +70,7 @@ $field-width: $form-width / 3 * 2;
         }
         
         .attachment {
-          @include button-shape(5px);
+          /* @include button-shape(5px); */
           border: 1px solid lighten($color-shadow, 50%);
           padding: 5px;
           width: $field-width;
