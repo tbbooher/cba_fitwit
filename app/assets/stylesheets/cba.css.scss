@@ -78,12 +78,18 @@ input {
 }
 
 #error_explanation {
-  background-color: #FCC;
+/*  background-color: #FCC;
   border: solid 1px #C66;
   padding: 10px;
   padding-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
+    border: 2px solid #ffd400;
+    background-color: #fffdcc;
+    background-image: url('images/note.png');
+    color: #e3ac00;
 }
+
+
 
 .actions {
   margin-top: 5px;
