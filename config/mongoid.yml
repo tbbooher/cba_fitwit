@@ -8,11 +8,11 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: polco_development
+  database: fitwit_development
 
 test:
   <<: *defaults
-  database: polco_test
+  database: fitwit_test
 
 # set these environment variables on your prod server
 # TODO not sure if we need to set these . . .

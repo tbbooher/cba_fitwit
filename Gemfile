@@ -61,6 +61,7 @@ group :development, :test do
   gem 'jasmine' #, '1.0.2.1'
   gem 'headless', '0.1.0'  
   gem 'rspec', '2.6.0'
+  gem 'mongoid-rspec'
   gem 'rspec-rails', '2.6.1'
   gem 'json_pure'
   gem 'capybara'
@@ -73,7 +74,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'spork-testunit'
   gem 'launchy'
-  gem 'factory_girl_rails', "1.1.0"
+  gem 'factory_girl_rails', "1.3.0"
   gem 'ZenTest', '4.5.0'
   gem 'autotest'
   gem 'autotest-rails'
@@ -92,6 +93,7 @@ group :development, :test do
   gem "haml-rails"
   gem 'faker'
   gem 'ruby-prof', :git => 'git://github.com/wycats/ruby-prof.git'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
 # custom FitWit gems

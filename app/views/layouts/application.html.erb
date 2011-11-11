@@ -1,4 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<% if content_for? :resource_actions %>
+   <% content_for :right_column_top do %>
+     <div id='resource-actions'>
+       <%= yield( :resource_actions) %>
+     </div>
+   <% end %>
+<% end %>
+
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang='<%= I18n.locale.to_s -%>'>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -36,7 +45,7 @@
       jQuery.noConflict();
   } catch(e) {
   }
-  ;</script>
+  </script>
 
   <link rel="shortcut icon" href="http://e404themes.com/cold/wp-content/themes/cold/admin/images/favicon.ico"/>
 
@@ -99,7 +108,7 @@
       <div id="container">
 
         <% if content_for?(:right_column) || content_for?(:right_column_top) %>
-            <div id='right-column'>
+            <div id='sidebar' class="one_third last">
               <% if content_for?(:right_column_top) %>
                   <div id='right-column-top'>
                     <%= yield(:right_column_top) %>
@@ -124,7 +133,7 @@
                 end
               end if show_title? %>
           <%= yield %>
-          <div style='clear: all;'></div>
+          <div style='clear:both;'></div>
         </div>
       </div>
     </div>
