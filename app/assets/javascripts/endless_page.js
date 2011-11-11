@@ -2,13 +2,13 @@ var currentPage = 1;
 var state_scroll_to_top_link = 0;
 var bottom_announced = 0;
 
-function checkScroll() {  
+function checkScroll() {
   if (nearBottomOfPage()) {
     currentPage++;
     $('#load_more_link').click();
   } else {
     setTimeout("checkScroll()", 500);
-  }  
+  }
 }
 
 function controllToTopLink() {
@@ -22,8 +22,8 @@ function controllToTopLink() {
       $('#scroll-to-top').fadeTo(250,0.75);
       state_scroll_to_top_link = 1;
     }
-    
-    if(scrolledPercentage() >= 99) { 
+
+    if(scrolledPercentage() >= 99) {
       if( bottom_announced == 0){
         $('#scroll-to-top').effect('pulsate',{times: 2},250);
         bottom_announced = 1;
@@ -31,7 +31,7 @@ function controllToTopLink() {
     } else {
       bottom_announced = 0;
     }
-    
+
   }
   setTimeout("controllToTopLink()", 500);
 }
