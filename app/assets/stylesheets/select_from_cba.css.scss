@@ -99,3 +99,30 @@
   margin-bottom: 20px;
 }
 
+#action_buttons {
+
+  font-weight: 100;
+  font-size: 0.7em;
+   position: fixed;
+   top: 0px; right: 10px;
+   z-index: 3;
+}
+
+#action_buttons a:hover {
+  background: #008300;
+  color: #FFF270;
+}
+
+#action_buttons a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  margin: 5px;
+  margin-top: 0px;
+  padding: 5px;
+  background: #006800;
+  float: right;
+  -moz-border-radius: 0px 0px 5px 5px;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  -webkit-box-shadow: 0px 0px 2px 2px #444;
+}
