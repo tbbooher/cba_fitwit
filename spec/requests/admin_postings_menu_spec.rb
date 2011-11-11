@@ -12,7 +12,7 @@ describe "Test postings / homepage as an admin" do
         :is_draft => false)
       posting.save!
       log_in_as "admin@iboard.cc", 'thisisnotsecret'
-      visit root_path
+      visit base_posts_path
       sleep 5
       page.should have_content("My first posting")
       begin
