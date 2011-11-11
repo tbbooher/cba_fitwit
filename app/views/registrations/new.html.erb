@@ -13,13 +13,15 @@
         <%= devise_error_messages! %>
 
         <% if resource.invitation %>
-            <h3><%= t(:you_are_invited_by, :name => resource.invitation.user.name) %></h3>
+            <h3>
+              <%= t(:you_are_invited_by, :name => resource.invitation.user.name) %>
+            </h3>
 
             <p>
               <%= sanitize(resource.invitation.message||"") %>
-            <ul>
-              <li><%= resource.invitation.user.name %> &lt;<%= resource.invitation.user.email -%>&gt;</li>
-            </ul>
+               <ul>
+                 <li><%= resource.invitation.user.name %> &lt;<%= resource.invitation.user.email -%>&gt;</li>
+               </ul>
             </p>
             <%= f.hidden_field :invitation_id %>
         <% end %>
@@ -27,29 +29,29 @@
         <p>
           <%= f.label :name %>
           <span class='wpcf7-form-control-wrap'>
-      <%= f.text_field :name, class: 'wpcf7-text' %>
-      </span>
+            <%= f.text_field :name, class: 'wpcf7-text' %>
+          </span>
         </p>
 
         <p>
           <%= f.label :email %>
           <span class='wpcf7-form-control-wrap'>
-        <%= f.text_field :email, class: 'wpcf7-text' %>
-      </span>
+            <%= f.text_field :email, class: 'wpcf7-text' %>
+          </span>
         </p>
 
         <p>
           <%= f.label :password %>
           <span class='wpcf7-form-control-wrap'>
-        <%= f.password_field :password, class: 'wpcf7-text' %>
-      </span>
+            <%= f.password_field :password, class: 'wpcf7-text' %>
+          </span>
         </p>
 
         <p>
           <%= f.label :password_confirmation %>
           <span class='wpcf7-form-control-wrap'>
-        <%= f.password_field :password_confirmation, class: 'wpcf7-text' %>
-      </span>
+            <%= f.password_field :password_confirmation, class: 'wpcf7-text' %>
+          </span>
         </p>
 
         <p>

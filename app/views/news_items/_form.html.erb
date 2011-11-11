@@ -1,6 +1,6 @@
 <%= form_for(@news_item) do |f| %>
   <% if @news_item.errors.any? %>
-    <div id="error_explanation">
+    <div id="wpcf7-validation-errors">
       <h2><%= pluralize(@news_item.errors.count, "error") %> prohibited this news_item from being saved:</h2>
 
       <ul>
