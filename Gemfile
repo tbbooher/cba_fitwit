@@ -72,6 +72,7 @@ group :development, :test do
   #gem "spork", "> 0.9.0.rc"
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'guard-livereload'
   gem 'spork-testunit'
   gem 'launchy'
   gem 'factory_girl_rails', "1.3.0"
