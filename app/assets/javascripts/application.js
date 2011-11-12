@@ -10,35 +10,35 @@
 // require at_top/l10n
 //= require jquery-1.7.min
 
-// require at_top/preloader
-// require at_top/hoverIntent
-// require at_top/superfish
-// require at_top/scrollable.min
-// require at_top/jquery.prettyphoto
-// require at_top/prettyphoto_init
-// require at_top/comment-reply
+//= require at_top/preloader
+//= require at_top/hoverIntent
+//= require at_top/superfish
+//= require at_top/scrollable.min
+//= require at_top/jquery.prettyphoto
+//= require at_top/prettyphoto_init
+//= require at_top/comment-reply
 
-// require jquery_ujs
-// require jquery-ui.min
-// require jsort_sortable
-// require progress_upload_field
-// require autocomplete
+//= require jquery_ujs
+//= require jquery-ui.min
+//= require jsort_sortable
+//= require progress_upload_field
+//= require autocomplete
 
 //= require cba
-// require cba_string
-// require endless_page
-// require flashes
-// require jquery.tokeninput
-// require maps
-// require page_component_sortable
-// require search
-// require side_tab
-// require sprintf
+//= require cba_string
+//= require endless_page
+//= require flashes
+//= require jquery.tokeninput
+//= require maps
+//= require page_component_sortable
+//= require search
+//= require side_tab
+//= require sprintf
 
-// require textile
-// require user
-// require user_list
-// require user_notifications
+//= require textile
+//= require user
+//= require user_list
+//= require user_notifications
 
 // maybe . . .
 
