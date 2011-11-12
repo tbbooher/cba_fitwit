@@ -32,6 +32,9 @@ module Cba
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # but we want to debug
+    config.assets.debug = true
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
