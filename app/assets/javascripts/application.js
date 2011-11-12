@@ -22,6 +22,6 @@
 //= require jquery-ui.min
 //= require jsort_sortable
 //= require progress_upload_field
-// require autocomplete
+//= require autocomplete
 
-// require_tree .
+//= require_tree .
