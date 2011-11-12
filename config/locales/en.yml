@@ -283,3 +283,4 @@ en:
   mark_unread: 'Mark as unread'
   necessary_role: 'Necessary user role'
   document_not_found_or_authorized: 'Document not found or access restricted'
+  collaps_all: 'Collapse all'
