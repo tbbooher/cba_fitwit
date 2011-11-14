@@ -12,13 +12,13 @@ describe "Tags" do
   end
       
   it "should be rendered as a tag-cloud below the menue" do
-    visit root_path
+    visit base_posts_path
     page.should have_link('Hello')
     page.should have_link('world')
   end
   
   it "should lead to a list of postings when clicking a tag" do
-    visit root_path
+    visit base_posts_path
     click_link 'Hello'
     page.should have_content( "My first posting" ), "My first posting should be shown for tag 'Hello'"
   end

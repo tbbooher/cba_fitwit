@@ -126,3 +126,21 @@
   -webkit-border-radius: 0px 0px 5px 5px;
   -webkit-box-shadow: 0px 0px 2px 2px #444;
 }
+
+#overlay {
+  position: fixed;
+  _position: absolute;
+  /* hack for internet explorer 6*/
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 9999;
+  display: none;
+  border: 5px solid #ddd;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background: #FAFAFA;
+}

@@ -1,24 +1,33 @@
 - title 'posts', false
 = javascript 'endless_page'
 
-%div
-    - if (p=Page.top_pages).any?
-        %div.right_column
-            - for page in p
-                = render :partial => '/pages/page_intro', :locals => { :page => page }
-                %p.content_seperator
+- if can?( :create, Posting ) && @blog
+    - content_for :resource_actions do
+        %p= ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog), :add_class => 'green')
 
+.column-wrapper
+
+    - if (p=Page.top_pages.where(is_draft: draft_mode)).any?
+        - content_for :right_column do
+            - for page in p
+                = render :partial => 'pages/page_intro', :locals => { :page => page }
+                %p.content_seperator
+            = insert_twitter_box
     - unless @blog.nil?
         %p{:style=>'clear: left;'}
+
         %div#postings.left_column
-            = link_to( t(:create_new_posting), new_blog_posting_path(@blog), :class => 'green_button') if can? :create, Posting
-            %p= will_paginate @postings
+            - render_pagination_box @postings
             - for posting in @postings
                 %div{:style=>'clear: right;'}
-                = render :partial => posting, :locals => { :blog => @blog }
+                = render :partial =>  posting, :locals => { :blog => @blog }
                 %p{:style=>'clear: left;'}
             = render :partial => '/home/load_more', :locals => { :resources => @postings, :path => root_path }
-            %p= will_paginate @postings
-    %p{:style=>'clear: right;'}
+            - render_pagination_box @postings
 
-%div{:style=>'clear: both;'}
+        %p{:style=>'clear: right;'}
+
+    .clear
+
+#tagcloud
+    = tag_cloud

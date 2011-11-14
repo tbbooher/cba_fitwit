@@ -1,0 +1,45 @@
+%h1 Listing locations
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Directions
+    %th Contact info
+    %th City
+    %th Created at
+    %th Updated at
+    %th Franchise
+    %th Us state
+    %th Short description
+    %th Zip
+    %th Street address
+    %th Lat
+    %th Lon
+    %th
+    %th
+    %th
+
+  - @locations.each do |location|
+    %tr
+      %td= location.name
+      %td= location.description
+      %td= location.directions
+      %td= location.contact_info
+      %td= location.city
+      %td= location.created_at
+      %td= location.updated_at
+      %td= location.franchise_id
+      %td= location.us_state
+      %td= location.short_description
+      %td= location.zip
+      %td= location.street_address
+      %td= location.lat
+      %td= location.lon
+      %td= link_to 'Show', location
+      %td= link_to 'Edit', edit_location_path(location)
+      %td= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Location', new_location_path

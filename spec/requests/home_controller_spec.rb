@@ -21,7 +21,7 @@ describe "HomeController:" do
       title: 'A Private Posting', is_draft: false, user: User.first,
       body: 'This is a private posting in blog Private', tags: 'PrivPost'
     )
-    visit root_path
+    visit base_posts_path
   end
 
   describe "For unauthorized users" do
@@ -87,12 +87,12 @@ describe "HomeController:" do
   describe "TagCloud" do
     describe "For unauthorized users" do
       it "should show public posting through PubPost Tag" do
-        visit root_path
+        visit base_posts_path
         click_link "PubPost"
         page.should have_content "A Public Posting"
       end
       it "should not show private posting through PrivPost Tag" do
-        visit root_path
+        visit base_posts_path
         page.should have_no_link "PrivPost"
       end
       it "should not list private postings for tag PrivPost" do

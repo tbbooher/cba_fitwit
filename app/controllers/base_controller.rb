@@ -8,6 +8,7 @@ class BaseController < ApplicationController
   end
 
   def home
+    # TODO -- delete?
     @bigpic = true
     @news_items = NewsItem.where(display: true) #find(:all, :conditions => 'display = true', :order => 'created_at DESC')
     #schedule_data
