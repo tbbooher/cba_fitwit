@@ -1,0 +1,45 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @sponsor.name
+%p
+  %b Description:
+  = @sponsor.description
+%p
+  %b Address:
+  = @sponsor.address
+%p
+  %b Phone:
+  = @sponsor.phone
+%p
+  %b Url:
+  = @sponsor.url
+%p
+  %b Img name:
+  = @sponsor.img_name
+%p
+  %b Created at:
+  = @sponsor.created_at
+%p
+  %b Updated at:
+  = @sponsor.updated_at
+%p
+  %b Logo file name:
+  = @sponsor.logo_file_name
+%p
+  %b Logo content type:
+  = @sponsor.logo_content_type
+%p
+  %b Logo file size:
+  = @sponsor.logo_file_size
+%p
+  %b Logo updated at:
+  = @sponsor.logo_updated_at
+%p
+  %b Logo style:
+  = @sponsor.logo_style
+
+= link_to 'Edit', edit_sponsor_path(@sponsor)
+\|
+= link_to 'Back', sponsors_path

@@ -1,0 +1,48 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @location.name
+%p
+  %b Description:
+  = @location.description
+%p
+  %b Directions:
+  = @location.directions
+%p
+  %b Contact info:
+  = @location.contact_info
+%p
+  %b City:
+  = @location.city
+%p
+  %b Created at:
+  = @location.created_at
+%p
+  %b Updated at:
+  = @location.updated_at
+%p
+  %b Franchise:
+  = @location.franchise_id
+%p
+  %b Us state:
+  = @location.us_state
+%p
+  %b Short description:
+  = @location.short_description
+%p
+  %b Zip:
+  = @location.zip
+%p
+  %b Street address:
+  = @location.street_address
+%p
+  %b Lat:
+  = @location.lat
+%p
+  %b Lon:
+  = @location.lon
+
+= link_to 'Edit', edit_location_path(@location)
+\|
+= link_to 'Back', locations_path

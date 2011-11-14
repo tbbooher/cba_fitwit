@@ -2,6 +2,10 @@
 
 Cba::Application.routes.draw do
 
+  resources :locations
+
+  resources :sponsors
+
   resources :events
 
   get "calendar/index"

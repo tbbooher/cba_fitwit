@@ -1,0 +1,43 @@
+%h1 Listing sponsors
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Address
+    %th Phone
+    %th Url
+    %th Img name
+    %th Created at
+    %th Updated at
+    %th Logo file name
+    %th Logo content type
+    %th Logo file size
+    %th Logo updated at
+    %th Logo style
+    %th
+    %th
+    %th
+
+  - @sponsors.each do |sponsor|
+    %tr
+      %td= sponsor.name
+      %td= sponsor.description
+      %td= sponsor.address
+      %td= sponsor.phone
+      %td= sponsor.url
+      %td= sponsor.img_name
+      %td= sponsor.created_at
+      %td= sponsor.updated_at
+      %td= sponsor.logo_file_name
+      %td= sponsor.logo_content_type
+      %td= sponsor.logo_file_size
+      %td= sponsor.logo_updated_at
+      %td= sponsor.logo_style
+      %td= link_to 'Show', sponsor
+      %td= link_to 'Edit', edit_sponsor_path(sponsor)
+      %td= link_to 'Destroy', sponsor, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Sponsor', new_sponsor_path

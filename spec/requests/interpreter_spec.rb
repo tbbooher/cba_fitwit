@@ -69,7 +69,7 @@ describe "Interpreter" do
     page.find('#label').should have_content "48.2165,14.2618"
     page.find("#map").should have_content "Google"
     page.find('#map-container').click_link "close"
-    assert page.find('#overlay').visible? == false, "Overlay sould close"
+    assert page.find('#overlay').visible? == false, "Overlay should close"
   end
   
   it "map in overlay should provide a link to google-maps", :js => true do

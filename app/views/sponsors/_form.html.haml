@@ -1,0 +1,49 @@
+= form_for @sponsor do |f|
+  -if @sponsor.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@sponsor.errors.count, "error")} prohibited this sponsor from being saved:"
+      %ul
+        - @sponsor.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_field :description
+  .field
+    = f.label :address
+    = f.text_field :address
+  .field
+    = f.label :phone
+    = f.text_field :phone
+  .field
+    = f.label :url
+    = f.text_field :url
+  .field
+    = f.label :img_name
+    = f.text_field :img_name
+  .field
+    = f.label :created_at
+    = f.datetime_select :created_at
+  .field
+    = f.label :updated_at
+    = f.datetime_select :updated_at
+  .field
+    = f.label :logo_file_name
+    = f.text_field :logo_file_name
+  .field
+    = f.label :logo_content_type
+    = f.text_field :logo_content_type
+  .field
+    = f.label :logo_file_size
+    = f.number_field :logo_file_size
+  .field
+    = f.label :logo_updated_at
+    = f.datetime_select :logo_updated_at
+  .field
+    = f.label :logo_style
+    = f.text_field :logo_style
+  .actions
+    = f.submit 'Save'

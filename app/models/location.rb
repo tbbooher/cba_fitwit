@@ -4,7 +4,7 @@ class Location
 
   has_many :fitness_camps, :dependent => :destroy
   has_and_belongs_to_many :sponsors
-  belongs_to :franchise
+#  belongs_to :franchise
 
   field :name, :type => String
   field :description, :type => String
@@ -123,9 +123,7 @@ class Location
   end
 
   def future_fitness_camps
-    FitnessCamp.find(:all,
-                     :conditions => ["location_id = ? AND session_start_date >= ? AND session_active = TRUE",
-                                     self.id, Date.today().to_s(:db)])
+    FitnessCamp.where(location_id: self.id).and(:session_start_date.gt => Date.today).and(session_active: true)
   end
 
   def one_line_address
