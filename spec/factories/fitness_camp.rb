@@ -5,6 +5,6 @@ FactoryGirl.define do
     session_end_date  Date.parse("1 Jan 2013")
     session_active  true
     description Faker::Company.bs
-    location
+    location # :factory => :location
   end
 end

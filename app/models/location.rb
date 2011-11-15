@@ -20,6 +20,9 @@ class Location
   field :street_address, :type => String
   field :lat, :type => Float
   field :lon, :type => Float
+  
+  # named scopes
+  scope :future_camps, 
 
   CITY_TYPES = [
       #  Displayed        stored in db
@@ -86,12 +89,14 @@ class Location
     self.find(:all).collect { |my_l| ["#{my_l.name} by #{my_l.franchise.name}", my_l.id] }
   end
 
-  def all_users_registered_for_upcoming_camp
-    User.find(:all,
-              :joins => {:registrations => {:time_slot => {:fitness_camp => :location}}},
-              :conditions => ['location_id = ? and session_start_date >= ?',
-                              self.id, "2006-07-18"]) # Date.today.to_s(:db)
-  end
+  # I think this is a junk method
+  # def all_users_registered_for_upcoming_camp
+  #   User.
+  #   User.find(:all,
+  #             :joins => {:registrations => {:time_slot => {:fitness_camp => :location}}},
+  #             :conditions => ['location_id = ? and session_start_date >= ?',
+  #                             self.id, "2006-07-18"]) # Date.today.to_s(:db)
+  # end
 
 #  def all_emails_for_upcoming_camp
 #    User.find(:all,
@@ -101,12 +106,16 @@ class Location
 #        self.id,"2006-07-18"]) # Date.today.to_s(:db)
 #  end
 
+  def future_fitness_camps
+    self.fitness_camps.future.all.to_a
+  end
+
   def future_fitness_camp_count
-    FitnessCamp.find(:all, :conditions => ['session_start_date >= ? and location_id = ?', Date.today.to_s(:db), self.id]).length
+    self.future_fitness_camps.size
   end
 
   def self.find_all_states
-    self.find(:all).map { |l| [l.us_state, l.state_full_name] }.uniq
+    Location.all.map { |l| [l.us_state, l.state_full_name] }.uniq
   end
 
   def state_full_name
@@ -120,10 +129,6 @@ class Location
 
   def multi_line_address
     "#{self.street_address}<br />#{self.city}, #{self.us_state} #{self.zip}"
-  end
-
-  def future_fitness_camps
-    FitnessCamp.where(location_id: self.id).and(:session_start_date.gt => Date.today).and(session_active: true)
   end
 
   def one_line_address
