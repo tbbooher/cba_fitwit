@@ -8,7 +8,7 @@ class TimeSlot
   field :sold_out, :type => Boolean
 
   belongs_to :fitness_camp
-  has_many :meetings, :dependent => :destroy
+  #has_many :meetings, :dependent => :destroy
   has_many :registrations, :dependent => :destroy
   has_many :prizes, :dependent => :destroy
   

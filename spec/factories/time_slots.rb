@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :time_slot do
+    #my_time = 4.weeks.from_now
     sold_out false
     fitness_camp
     start_time {Time.now}
-    end_time {8.weeks.from_now}
+    end_time {Time.now + 8.weeks}
 
     trait :future_slot do
       start_time { 4.weeks.from_now }

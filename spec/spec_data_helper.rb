@@ -147,4 +147,12 @@ module SpecDataHelper
     page.save!
     page
   end
+
+  def random_time_in_the_future
+    week_num = (rand(10) +1)
+    day_num = (1+rand(30))
+    hour_num = (1+rand(12))
+    future_date = week_num.weeks.from_now
+    Date.local(future_date.year,future_date.month,day_num, hour_num)
+  end
 end

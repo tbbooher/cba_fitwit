@@ -2,6 +2,8 @@
 
 Cba::Application.routes.draw do
 
+  resources :meetings
+
   resources :locations
 
   resources :sponsors

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Location do
+describe FitnessCamp do
 
   before(:all) do
     cleanup_database
@@ -8,13 +8,15 @@ describe Location do
     @future_fitness_camp = FactoryGirl.create(:fitness_camp)
     @past_fitness_camp = FactoryGirl.create(:fitness_camp)
     @current_fitness_camp = FactoryGirl.create(:fitness_camp)
-    @u = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user)
+    @users = FactoryGirl.create_list(:user, 10)
+    ts = FactoryGirl.create(:time_slot)
     # assign 10 users to each camp and 3 associated time_slots
     # this user should have
   end
 
   it "should have a full title" do
-    assert_equal "Parkour from 12 Dec 12 to 01 Jan 13", @f.full_title
+    assert_equal "Parkour from 12 Dec 12 to 01 Jan 13", @future_fitness_camp.full_title
   end
 
   it "should have potential dates" do
