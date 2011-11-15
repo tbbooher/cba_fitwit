@@ -1,6 +1,6 @@
 Factory.define :user do |u|
-  u.email Faker::Internet.email
-  u.name Faker::Name.last_name
+  u.email {Faker::Internet.email}
+  u.name {Faker::Name.last_name}
   u.roles_mask 1
   u.first_name "Michael"
   u.last_name "Payne"
