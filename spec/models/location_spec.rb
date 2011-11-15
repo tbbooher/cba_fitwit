@@ -27,7 +27,17 @@ describe Location do
 
   it "should have a future set of fitness camps" do
     f = FactoryGirl.create(:fitness_camp)
-    assert_not_nil @l.future_fitness_camps
+    @l.fitness_camps << f
+    assert_equal "Parkour", @l.future_fitness_camps.first.title
+  end
+
+  it "should be able to report on all states with FitWit's" do
+    assert_equal [["GA", "Georgia"]], Location.find_all_states
+    assert_equal 1, Location.find_all_states.size
+  end
+
+  it "should be able to show the future fitness camp count" do
+    assert_equal 1, @l.future_fitness_camp_count
   end
 
 end

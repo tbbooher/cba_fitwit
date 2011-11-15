@@ -11,6 +11,7 @@ class FitnessCamp
 
   belongs_to :location
   has_many :time_slots, :dependent => :destroy
+
 #  has_many :orders, :through => :registrations,
 #    :uniq => true,
 #    :include => :user,
@@ -19,7 +20,11 @@ class FitnessCamp
   # VALIDATIONS                                  #
   ################################################
   validates_presence_of  :location_id, :title
-  validates_numericality_of :location_id
+
+  ################################################
+  # SCOPES                                       #
+  ################################################
+  scope :future, where(:session_start_date.gt => Date.today).and(session_active: true)
   
   #  def self.find_available_fitnesscamps
   #    find(:all) #  :order => "session_start_date")

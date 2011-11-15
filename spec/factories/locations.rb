@@ -15,5 +15,6 @@ FactoryGirl.define do
       street_address "211 Birch Road"
       lat 9.99
       lon 9.99
+      #fitness_camps {|fc| [fc.association(:fitness_camp)]}
     end
 end
