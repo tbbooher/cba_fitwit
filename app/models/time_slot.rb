@@ -2,15 +2,16 @@ class TimeSlot
 
   include Mongoid::Document
 
-  field :fitness_camp_id, :type => Integer
   field :start_time, :type => Time
   field :end_time, :type => Time
   field :sold_out, :type => Boolean
 
-  belongs_to :fitness_camp
+  embedded_in :fitness_camp
   #has_many :meetings, :dependent => :destroy
-  has_many :registrations, :dependent => :destroy
-  has_many :prizes, :dependent => :destroy
+
+  has_many :registrations
+  embeds_many :meetings
+  embeds_many :prizes
   
   def start_time_f
     self.start_time.strftime(" %I:%M%p").gsub(/ 0(\d\D)/, '\1')

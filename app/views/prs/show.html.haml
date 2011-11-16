@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Score:
+  = @pr.score
+%p
+  %b User note:
+  = @pr.user_note
+%p
+  %b Rxd:
+  = @pr.rxd
+%p
+  %b Common value:
+  = @pr.common_value
+
+= link_to 'Edit', edit_pr_path(@pr)
+\|
+= link_to 'Back', prs_path
