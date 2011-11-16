@@ -1,0 +1,22 @@
+= form_for @pr do |f|
+  -if @pr.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@pr.errors.count, "error")} prohibited this pr from being saved:"
+      %ul
+        - @pr.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :score
+    = f.text_field :score
+  .field
+    = f.label :user_note
+    = f.text_field :user_note
+  .field
+    = f.label :rxd
+    = f.check_box :rxd
+  .field
+    = f.label :common_value
+    = f.text_field :common_value
+  .actions
+    = f.submit 'Save'

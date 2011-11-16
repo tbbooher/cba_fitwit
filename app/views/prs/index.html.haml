@@ -1,0 +1,25 @@
+%h1 Listing prs
+
+%table
+  %tr
+    %th Score
+    %th User note
+    %th Rxd
+    %th Common value
+    %th
+    %th
+    %th
+
+  - @prs.each do |pr|
+    %tr
+      %td= pr.score
+      %td= pr.user_note
+      %td= pr.rxd
+      %td= pr.common_value
+      %td= link_to 'Show', pr
+      %td= link_to 'Edit', edit_pr_path(pr)
+      %td= link_to 'Destroy', pr, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Pr', new_pr_path
