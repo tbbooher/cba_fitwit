@@ -1,0 +1,2 @@
+module FitWitWorkoutsHelper
+end
