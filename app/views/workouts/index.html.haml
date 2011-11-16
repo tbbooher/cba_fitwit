@@ -1,0 +1,25 @@
+%h1 Listing workouts
+
+%table
+  %tr
+    %th Score
+    %th User note
+    %th Rxd
+    %th Common value
+    %th
+    %th
+    %th
+
+  - @workouts.each do |workout|
+    %tr
+      %td= workout.score
+      %td= workout.user_note
+      %td= workout.rxd
+      %td= workout.common_value
+      %td= link_to 'Show', workout
+      %td= link_to 'Edit', edit_workout_path(workout)
+      %td= link_to 'Destroy', workout, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Workout', new_workout_path

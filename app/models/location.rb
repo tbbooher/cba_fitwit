@@ -2,7 +2,7 @@ class Location
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  has_many :fitness_camps, :dependent => :destroy
+  embeds_many :fitness_camps
   has_and_belongs_to_many :sponsors
 #  belongs_to :franchise
 
@@ -22,7 +22,6 @@ class Location
   field :lon, :type => Float
   
   # named scopes
-  scope :future_camps, 
 
   CITY_TYPES = [
       #  Displayed        stored in db

@@ -134,6 +134,12 @@ class User
   embeds_many :user_groups
   has_many    :articles
 
+  # FitWit Specifics
+  has_many :workouts
+  has_many :registrations
+  has_many :attendances, class_name: "meeting", inverse_of: :attendees
+  has_many :registrations
+
   validates_presence_of   :name
   validates_uniqueness_of :name, :case_sensitive => false
   validates               :email, :presence => true, :email => true

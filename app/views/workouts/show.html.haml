@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Score:
+  = @workout.score
+%p
+  %b User note:
+  = @workout.user_note
+%p
+  %b Rxd:
+  = @workout.rxd
+%p
+  %b Common value:
+  = @workout.common_value
+
+= link_to 'Edit', edit_workout_path(@workout)
+\|
+= link_to 'Back', workouts_path
