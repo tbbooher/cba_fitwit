@@ -5,10 +5,9 @@ class Meeting
 
   field :meeting_date, type: Date
 
-  belongs_to :time_slot
-  has_many :meeting_users, :dependent => :destroy
-  has_many :users, :through => :meeting_users
-  has_many :exertions, :through => :meeting_users
+  embedded_in :time_slot
+  has_many :attendees, class_name: "user", inverse_of: :meeting
+  # need to get workouts in here
   
   def meeting_date_f
     self.meeting_date.strftime("%d-%b")

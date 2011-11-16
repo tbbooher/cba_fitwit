@@ -9,8 +9,8 @@ class FitnessCamp
   field :description, :type => String
   #field :location_id, :type => Integer
 
-  belongs_to :location
-  has_many :time_slots, :dependent => :destroy
+  embedded_in :location
+  embeds_many :time_slots
 
 #  has_many :orders, :through => :registrations,
 #    :uniq => true,
