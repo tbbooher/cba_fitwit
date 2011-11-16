@@ -1,0 +1,25 @@
+%h1 Listing fit_wit_workouts
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Units
+    %th Score method
+    %th
+    %th
+    %th
+
+  - @fit_wit_workouts.each do |fit_wit_workout|
+    %tr
+      %td= fit_wit_workout.name
+      %td= fit_wit_workout.description
+      %td= fit_wit_workout.units
+      %td= fit_wit_workout.score_method
+      %td= link_to 'Show', fit_wit_workout
+      %td= link_to 'Edit', edit_fit_wit_workout_path(fit_wit_workout)
+      %td= link_to 'Destroy', fit_wit_workout, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Fit wit workout', new_fit_wit_workout_path
