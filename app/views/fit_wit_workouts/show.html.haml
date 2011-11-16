@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @fit_wit_workout.name
+%p
+  %b Description:
+  = @fit_wit_workout.description
+%p
+  %b Units:
+  = @fit_wit_workout.units
+%p
+  %b Score method:
+  = @fit_wit_workout.score_method
+
+= link_to 'Edit', edit_fit_wit_workout_path(@fit_wit_workout)
+\|
+= link_to 'Back', fit_wit_workouts_path
