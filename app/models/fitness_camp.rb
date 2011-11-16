@@ -5,9 +5,8 @@ class FitnessCamp
   field :title, :type => String
   field :session_start_date, :type => Date
   field :session_end_date, :type => Date
-  field :session_active, :type => Boolean
+  field :session_active, :type => Boolean, default: false
   field :description, :type => String
-  #field :location_id, :type => Integer
 
   embedded_in :location
   embeds_many :time_slots
@@ -19,7 +18,7 @@ class FitnessCamp
   ################################################
   # VALIDATIONS                                  #
   ################################################
-  validates_presence_of  :location_id, :title
+  validates_presence_of  :title, :session_start_date, :session_end_date
 
   ################################################
   # SCOPES                                       #
