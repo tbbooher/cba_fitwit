@@ -2,6 +2,8 @@
 
 Cba::Application.routes.draw do
 
+  resources :prs
+
   resources :fit_wit_workouts
 
   resources :workouts
