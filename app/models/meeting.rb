@@ -6,7 +6,7 @@ class Meeting
   field :meeting_date, type: Date
 
   embedded_in :time_slot
-  has_many :attendees, class_name: "user", inverse_of: :meeting
+  references_many :attendees, class_name: "User", inverse_of: :attendances
   # need to get workouts in here
   
   def meeting_date_f
