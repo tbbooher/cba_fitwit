@@ -28,9 +28,9 @@ require File::expand_path('../../spec_helper', __FILE__)
 describe "The user registration process" do
 
   it "should not allow a non-registered user to sign up" do
-
+    pending
     #To change this template use File | Settings | File Templates.
-    true.should == false
+    #true.should == false
   end
 
   it "should not allow any users to register without agreeing to rules" do

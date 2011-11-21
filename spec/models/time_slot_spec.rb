@@ -4,8 +4,12 @@ describe TimeSlot do
 
   before(:all) do
     cleanup_database
-    @user = FactoryGirl.create(:user)
     @six_am = FactoryGirl.create(:six_am_slot)
+    # create 10 registrations
+    FactoryGirl.create_list(:user,10).each do |the_user|
+      o = FactoryGirl.create(:order, user: the_user)
+      r = FactoryGirl.create(:registration, order: o, time_slot: @six_am)
+    end
   end
 
   it "should have a start and end time" do
@@ -22,7 +26,6 @@ describe TimeSlot do
 
   it "should be able to display all registered campers" do
     # need to create 10 users and register them all
-    load_campers(@six_am)
     @six_am.campers.size.should eq(10)
   end
 
@@ -48,8 +51,8 @@ describe TimeSlot do
   end
 
   it "should show who is going" do
-    load_campers(@six_am)    
-    @six_am.users_going.size.should eq(10)
+    User.all.count.should eq(11)
+    @six_am.users_going.count.should eq(10) 
   end
   
 end
