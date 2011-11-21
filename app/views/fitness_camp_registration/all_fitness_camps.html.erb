@@ -1,6 +1,6 @@
-<% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
+<%# hidden_div_if(@cart.items.empty?, :id => "cart") do %>
     <%= render(:partial => "cart", :object => @cart) %>
-<% end %>
+<%# end %>
 <%= image_tag "headers/h1_register.jpg" %>
 <p>
   To register for a camp,
@@ -11,7 +11,7 @@
   <% @fitness_camps.each do |fc| %>
       <dt><%= fc.full_title %></dt>
       <dd>
-        <%= "#{fc.description}<br />" unless fc.description.nil? -%>
+        <%= "#{fc.description}<br />".html_safe unless fc.description.nil? -%>
         Location: <%= fc.location.name_in_context %>
         <br/>
         <!-- NOW LIST TIME SLOTS -->
@@ -22,7 +22,7 @@
                 </div>
             <% else %>
                 <div style="float:left;padding-top:10px;">
-                  <% form_tag({ :action => :add_to_cart, :id => time_slot }) do  %><!-- , :html => {:id => "form#{time_slot.id}"}  -->
+                  <%= form_tag({ :action => :add_to_cart, :id => time_slot }) do  %>
                      <%= submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'registration_submit button') %>
                   <% end %>
 		</div><!-- for time slot end -->
