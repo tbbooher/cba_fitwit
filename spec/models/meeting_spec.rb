@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe Meeting do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it "should have a meeting date" do
+    
+  end
+
 end
