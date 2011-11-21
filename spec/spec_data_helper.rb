@@ -169,48 +169,4 @@ module SpecDataHelper
     Time.local(future_date.year, future_date.month, future_date.day, hour_num)
   end
 
-  def load_campers(ts)
-    Registration.delete_all
-    Order.delete_all
-    User.delete_all
-    FactoryGirl.create_list(:user,5).each do |the_user|
-      # the_user.class.to_s.should eq("User")
-      o = FactoryGirl.create(:order, user: the_user)
-      r = FactoryGirl.create(:registration, order: o, time_slot: ts)
-      puts "Created for #{the_user}!!"
-    end
-  end
-
-  def a_user_works_out
-    # load a fitness camp
-    @user = FactoryGirl.create(:user)
-    # @fit_camp = FactoryGirl.create(:fitness_camp)
-    @six_am = FactoryGirl.create(:six_am_slot)
-    # @fit_camp.time_slots << @six_am
-    # the time slot needs some meetings
-    @meeting = FactoryGirl.create(:meeting, meeting_date: Date.today)
-    @six_am.meetings << @meeting
-    # they need some workouts to do
-    @fww = FactoryGirl.create(:fit_wit_workout)
-    @fww_amrap = FactoryGirl.create(:fit_wit_workout, description: '16 minutes 500m run with sandbag Then, for the remaining time AMRAP(as many rounds as possible): 6 pullups (or 12 jumping pull-ups or rows) 8 dips 10 barrier squat jumps', name: 'Cassi',  units: 'rounds', score_method: 'simple-rounds')
-    # the user needs to be registered for a time_slot
-    r = Registration.new
-    r.time_slot = @six_am
-    r.save!
-    o = Order.new
-    o.user = @user
-    o.registrations << r
-    o.save!
-    # now let's attend a meeting and workout there
-    @meeting.record_attendance(@user) # something like this . . .
-    @wo = Workout.new
-    @wo.fit_wit_workout = @fww_amrap
-    @wo.rxd = true
-    @wo.user_note = "hard"
-    @wo.common_value = 10
-    @wo.score = 16
-    @wo.save
-    @meeting.record_workout(@wo)
-    
-  end
 end
