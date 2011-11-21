@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :meeting do
-      meeting_date "2011-11-15"
-    end
+    meeting_date "2011-11-15"
+    time_slot
+  end
 end
