@@ -12,17 +12,16 @@ class FitnessCampRegistrationController < ApplicationController
 
   def index
     @fit_wit_form = true
-    @location_id = params[:id].to_i
+    @location_id = params[:id]
     @location = Location.find(@location_id)
     @pagetitle = "Registrations for #{@location.name}"
-    @fitnesscamps = FitnessCamp.find(:all,
-      :conditions => ['location_id = ? and session_end_date >= ? and fitness_camps.session_active = true',
-      @location_id, Date.today.to_s(:db)])
-    @locations = Location.find(:all, :conditions => ['id <> ?',@location_id])
-    @include_javascript = true
+    @fitnesscamps = FitnessCamp.future # can work in location
+    @locations = Location.where(_id: @location_id)
+#    @include_javascript = true
   end
 
   def add_to_cart
+    # this processes the form when we add a camp to a cart
     begin
       timeslot = TimeSlot.find(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -103,11 +102,12 @@ class FitnessCampRegistrationController < ApplicationController
     # this page shows the @cart contents to the user
     # the next page is the consent page
     # just check to see if the user is logged in
-    unless @user = User.find_by_id(session[:user_id])
+    # we need to use devise for this
+    unless @user = current_user # User.find_by_id(session[:user_id])
       flash[:notice] = "You must log in to complete the registration process." +
         " If you do not have an account. Please sign-up before proceeding."
-      session[:return_to] = request.request_uri
-      redirect_to(:controller => 'login', :action => 'login')
+      session[:return_to] = request.fullpath
+      redirect_to user_session_path 
     else # they are logged in
       if @user.has_active_subscription # they need to be blocked from registration
         redirect_to(:action => 'no_need_to_register')
@@ -394,12 +394,14 @@ class FitnessCampRegistrationController < ApplicationController
     @fit_wit_form = true
     @mystates = Location.find_all_states
     # TODO: change to active fitness camps and camps with time_slots
-    @fitness_camps = FitnessCamp.find(:all,
-                                   :joins => 'INNER JOIN time_slots ON time_slots.fitness_camp_id = fitness_camps.id',
-                                   :select => 'fitness_camps.*, count(time_slots.id) time_slots_count',
-                                   :conditions => ['fitness_camps.session_active = true AND fitness_camps.session_end_date >= ?',  Date.today.to_s(:db)],
-                                   :group => 'time_slots.fitness_camp_id HAVING time_slots_count > 0',
-                                   :order => 'session_start_date ASC')
+    # we want all upcoming fitness camps
+    @fitness_camps = FitnessCamp.upcoming_and_current
+    # find(:all,
+    #      :joins => 'INNER JOIN time_slots ON time_slots.fitness_camp_id = fitness_camps.id',
+    #      :select => 'fitness_camps.*, count(time_slots.id) time_slots_count',
+    #      :conditions => ['fitness_camps.session_active = true AND fitness_camps.session_end_date >= ?',  Date.today.to_s(:db)],
+    #      :group => 'time_slots.fitness_camp_id HAVING time_slots_count > 0',
+    #      :order => 'session_start_date ASC')
     #      :conditions => 'fitness_camps.session_active = true',
   end
 

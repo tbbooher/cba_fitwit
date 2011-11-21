@@ -188,6 +188,8 @@ class User
   #                         #
   ###########################
 
+  # TODO -- include this in a module?
+
   def full_name
     "#{first_name} #{last_name}"
   end
