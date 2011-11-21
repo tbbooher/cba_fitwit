@@ -3,7 +3,6 @@ require 'stateflow'
 
 # No persistence
 Stateflow.persistence = :mongoid
-# ??
 
 class Order
   include Mongoid::Document
@@ -13,13 +12,11 @@ class Order
   field :amount, :type => Integer
   field :state, :type => String, default: "pending"
   field :description, :type => String
-  field :coupon_code_id, :type => Integer
 
   has_many :registrations, :dependent => :destroy
   has_many :order_transactions,
     :class_name => 'OrderTransaction', 
     :dependent => :destroy
-  #  has_many :fitness_camps, :through => :registrations
   belongs_to :user
   belongs_to :coupon_code # , :counter_cache => :uses
   # serialize :params TODO -- fix this
@@ -61,7 +58,6 @@ class Order
     initial :pending
 
     state :pending, :authorized, :paid, :payment_declined
-
 
     event :payment_authorized do
       transitions :from => :pending,

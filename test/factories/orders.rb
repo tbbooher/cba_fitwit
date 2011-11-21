@@ -1,42 +1,46 @@
-  Factory.define :order do |o|
-    o.user {User.first}
-    o.amount 100
+FactoryGirl.define do
+  factory :order do 
+    # user {User.first}
+    amount 100
+    user {User.first}
+    description "a default order"
   end
 
-  Factory.define :pending, :class => Order do |o|
-    o.description "pending order"
-    o.user {User.first}
-    o.amount 100
-    o.state 'pending'
+  factory :pending, :class => Order do 
+    description "pending order"
+    user {User.first}
+    amount 100
+    state 'pending'
   end
 
-  Factory.define :authorized, :class => Order do |o|
-    o.description 'authorized order'
-    o.user {User.first}
-    o.amount 100
-    o.state 'authorized'
+  factory :authorized, :class => Order do 
+    description 'authorized order'
+    user {User.first}
+    amount 100
+    state 'authorized'
   end
 
-  Factory.define :uncapturable, :class => Order do |o|
-    o.user {User.first}
-    o.description 'authorized, but uncapturable'
-    o.amount 100
-    o.state 'authorized'
+  factory :uncapturable, :class => Order do 
+    user {User.first}
+    description 'authorized, but uncapturable'
+    amount 100
+    state 'authorized'
   end
 
-  Factory.define :uncapturable_error, :class => Order  do |o|
-    o.user {User.first}
-    o.description 'authorized, but uncapturable due to error'
-    o.amount 101
-    o.state 'authorized'
-    o.order_transactions {|ot| [ot.association(:authorization_with_error_reference)]}
+  factory :uncapturable_error, :class => Order  do 
+    user {User.first}
+    description 'authorized, but uncapturable due to error'
+    amount 101
+    state 'authorized'
+    order_transactions {|ot| [ot.association(:authorization_with_error_reference)]}
     #association :order_transactions, :factory => :authorization_with_error_reference
-    #o.order_transactions { FactoryGirl.build(:authorization_with_error_reference) }
+    #order_transactions { FactoryGirl.build(:authorization_with_error_reference) }
   end
 
-  Factory.define :subscription_test, :class => Order  do |o|
-    o.user {User.first}
-    o.description 'this is an order for a subscription'
-    o.amount '1300'
-    o.state 'authorized'
+  factory :subscription_test, :class => Order  do 
+    user {User.first}
+    description 'this is an order for a subscription'
+    amount '1300'
+    state 'authorized'
   end
+end
