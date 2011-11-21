@@ -1,7 +1,9 @@
 FactoryGirl.define do
   factory :order do 
-    user {User.first}
+    # user {User.first}
     amount 100
+    user {User.first}
+    description "a default order"
   end
 
   factory :pending, :class => Order do 

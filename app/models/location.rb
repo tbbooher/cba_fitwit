@@ -2,7 +2,7 @@ class Location
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  embeds_many :fitness_camps
+  has_many :fitness_camps
   has_and_belongs_to_many :sponsors
 #  belongs_to :franchise
 
