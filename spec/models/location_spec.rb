@@ -32,6 +32,8 @@ describe Location do
   end
 
   it "should be able to report on all states with FitWit's" do
+    Location.all.to_a.size.should eq(2)
+    @l.us_state.should eq("GA")
     assert_equal [["GA", "Georgia"]], Location.find_all_states
     assert_equal 1, Location.find_all_states.size
   end

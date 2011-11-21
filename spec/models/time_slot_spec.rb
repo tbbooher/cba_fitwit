@@ -4,16 +4,8 @@ describe TimeSlot do
 
   before(:all) do
     cleanup_database
-    #a_user_works_out
     @user = FactoryGirl.create(:user)
-    @six_am      = FactoryGirl.create(:six_am_slot)
-    # @ten_am_slot     = FactoryGirl.create(:ten_pm_slot)
-    # @sold_out_slot = FactoryGirl.create(:six_am_sold_out)
-    # @user          = FactoryGirl.create(:user)
-    # now add some exercises to @user
-    # and register a user for these
-    # we need to load fit_wit_workouts
-    # then we add a set of meetings for these time_slots
+    @six_am = FactoryGirl.create(:six_am_slot)
   end
 
   it "should have a start and end time" do

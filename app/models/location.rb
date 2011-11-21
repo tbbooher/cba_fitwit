@@ -4,7 +4,6 @@ class Location
 
   has_many :fitness_camps
   has_and_belongs_to_many :sponsors
-#  belongs_to :franchise
 
   field :name, :type => String
   field :description, :type => String
@@ -119,7 +118,7 @@ class Location
 
   def state_full_name
     # TODO would like to throw a meaningful error here
-    US_STATES.detect { |fn, sn| sn == self.us_state }.first
+    US_STATES.detect { |fn, sn| sn == self.us_state.upcase }.first
   end
 
   def summary

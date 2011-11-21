@@ -14,6 +14,7 @@ module SpecDataHelper
       Posting.unscoped.delete_all
       Blog.unscoped.delete_all
       User.unscoped.delete_all
+      Location.unscoped.delete_all
       PageTemplate.delete_all
       Order.unscoped.delete_all
       Registration.unscoped.delete_all
