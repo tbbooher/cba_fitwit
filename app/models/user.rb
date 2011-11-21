@@ -137,7 +137,7 @@ class User
   # FitWit Specifics
   has_many :workouts
   has_many :registrations
-  #has_many :attendances, class_name: "Meeting", inverse_of: :attendees
+  has_and_belongs_to_many :attendances, class_name: "Meeting", inverse_of: :attendees
   has_many :registrations
   embeds_many :prs
 
