@@ -173,10 +173,11 @@ module SpecDataHelper
     Registration.delete_all
     Order.delete_all
     User.delete_all
-    FactoryGirl.create_list(:user,10).each do |the_user|
-      the_user.class.to_s.should eq("User")
+    FactoryGirl.create_list(:user,5).each do |the_user|
+      # the_user.class.to_s.should eq("User")
       o = FactoryGirl.create(:order, user: the_user)
       r = FactoryGirl.create(:registration, order: o, time_slot: ts)
+      puts "Created for #{the_user}!!"
     end
   end
 

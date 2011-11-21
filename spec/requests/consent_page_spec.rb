@@ -14,8 +14,8 @@ require File::expand_path('../../spec_helper', __FILE__)
 describe "The user consent page" do
 
   it "should prevent sick people from screwing things up" do
-
+    pending
     #To change this template use File | Settings | File Templates.
-    true.should == false
+    #true.should == false
   end
 end
