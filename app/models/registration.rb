@@ -3,11 +3,6 @@ class Registration
   include Mongoid::Document
   include Mongoid::Timestamps
 
-#field :order_id, :type => Integer
-#field :created_at, :type => Datetime
-#field :updated_at, :type => Datetime
-#field :time_slot_id, :type => Integer
-
   belongs_to :time_slot  # , :null => false
   belongs_to :order
   has_many :friends
