@@ -212,7 +212,7 @@ class FitnessCampRegistrationController < ApplicationController
     @fit_wit_form = true
     @include_jquery = true
     @pagetitle = "Consent"
-    @user = User.find(session[:user_id])
+    @user = current_user # User.find(session[:user_id])
     # which path do we want to go down, membership or payment
     @checked_values = flash[:checked_values] || []
     @button_hash = flash[:button_hash] || {}

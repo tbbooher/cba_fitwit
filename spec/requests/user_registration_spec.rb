@@ -70,9 +70,35 @@ describe "The user registration process" do
     page.should have_content("Signed in successfully.")
   end
 
+  it "should display the standard price cart after a user clicks checkout" do
+    log_in_as "staff@iboard.cc", 'thisisnotsecret'
+    visit fitness_camp_registration_all_fitness_camps_path
+    click_on "6:00AM to 7:00AM"
+    click_on "Checkout"
+    page.should have_content "You are registering for the following fitness camps:"
+    page.should have_content "If you have completed a Fitness Camp before"
+    page.should have_content "Standard price is"
+    page.should have_content "Your final price is"
+  end
+
+  it "should show the consent page after the view_cart page" do
+    log_in_as "staff@iboard.cc", 'thisisnotsecret'
+    visit fitness_camp_registration_all_fitness_camps_path
+    click_on "6:00AM to 7:00AM"
+    click_on "Checkout"
+    #visit fitness_camp_registration_view_cart_path
+    click_button "Proceed to health consent"
+    page.should have_content "Registration step 3 of 6" 
+  end
+
   it "should not allow any users to register without agreeing to release_and_waiver_of_liability" do
-    log_in_as "admin@iboard.cc", 'thisisnotsecret'
-    visit
+    pending "until i can get the cart_view working"
+#    log_in_as "admin@iboard.cc", 'thisisnotsecret'
+ #   visit
+  end
+
+  it "should let you change a veterans status on the view cart page" do
+    
   end
 
   it "should not allow any users to register without agreeing to rules" do

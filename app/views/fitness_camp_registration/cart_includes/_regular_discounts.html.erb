@@ -5,7 +5,7 @@
      friends.
      <%= display_chance_to_toggle_session(cart.pay_by_session,item_count) %>
    </div>
-   <%= display_standard_price %>
+   <%= display_standard_price.html_safe %>
    <span class="price_desc">
      Your <%= what_kind_of_vet(@vet_status) %> status discount
    </span>

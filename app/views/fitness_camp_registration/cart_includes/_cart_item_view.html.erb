@@ -10,7 +10,7 @@
     <div class="financial_info">
       Bring a friend, get a $40 discount
     </div>
-    <%= display_standard_price %>
+    <%= display_standard_price.html_safe %>
     <div>
       <%= render :partial => 'friends_form',
         :locals => {:cart_item => cart_item_view,
@@ -21,7 +21,8 @@
   <% else %>
     <% if @cart.new_membership %>
       <div class="financial_info">
-        <p>As a member, you do not need to pay for this registration.</p>
+     
+   <p>As a member, you do not need to pay for this registration.</p>
         <p>Please continue the registration process to help us plan
           for your participation. In the future, let us know which camp you will
         participate in.</p>
@@ -29,13 +30,13 @@
     <% else %>
       <% unless cart_item_view.pay_by_session %>
 		  <% unless @cart.coupon_code %>
-			<%= render :partial => 'registration/cart_includes/regular_discounts',
+			<%= render :partial => 'fitness_camp_registration/cart_includes/regular_discounts',
 			  :locals => {:cart => cart_item_view,
 			  :item_count => cart_item_view_counter} -%>
 		  <% end %>
       <% else %>
       <!-- we pay by session -->
-        <%= render :partial => 'registration/cart_includes/pay_by_session',
+        <%= render :partial => 'fitness_camp_registration/cart_includes/pay_by_session',
           :locals => {:cart => cart_item_view,
           :item_count => cart_item_view_counter,
           :camp_cost => camp_cost } -%>

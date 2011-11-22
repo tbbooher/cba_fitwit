@@ -17,8 +17,8 @@
     following classes:
   </p>
   <% end %>
-
-  <% form_tag :action => 'add_discounts' do %>
+ 
+  <%= form_tag :action => 'add_discounts' do %>
     <dl>
       <%= render(:partial => "fitness_camp_registration/cart_includes/cart_item_view",
       :collection => @cart.items) %>

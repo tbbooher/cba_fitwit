@@ -104,7 +104,7 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/terms_of_participation'
   get 'fitness_camp_registration/process_fit_wit_history'
   match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#view_cart"
-  get 'fitness_camp_registration/add_discounts'
+  match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
   get 'fitness_camp_registration/membership_info'
   get 'fitness_camp_registration/consent'
   get 'fitness_camp_registration/health_history'

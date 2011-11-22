@@ -102,6 +102,17 @@
         }
       }
 
+span.price_desc {
+  float: left;
+  display: block;
+  width: 50%;
+}
+
+span.price {
+  float: left;
+  display: block;
+}
+
 @import "cold.css.scss";
 @import "menu.css.scss";
 @import "nivo-slider.css.scss";
