@@ -1,0 +1,2 @@
+$('#current_goals').prepend("<%= escape_javascript(render(:partial => "my_fit_wit/includes/goal_include", :locals => {:goal => @goal})) -%>");
+$('#new_goal')[0].reset();

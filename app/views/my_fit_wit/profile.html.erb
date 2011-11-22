@@ -1,0 +1,22 @@
+
+<%= render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'profile'} %>
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Edit Profile</a></li>
+    <li><a href="#tabs-2">Edit Health Information</a></li>
+    <li><a href="#tabs-3">Update FitWit History</a></li>
+    <li><a href="#tabs-4">Change Password</a></li>
+  </ul>
+  <div id="tabs-1">
+    <%= render :partial => 'my_fit_wit/includes/edit_my_info', :locals => {:user => @user} %>
+  </div>
+  <div id="tabs-2">
+    <%= render :partial => 'my_fit_wit/includes/health_history', :locals => {:user => @user} %>
+  </div>
+  <div id="tabs-3">
+    <%= render :partial => 'my_fit_wit/includes/fit_wit_history', :locals => {:user => @user} %>
+  </div>
+  <div id="tabs-4">
+    <%= render :partial => 'my_fit_wit/includes/change_password', :locals => {:user => @user} %>
+  </div>
+</div>

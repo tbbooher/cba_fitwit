@@ -1,0 +1,45 @@
+<%= error_messages_for :user %>
+<h1>Member Health History</h1>
+<% form_for(@user,
+            :url => {:action => 'health_history'},
+            :builder => TaggedBuilder) do |f| %>
+    <fieldset>
+      <legend>Health History</legend>
+      <ul>
+        <li>
+          <h2>Do you now, or have you had in the past:</h2>
+
+          <p>
+            <%= f.check_box(:history_of_heart_problems,
+                            {:class => 'radio'},
+                            true,
+                            false,
+                            @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:cigarette_cigar_or_pipe_smoking, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:increased_blood_pressure, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:increased_total_blood_cholesterol, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:diabetes_mellitus, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:heart_problems_chest_pain_or_stroke, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:breathing_or_lung_problems, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:muscle_joint_or_back_disorder, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:hernia, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:chronic_illness, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:obesity, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:recent_surgery, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:pregnancy, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:difficulty_with_physical_exercise, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+            <%= f.check_box(:advice_from_physician_not_to_exercise, {:class => 'radio'}, true, false, @names_of_titles_that_require_more_information) %>
+          </p>
+        </li>
+        <li>
+          <%= f.label(:fitness_level,
+                      "Rate your current fitness level from 1 to 10 (1 = lowest)", {:class => 'desc longer', :style => 'width:90%;'}) %>
+          <%= f.select :fitness_level, (1..10) %>
+        </li>
+        <li>
+          <%= hidden_field_tag("referer", @back_page) %><%# no longer needed %>
+          <%= f.submit "Update", :class => 'button' %>
+        </li>
+      </ul>
+    </fieldset>
+<% end %>

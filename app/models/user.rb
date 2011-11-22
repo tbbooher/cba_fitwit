@@ -54,7 +54,7 @@ class User
   field :date_of_birth, :type => Date
   field :height_inches, :type => Integer
   field :height_feet, :type => Integer
-  field :veteran_status, :type => Integer
+  field :veteran_status, type: Integer, default: 0
   field :number_of_logins, :type => Integer
   field :has_active_subscription, :type => Boolean
   field :history_of_heart_problems_explanation, :type => String
@@ -115,6 +115,7 @@ class User
   def invitation
     @invitation ||= Invitation.criteria.for_ids(self.invitation_id).first
   end
+
   def invitation=(inv)
     @invitation = nil
     self.invitation_id = inv.id
@@ -181,6 +182,10 @@ class User
   ROLES = [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin]
 
   scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
+
+  def time_slots
+    self.registrations.map(&:orders).map(&:time_slots)
+  end
 
   ###########################
   #                         #

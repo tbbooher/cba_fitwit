@@ -1,0 +1,87 @@
+<%= render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'camp_reports'} %>
+
+<h1>
+  Camp report <%= "for #{@my_fitness_camp.full_title}" if @my_fitness_camp %>
+</h1>
+<% if @myexertions.nil? and !params[:fitnesscamp] %>
+    <p>You have not yet completed any workouts at a fitness camp.
+      You can <%= link_to "register here",
+                          :controller => "registration",
+                          :action => "all_fitness_camps" %>.
+    </p>
+<% else %>
+    <% unless @my_completed_fitnesscamps.empty? %>
+        <% form_for :fitnesscamp, :url => {:action => 'camp_exercise_progress'} do |form| %>
+            Pick workouts for a specific Fitness Camp:
+            <%= form.select :fitness_camp_id, @my_completed_fitnesscamps %>
+            <%= form.submit "Look up" %>
+        <% end %><!-- fitnesscamp form -->
+    <% else %>
+        <p>You have no other Fitness Camps to choose from.</p>
+    <% end #empty check    %>
+    <% attendance_count = 0 %>
+    <% unless @time_slot.nil? %>
+        <% @dates.each_with_index do |mth_yr, index| %>
+            <div id="small_calendar">
+              <%= Date::ABBR_MONTHNAMES[mth_yr[0]] %> <%= mth_yr[1] %>
+              <br/>
+              <% calendar_for(@meetings, :year => mth_yr[1], :month => mth_yr[0]) do |calendar| %>
+                  <%= calendar.head('S', 'M', 'T', 'W', 'T', 'F', 'S') %>
+                  <% calendar.day(:day_method => :meeting_date) do |date, meeting| %>
+                      <%= date.day %>
+                      <% unless meeting.empty? %>
+                          <% if meeting.first.attended?(@u.id) %>
+                              <% attendance_count += 1 %>
+                              <% my_class = "there" %>
+                          <% else %>
+                              <% my_class = "absent" %>
+                          <% end %>
+                          <div class="<%= my_class %>" style="width:100%; height:10px;"></div>
+                      <% end %>
+                      <% end %><!-- date -->
+                  <% end %><!-- calendar -->
+            </div><!-- small calendar -->
+        <% end %><!-- months -->
+        <div class="clear"></div>
+
+
+        <p>You attended <%= attendance_count.to_i %> out of <%= @meeting_count.to_i %> classes for
+          a <%= number_to_percentage((attendance_count.to_f/@meeting_count.to_f)*100, :precision => 0) %> attendance
+          rate.</p>
+
+        <% unless @myexertions.nil? or @myexertions.empty? %>
+            <table>
+              <tr class="top_line">
+                <th style="width:80px">Date</th>
+                <th style="width:400px;">workout</th>
+                <th style="width:100px;">Score</th>
+              </tr>
+              <% @myexertions.each do |e| %>
+                  <tr class="<%= cycle('dark', 'light') %>">
+                    <td><%= e.meeting_user.meeting.meeting_date_f %></td>
+                    <td><%= e.exercise.name %></td>
+                    <td><%= "#{e.score} #{e.exercise.units}" %></td>
+                  </tr>
+              <% end %>
+            </table>
+        <% else %>
+            <p>You have no workouts for this camp.</p>
+        <% end %>
+
+        <h2>Fellow Campers</h2>
+        <% unless @campers.nil? %>
+            <% camp_count = 0 %>
+            <div class="floatLeft" style="padding-left:20px;">
+              <% @campers.each do |camper| %>
+                  <%= camper %>
+                  <br/>
+                  <% camp_count += 1 %>
+                  <%= "</div><div class=\"floatLeft\" style=\"padding-left:20px;\">" if (camp_count % 25 == 0) %>
+              <% end %>
+            </div>
+        <% else %>
+            <p>No campers</p>
+        <% end %>
+        <div class="clear"></div>
+    <% end %><!-- time slot check -->
+<% end %>
