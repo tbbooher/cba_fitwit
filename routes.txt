@@ -1,3 +1,32 @@
+                                         my_fit_wit_index GET    /my_fit_wit/index(.:format)                                          {:controller=>"my_fit_wit", :action=>"index"}
+                                       my_fit_wit_profile GET    /my_fit_wit/profile(.:format)                                        {:controller=>"my_fit_wit", :action=>"profile"}
+                         my_fit_wit_upcoming_fitnesscamps GET    /my_fit_wit/upcoming_fitnesscamps(.:format)                          {:controller=>"my_fit_wit", :action=>"upcoming_fitnesscamps"}
+                            my_fit_wit_add_custom_workout GET    /my_fit_wit/add_custom_workout(.:format)                             {:controller=>"my_fit_wit", :action=>"add_custom_workout"}
+                          my_fit_wit_input_custom_workout GET    /my_fit_wit/input_custom_workout(.:format)                           {:controller=>"my_fit_wit", :action=>"input_custom_workout"}
+                                  my_fit_wit_leader_board GET    /my_fit_wit/leader_board(.:format)                                   {:controller=>"my_fit_wit", :action=>"leader_board"}
+                            my_fit_wit_get_progress_chart GET    /my_fit_wit/get_progress_chart(.:format)                             {:controller=>"my_fit_wit", :action=>"get_progress_chart"}
+                              my_fit_wit_exercise_details GET    /my_fit_wit/exercise_details(.:format)                               {:controller=>"my_fit_wit", :action=>"exercise_details"}
+                                        my_fit_wit_update GET    /my_fit_wit/update(.:format)                                         {:controller=>"my_fit_wit", :action=>"update"}
+                             my_fit_wit_past_fitnesscamps GET    /my_fit_wit/past_fitnesscamps(.:format)                              {:controller=>"my_fit_wit", :action=>"past_fitnesscamps"}
+                        my_fit_wit_camp_exercise_progress GET    /my_fit_wit/camp_exercise_progress(.:format)                         {:controller=>"my_fit_wit", :action=>"camp_exercise_progress"}
+                                      my_fit_wit_my_goals GET    /my_fit_wit/my_goals(.:format)                                       {:controller=>"my_fit_wit", :action=>"my_goals"}
+                                      my_fit_wit_add_goal GET    /my_fit_wit/add_goal(.:format)                                       {:controller=>"my_fit_wit", :action=>"add_goal"}
+                                   my_fit_wit_delete_goal GET    /my_fit_wit/delete_goal(.:format)                                    {:controller=>"my_fit_wit", :action=>"delete_goal"}
+                                   my_fit_wit_update_goal GET    /my_fit_wit/update_goal(.:format)                                    {:controller=>"my_fit_wit", :action=>"update_goal"}
+                             my_fit_wit_exercise_progress GET    /my_fit_wit/exercise_progress(.:format)                              {:controller=>"my_fit_wit", :action=>"exercise_progress"}
+                           my_fit_wit_add_new_measurement GET    /my_fit_wit/add_new_measurement(.:format)                            {:controller=>"my_fit_wit", :action=>"add_new_measurement"}
+                            my_fit_wit_load_calendar_date GET    /my_fit_wit/load_calendar_date(.:format)                             {:controller=>"my_fit_wit", :action=>"load_calendar_date"}
+                             my_fit_wit_specific_exercise GET    /my_fit_wit/specific_exercise(.:format)                              {:controller=>"my_fit_wit", :action=>"specific_exercise"}
+                       my_fit_wit_process_fit_wit_history GET    /my_fit_wit/process_fit_wit_history(.:format)                        {:controller=>"my_fit_wit", :action=>"process_fit_wit_history"}
+                                my_fit_wit_health_history GET    /my_fit_wit/health_history(.:format)                                 {:controller=>"my_fit_wit", :action=>"health_history"}
+                           my_fit_wit_get_calendar_events GET    /my_fit_wit/get_calendar_events(.:format)                            {:controller=>"my_fit_wit", :action=>"get_calendar_events"}
+                                 my_fit_wit_list_exercise GET    /my_fit_wit/list_exercise(.:format)                                  {:controller=>"my_fit_wit", :action=>"list_exercise"}
+                          my_fit_wit_find_previous_scores GET    /my_fit_wit/find_previous_scores(.:format)                           {:controller=>"my_fit_wit", :action=>"find_previous_scores"}
+                                   my_fit_wit_get_user_id GET    /my_fit_wit/get_user_id(.:format)                                    {:controller=>"my_fit_wit", :action=>"get_user_id"}
+           my_fit_wit_zero_out_all_unchecked_explanations GET    /my_fit_wit/zero_out_all_unchecked_explanations(.:format)            {:controller=>"my_fit_wit", :action=>"zero_out_all_unchecked_explanations"}
+               my_fit_wit_user_has_not_explained_themself GET    /my_fit_wit/user_has_not_explained_themself(.:format)                {:controller=>"my_fit_wit", :action=>"user_has_not_explained_themself"}
+                             my_fit_wit_get_inches_height GET    /my_fit_wit/get_inches_height(.:format)                              {:controller=>"my_fit_wit", :action=>"get_inches_height"}
+                          my_fit_wit_get_months_and_years GET    /my_fit_wit/get_months_and_years(.:format)                           {:controller=>"my_fit_wit", :action=>"get_months_and_years"}
                                                   friends GET    /friends(.:format)                                                   {:action=>"index", :controller=>"friends"}
                                                           POST   /friends(.:format)                                                   {:action=>"create", :controller=>"friends"}
                                                new_friend GET    /friends/new(.:format)                                               {:action=>"new", :controller=>"friends"}
@@ -76,12 +105,12 @@
                                                base_error GET    /base/error(.:format)                                                {:controller=>"base", :action=>"error"}
                                                base_posts GET    /base/posts(.:format)                                                {:controller=>"base", :action=>"posts"}
                           fitness_camp_registration_index GET    /fitness_camp_registration/index(.:format)                           {:controller=>"fitness_camp_registration", :action=>"index"}
-                                                                 /fitness_camp_registration/add_to_cart/:id(.:format)                 {:controller=>"fitness_camp_registration", :action=>"add_to_cart"}
+                                              add_to_cart        /fitness_camp_registration/add_to_cart/:id(.:format)                 {:controller=>"fitness_camp_registration", :action=>"add_to_cart"}
             fitness_camp_registration_no_need_to_register GET    /fitness_camp_registration/no_need_to_register(.:format)             {:controller=>"fitness_camp_registration", :action=>"no_need_to_register"}
 fitness_camp_registration_release_and_waiver_of_liability GET    /fitness_camp_registration/release_and_waiver_of_liability(.:format) {:controller=>"fitness_camp_registration", :action=>"release_and_waiver_of_liability"}
          fitness_camp_registration_terms_of_participation GET    /fitness_camp_registration/terms_of_participation(.:format)          {:controller=>"fitness_camp_registration", :action=>"terms_of_participation"}
         fitness_camp_registration_process_fit_wit_history GET    /fitness_camp_registration/process_fit_wit_history(.:format)         {:controller=>"fitness_camp_registration", :action=>"process_fit_wit_history"}
-                      fitness_camp_registration_view_cart GET    /fitness_camp_registration/view_cart(.:format)                       {:controller=>"fitness_camp_registration", :action=>"view_cart"}
+                      fitness_camp_registration_view_cart        /fitness_camp_registration/view_cart(.:format)                       {:controller=>"fitness_camp_registration", :action=>"view_cart"}
                   fitness_camp_registration_add_discounts GET    /fitness_camp_registration/add_discounts(.:format)                   {:controller=>"fitness_camp_registration", :action=>"add_discounts"}
                 fitness_camp_registration_membership_info GET    /fitness_camp_registration/membership_info(.:format)                 {:controller=>"fitness_camp_registration", :action=>"membership_info"}
                         fitness_camp_registration_consent GET    /fitness_camp_registration/consent(.:format)                         {:controller=>"fitness_camp_registration", :action=>"consent"}

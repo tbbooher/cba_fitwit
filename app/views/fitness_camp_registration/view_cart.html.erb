@@ -11,7 +11,7 @@
     </div>
   <h1>You are registering for the following fitness camps:</h1>
   <% else %>
-    <%= render(:partial => "registration/cart_includes/show_membership_info") %>
+    <%= render(:partial => "fitness_camp_registration/cart_includes/show_membership_info") %>
   <p>
     In addition to your new membership, you are registering for the
     following classes:
@@ -20,7 +20,7 @@
 
   <% form_tag :action => 'add_discounts' do %>
     <dl>
-      <%= render(:partial => "registration/cart_includes/cart_item_view",
+      <%= render(:partial => "fitness_camp_registration/cart_includes/cart_item_view",
       :collection => @cart.items) %>
     </dl>
     <!-- if all pay_by_sessions are ready-->
