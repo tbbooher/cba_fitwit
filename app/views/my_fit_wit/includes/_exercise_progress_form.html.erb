@@ -1,0 +1,6 @@
+<div class="floatRight full">
+  <% form_tag(:action => 'single_exercise_progress') do %>
+    <%= select_tag(:exercise_id, options_for_select(@exercises_select_list, ['select a workout',0]))  %>
+  <% end %>
+</div>
+<div class="clear"></div>

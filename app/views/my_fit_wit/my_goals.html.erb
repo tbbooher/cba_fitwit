@@ -1,0 +1,97 @@
+<%= render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'goals'} %>
+<div id="top_notice" style="width:100%; height:30px;"></div>
+<p>
+  Set your goals and set them high! You can track your goals below. Check them off when you are done.
+</p>
+<div class="floatLeft" style="width:48%">
+  <form id="current_goals_form">
+    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+      <legend class="ui-widget ui-widget-header ui-corner-all">Current Goals</legend>
+      <% unless @current_goals.empty? %>
+          <dl id="current_goals">
+            <% @current_goals.each do |goal| %>
+                <%= render :partial => "my_fit_wit/includes/goal_include", :locals => {:goal => goal} %>
+            <% end %>
+          </dl>
+      <% else %>
+          <p>No goals yet. Add your first goal today.</p>
+      <% end %>
+    </fieldset>
+  </form>
+</div>
+<div class="floatRight" style="width:48%">
+  <form id="completed_goals_form">
+    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+      <legend class="ui-widget ui-widget-header ui-corner-all">Completed Goals</legend>
+      <% unless @completed_goals.empty? %>
+          <ul id="completed_goals" style="line-height:2em">
+            <% @completed_goals.each do |goal| %>
+                <li style="list-style-type:none; width:100%;" id="dt_<%= goal.id %>">
+                  <span class="ui-icon ui-icon-check floatLeft" style="margin-top:6px; margin-right:10px;padding-bottom:0px;"></span>
+                  <%= "#{goal.goal_name} completed on #{compact_date(goal.completed_date)}" %>
+                  <div class="delete_goal ui-state-default ui-corner-all fg-button" style="position:absolute; top:0; right:20px;" title="<%= goal.id %>">
+                    <span style="padding-bottom: 0px;" class="ui-icon ui-icon-closethick"></span>
+                  </div>
+                </li>
+            <% end %>
+          </ul>
+      <% else %>
+          <p>We're excited to put your first completed goal here.</p>
+      <% end %>
+    </fieldset>
+  </form>
+</div>
+<div class="clear"></div>
+<div style="width:100%;">
+  <% form_for(@new_goal, :class => "fitwit", :url => {:action => 'add_goal'}) do |f| %>
+      <%= f.error_messages %>
+      <%= f.hidden_field :date_added, :value => Date.today.to_s %>
+      <%= f.hidden_field :user_id, :value => @user.id %>
+      <%= f.hidden_field :completed_date, :value => "" %>
+      <fieldset>
+        <legend>Add new goal</legend>
+        <ul>
+          <li>
+            <%= desc_label(f, :goal_name, 'Name for goal:', false) %>
+            <%= f.text_field :goal_name, :class=> 'required' %>
+          </li>
+          <li>
+            <%= desc_label(f, :description, 'Description:', false) %>
+            <%= f.text_area :description, :rows => 2 %>
+          </li>
+          <li>
+            <%= desc_label(f, :target_date, "Target date:", false) %>
+            <%= f.text_field :target_date, {:class=>"inputdate date required", :size => 8} %>
+          </li>
+          <%#= f.check_box :completed %>
+          <li>
+            <%= f.submit "Submit", :class => 'button' %>
+          </li>
+        </ul>
+      </fieldset>
+  <% end %>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // new goal code ??
+        $('.goal_complete').live('click', function () {
+            // waitbar ?
+            var goal_id = $(this).attr('title');
+            $.post('/my_fit_wit/update_goal', {id: goal_id}, null, "script");
+            return false;
+        });
+        $('.delete_goal').live('click', function () {
+            var goal_id = $(this).attr('title');
+            $.post('/my_fit_wit/delete_goal', {id: goal_id}, null, "script");
+            return false;
+        });
+        $('#new_goal').validate({
+            submitHandler: function(form) {
+                form.submit(function () {
+                    $.post($(this).attr('action'), $(this).serialize(), null, "script");
+                    return false;
+                })
+            }});
+    });
+</script>

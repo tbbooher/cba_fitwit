@@ -1,0 +1,12 @@
+<tr class="<%= cycle('light','dark')%>">
+  <td><%=compact_date measurement.review_date %></td>
+  <td><%=h no_zero(measurement.height) %></td>
+  <td><%=h no_zero(measurement.weight) %></td>
+  <td><%=h no_zero(measurement.chest) %></td>
+  <td><%=h no_zero(measurement.waist) %></td>
+  <td><%=h no_zero(measurement.hip) %></td>
+  <td><%=h no_zero(measurement.right_arm) %></td>
+  <td><%=h no_zero(measurement.right_thigh) %></td>
+  <td><%=h "#{measurement.bodyfat_percentage}%" %></td>
+  <td><%=h measurement.bmi %></td>
+</tr>

@@ -119,4 +119,18 @@ module ApplicationHelper
     presenter
   end
 
+  #############
+  # tim's additions
+  #############
+
+  FIELD_REQUIRED = "<span class=\"req\">*</span>"
+
+  def desc_label(obj,fld,title,req = true)
+    if req
+      obj.label(fld, "#{title}#{FIELD_REQUIRED}", :class => 'desc')
+    else
+      obj.label(fld, "#{title}", :class => 'desc')
+    end
+  end
+
 end

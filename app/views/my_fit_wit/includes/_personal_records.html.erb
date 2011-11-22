@@ -1,0 +1,14 @@
+<table style="width:100%; border:1px solid gray;">
+  <tr class="top_line">
+    <th>workout</th>
+    <th>Score</th>
+    <th>Date Set</th>
+  </tr>
+  <% @prs.each do |pr| %>
+  <tr class="<%= cycle('light','dark')%>">
+    <td><%= pr.name %></td>
+    <td><%= pr.score %></td>
+    <td><%= pr.meeting_date %></td>
+  </tr>
+  <% end %>
+</table>

@@ -1,0 +1,5 @@
+// rjs type file to handle request for incoming rails object to update goal
+$('#top_notice').html('<%= @message %>');
+$("#dt_<%= @goal.id %>").hide("slow");
+$("#dd_<%= @goal.id %>").hide("slow");
+$("#li_<%= @goal.id %>").hide("slow");
