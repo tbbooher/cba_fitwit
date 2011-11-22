@@ -32,12 +32,17 @@ describe "The user registration process" do
     create_default_userset
     six_am = Time.local(2000,1,1,6)
     seven_am = six_am + 1.hour
+    #Capybara.current_driver = :selenium
     @fc = FactoryGirl.create(:a_camp)
     @fc.time_slots << [TimeSlot.new(start_time: six_am, end_time: seven_am), 
                       TimeSlot.new(start_time: six_am + 3.hours, end_time: six_am + 4.hours)]
     @fc2 = FactoryGirl.create(:a_camp)
     @fc2.time_slots << FactoryGirl.create(:six_am_sold_out, fitness_camp: @fc2)
   end
+
+  #after(:all) do
+  #  Capybara.use_default_driver
+  #end
 
   it "should allow a non-registered user to add a class to their cart" do
     visit fitness_camp_registration_all_fitness_camps_path
@@ -50,14 +55,24 @@ describe "The user registration process" do
 
   it "should not allow a user to checkout without signing in" do
     visit fitness_camp_registration_all_fitness_camps_path
-    click_on "6:00AM to 7:00AM"    
+    click_on "6:00AM to 7:00AM"
     page.should have_content("Total fitness camps")
     click_on "Checkout"
     page.should have_content("Everyone had to take a first step")
+    page.should have_content("You must log in to complete the registration process. If you do not have an account. Please sign-up before proceeding.")
+    #visit user_session_path
+    fill_in "Email", with: "admin@iboard.cc"
+    fill_in "Password", with: "thisisnotsecret"
+    #save_and_open_page
+    click_button "Sign in"
+    #sleep(2)
+    # we should be back at the checkout page -- this involves devise routes . . . wait on this
+    page.should have_content("Signed in successfully.")
   end
 
-  it "should not allow any users to register without agreeing to rules" do
-    pending
+  it "should not allow any users to register without agreeing to release_and_waiver_of_liability" do
+    log_in_as "admin@iboard.cc", 'thisisnotsecret'
+    visit
   end
 
   it "should not allow any users to register without agreeing to rules" do
