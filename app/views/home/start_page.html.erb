@@ -63,8 +63,10 @@
     </p>
   </div>
   <div class="two_fifth last center">
-    <a class="big-btn gradient-btn stroke-btn" href="http://themeforest.net/item/cold-theme-powerful-wordpress-theme/236148?ref=e404"><span>
-           Register Now</span></a>
+    <%= link_to "<span>Register Now</span>".html_safe, 
+        fitness_camp_registration_all_fitness_camps_path,
+        class: "big-btn gradient-btn stroke-btn"
+     %>      
   </div>
   <br class="clear"/></div>
 
