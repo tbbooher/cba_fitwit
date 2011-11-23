@@ -44,6 +44,7 @@ module Cba
     config.autoload_paths += %W(#{Rails.root}/app/workers 
                                 #{Rails.root}/lib/validators
                                 #{Rails.root}/lib/content_items
+                                #{Rails.root}/lib/custom_code
                               )
 
     # Only load the plugins named here, in the order given (default is alphabetical).

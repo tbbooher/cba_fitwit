@@ -1,0 +1,13 @@
+first_time: 299
+friend_discount: 25
+veteran: 259
+super_vet: 219
+friend_discount:
+  vet: 25
+  virgin: 25
+  max_vet_friends: 6
+pay_by_session:
+  0:
+  12: 180
+  16: 224
+  20: 240
