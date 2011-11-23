@@ -80,6 +80,24 @@ module FitWitCustomUserMethods
     return ma
   end
 
+  def load_health_array
+    %w{  history_of_heart_problems
+cigarette_cigar_or_pipe_smoking
+increased_blood_pressure
+increased_total_blood_cholesterol
+diabetes_mellitus
+heart_problems_chest_pain_or_stroke
+breathing_or_lung_problems
+muscle_joint_or_back_disorder
+hernia
+chronic_illness
+obesity
+recent_surgery
+pregnancy
+difficulty_with_physical_exercise
+advice_from_physician_not_to_exercise  }
+  end  
+
   def find_health_problems
     health_array = load_health_array
     known_health_conditions = []

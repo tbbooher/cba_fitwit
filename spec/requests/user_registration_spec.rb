@@ -81,14 +81,25 @@ describe "The user registration process" do
     page.should have_content "Your final price is"
   end
 
-  it "should show the consent page after the view_cart page" do
+  it "should show take a user through the most benign registration process" do
     log_in_as "staff@iboard.cc", 'thisisnotsecret'
     visit fitness_camp_registration_all_fitness_camps_path
     click_on "6:00AM to 7:00AM"
     click_on "Checkout"
     #visit fitness_camp_registration_view_cart_path
     click_button "Proceed to health consent"
-    page.should have_content "Registration step 3 of 6" 
+    page.should have_content "Registration step 3 of 6"
+    # now check the right boxes
+    choose("health_approval_participation_approved_yes")
+    choose("health_approval_taking_medications_no")
+    click_button "Proceed to Release and Waiver of Liability"
+    page.should have_content "Release and Waiver of Liability: Registration step 4 of 6"
+    check "agree_to_terms"
+    click_button "Continue to Terms of Participation"
+    check "agree_to_terms"
+    click_button "Proceed to Payment"
+    page.should have_content "Complete Payment: Registration step 6 of 6"
+    # success !!!!
   end
 
   it "should not allow any users to register without agreeing to release_and_waiver_of_liability" do
@@ -98,7 +109,7 @@ describe "The user registration process" do
   end
 
   it "should let you change a veterans status on the view cart page" do
-    
+    get_to_view_cart 
   end
 
   it "should not allow any users to register without agreeing to rules" do
@@ -112,6 +123,7 @@ describe "The user registration process" do
   it "can pay by session" do
     pending "until we can get the full pay by session implemented"
   end
+
   it "can empty cart" do
     pending "until we have the cart functionality fully tested"
   end
@@ -134,6 +146,12 @@ describe "The user registration process" do
 
   it "should let a user empty the cart and start over" do
     pending
+  end
+
+  it "should be able to submit payment" do
+    get_to_payment
+    page.should have_content "Complete Payment" 
+    # works!
   end
 
 end

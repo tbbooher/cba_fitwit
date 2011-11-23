@@ -107,7 +107,7 @@
 </p>
 -->
 
-  <% form_tag "terms_of_participation" do -%>
+  <%= form_tag "terms_of_participation" do -%>
     <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
      <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this box I acknowledge that I have read, 
      understand, and will agree to the terms and conditions in the Release and Waiver of Liability.

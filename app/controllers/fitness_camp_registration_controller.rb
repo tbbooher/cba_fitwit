@@ -45,7 +45,7 @@ class FitnessCampRegistrationController < ApplicationController
   def release_and_waiver_of_liability
     @pagetitle = "Release and Waiver of Liability"
     @fit_wit_form = true
-    user = User.find(session[:user_id])
+    user = current_user # User.find(session[:user_id])
     int_gender = user.gender
     unless session[:must_check] == true # this just ensures that we
       # are not rejected by the next page
@@ -266,7 +266,7 @@ class FitnessCampRegistrationController < ApplicationController
     @health_approval = session[:health_approval]
     @health_approval.delete_if {|key, value| key =~ /_explanation$/ && value == "Please explain"}
     @order_amount = @cart.total_price
-    @myuser = User.find(session[:user_id])
+    @myuser = current_user
     @cc_errors = flash[:cc_errors] if flash[:cc_errors]
     @membership = @cart.new_membership
   end
@@ -330,7 +330,7 @@ class FitnessCampRegistrationController < ApplicationController
 
   def save_order
     #@include_javascript = true
-    usr_id = session[:user_id]
+    usr_id = current_user.id
     # clear the referrer
     session[:referrer] = nil # remove
     if params[:commit] == "Proceed to Payment" # they submitted the consent form
