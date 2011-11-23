@@ -10,7 +10,7 @@ class MyFitWitController < ApplicationController
     @include_jquery = true
     @qtip = true
     if @user_id
-      @user = User.find(@user_id)
+      @user = current_user # User.find(@user_id)
       @my_time_slots = TimeSlot.find(:all,
                                      :joins => {:registrations => :order},
                                      :conditions => ["user_id = ?", @user_id])
