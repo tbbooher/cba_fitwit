@@ -33,4 +33,8 @@ if File.exist?(omniauth_file)
   YAML.load_file(omniauth_file).each{|k,v| ENV[k.to_s] = v.to_s}
 end
 
-PRICE = YAML.load_file("config/prices.yml")
+price_file = File.expand_path('../../config/prices.yml', __FILE__)
+if File.exist?(price_file)
+  PRICE = YAML.load_file(price_file)
+end
+
