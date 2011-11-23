@@ -169,4 +169,39 @@ module SpecDataHelper
     Time.local(future_date.year, future_date.month, future_date.day, hour_num)
   end
 
+  def get_to_view_cart
+    log_in_as "staff@iboard.cc", 'thisisnotsecret'
+    visit fitness_camp_registration_all_fitness_camps_path
+    click_on "6:00AM to 7:00AM"
+    click_on "Checkout"
+  end
+
+  def get_to_consent
+    get_to_view_cart
+    click_button "Proceed to health consent"
+    # then test some stuff
+  end
+
+  def get_to_release_and_waiver_of_liability
+    get_to_consent
+    choose("health_approval_participation_approved_yes")
+    choose("health_approval_taking_medications_no")
+    click_button "Proceed to Release and Waiver of Liability"
+    # then test some stuff
+  end
+
+  def get_to_terms_of_participation
+    get_to_release_and_waiver_of_liability
+    check "agree_to_terms"
+    click_button "Continue to Terms of Participation"    
+    # then test some stuff
+  end
+
+  def get_to_payment
+    get_to_terms_of_participation
+    # then test some stuff
+    check "agree_to_terms"
+    click_button "Proceed to Payment"    
+  end
+
 end
