@@ -29,7 +29,7 @@ class Meeting
   # end
   
   # recommend moving out -- this is just a property of the association
-  # def all_exercises
+  # def all_fit_wit_workouts
   #   Exercise.find(:all, :joins => {:exertions => :meeting_user},
   #     :conditions => ["meeting_id = ?", self.id]).uniq
   # end

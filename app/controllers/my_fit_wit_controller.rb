@@ -15,7 +15,7 @@ class MyFitWitController < ApplicationController
       @user = current_user # User.find(@user_id)
       @my_time_slots = @user.user_time_slots
       @my_fitness_camps = @my_time_slots.map { |ts| ts.fitness_camp } # ??
-      @my_exercises = Workout.where(user: @user).all
+      @my_fit_wit_workouts = Workout.where(user: @user).all
     else
       flash[:notice] = "you need to be logged in"
       # redirect somewhere
@@ -42,9 +42,9 @@ class MyFitWitController < ApplicationController
     @date = Date.parse(params[:date])
     @fit_wit_form = true
     @include_jquery = true
-    #@fitwit_exercise = true
+    #@fitwit_fit_wit_workout = true
     @admin = false
-    @exercise_list = Exercise.find(:all).map { |e| [e.name, e.id] }
+    @fit_wit_workout_list = Exercise.find(:all).map { |e| [e.name, e.id] }
     @custom_workout = CustomWorkout.new
     @action_url = 'input_custom_workout'
 
@@ -60,20 +60,20 @@ class MyFitWitController < ApplicationController
     if params[:adding_new_workout] == 'false'
       cwo[:custom_name] = "_a_fit_wit_workout_"
     else
-      cwo[:exercise_id] = 0
+      cwo[:fit_wit_workout_id] = 0
     end
     begin
       the_month = Date.parse(cwo[:workout_date]).strftime("%b-%Y")
     rescue
       flash[:notice] = "not a valid date"
-      redirect_to :action => :exercise_progress
+      redirect_to :action => :fit_wit_workout_progress
     end
     @custom_workout = CustomWorkout.new(cwo)
 
     respond_to do |format|
       if @custom_workout.save
         flash[:notice] = 'Custom Workout was successfully created.'
-        format.html { redirect_to :action => :exercise_progress, :month => the_month }
+        format.html { redirect_to :action => :fit_wit_workout_progress, :month => the_month }
         format.xml { render :xml => @custom_workout, :status => :created, :location => @custom_workout }
       else
         format.html { redirect_to :action => :add_custom_workout }
@@ -84,40 +84,40 @@ class MyFitWitController < ApplicationController
   end
 
   def leader_board
-    @exercise_id = params[:id].to_f
-    unless @exercise_id == 0
-      @exercise = Exercise.find(@exercise_id)
-      @exercise_title = @exercise.name
-      @exertions = Exertion.find_exercise_progress(@user_id, @exercise_id)
-      @leaders = Exertion.find_by_sql("select * from prs where exercise_id = #{@exercise_id} order by common_value DESC limit 10;")
+    @fit_wit_workout_id = params[:id].to_f
+    unless @fit_wit_workout_id == 0
+      @fit_wit_workout = Exercise.find(@fit_wit_workout_id)
+      @fit_wit_workout_title = @fit_wit_workout.name
+      @exertions = Exertion.find_fit_wit_workout_progress(@user_id, @fit_wit_workout_id)
+      @leaders = Exertion.find_by_sql("select * from prs where fit_wit_workout_id = #{@fit_wit_workout_id} order by common_value DESC limit 10;")
       user = User.find(@user_id)
-      unless @exercise.score_method.nil?
-        @peers = @exercise.find_peers(@exertions)
-        @chart = get_progress_chart(user, @exercise, @exertions)
+      unless @fit_wit_workout.score_method.nil?
+        @peers = @fit_wit_workout.find_peers(@exertions)
+        @chart = get_progress_chart(user, @fit_wit_workout, @exertions)
       else
         @chart = nil
       end
     else
       @exertions = nil
     end
-    # @exercises_select_list.delete_if{|e| e[1] == exercise_id}
+    # @fit_wit_workouts_select_list.delete_if{|e| e[1] == fit_wit_workout_id}
   end
 
-  def get_progress_chart(user, exercise, exertions)
-    is_time = (exercise.units == "seconds")
+  def get_progress_chart(user, fit_wit_workout, exertions)
+    is_time = (fit_wit_workout.units == "seconds")
     gender = user.gender
     common_inputs = exertions.map { |e| e.common_value }
     common_vals = is_time ? common_inputs.delete_if { |e| e == 0 }.map { |cv| 1/cv } : common_inputs
-    average = is_time ? 1/exercise.find_average(gender) : exercise.find_average(gender)
-    best = is_time ? 1/exercise.find_best(gender) : exercise.find_best(gender)
+    average = is_time ? 1/fit_wit_workout.find_average(gender) : fit_wit_workout.find_average(gender)
+    best = is_time ? 1/fit_wit_workout.find_best(gender) : fit_wit_workout.find_best(gender)
     scale_factor = 80/([best] + [average] + common_vals).max # google charts have a max of 100
-    scores = exercise.score_method.nil? ? '' : common_vals.map { |c| c*scale_factor }
-    dates = exercise.score_method.nil? ? nil : exertions.map { |e| e.meeting.meeting_date }
+    scores = fit_wit_workout.score_method.nil? ? '' : common_vals.map { |c| c*scale_factor }
+    dates = fit_wit_workout.score_method.nil? ? nil : exertions.map { |e| e.meeting.meeting_date }
     # build chart
     chart_width = 400
     progress_chart = GoogleChart.new()
     progress_chart.type = :line
-    progress_chart.title = "#{user.full_name}'s progress for #{exercise.name}"
+    progress_chart.title = "#{user.full_name}'s progress for #{fit_wit_workout.name}"
     progress_chart.height = 200
     progress_chart.width = chart_width
     progress_chart.data = scores
@@ -135,8 +135,8 @@ class MyFitWitController < ApplicationController
     return progress_chart.to_url
   end
 
-  def exercise_details
-    @exercise = Exercise.find(params[:id])
+  def fit_wit_workout_details
+    @fit_wit_workout = Exercise.find(params[:id])
   end
 
 #  def edit_my_info
@@ -169,7 +169,7 @@ class MyFitWitController < ApplicationController
     @mycamps = FitnessCamp.find_past(@user_id)
   end
 
-  def camp_exercise_progress
+  def camp_fit_wit_workout_progress
     @pagetitle = 'Fitness Camp Report'
     @u = User.find(@user_id)
     @qtip = true
@@ -253,23 +253,23 @@ class MyFitWitController < ApplicationController
     end
   end
 
-  def exercise_progress
-    # the main page for the different ways folks can see exercise . . . by calendar, date, exercise
+  def fit_wit_workout_progress
+    # the main page for the different ways folks can see fit_wit_workout . . . by calendar, date, fit_wit_workout
     @include_jquery = true
     @qtip = true
     @fit_wit_form = true
     @pagetitle = "Fitness Progress"
-    @user = User.find(@user_id)
+    @user = current_user # User.find(@user_id)
     # for calendar
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
-    @exercise_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
-    @custom_workout = CustomWorkout.new
+    @fit_wit_workout_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
+    @custom_workout = @user.custom_workouts.new
     @action_url = 'input_custom_workout'
     @calendar_events = get_calendar_events(@user)
-    # for single exercise
-    @exercises_select_list = @user.exertions.map { |e| [e.exercise.name, e.exercise.id] }.uniq
-    @exercises_select_list << ['select a workout', 0]
+    # for single fit_wit_workout
+    @fit_wit_workouts_select_list = @user.exertions.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout.id] }.uniq
+    @fit_wit_workouts_select_list << ['select a workout', 0]
     # prs
     @prs = @user.find_prs
     @fitness_camps = FitnessCamp.find_past(@user_id).collect { |b| [b.title, b.session_start_date.strftime("%b-%Y")] }.uniq
@@ -284,30 +284,30 @@ class MyFitWitController < ApplicationController
     respond_to do |format|
       if @measurement.save
         flash[:notice] = 'Measurement was successfully created.'
-        format.html { redirect_to "/my_fit_wit/exercise_progress#tabs-4" }
+        format.html { redirect_to "/my_fit_wit/fit_wit_workout_progress#tabs-4" }
         format.js
       else
         flash[:notice] = 'Errors.'
-        render :action => :exercise_progress
+        render :action => :fit_wit_workout_progress
       end
     end
   end
 
   def load_calendar_date
-    redirect_to :action => "exercise_progress", :month=> params[:start_month]
+    redirect_to :action => "fit_wit_workout_progress", :month=> params[:start_month]
   end
 
-  def specific_exercise
+  def specific_fit_wit_workout
     @user = User.find(@user_id)
     @pagetitle = "Exercise history"
     @exertion = Exertion.find(params[:id])
-    @exercise = @exertion.exercise
+    @fit_wit_workout = @exertion.fit_wit_workout
     @meeting = @exertion.meeting
     @include_jquery = true
     @qtip = true
     meeting_date = @meeting.meeting_date
     @the_date = meeting_date.strftime("%b #{meeting_date.day.ordinalize} %Y")
-    @other_scores = find_previous_scores(@user.id, @exercise.id, @exercise.name, @exertion.id)
+    @other_scores = find_previous_scores(@user.id, @fit_wit_workout.id, @fit_wit_workout.name, @exertion.id)
     # now what about other users at the same meeting
     #@other_folks_exertions = Exertion.all(:conditions => ["meetings.id = ?", @meeting.id], :joins => [{:meeting_user => :meeting}, :user], :order => "common_value DESC")
     @other_folks_exertions = Exertion.all(:select => "users.first_name, users.last_name, exertions.score, exertions.rxd",
@@ -315,17 +315,17 @@ class MyFitWitController < ApplicationController
                                           :joins => [{:meeting_user => :meeting}, {:meeting_user => :user}],
                                           :order => "common_value DESC")
 
-    #@other_folks_exertions = @exertion.meeting.exertions.select { |e| e.exercise.id == @exercise.id }.sort_by { |e| e.common_value }.reverse
+    #@other_folks_exertions = @exertion.meeting.exertions.select { |e| e.fit_wit_workout.id == @fit_wit_workout.id }.sort_by { |e| e.common_value }.reverse
     # and now what about all other folks that day
 
     @workouts_that_day = Exertion.all(:select => "users.first_name, users.last_name, exertions.score, exertions.rxd",
-                                      :conditions => ["meetings.meeting_date = ? AND exertions.exercise_id = ?", meeting_date, @exercise.id],
+                                      :conditions => ["meetings.meeting_date = ? AND exertions.fit_wit_workout_id = ?", meeting_date, @fit_wit_workout.id],
                                       :joins => [{:meeting_user => :meeting}, {:meeting_user => :user}],
                                       :order => "common_value DESC")
     
-    #@exercise.exertions.select { |e| e.meeting.meeting_date == @exertion.meeting.meeting_date }.sort_by { |e| e.common_value }.reverse
+    #@fit_wit_workout.exertions.select { |e| e.meeting.meeting_date == @exertion.meeting.meeting_date }.sort_by { |e| e.common_value }.reverse
     # leader board
-    @leaders = @exercise.find_leaders(@user.gender)
+    @leaders = @fit_wit_workout.find_leaders(@user.gender)
   end
 
   def process_fit_wit_history
@@ -401,18 +401,18 @@ class MyFitWitController < ApplicationController
   private
 
   def get_calendar_events(user)
-    fit_wit_workouts = user.exertions.map { |e| OpenStruct.new(:exertion_id => e.id,
+    fit_wit_workouts = user.workouts.map { |e| OpenStruct.new(:exertion_id => e.id,
                                                                :meeting_date => e.meeting.meeting_date,
                                                                :score => e.score,
-                                                               :name => e.exercise.name,
+                                                               :name => e.fit_wit_workout.name,
                                                                :format_class => 'fit_wit_workout',
-                                                               :previous_scores => "<b>Score:</b> " + e.score + "<br />" + find_previous_scores(@user.id, e.exercise.id, e.exercise.name, e.id)) }
-    custom_workouts = user.custom_workouts.map { |e| OpenStruct.new(:exertion_id => e.exercise_id,
-                                                                    :meeting_date => e.workout_date,
-                                                                    :score => e.score,
-                                                                    :name => e.custom_name.blank? && e.exercise_id == 0 ? "Personal Workout" : (e.exercise_id > 0 ? e.exercise.name : e.custom_name),
+                                                               :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + find_previous_scores(@user.id, e.fit_wit_workout.id, e.fit_wit_workout.name, e.id)) }
+    custom_workouts = user.custom_workouts.map { |cw| OpenStruct.new(:exertion_id => cw.fit_wit_workout_id,
+                                                                    :meeting_date => cw.workout_date,
+                                                                    :score => cw.score,
+                                                                    :name => cw.custom_name.blank? && cw.fit_wit_workout_id == 0 ? "Personal Workout" : (cw.fit_wit_workout_id > 0 ? cw.fit_wit_workout.name : cw.custom_name),
                                                                     :format_class => 'custom_workout',
-                                                                    :previous_scores => "<b>Score:</b> " + e.score + "<br />" + e.description) }
+                                                                    :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + e.description) }
 
     goals = user.goals.map { |g| OpenStruct.new(:exertion_id => g.id,
                                                 :meeting_date => g.target_date,
@@ -425,12 +425,12 @@ class MyFitWitController < ApplicationController
   end
 
 
-  def list_exercise(e)
+  def list_fit_wit_workout(e)
     "#{e.name} on #{e.date_accomplished}"
   end
 
-  def find_previous_scores(user_id, exercise_id, exercise_name, exertion_id)
-    prev_exertions = Exertion.find_exercise_progress(user_id, exercise_id).delete_if { |ex| ex.id == exertion_id }
+  def find_previous_scores(user_id, fit_wit_workout_id, fit_wit_workout_name, exertion_id)
+    prev_exertions = Exertion.find_fit_wit_workout_progress(user_id, fit_wit_workout_id).delete_if { |ex| ex.id == exertion_id }
     unless prev_exertions.empty?
       prev_scores = "<p><b>Previous Scores:</b></p><table style='width:100%'>\n"
       odd = true
@@ -448,7 +448,7 @@ class MyFitWitController < ApplicationController
       end
       prev_scores += "</table>\n"
     else
-      prev_scores = "No previous #{exercise_name} workouts\n"
+      prev_scores = "No previous #{fit_wit_workout_name} workouts\n"
     end
     return prev_scores
   end

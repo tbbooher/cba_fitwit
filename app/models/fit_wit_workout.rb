@@ -27,19 +27,19 @@ class FitWitWorkout
   ["Slash-separated Time", "slash-separated-time"],
   ]
 
-  def find_completed_exercises
-    Exertion.find(:all, :conditions => ["exercise_id = ?", self.id])
+  def find_completed_fit_wit_workouts
+    Exertion.find(:all, :conditions => ["fit_wit_workout_id = ?", self.id])
   end
 
   def find_10_scores
-    Exertion.all(:select => 'score', :conditions => ['exercise_id = ?', self.id], :limit => 10, :order => 'created_at DESC').map { |e| e.score }
+    Exertion.all(:select => 'score', :conditions => ['fit_wit_workout_id = ?', self.id], :limit => 10, :order => 'created_at DESC').map { |e| e.score }
   end
 
   def find_10_common_scores
     #we want to modify this or create errors
     output = []
     errors = 0
-    Exertion.all(:conditions => ['exercise_id = ?', self.id], :limit => 400, :order => 'created_at DESC').each do |exertion|
+    Exertion.all(:conditions => ['fit_wit_workout_id = ?', self.id], :limit => 400, :order => 'created_at DESC').each do |exertion|
       begin
         output.push([exertion.user.short_name, exertion.score, common_value(exertion.score)])
       rescue Exception=>e
@@ -63,17 +63,17 @@ class FitWitWorkout
     if self.score_method.nil?
       return false
     else
-      return Exertion.find_by_sql("SELECT * from prs WHERE (exercise_id = #{self.id} AND gender = #{the_gender}) ORDER BY common_value DESC LIMIT 10;")
+      return Exertion.find_by_sql("SELECT * from prs WHERE (fit_wit_workout_id = #{self.id} AND gender = #{the_gender}) ORDER BY common_value DESC LIMIT 10;")
     end
   end
 
-  def find_peers(exertions_for_exercise)
+  def find_peers(exertions_for_fit_wit_workout)
     # find peers to the max of a given list of exertions
-    max_exertion = exertions_for_exercise.first # we have ordered it this way! #map{|exertion| [exertion.id, exertion.common_value]}.max_by{|u,v| v}
-    ex_id = max_exertion.exercise.id
+    max_exertion = exertions_for_fit_wit_workout.first # we have ordered it this way! #map{|exertion| [exertion.id, exertion.common_value]}.max_by{|u,v| v}
+    ex_id = max_exertion.fit_wit_workout.id
     the_score = max_exertion.common_value
-    five_above = Exertion.find_by_sql("select * from prs where exercise_id = #{ex_id} and common_value > #{the_score} ORDER BY common_value ASC limit 5;")
-    five_below = Exertion.find_by_sql("select * from prs where exercise_id = #{ex_id} and common_value < #{the_score} ORDER BY common_value DESC limit 5;")
+    five_above = Exertion.find_by_sql("select * from prs where fit_wit_workout_id = #{ex_id} and common_value > #{the_score} ORDER BY common_value ASC limit 5;")
+    five_below = Exertion.find_by_sql("select * from prs where fit_wit_workout_id = #{ex_id} and common_value < #{the_score} ORDER BY common_value DESC limit 5;")
     #xs = self.exertions.map{|ex| [ex, ex.common_value]}.sort_by{|ex,common_value| common_value}.reverse
     #idx = exs.index{|e,s| e.id == max_score.first}
     # need to put user in there
@@ -82,12 +82,12 @@ class FitWitWorkout
 
   def done_at_meeting(meeting_id)
     Exertion.find(:all, :joins => :meeting_user,
-                  :conditions => ["meeting_id = ? AND exercise_id = ?", meeting_id, self.id])
+                  :conditions => ["meeting_id = ? AND fit_wit_workout_id = ?", meeting_id, self.id])
   end
 
   def placement_at_meeting(meeting_id)
     Exertion.find(:all, :joins => :meeting_user,
-                  :conditions => ["meeting_id = ? AND exercise_id = ?", meeting_id, self.id],
+                  :conditions => ["meeting_id = ? AND fit_wit_workout_id = ?", meeting_id, self.id],
                   :order => 'score DESC')
   end
 
