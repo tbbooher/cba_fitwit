@@ -18,5 +18,12 @@ describe "user" do
       "User's longitude should be 14.2542 but is #{user.location.inspect}"
   end
 
+  it "should have a number of time slots" do
+    r = FactoryGirl.create(:registration) # this creates a registration
+    st_time = Time.local(2000,1,1,6)
+    r.time_slot.start_time.should eq(st_time)
+    user = r.order.user
+    user.user_time_slots.first.start_time.should eq(st_time) 
+  end
 
 end
