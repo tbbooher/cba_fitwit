@@ -263,7 +263,7 @@ class MyFitWitController < ApplicationController
     # for calendar
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
-    @exercise_list = Exercise.find(:all).map { |e| [e.name, e.id] }
+    @exercise_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
     @custom_workout = CustomWorkout.new
     @action_url = 'input_custom_workout'
     @calendar_events = get_calendar_events(@user)

@@ -2,6 +2,8 @@
 
 Cba::Application.routes.draw do
 
+  resources :custom_workouts
+
   get "my_fit_wit/index"
   get "my_fit_wit/profile"
   get "my_fit_wit/upcoming_fitnesscamps"

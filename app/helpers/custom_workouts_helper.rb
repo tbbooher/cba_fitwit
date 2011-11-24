@@ -1,0 +1,2 @@
+module CustomWorkoutsHelper
+end

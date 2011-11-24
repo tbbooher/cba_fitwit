@@ -140,6 +140,7 @@ class User
   has_many :registrations
   has_and_belongs_to_many :attendances, class_name: "Meeting", inverse_of: :attendees
   embeds_many :prs
+  embeds_many :custom_workouts
 
   validates_presence_of   :name
   validates_uniqueness_of :name, :case_sensitive => false
