@@ -3,6 +3,7 @@ class Registration
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  belongs_to :user
   belongs_to :time_slot  # , :null => false
   belongs_to :order
   has_many :friends

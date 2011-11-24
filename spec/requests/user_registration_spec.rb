@@ -1,6 +1,5 @@
 require File::expand_path('../../spec_helper', __FILE__)
 
-
 # here is the flow
 ## registration/view_cart
 # on this page:
