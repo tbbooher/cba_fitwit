@@ -1,4 +1,4 @@
-<% form_for :credit_card, :url => {:action => 'pay', :id => params[:id]} do |f| %>
+<%= form_for :credit_card, :url => {:action => 'pay', :id => params[:id]} do |f| %>
 <ul>
     <li><%= desc_label(f,:first_name,'First Name:') +
       f.text_field(:first_name, :value => @myuser.first_name) %></li>
@@ -10,7 +10,7 @@
       <div id="address" class="address">
         <div>
           <%= text_field_tag('billing_address[address1]', @myuser.street_address1, :class => "full") +
-            f.label(:street_address1,"Street Address#{FIELD_REQUIRED}") %>
+            f.label(:street_address1,"Street Address") %>
         </div>
         <div>
           <%= text_field_tag('billing_address[address2]', @myuser.street_address2, :class => "full") +
@@ -20,13 +20,13 @@
           <span>
             <!-- City ! -->
   <%= text_field_tag('billing_address[city]', @myuser.city, :size => '22') +
-    f.label(:city, "City#{FIELD_REQUIRED}") %>
+    f.label(:city, "City") %>
           </span>
           <span>
             <!-- State ! -->
   <%= text_field_tag('billing_address[us_state]',
     @myuser.us_state, :size => 2) +
-    f.label(:us_state, "State#{FIELD_REQUIRED}") %>
+    f.label(:us_state, "State") %>
           </span>
           <!-- Zip ! -->
           <span>

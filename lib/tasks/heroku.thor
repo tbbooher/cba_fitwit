@@ -39,6 +39,10 @@ module PrepHeroku
       @omni_auth = YAML.load_file(File.expand_path('../../../config/omniauth_settings.yml', __FILE__)).with_indifferent_access
     end
 
+    def prices
+      @prices = YAML.load_file(File.expand_path('../../../config/prices.yml', __FILE__)).with_indifferent_access
+    end
+
     def mail_settings
       @mail_settings = YAML.load_file(File.expand_path('../../../config/mailserver_setting.yml', __FILE__)).with_indifferent_access
     end
@@ -66,6 +70,9 @@ module PrepHeroku
               e << "CONSTANTS_#{key}='#{value}'"
             end
             omni_auth.each do |key, value|
+              e << "#{key}='#{value}'"
+            end
+            prices.each do |key, value|
               e << "#{key}='#{value}'"
             end
             mail_settings.each do |key, value|
