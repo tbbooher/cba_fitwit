@@ -2,6 +2,11 @@ module FitWitCustomUserMethods
 
   # TODO -- include this in a module?
 
+  def user_time_slots
+    order_ids = Order.where(user_id: self.id).all.map(&:id)
+    Registration.where(:order_id.in => order_ids).map{|r| r.time_slot} 
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
