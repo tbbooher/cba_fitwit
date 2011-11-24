@@ -17,10 +17,6 @@ Feature: Comments
       | Andi | aa@bb.cc | My first Comment |
     And I am logged in as user "admin@iboard.cc" with password "thisisnotsecret"
 
-  Scenario: Admin should see the Comments-menu item
-    Given I am on the home page
-    Then I should see "Comments" within "#session"
-
   Scenario: Admin should see the list of comments
     Given I am on the comments page
     Then I should see "My first Comment"
@@ -31,11 +27,6 @@ Feature: Comments
     And I click on link "Delete"
     Then I should be on the page path of "Page 1"
     And I should not see "My first Comment"
-
-  Scenario: Only moderators should see a the comments-menu-item
-    Given I am logged out
-    And I am on the home page
-    Then I should not see "Comments" within "#session"
 
   Scenario: Only moderators should see a list of all comments
     Given I am logged out
@@ -49,7 +40,7 @@ Feature: Comments
     And I fill in "Email" with "my@email.cc"
     And I fill in "Comment" with "A stupid comment but you got my IP"
     And I click on "Post comment"
-    And I click on link "Comments" within "#session"
+    And I am on the comments page
     Then I should see "A stupid comment"
     And I should see "Posted from 127.0.0.1"
     And I should see "Page 1" within ".comment"
