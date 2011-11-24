@@ -9,15 +9,13 @@ class MyFitWitController < ApplicationController
     @pagetitle = "My FitWit"
     @include_jquery = true
     @qtip = true
+    # TODO
+    # why are these all here anyway ?
     if @user_id
-      @user = User.find(@user_id)
-      @my_time_slots = TimeSlot.find(:all,
-                                     :joins => {:registrations => :order},
-                                     :conditions => ["user_id = ?", @user_id])
+      @user = current_user # User.find(@user_id)
+      @my_time_slots = @user.user_time_slots
       @my_fitness_camps = @my_time_slots.map { |ts| ts.fitness_camp } # ??
-      @my_exercises = Exercise.find(:all,
-                                    :joins => {:exertions => :meeting_user},
-                                    :conditions => ["user_id = ?", @user_id])
+      @my_exercises = Workout.where(user: @user).all
     else
       flash[:notice] = "you need to be logged in"
       # redirect somewhere
@@ -26,7 +24,7 @@ class MyFitWitController < ApplicationController
 
   def profile
     @pagetitle = "Edit profile information"
-    @user = User.find(session[:user_id])
+    @user = current_user
     @include_jquery = true
     @qtip = true
     @fit_wit_form = true
@@ -152,7 +150,7 @@ class MyFitWitController < ApplicationController
     #params[:user][:role_ids] ||= []
     #    params[:user][:height] = get_inches_height(params[:my_height][:height_ft],
     #      params[:my_height][:height_in])
-    @user = User.find(session[:user_id])
+    @user = current_user
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'Your profile was successfully updated.'
@@ -455,10 +453,6 @@ class MyFitWitController < ApplicationController
     return prev_scores
   end
 
-  def get_user_id
-    @user_id = session[:user_id].to_i
-  end
-
   def zero_out_all_unchecked_explanations(user_params)
     condition_params = user_params.reject { |key, value| \
  key =~ /_explanation$/ || \
@@ -514,6 +508,12 @@ class MyFitWitController < ApplicationController
       d = d.next_month
     end
     return m
+  end
+
+  private
+
+  def get_user_id
+    @user_id = current_user.id
   end
 
 end

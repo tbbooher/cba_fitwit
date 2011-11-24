@@ -86,7 +86,7 @@ class BaseController < ApplicationController
   end
 
   def locations
-
+    #@google_maps = true
   end
 
   def camp_details

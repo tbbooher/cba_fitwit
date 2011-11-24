@@ -100,8 +100,8 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/index'
   match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
   get 'fitness_camp_registration/no_need_to_register'
-  get 'fitness_camp_registration/release_and_waiver_of_liability'
-  get 'fitness_camp_registration/terms_of_participation'
+  match 'fitness_camp_registration/release_and_waiver_of_liability'
+  match 'fitness_camp_registration/terms_of_participation'
   get 'fitness_camp_registration/process_fit_wit_history'
   match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#view_cart"
   match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
@@ -110,7 +110,7 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/health_history'
   get 'fitness_camp_registration/payment'
   get 'fitness_camp_registration/pay'
-  get 'fitness_camp_registration/save_order'
+  match 'fitness_camp_registration/save_order'
   get 'fitness_camp_registration/empty_cart'
   get 'fitness_camp_registration/registration_success'
   get 'fitness_camp_registration/all_fitness_camps'

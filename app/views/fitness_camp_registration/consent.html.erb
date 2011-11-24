@@ -20,7 +20,7 @@
 <% end %>
 <p style="clear:both;">
 </p>
-<% form_for :health_approval,
+<%= form_for :health_approval,
             :url => {:action => :release_and_waiver_of_liability},
             :builder => ConsentFormBuilder do |f| %>
     <div id="order_details">
@@ -33,9 +33,9 @@
       <div id="radios">
         <% subject = "participation_approved" %>
         <% my_id = "'health_approval[#{subject}_explanation]'" %>
-        <%= f.radio_button(subject.to_sym, "Yes", {}, @checked_values) %>
-        <%= f.radio_button(subject.to_sym, "No", {}, @checked_values) %>
-        <%= f.text_area(subject, "Please explain", {}, @button_hash) %>
+        <%= f.radio_button(subject.to_sym, "Yes", {}, @checked_values).html_safe %>
+        <%= f.radio_button(subject.to_sym, "No", {}, @checked_values).html_safe %>
+        <%= f.text_area(subject, "Please explain", {}, @button_hash).html_safe %>
       </div>
       </p>
       <p style="clear:both;">
@@ -45,9 +45,9 @@
       <div>
         <% subject = "taking_medications" %>
         <% my_id = "'health_approval[#{subject}_explanation]'" %>
-        <%= f.radio_button(subject.to_sym, "Yes", {:onclick => "$(#{my_id}).show()"}, @checked_values) %>
-        <%= f.radio_button(subject.to_sym, "No", {:onclick => "$(#{my_id}).hide()"}, @checked_values) %>
-        <%= f.text_area(subject, "Please explain", {}, @button_hash) %>
+        <%= f.radio_button(subject.to_sym, "Yes", {:onclick => "$(#{my_id}).show()"}, @checked_values).html_safe %>
+        <%= f.radio_button(subject.to_sym, "No", {:onclick => "$(#{my_id}).hide()"}, @checked_values).html_safe %>
+        <%= f.text_area(subject, "Please explain", {}, @button_hash).html_safe %>
       </div>
       </p>
       <% if @user.gender == 2 %>
