@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Review date:
+  = @measurement.review_date
+%p
+  %b Height:
+  = @measurement.height
+%p
+  %b Weight:
+  = @measurement.weight
+%p
+  %b Chest:
+  = @measurement.chest
+%p
+  %b Waist:
+  = @measurement.waist
+%p
+  %b Hip:
+  = @measurement.hip
+%p
+  %b Right arm:
+  = @measurement.right_arm
+%p
+  %b Right thigh:
+  = @measurement.right_thigh
+%p
+  %b Bmi:
+  = @measurement.bmi
+%p
+  %b Bodyfat percentage:
+  = @measurement.bodyfat_percentage
+
+= link_to 'Edit', edit_measurement_path(@measurement)
+\|
+= link_to 'Back', measurements_path

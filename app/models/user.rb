@@ -137,10 +137,12 @@ class User
 
   # FitWit Specifics
   has_many :workouts
-  has_many :registrations
+  #has_many :registrations  # TODO -- this is really normalized, need to consider
+  has_many :orders
   has_and_belongs_to_many :attendances, class_name: "Meeting", inverse_of: :attendees
   embeds_many :prs
   embeds_many :custom_workouts
+  embeds_many :goals
 
   validates_presence_of   :name
   validates_uniqueness_of :name, :case_sensitive => false

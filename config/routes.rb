@@ -2,6 +2,8 @@
 
 Cba::Application.routes.draw do
 
+  resources :measurements
+
   resources :goals
 
   resources :custom_workouts
