@@ -1,0 +1,38 @@
+ul#my_fitwit_nav {
+    text-align:right;
+    height:75px;
+    background-repeat:no-repeat;
+    margin-top:0;
+    .goals {
+      background: image-url("/images/my_fit_wit/Goals_header.jpg");
+    }
+    .camp_reports {
+      background-image: image-url("/images/my_fit_wit/CampReport_header.jpg");
+    }
+    .my_fit_wit {
+      background-image: image-url("/images/my_fit_wit/MyFitWit_header.jpg");
+    }
+    .profile {
+      background-image: image-url("/images/my_fit_wit/Profile_header.jpg");
+    }
+    .progress {
+      background-image: image-url("/images/my_fit_wit/Progress_header.jpg");
+    }
+
+    li {
+      height:65px;
+      width:55px;
+      padding:0;
+      margin:0;
+      list-style-type:none;
+      display:inline;
+    }
+}
+
+ul#main_my_fitwit {
+    width:684px;
+    height:255px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:0px;
+}

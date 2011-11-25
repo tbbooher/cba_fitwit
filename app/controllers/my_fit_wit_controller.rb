@@ -264,7 +264,9 @@ class MyFitWitController < ApplicationController
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
     @fit_wit_workout_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
-    #@custom_workout = @user.custom_workouts.new   # i don't know why this is generated
+    @custom_workout = @user.custom_workouts.new   # this is generated for the forms
+    @custom_workout.score = ""
+    @custom_workout.description = ""
     @action_url = 'input_custom_workout'
     @calendar_events = get_calendar_events(@user)
     # for single fit_wit_workout
@@ -515,6 +517,7 @@ class MyFitWitController < ApplicationController
 
   def get_user_id
     @user_id = current_user.id
+    @my_fit_wit = true
   end
 
 end

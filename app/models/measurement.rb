@@ -10,4 +10,6 @@ class Measurement
   field :right_thigh, :type => Float
   field :bmi, :type => Float
   field :bodyfat_percentage, :type => Integer
+
+  embedded_in :user
 end

@@ -101,10 +101,11 @@ end
 gem 'activemerchant', :git => 'git://github.com/tbbooher/active_merchant.git'
 #gem 'gibberish'
 gem 'ssl_requirement'
+gem 'event-calendar', :require => 'event_calendar'
 #gem 'white_list_formatted_content'
 #gem 'activerecord-tableless-0.1.0'
 #gem 'google_charts_on_rails'
-gem 'table_builder'
+#gem 'table_builder'
 #gem 'ym4r_gm'
 #gem 'acts_as_list'
 #gem 'newrelic_rpm'
@@ -119,5 +120,4 @@ gem 'stateflow'
 gem 'wkhtmltopdf-binary'
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 #gem "jquery-rest"
-gem 'table_builder'
 

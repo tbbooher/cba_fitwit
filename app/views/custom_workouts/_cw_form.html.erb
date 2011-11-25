@@ -1,4 +1,4 @@
-<% form_for(@custom_workout, :class=> "fitwit", :url => @action_url) do |f| %>
+<%= form_for(@custom_workout, :class=> "fitwit", :url => @action_url) do |f| %>
 <%= f.error_messages %>
 
 <%= hidden_field_tag "adding_new_workout", true %> <!-- #!f.object[:custom_name].blank? %> -->
@@ -8,18 +8,18 @@
     <%= desc_label(f, :custom_name, 'Workout Name', false) %>
     <%= f.text_field :custom_name, :size => 51, :class => "required" %>
   </li>
-  <li id="exercise_select">
-    <%= desc_label(f, :exercise_id, 'FitWit Workout', false) %>
-    <%= f.select :exercise_id, @exercise_list, {:prompt => 'Select one of the FitWit workouts or a custom workout '}, {:style => "width:400px"} %>
+  <li id="fit_wit_workout_select">
+    <%= desc_label(f, :fit_wit_workout_id, 'FitWit Workout', false) %>
+    <%= f.select :fit_wit_workout_id, @fit_wit_workout_list, {:prompt => 'Select one of the FitWit workouts or a custom workout '}, {:style => "width:400px"} %>
   </li>
-  <li id="exercise_description">
-    <%= desc_label(f, :exercise_description, 'Description', false) %>
+  <li id="fit_wit_workout_description">
+    <%= desc_label(f, :fit_wit_workout_description, 'Description', false) %>
     <div id="the_description" style="margin-left:209px; width:560px;">&nbsp;</div>
   </li>
   <li id="the_button">
     <%= desc_label(f, :button, '&nbsp;', false) %>
     <button id="custom_workout_button" class="fg-button ui-state-default fg-button-toggleable ui-corner-all fg-button-icon-left">
-      <span class="ui-icon ui-icon-plusthick" style="padding-bottom: 0px;"></span>Do a FitWit workout
+      <span class="ui-icon ui-icon-plusthick" style="padding-bottom: 0;"></span>Do a FitWit workout
     </button>
   </li>
 
