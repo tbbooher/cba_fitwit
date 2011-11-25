@@ -1,6 +1,9 @@
 module FitWitCustomUserMethods
 
   # TODO -- include this in a module?
+  def camper_since
+    self.orders.sort_by { |o| o.created_at }.first.created_at
+  end
 
   def find_prs
     self.prs

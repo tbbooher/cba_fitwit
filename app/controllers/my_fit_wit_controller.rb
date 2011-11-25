@@ -69,9 +69,10 @@ class MyFitWitController < ApplicationController
       redirect_to :action => :fit_wit_workout_progress
     end
     @custom_workout = CustomWorkout.new(cwo)
+    current_user.custom_workouts << @custom_workout
 
     respond_to do |format|
-      if @custom_workout.save
+      if current_user.save
         flash[:notice] = 'Custom Workout was successfully created.'
         format.html { redirect_to :action => :fit_wit_workout_progress, :month => the_month }
         format.xml { render :xml => @custom_workout, :status => :created, :location => @custom_workout }
@@ -173,8 +174,8 @@ class MyFitWitController < ApplicationController
     @pagetitle = 'Fitness Camp Report'
     @u = User.find(@user_id)
     @qtip = true
-    @my_completed_fitnesscamps = FitnessCamp.find_past(@user_id).collect { |b| [b.title, b.id] }.uniq
-    unless @my_completed_fitnesscamps.nil?
+    @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
+    unless @my_completed_fitnesscamps.empty?
       if params[:fitnesscamp] and request.post?
         fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
       else
@@ -264,11 +265,11 @@ class MyFitWitController < ApplicationController
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
     @fit_wit_workout_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
+    @calendar_events = get_calendar_events(@user)
     @custom_workout = @user.custom_workouts.new   # this is generated for the forms
     @custom_workout.score = ""
     @custom_workout.description = ""
     @action_url = 'input_custom_workout'
-    @calendar_events = get_calendar_events(@user)
     # for single fit_wit_workout
     @fit_wit_workouts_select_list = @user.workouts.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout.id] }.uniq
     @fit_wit_workouts_select_list << ['select a workout', 0]
