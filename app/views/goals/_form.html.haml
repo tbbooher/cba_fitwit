@@ -1,0 +1,28 @@
+= form_for @goal do |f|
+  -if @goal.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@goal.errors.count, "error")} prohibited this goal from being saved:"
+      %ul
+        - @goal.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :goal_name
+    = f.text_field :goal_name
+  .field
+    = f.label :description
+    = f.text_field :description
+  .field
+    = f.label :date_added
+    = f.date_select :date_added
+  .field
+    = f.label :target_date
+    = f.date_select :target_date
+  .field
+    = f.label :completed
+    = f.check_box :completed
+  .field
+    = f.label :completed_date
+    = f.date_select :completed_date
+  .actions
+    = f.submit 'Save'

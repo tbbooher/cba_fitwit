@@ -264,7 +264,7 @@ class MyFitWitController < ApplicationController
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
     @fit_wit_workout_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
-    @custom_workout = @user.custom_workouts.new
+    #@custom_workout = @user.custom_workouts.new   # i don't know why this is generated
     @action_url = 'input_custom_workout'
     @calendar_events = get_calendar_events(@user)
     # for single fit_wit_workout
@@ -406,13 +406,14 @@ class MyFitWitController < ApplicationController
                                                                :score => e.score,
                                                                :name => e.fit_wit_workout.name,
                                                                :format_class => 'fit_wit_workout',
-                                                               :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + find_previous_scores(@user.id, e.fit_wit_workout.id, e.fit_wit_workout.name, e.id)) }
+                                                               :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + find_previous_scores(@user.id, cw.fit_wit_workout.id, cw.fit_wit_workout.name, cw.id)) }
+
     custom_workouts = user.custom_workouts.map { |cw| OpenStruct.new(:exertion_id => cw.fit_wit_workout_id,
                                                                     :meeting_date => cw.workout_date,
                                                                     :score => cw.score,
-                                                                    :name => cw.custom_name.blank? && cw.fit_wit_workout_id == 0 ? "Personal Workout" : (cw.fit_wit_workout_id > 0 ? cw.fit_wit_workout.name : cw.custom_name),
+                                                                    :name => cw.title,
                                                                     :format_class => 'custom_workout',
-                                                                    :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + e.description) }
+                                                                    :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + cw.description) }
 
     goals = user.goals.map { |g| OpenStruct.new(:exertion_id => g.id,
                                                 :meeting_date => g.target_date,
@@ -486,6 +487,8 @@ class MyFitWitController < ApplicationController
 
   end
 
+  private
+
   def get_inches_height(my_feet, my_inches)
     ((my_feet.to_i*12) + my_inches.to_i)
   end
@@ -509,8 +512,6 @@ class MyFitWitController < ApplicationController
     end
     return m
   end
-
-  private
 
   def get_user_id
     @user_id = current_user.id

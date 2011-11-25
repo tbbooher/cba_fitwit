@@ -5,8 +5,11 @@ describe "The my_fit_wit section" do
   before(:all) do
     cleanup_database
     create_default_userset
-    log_in_as "admin@iboard.cc", 'thisisnotsecret'
     #load_some_camp_history
+  end
+
+  before(:each) do
+    log_in_as "admin@iboard.cc", 'thisisnotsecret'
   end
 
   it "should show the my_fit_wit page" do
@@ -15,8 +18,9 @@ describe "The my_fit_wit section" do
   end
 
   it "should load a fitness progress page" do
+
     visit my_fit_wit_fit_wit_workout_progress_path
-    current_user.should eq(User) 
+    current_user.should eq(User)
     page.should have_content("Calendar")
   end
 

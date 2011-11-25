@@ -19,6 +19,7 @@ module SpecDataHelper
       Order.unscoped.delete_all
       Registration.unscoped.delete_all
       Page.delete_all
+      CustomWorkout.delete_all
     rescue => e
       puts "*** ERROR CLEANING UP DATABASE -- #{e.inspect}"
     end
