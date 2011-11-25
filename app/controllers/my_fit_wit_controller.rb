@@ -166,7 +166,7 @@ class MyFitWitController < ApplicationController
 
   def past_fitnesscamps
     @pagetitle = 'Past Fitness Camps'
-    @mycamps = FitnessCamp.find_past(@user_id)
+    @mycamps = current_user.past_fitness_camps
   end
 
   def camp_fit_wit_workout_progress
@@ -268,11 +268,11 @@ class MyFitWitController < ApplicationController
     @action_url = 'input_custom_workout'
     @calendar_events = get_calendar_events(@user)
     # for single fit_wit_workout
-    @fit_wit_workouts_select_list = @user.exertions.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout.id] }.uniq
+    @fit_wit_workouts_select_list = @user.workouts.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout.id] }.uniq
     @fit_wit_workouts_select_list << ['select a workout', 0]
     # prs
     @prs = @user.find_prs
-    @fitness_camps = FitnessCamp.find_past(@user_id).collect { |b| [b.title, b.session_start_date.strftime("%b-%Y")] }.uniq
+    @fitness_camps = @user.past_fitness_camps.collect { |b| [b.title, b.session_start_date.strftime("%b-%Y")] }.uniq
     # measurements
     @my_measurements = @user.measurements
     @measurement = Measurement.new

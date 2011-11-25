@@ -18,7 +18,6 @@ describe "The my_fit_wit section" do
   end
 
   it "should load a fitness progress page" do
-
     visit my_fit_wit_fit_wit_workout_progress_path
     current_user.should eq(User)
     page.should have_content("Calendar")

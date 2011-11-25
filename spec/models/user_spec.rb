@@ -26,4 +26,28 @@ describe "user" do
     user.user_time_slots.first.start_time.should eq(st_time) 
   end
 
+  it "should be able to recall all past fitness camps" do
+    u = FactoryGirl.create(:user)
+    FactoryGirl.create_list(:a_camp, 10).each_with_index do |camp, i|
+      t = Time.local(1,1,1,6)
+      ts = TimeSlot.create(start_time: t, end_time: t + 1.hour, fitness_camp: camp)
+      my_order = Order.create(amount: i, user: u, state: 'pending', description: "a test order {i}")
+      Registration.create(user: u, time_slot: ts, order: my_order)
+    end
+    u.orders.size.should eq(10)
+    u.past_fitness_camps.size.should eq(10)
+  end
+
+  it "should be able to produce a series of time slots" do
+    u = FactoryGirl.create(:user)
+    FactoryGirl.create_list(:a_camp, 10).each_with_index do |camp, i|
+      t = Time.local(1,1,1,6)
+      ts = TimeSlot.create(start_time: t, end_time: t + 1.hour, fitness_camp: camp)
+      my_order = Order.create(amount: i, user: u, state: 'pending', description: "a test order {i}")
+      Registration.create(user: u, time_slot: ts, order: my_order)
+    end
+    #u.orders.size.should eq(10)
+    u.user_time_slots.first.start_time.should eq(Time.local(1,1,1,6))
+  end
+
 end
