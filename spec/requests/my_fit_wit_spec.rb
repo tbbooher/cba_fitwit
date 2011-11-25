@@ -15,13 +15,13 @@ describe "The my_fit_wit section" do
   end
 
   it "should load a fitness progress page" do
-    visit my_fit_wit_exercise_progress_path 
+    visit my_fit_wit_fit_wit_workout_progress_path
     current_user.should eq(User) 
     page.should have_content("Calendar")
   end
 
-  it "should load a camp exercise_progress page" do
-    visit my_fit_wit_camp_exercise_progress_path
+  it "should load a camp fit_wit_workout_progress page" do
+    visit my_fit_wit_camp_fit_wit_workout_progress_path
     page.should have_content("Camp report")
   end
 

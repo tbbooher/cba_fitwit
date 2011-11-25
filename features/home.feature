@@ -12,19 +12,6 @@ Feature: Home
       | title          | body                 | show_in_menu |
       | A Twitter page | Lorem Twittum        | true         |
 
-  Scenario: The home-page should show top pages in a sidebar
-     Given I am on the home page
-     Then I should see "A Twitter page"
-     And I should see "Lorem Twittum"
-
-  Scenario: If twitter.html exist the home page should show the twitter-box
-     Given the following file
-       | filename                 | content                 |
-       | config/twitter.test.html | This is the twitter box |
-     And I am on the home page
-     Then I should see "This is the twitter box"
-     Then delete file "config/twitter.test.html"
-
   Scenario: Link Show drafts should be displayed if draft mode is off
      Given I am logged in as user "admin@iboard.cc" with password "thisisnotsecret"
      And I am on the home page
@@ -69,18 +56,3 @@ Feature: Home
     And I should not see "A Posting Draft"
     And I should see "Should be shown"
     And I should see "A wonderful body"
-    
-  Scenario: BUGFIX: unpriviledged users should not see draft postings on root path
-    Given the following blog records
-      | title | is_draft |
-      | News  | false    |
-    Given the following posting records for blog "News" and user "admin"
-      | title      | body                                           | is_draft |
-      | Direct Post| The posting should load the blog it belongs to | false    |
-      | Draft Post | This should not be visible to non-authors      | true     |
-    And I am logged out
-    And I am on the home page
-    Then I should see "Direct Post"
-    And I should not see "Draft Post"
-    And I should not see "This should not be visible to non-authors"
-

@@ -6,6 +6,11 @@ class PagesController < ApplicationController
 
   before_filter :set_default_flags, :only => [:create, :update]
   before_filter :set_template_scope, :except => [:sort_components]
+  before_filter :load_map
+
+  def load_map
+    @google_maps = true
+  end
   
   # seems to use unscoped find ?!
   #   load_and_authorize_resource :except => [:permalinked,:new_article,:create_new_article]
