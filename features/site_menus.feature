@@ -23,20 +23,6 @@ Feature: SiteMenus
       | rootB.Blirum.Sub1 | /dummy1      |
       | rootB.Blirum.Sub2 | /dummy2      |
 
-  Scenario: I wanna see a sumbenue on the homepage
-    Given I am on the home page
-    Then I should see "rootA"
-    And I should see "item1"
-    And I should see "item2"
-    And I should see "rootB"
-    When I click on link "rootB"
-    Then I should see "rootB"
-    And I should see "Blorem"
-    And I should see "Blirum"
-    Then I click on link "Blirum"
-    Then I should see "Sub1"
-    And I should see "Sub2"
-
   Scenario: Admin should have a link to edit site-menues before there is a site-menu
     Given I am logged in as user "admin@iboard.cc" with password "thisisnotsecret"
     Then I should see "Menus" within "#action_buttons"
