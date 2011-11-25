@@ -2,6 +2,8 @@
 
 Cba::Application.routes.draw do
 
+  resources :goals
+
   resources :custom_workouts
 
   get "my_fit_wit/index"

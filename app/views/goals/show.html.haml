@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Goal name:
+  = @goal.goal_name
+%p
+  %b Description:
+  = @goal.description
+%p
+  %b Date added:
+  = @goal.date_added
+%p
+  %b Target date:
+  = @goal.target_date
+%p
+  %b Completed:
+  = @goal.completed
+%p
+  %b Completed date:
+  = @goal.completed_date
+
+= link_to 'Edit', edit_goal_path(@goal)
+\|
+= link_to 'Back', goals_path
