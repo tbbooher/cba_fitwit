@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'calendar_progress' %>
+<%= javascript_include_tag "from_old_wit/calendar_progress" %>
 
 <div id="dialog-form" title="Add workout">
   <!--<p class="validateTips">All form fields are required.</p>-->
@@ -6,8 +6,9 @@
 </div>
 
 <div id="moving_image">
-Please wait while we do some big number crunching on your past workouts. (This may take a good bit.)<br />
-  <div style="width:100%; text-align: center">
+  Please wait while we do some big number crunching on your past workouts. (This may take a good bit.)<br/>
+
+  <div style="width:100%; text-align: center;">
     <%= image_tag "ajax-loader.gif" %>
   </div>
 </div>
@@ -24,30 +25,30 @@ Please wait while we do some big number crunching on your past workouts. (This m
     <%= h @calendar_date.strftime("%B %Y") %>
     <%= link_to ">", :month => (@calendar_date.end_of_month+1).strftime("%b-%Y") %>
   </h2>
-  <% calendar_for @calendar_events, :year => @calendar_date.year, :month => @calendar_date.month do |calendar| %>
+  <%= calendar_for @calendar_events, :year => @calendar_date.year, :month => @calendar_date.month do |calendar| %>
       <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') %>
-      <% calendar.day(:day_method => :meeting_date) do |date, workouts| %>
+      <%= calendar.day(:day_method => :meeting_date) do |date, workouts| %>
           <div style="margin:0;padding:0;width:100%; position:relative">
-          <%= date.day %>
-	  <div class="ui-state-default ui-corner-all date_button">
-            <%= link_to "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>", {:action => :add_custom_workout, :date => date}, {:class => 'bottom_date'} %>
-	  </div>
-          <ul>
-            <% for workout in workouts %>
-                <% description = workout.previous_scores %>
-                <li>
-		  <% type =  workout.format_class %>
-		  <% if type == 'custom_workout' %>
-                  <%= link_to h(workout.name), "#", {:title => description, :class => "#{workout.format_class} activity"} %>
-		  <% elsif type == 'goal' %>
-                  <%= link_to h(workout.name), {:action => :my_goals}, {:title => description, :class => "#{workout.format_class} activity"} %>
-		  <% else %>
-                  <%= link_to h(workout.name), {:action => :specific_exercise, :id => workout.exertion_id}, {:title => description, :class => "#{workout.format_class} activity"} %>
-		  <% end %>
-                </li>
-            <% end %>
-          </ul>
-	  </div>
+            <%= date.day %>
+            <div class="ui-state-default ui-corner-all date_button">
+              <%= link_to "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>", {:action => :add_custom_workout, :date => date}, {:class => 'bottom_date'} %>
+            </div>
+            <ul>
+              <% for workout in workouts %>
+                  <% description = workout.previous_scores %>
+                  <li>
+                    <% type = workout.format_class %>
+                    <% if type == 'custom_workout' %>
+                        <%= link_to h(workout.name), "#", {:title => description, :class => "#{workout.format_class} activity"} %>
+                    <% elsif type == 'goal' %>
+                        <%= link_to h(workout.name), {:action => :my_goals}, {:title => description, :class => "#{workout.format_class} activity"} %>
+                    <% else %>
+                        <%= link_to h(workout.name), {:action => :specific_exercise, :id => workout.exertion_id}, {:title => description, :class => "#{workout.format_class} activity"} %>
+                    <% end %>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
       <% end %>
   <% end %>
 </div>
