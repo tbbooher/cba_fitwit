@@ -6,12 +6,12 @@
 <% if @myexertions.nil? and !params[:fitnesscamp] %>
     <p>You have not yet completed any workouts at a fitness camp.
       You can <%= link_to "register here",
-                          :controller => "registration",
+                          :controller => "fitness_camp_registration",
                           :action => "all_fitness_camps" %>.
     </p>
 <% else %>
     <% unless @my_completed_fitnesscamps.empty? %>
-        <% form_for :fitnesscamp, :url => {:action => 'camp_exercise_progress'} do |form| %>
+        <% form_for :fitnesscamp, :url => {:action => 'camp_fit_wit_workout_progress'} do |form| %>
             Pick workouts for a specific Fitness Camp:
             <%= form.select :fitness_camp_id, @my_completed_fitnesscamps %>
             <%= form.submit "Look up" %>

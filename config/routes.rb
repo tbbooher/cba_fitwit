@@ -2,17 +2,11 @@
 
 Cba::Application.routes.draw do
 
-  resources :measurements
-
-  resources :goals
-
-  resources :custom_workouts
-
   get "my_fit_wit/index"
   get "my_fit_wit/profile"
   get "my_fit_wit/upcoming_fitnesscamps"
   get "my_fit_wit/add_custom_workout"
-  get "my_fit_wit/input_custom_workout"
+  match "my_fit_wit/input_custom_workout"
   get "my_fit_wit/leader_board"
   get "my_fit_wit/get_progress_chart"
   get "my_fit_wit/fit_wit_workout_details"
@@ -39,7 +33,7 @@ Cba::Application.routes.draw do
   get "my_fit_wit/get_months_and_years"
 
   resources :friends
-  resources :prs
+
   resources :fit_wit_workouts
   resources :workouts
   resources :meetings
@@ -155,10 +149,19 @@ Cba::Application.routes.draw do
   match 'profile/:id' => 'users#show', :as => 'profile'
 
   devise_for :users, :controllers => {:registrations => 'registrations'}
+
+  resources :users do
+    resources :prs
+    resources :measurements
+    resources :goals
+    resources :custom_workouts
+  end
+
   resources :users, :only => [:show, :destroy] do
     resources :invitations
     resources :user_groups
     resources :user_notifications
+
     member do
       get :crop_avatar
       put :crop_avatar

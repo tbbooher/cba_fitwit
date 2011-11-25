@@ -35,4 +35,116 @@ ul#main_my_fitwit {
     margin-left:auto;
     margin-right:auto;
     margin-bottom:0px;
+    li {
+      display:block;
+      float:left;
+      width:157px;
+      height:261px;
+      list-style:none;
+      margin:2px;
+    }
+}
+
+#small_calendar {
+  table {
+    border-collapse: collapse;
+    width: 200px; }
+  tr {
+    height: 35px; }
+  td {
+    border: 1px solid #999;
+    height: 10px; }
+  float: left;
+  padding: 10px;
+  th {
+    background: #DDD;
+    color: #666;
+    text-align: center;
+    width: 14.2857142857143%;
+    border: 1px solid #999; } }
+
+#calendar {
+  th {
+    background: #DDD;
+    color: #666;
+    text-align: center;
+    width: 14.2857142857143%;
+    border: 1px solid #999; }
+  table {
+    border-collapse: collapse;
+    width: 100%; }
+  td, th {
+    font-family: "Lucida Grande",arial,helvetica,sans-serif;
+    font-size: 10px;
+    padding: 6px;
+    border: 1px solid #999; }
+  td {
+    background: #FFF;
+    color: #777;
+    height: 80px;
+    vertical-align: top;
+    font-size: 16px;
+    .date_button {
+      position:absolute;
+      top:0;
+      right:0;
+    }
+  }
+  .notmonth {
+    color: #CCC; }
+  #month {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    a {
+      text-decoration: none;
+      padding: 0 10px;
+      color: #999;
+      &:hover {
+        text-decoration: none;
+        padding: 0 10px;
+        color: #999; } } }
+  .today {
+    background-color: #D7F2FF; }
+  ul {
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+    list-style: none; }
+  li {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+    color: blue; }
+}
+
+.tooltip {
+  display: none;
+  font-size: 12px;
+  height: 70px;
+  width: 160px;
+  padding: 25px;
+  color: #fff; }
+
+ul#current_goals li {
+  list-style-type: none;
+}
+
+input.goal_check {
+  width: 10px;
+  height: 10px;
+}
+
+div#tabs ul {
+    width: auto;
+}
+
+div#tabs ul li {
+    clear:none;
+    width:auto;
+    list-style:inherit;
 }

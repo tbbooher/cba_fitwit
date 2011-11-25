@@ -31,7 +31,7 @@
           <div style="margin:0;padding:0;width:100%; position:relative">
             <%= date.day %>
             <div class="ui-state-default ui-corner-all date_button">
-              <%= link_to "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>", {:action => :add_custom_workout, :date => date}, {:class => 'bottom_date'} %>
+              <%= link_to "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>".html_safe , {:action => :add_custom_workout, :date => date}, {:class => 'bottom_date'} %>
             </div>
             <ul>
               <% for workout in workouts %>
