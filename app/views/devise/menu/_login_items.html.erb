@@ -2,7 +2,8 @@
     <%= menu_link_to "(i)", notifications_path, :title => t(:user_notifications) %>
     |
     <%= menu_link_to(t(:logout), destroy_user_session_path) %>
+    |
+    <%= menu_link_to('My FitWit', my_fit_wit_index_path) %>
 <% else %>
-  <%= menu_link_to(t(:login), new_user_session_path)  %>
-
+    <%= menu_link_to(t(:login), new_user_session_path) %>
 <% end %>

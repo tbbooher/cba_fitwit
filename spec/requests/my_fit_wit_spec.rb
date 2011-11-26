@@ -19,7 +19,7 @@ describe "The my_fit_wit section" do
 
   it "should load a fitness progress page" do
     visit my_fit_wit_fit_wit_workout_progress_path
-    current_user.should eq(User)
+    #current_user.should eq(User)
     page.should have_content("Calendar")
   end
 
@@ -31,6 +31,13 @@ describe "The my_fit_wit section" do
   it "should load a goals page" do
     visit my_fit_wit_my_goals_path
     page.should have_content("Set your goals")
+  end
+
+  it "should let someone add a custom workout" do
+    visit my_fit_wit_fit_wit_workout_progress_path
+    calendar = page.find('div#calendar')
+    calendar.click_link :first
+    save_and_open_page
   end
 
 end

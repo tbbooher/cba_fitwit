@@ -16,4 +16,14 @@ describe CustomWorkout do
   it "should be able to pull out the proper title" do
     @cw.title.should eq("Tim's mad situps'")
   end
+
+  it "should be able to add a custom workout for a user " do
+    u = FactoryGirl.build(:user)
+    u.custom_workouts.push(@cw)
+    u.custom_workouts.size.should eq(1)
+    u.save!
+    # now retrieve this from the database
+    u2 = User.where(_id: u.id).first
+    u2.custom_workouts.first.should eq(@cw)
+  end
 end
