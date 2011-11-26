@@ -82,7 +82,7 @@ Cba::Application.routes.draw do
 
   # Switch locales
   match 'switch_lcoale/:locale' => "home#set_locale", :as => 'switch_locale'
-
+  
   # Switch draft mode
   match 'draft_mode/:mode' => "home#set_draft_mode", :as => 'draft_mode'
 
@@ -90,7 +90,7 @@ Cba::Application.routes.draw do
 
   # Comments
   resources :comments, :except => :show
-
+  
   # Tags
   match '/tag/:tag' => "home#tags", :as => 'tags'
 
@@ -130,9 +130,9 @@ Cba::Application.routes.draw do
       post :sort_components
     end
     collection do
-      get :new_article
+      get  :new_article
       post :create_new_article
-      get :templates
+      get  :templates
     end
     resources :comments
     resources :page_components
@@ -146,9 +146,10 @@ Cba::Application.routes.draw do
   match 'hide_notification/:id' => 'users#hide_notification', :as => 'hide_notification'
   match 'show_notification/:id' => 'users#show_notification', :as => 'show_notification'
   match 'notifications' => 'users#notifications', :as => 'notifications'
-  match 'profile/:id' => 'users#show', :as => 'profile'
+  match 'profile/:id'   => 'users#show', :as => 'profile'
+  match 'my_group_ids'  => 'users#my_group_ids'
 
-  devise_for :users, :controllers => {:registrations => 'registrations'}
+  devise_for :users, :controllers => { :registrations => 'registrations' }
 
   resources :users do
     resources :prs
@@ -156,9 +157,9 @@ Cba::Application.routes.draw do
     resources :goals
     resources :custom_workouts
   end
-
-  resources :users, :only => [:show, :destroy] do
-    resources :invitations
+  
+  resources :users, :only => [:show,:destroy] do
+    resources :invitations    
     resources :user_groups
     resources :user_notifications
 
@@ -176,7 +177,7 @@ Cba::Application.routes.draw do
 
   # AUTHENTICATIONS
   match '/auth/:provider/callback' => 'authentications#create'
-  resources :authentications, :only => [:index, :create, :destroy]
+  resources :authentications, :only => [:index,:create,:destroy]
   match '/auth/failure' => 'authentications#auth_failure'
 
   resources :user_notifications do
