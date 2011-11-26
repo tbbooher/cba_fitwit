@@ -517,6 +517,7 @@ class MyFitWitController < ApplicationController
   end
 
   def get_user_id
+    authorize! :manage, User, message: "You need to be logged to access MyFitWit"
     @user_id = current_user.id
     @my_fit_wit = true
   end

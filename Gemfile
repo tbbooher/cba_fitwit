@@ -23,7 +23,8 @@ gem "bson_ext", '>= 1.4.0'  #, "1.1.5"
 # Bundle gem needed for Devise and cancan
 gem "devise" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
-gem "omniauth", "0.2.6"
+gem "omniauth", :git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
+gem 'omniauth-openid'
 
 # Bundle gem needed for paperclip and attachments
 # gem "paperclip" dependency of mongoid-paperclip
@@ -74,7 +75,8 @@ group :development, :test do
   gem 'guard-spork'
   gem 'guard-livereload'
   gem 'spork-testunit'
-  gem 'launchy'
+  #gem 'addressable'
+  gem 'launchy', '2.0.5'
   gem 'factory_girl_rails', "1.3.0"
   gem 'ZenTest', '4.5.0'
   gem 'autotest'
