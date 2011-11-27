@@ -23,7 +23,9 @@ gem "bson_ext", '>= 1.4.0'  #, "1.1.5"
 # Bundle gem needed for Devise and cancan
 gem "devise" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
-gem "omniauth", :git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
+gem "omniauth", '~> 1.0.1' #:git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
+#gem "omniauth-google-oauth2"
+
 gem 'omniauth-openid'
 
 # Bundle gem needed for paperclip and attachments
@@ -65,7 +67,7 @@ group :development, :test do
   gem 'mongoid-rspec'
   gem 'rspec-rails', '2.6.1'
   gem 'json_pure'
-  gem 'capybara'
+  gem 'capybara', git: 'git://github.com/jnicklas/capybara.git'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
@@ -107,6 +109,7 @@ gem 'ssl_requirement'
 #gem 'white_list_formatted_content'
 #gem 'activerecord-tableless-0.1.0'
 #gem 'google_charts_on_rails'
+gem 'googlecharts'
 gem 'table_builder', :git => 'git://github.com/raw1z/table_builder.git'
 #gem 'ym4r_gm'
 #gem 'acts_as_list'

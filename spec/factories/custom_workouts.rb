@@ -7,6 +7,6 @@ FactoryGirl.define do
     pr false
     description "Tim does 100 situps"
     score "5:23"
-    custom true
+    is_a_fit_wit_workout false
   end
 end

@@ -1,12 +1,15 @@
+require 'googlecharts'
+
 class FitWitWorkout
   include Mongoid::Document
   field :name, :type => String
   field :description, :type => String
   field :units, :type => String
-  field :score_method, :type => String
+  field :score_method, :type => String, default: "simple-rounds"
 
   # relations
   has_many :workouts
+  embeds_many :prs
 
   # methods
 
@@ -19,7 +22,7 @@ class FitWitWorkout
 
   SCORE_METHODS = [
           #  Displayed        stored in db
-  ["Sum Dashes", "sum-dashes"],
+  ["Sum Slashes", "sum-slashes"],
   ["Sum Commas", "sum-commas"],
   ["Rounds", "simple-rounds"],
   ["Time", "simple-time"],
@@ -27,36 +30,61 @@ class FitWitWorkout
   ["Slash-separated Time", "slash-separated-time"],
   ]
 
+  def pr_for(user)
+    self.prs.where(user_id: user.id).first
+  end
+
+  def top_10_all_fit_wit
+    self.prs.desc(:common_value).limit(10)
+  end
+
+  def top_10_all_fit_wit_by_gender(sex)
+    self.prs.where(sex: sex).desc(:common_value).limit(10)
+  end
+
   def find_completed_fit_wit_workouts
+    # TODO -- DELETE?
     Exertion.find(:all, :conditions => ["fit_wit_workout_id = ?", self.id])
   end
 
-  def find_10_scores
-    Exertion.all(:select => 'score', :conditions => ['fit_wit_workout_id = ?', self.id], :limit => 10, :order => 'created_at DESC').map { |e| e.score }
+  # these exist only to help with the input process
+
+
+  #def find_10_scores
+  #  # used in exercises_controller (as example)
+  #  Exertion.all(:select => 'score', :conditions => ['fit_wit_workout_id = ?', self.id], :limit => 10, :order => 'created_at DESC').map { |e| e.score }
+  #end
+
+  #def find_10_common_scores
+  #  # used in the exercise controller
+  #  #we want to modify this or create errors
+  #  output = []
+  #  errors = 0
+  #  Exertion.all(:conditions => ['fit_wit_workout_id = ?', self.id], :limit => 400, :order => 'created_at DESC').each do |exertion|
+  #    begin
+  #      output.push([exertion.user.short_name, exertion.score, common_value(exertion.score)])
+  #    rescue Exception=>e
+  #      errors+=1
+  #      output.push([exertion.user.short_name, exertion.score, "<b style=\"color:red;\">error!!</b>"])
+  #    end
+  #  end
+  #  return output, errors
+  #
+  #end
+
+  def find_average(sex)
+    common_values = self.prs.where(sex: sex).map(&:common_value)
+    #cvs = self.exertions.select { |exu| exu.user.gender == gender_id }.map { |ex| ex.common_value }
+    common_values.size > 0 ? common_values.sum / common_values.size : nil
   end
 
-  def find_10_common_scores
-    #we want to modify this or create errors
-    output = []
-    errors = 0
-    Exertion.all(:conditions => ['fit_wit_workout_id = ?', self.id], :limit => 400, :order => 'created_at DESC').each do |exertion|
-      begin
-        output.push([exertion.user.short_name, exertion.score, common_value(exertion.score)])
-      rescue Exception=>e
-        errors+=1
-        output.push([exertion.user.short_name, exertion.score, "<b style=\"color:red;\">error!!</b>"])
-      end
-    end
-    return output, errors
-  end
-
-  def find_average(gender_id)
-    cvs = self.exertions.select { |exu| exu.user.gender == gender_id }.map { |ex| ex.common_value }
-    return cvs.sum / cvs.size
-  end
-
-  def find_best(gender_id)
-    self.exertions.select { |exu| exu.user.gender == gender_id }.map { |ex| ex.common_value }.max
+  # used to build chart ... important
+  # we want the best score for the gender
+  def find_best(sex)
+    #prs = self.prs.where(sex: sex)
+    self.prs.where(sex: sex).to_a.max{|pr| pr.common_value}.common_value
+    #prs.empty? ? nil : prs.max(:common_value)
+    #self.exertions.select { |exu| exu.user.gender == gender_id }.map { |ex| ex.common_value }.max
   end
 
   def find_leaders(the_gender)
@@ -65,6 +93,18 @@ class FitWitWorkout
     else
       return Exertion.find_by_sql("SELECT * from prs WHERE (fit_wit_workout_id = #{self.id} AND gender = #{the_gender}) ORDER BY common_value DESC LIMIT 10;")
     end
+  end
+
+  def find_competition(user)
+    # given a user's pr for this workout -- who are his competitors?
+    pr = self.pr_for(user)
+    the_score = pr.common_value
+    sex = user.sex_symbol
+    five_above = self.prs.where(:common_value.gte => the_score).
+        and(sex: sex).excludes(user_id: user.id).asc(:common_value).limit(5).to_a
+    five_below = self.prs.where(:common_value.lt => the_score).
+        and(sex: sex).excludes(user_id: user.id).desc(:common_value).limit(5).to_a
+    {above: five_above.reverse, below: five_below}
   end
 
   def find_peers(exertions_for_fit_wit_workout)
@@ -94,7 +134,7 @@ class FitWitWorkout
   def common_value(score)
     #complicated function -- all times are inverted so the highest score wins!
     case self.score_method
-      when "sum-dashes"
+      when "sum-slashes"
         my_common_value = score.split("/").collect { |a| a.to_f }.sum
       when "sum-commas"
         my_common_value = score.split(",").collect { |a| a.to_f }.sum
@@ -103,9 +143,9 @@ class FitWitWorkout
       when "simple-time"
         my_common_value = get_time(score)
       when "parse-time"
-        my_common_value = 1/(Time.parse(score).to_f- Time.parse('0:00').to_f) # in seconds
+        my_common_value = 60000/(Time.parse(score).to_f- Time.parse('0:00').to_f) # 10 minutes => 100, 1 minute => 1000, 1 sec = 60000
       when "slash-separated-time"
-        my_common_value = 1/(score.split("/").collect { |a| get_time(a) }.sum)
+        my_common_value = (score.split("/").collect { |a| get_time(a) }.sum)
       when "Rodeo (squat jumps, bronco burpees, 8-count burpees)"
         time_array = score.split(":").map { |x| x.to_f }
         case time_array.length
@@ -128,6 +168,39 @@ class FitWitWorkout
     end
   end
 
+  def get_progress_chart(user, workouts)
+    # TODO -- i think we should put this in a model . . .
+    is_time = (self.units == "seconds")
+    gender = user.sex_symbol
+    common_inputs = workouts.map { |e| e.common_value }
+    common_vals = is_time ? common_inputs.delete_if { |e| e == 0 }.map { |cv| 1/cv } : common_inputs
+    average = is_time ? 1/self.find_average(gender) : self.find_average(gender)
+    best = is_time ? 1/self.find_best(gender) : self.find_best(gender)
+    scale_factor = 80/([best] + [average] + common_vals).max # google charts have a max of 100
+    scores = self.score_method.nil? ? '' : common_vals.map { |c| c*scale_factor }
+    dates = self.score_method.nil? ? nil : workouts.map { |e| e.meeting.meeting_date }
+    # build chart
+    chart_width = 400
+    annotations = ''
+    workouts.each_with_index do |e, index|
+      score = e.score.gsub(",", "+").gsub("/", "+")
+      annotations+="|A#{score},666666,0,#{index},15"
+    end
+    progress_chart = Gchart.line(
+      title: "#{user.full_name}'s progress for #{self.name}",
+      height: 200,
+      width: chart_width,
+      data: scores,
+      colors: '000000',
+      show_labels: true,
+      labels: dates,
+      misc: "&chxt=x,r&chxl=1:|best|average&chxp=1,#{best*scale_factor},#{average*scale_factor}&chxs=1,0000dd,13,-1,t,FF0000&chxtc=1,-#{chart_width}",
+      fills: 'o,393939,0,-1,10.0' + annotations # filled, marker,
+    )
+    #        fills: 'B,cccccc,0,0,0|o,393939,0,-1,10.0' + annotations # filled, marker,
+    progress_chart
+  end
+
   private
 
   def get_time(my_time)
@@ -135,11 +208,11 @@ class FitWitWorkout
       time_array = my_time.split(":").map { |x| x.to_f }
       case time_array.length
         when 1 # assume seconds
-          my_common_value = 1/(time_array/60)
+          my_common_value = (time_array/60)
         when 2 # assume minutes:seconds
-          my_common_value = 1/(time_array[0] + time_array[1]/60) # in minutes
+          my_common_value = (time_array[0] + time_array[1]/60) # in minutes
         when 3 # assume hours (? gasp), minutes, seconds
-          my_common_value = 1/(time_array[0]*60 + time_array[1] + time_array[2]/60) # in minutes
+          my_common_value = (time_array[0]*60 + time_array[1] + time_array[2]/60) # in minutes
         else
           my_common_value = 0 #"#error" # raise exception
           raise "time error"
@@ -147,7 +220,7 @@ class FitWitWorkout
     rescue
       my_common_value = 0 #'#error'
     end
-    return my_common_value
+    return 1000/my_common_value
   end
 
 

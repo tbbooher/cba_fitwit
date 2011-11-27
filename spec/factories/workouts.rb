@@ -1,11 +1,16 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
+
+  sequence :score do |n|
+    "#{n}:53"
+  end
+
   factory :workout do
-      score "16"
+      score
       user_note "This was a tough one!"
       rxd false
-      common_value 13
+      # common_value 13
       user
       meeting
       fit_wit_workout

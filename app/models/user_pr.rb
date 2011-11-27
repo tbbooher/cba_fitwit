@@ -1,4 +1,4 @@
-class Pr
+class UserPr
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -7,21 +7,15 @@ class Pr
   field :rxd, :type => Boolean
   field :common_value, :type => Float
   field :date_accomplished, type: Date
-  field :sex, type: Symbol # :male or :female
-
-  scope :men, where(sex: :male)
-  scope :women, where(sex: :female)
 
   # relations
-  embedded_in :fit_wit_workout
+  embedded_in :user
 #  belongs_to :workout
-  belongs_to :user
+  belongs_to :fit_wit_workout
   belongs_to :fitness_camp
-  belongs_to :time_slot
-  belongs_to :meeting
 
   # first we can load this loosely where everyone gets stored under a workout
 
+  # here we need a method to make sure each pr is uniq
 
 end
-

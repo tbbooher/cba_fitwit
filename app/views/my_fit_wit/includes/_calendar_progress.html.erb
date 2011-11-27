@@ -43,7 +43,7 @@
                     <% elsif type == 'goal' %>
                         <%= link_to h(workout.name), {:action => :my_goals}, {:title => description, :class => "#{workout.format_class} activity"} %>
                     <% else %>
-                        <%= link_to h(workout.name), {:action => :specific_exercise, :id => workout.exertion_id}, {:title => description, :class => "#{workout.format_class} activity"} %>
+                        <%= link_to h(workout.name), {:action => :specific_fit_wit_workout, :id => workout.exertion_id}, {:title => description, :class => "#{workout.format_class} activity"} %>
                     <% end %>
                   </li>
               <% end %>

@@ -15,25 +15,25 @@ function change_status(click) {
     if ((!click && cw) || (click && !cw)) {
         // Custom
         $("#custom_workout_custom_name").attr('class',"required");
-        $("#custom_workout_exercise_id").attr('class',"");
+        $("#custom_workout_fit_wit_workout_id").attr('class',"");
         $("#custom_section").show('highlight');
-        $("li#exercise_select").hide();
-        $("li#exercise_description").hide();
-        //$("#custom_workout_exercise_id").attr('disabled', 'disabled');
-        //$("#exercise_select label").attr('style', 'color:gray;');
+        $("li#fit_wit_workout_select").hide();
+        $("li#fit_wit_workout_description").hide();
+        //$("#custom_workout_fit_wit_workout_id").attr('disabled', 'disabled');
+        //$("#fit_wit_workout_select label").attr('style', 'color:gray;');
         $("#adding_new_workout").attr('value', 'true');
         $("#custom_workout_button").html("I did a FitWit workout");
     } else {
         // we are doing a fitwit workout
         $("#custom_workout_custom_name").attr('class',"");
-        $("#custom_workout_exercise_id").attr('class',"required");
+        $("#custom_workout_fit_wit_workout_id").attr('class',"required");
         $("#custom_section").hide();
-        $("li#exercise_select").show('highlight');
-        $("#custom_workout_exercise_id").removeAttr('disabled');
-        $("#exercise_select label").removeAttr('style');
+        $("li#fit_wit_workout_select").show('highlight');
+        $("#custom_workout_fit_wit_workout_id").removeAttr('disabled');
+        $("#fit_wit_workout_select label").removeAttr('style');
         $("#adding_new_workout").attr('value', 'false');
         $("#custom_workout_button").html("No thanks, I did my own");
-        $('li#exercise_description').show();
+        $('li#fit_wit_workout_description').show();
     }
     return false;
 }
@@ -61,20 +61,19 @@ $(document).ready(function() {
     $(".inputdate").datepicker();
     // main admin page
     $("#tabs").tabs();
-    // specific exercise page
+    // specific fit_wit_workout page
     $("#accordion").accordion();
     // add custom workout page
-    $('li#exercise_description').hide();
-    $('#custom_workout_exercise_id').change(function() {
-        $('li#exercise_description').show();
-        exercise_id = $('#custom_workout_exercise_id').val();
-        $.get("exercise_details/" + exercise_id,
-        {id: exercise_id},
-                function(html) {
-                    $('#the_description').html(html);
-                });
+    $('li#fit_wit_workout_description').hide();
+    $('#custom_workout_fit_wit_workout_id').change(function() {
+        $('li#fit_wit_workout_description').show();
+        fit_wit_workout_id = $('#custom_workout_fit_wit_workout_id').val();
+        $.getJSON("/fit_wit_workouts/" + fit_wit_workout_id + ".json",
+            function(json) {
+                $('#the_description').html(json.description);
+            });
     });
-    //$("#custom_exercise").hide();  // can't find it
+    //$("#custom_fit_wit_workout").hide();  // can't find it
     // custom workout forms
     change_status(false);
     $("#custom_workout_button").click(function() {

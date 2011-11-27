@@ -6,7 +6,11 @@ module FitWitCustomUserMethods
   end
 
   def find_prs
-    self.prs
+    self.user_prs
+  end
+
+  def find_pr_for(fit_wit_workout)
+    self.user_prs.where(fit_wit_workout_id: fit_wit_workout.id).first
   end
 
   def past_fitness_camps
@@ -50,6 +54,10 @@ module FitWitCustomUserMethods
 
   def dob
     self.date_of_birth.strftime("%d %b %y")
+  end
+
+  def sex_symbol
+    self.gender == 1 ? :male : :female
   end
 
   def sex

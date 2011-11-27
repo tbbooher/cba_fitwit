@@ -53,8 +53,6 @@
           <tr class="<%= cycle('light', 'dark') %>">
             <%# name = User.find(pr.user_id).full_name %>
             <%# ex = Exertion.find(pr.workout_id) %>
-            <% # need to put the competition in here %>
-
             <td><%= pr.first_name + " " + pr.last_name %><%#= active_user ? content_tag(:b,name) : name %></td>
             <td><%= pr.meeting_date %><%#= compact_date(ex.meeting.meeting_date) %></td>
             <td><%= pr.score %><%#= ex.score %></td>
