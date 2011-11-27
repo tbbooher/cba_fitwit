@@ -104,7 +104,8 @@ class FitWitWorkout
         and(sex: sex).excludes(user_id: user.id).asc(:common_value).limit(5).to_a
     five_below = self.prs.where(:common_value.lt => the_score).
         and(sex: sex).excludes(user_id: user.id).desc(:common_value).limit(5).to_a
-    {above: five_above.reverse, below: five_below}
+    # the following are collections of prs
+    {above: five_above.reverse, below: five_below, me: pr}
   end
 
   def find_peers(exertions_for_fit_wit_workout)
