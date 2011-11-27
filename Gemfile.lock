@@ -251,6 +251,7 @@ GEM
       thor (~> 0.14.6)
     raindrops (0.8.0)
     rake (0.9.2.2)
+    rb-fsevent (0.4.3.1)
     rdoc (3.11)
       json (~> 1.4)
     redcarpet (1.17.2)
@@ -376,6 +377,7 @@ DEPENDENCIES
   rails
   rails-erd
   rails3-generators
+  rb-fsevent
   rdoc
   redcarpet
   rspec (= 2.6.0)

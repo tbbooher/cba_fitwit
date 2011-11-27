@@ -38,28 +38,14 @@
 <h2>Peers</h2>
 <% if @peers %>
     <table style="width:100%">
-      <th>Name</th>
-      <th>Date</th>
-      <th>Score</th>
-      <% @peers.each_with_index do |pr, i| %>
-          <%# active_user = @user_id == pr.user_id %>
-          <% if i == 5 %>
-              <tr>
-                <td>You</td>
-                <td><%= @workouts.first.meeting.meeting_date %></td>
-                <td><%= @workouts.first.score %></td>
-              </tr>
-          <% end %>
-          <tr class="<%= cycle('light', 'dark') %>">
-            <%# name = User.find(pr.user_id).full_name %>
-            <%# ex = Exertion.find(pr.workout_id) %>
-            <% # need to put the competition in here %>
-
-            <td><%= pr.first_name + " " + pr.last_name %><%#= active_user ? content_tag(:b,name) : name %></td>
-            <td><%= pr.meeting_date %><%#= compact_date(ex.meeting.meeting_date) %></td>
-            <td><%= pr.score %><%#= ex.score %></td>
-          </tr>
-      <% end %>
+        <tr>
+    	  <th>Name</th>
+	  <th>Date</th>
+      	  <th>Score</th>
+    	</tr>
+	<%= draw_peer_collection(@peers[:above]) %>
+	<%= draw_row(@peers[:me]) %>
+	<%= draw_peer_collection(@peers[:below]) %>
     </table>
 <% else %>
     <p>No peers yet (or no method defined)</p>
@@ -71,13 +57,7 @@
     <td>Date</td>
     <td>Score</td>
   </tr>
-  <% @leaders.each do |l| %>
-      <tr class="<%= cycle('light', 'dark') %>">
-      <td><%= l.first_name + " " + l.last_name %></td>
-      <td><%= l.meeting_date %></td>
-      <td><%= l.score %></td>
-      </tr>
-  <% end %>
+  <%= draw_peer_collection(@leaders) %>
 </table>
 
 
