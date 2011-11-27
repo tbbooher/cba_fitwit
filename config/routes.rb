@@ -7,9 +7,9 @@ Cba::Application.routes.draw do
   get "my_fit_wit/upcoming_fitnesscamps"
   get "my_fit_wit/add_custom_workout"
   match "my_fit_wit/input_custom_workout"
-  get "my_fit_wit/leader_board"
+  get "my_fit_wit/leader_board/:id" => "my_fit_wit#leader_board"
   get "my_fit_wit/get_progress_chart"
-  get "my_fit_wit/fit_wit_workout_details"
+  get "my_fit_wit/fit_wit_workout_details/:id" => "my_fit_wit#fit_wit_workout_details"
   get "my_fit_wit/update"
   get "my_fit_wit/past_fitnesscamps"
   get "my_fit_wit/camp_fit_wit_workout_progress"
@@ -81,7 +81,7 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/all_fitness_camps'
 
   # Switch locales
-  match 'switch_lcoale/:locale' => "home#set_locale", :as => 'switch_locale'
+  match 'switch_locale/:locale' => "home#set_locale", :as => 'switch_locale'
   
   # Switch draft mode
   match 'draft_mode/:mode' => "home#set_draft_mode", :as => 'draft_mode'

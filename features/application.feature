@@ -14,24 +14,7 @@ Feature: Application
     And I should see "Sign in"
     And I should not see "Error"
     And I should be on the home page
-        
-  Scenario: As a guest I should see links to github and pivotal tracker but no create-buttons
-    Given I am logged out
-    And I am on the home page
-    Then I should see "Github"
-    And I should see "PivotalTracker"
-    And I should not see "Create a new Page"
-    And I should not see "Create a new Blog"
-
-  Scenario: As an Admin I should see links to github and pivotal tracker and create-buttons
-    Given I am logged out
-    Given I am logged in as user "test@test.te" with password "verysecret"
-    And I am on the home page
-    Then I should see "Github"
-    And I should see "PivotalTracker"
-    And I should see "Create a new Page"
-    And I should see "Create a new Blog"
-    
+            
   Scenario: Authors should be able to switch to draft-mode
     Given the default user set
     And I am logged out

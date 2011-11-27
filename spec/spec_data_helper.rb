@@ -19,7 +19,7 @@ module SpecDataHelper
       Order.unscoped.delete_all
       Registration.unscoped.delete_all
       Page.delete_all
-      CustomWorkout.delete_all
+      puts "cleaned up database"
     rescue => e
       puts "*** ERROR CLEANING UP DATABASE -- #{e.inspect}"
     end
@@ -203,6 +203,18 @@ module SpecDataHelper
     # then test some stuff
     check "agree_to_terms"
     click_button "Proceed to Payment"    
+  end
+
+  def create_15_users_and_workouts
+    @fww = FactoryGirl.create(:fit_wit_workout, score_method: "simple-rounds", name: "cindy")
+    the_high_score = (1..15).to_a
+    the_low_score = the_high_score.map{|a| a - 1 }
+    FactoryGirl.create_list(:user,15).each_with_index do |user, i|
+      FactoryGirl.create(:workout, user: user, fit_wit_workout: @fww, score: the_high_score[i])
+      FactoryGirl.create(:workout, user: user, fit_wit_workout: @fww, score: the_low_score[i])
+    end
+    u = FactoryGirl.create(:user, gender:2, email: Faker::Internet.email)
+    FactoryGirl.create(:workout, fit_wit_workout: @fww, user: u, score: "50")
   end
 
 end
