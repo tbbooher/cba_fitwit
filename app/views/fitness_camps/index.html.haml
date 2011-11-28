@@ -18,10 +18,11 @@
       %td= fitness_camp.session_end_date
       %td= fitness_camp.session_active
       %td= fitness_camp.description
-      %td= link_to 'Show', location_fitness_camp_path(Location.first.id)
-      %td= link_to 'Edit', edit_location_fitness_camp_path(fitness_camp)
-      %td= link_to 'Destroy', location_fitness_camp, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', location_fitness_camps_path(@location)
+      %td= link_to 'Edit', edit_location_fitness_camp_path(@location,fitness_camp)
+      %td= link_to 'Destroy', location_fitness_camp_path(@location), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Fitness camp', new_fitness_camp_path
+= link_to 'New Fitness camp', new_location_fitness_camp_path(@location)
+= link_to 'Back to Location', @location
