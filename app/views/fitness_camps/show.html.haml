@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @fitness_camp.title
+%p
+  %b Session start date:
+  = @fitness_camp.session_start_date
+%p
+  %b Session end date:
+  = @fitness_camp.session_end_date
+%p
+  %b Session active:
+  = @fitness_camp.session_active
+%p
+  %b Description:
+  = @fitness_camp.description
+
+= link_to 'Edit', edit_fitness_camp_path(@fitness_camp)
+\|
+= link_to 'Back', fitness_camps_path

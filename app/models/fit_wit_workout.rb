@@ -39,12 +39,12 @@ class FitWitWorkout
   end
 
   def top_10_all_fit_wit_by_gender(sex)
-    self.prs.where(sex: sex).desc(:common_value).limit(10)
+    self.prs.where(sex: sex).desc(:common_value).limit(10).all.to_a
   end
 
+  # this is used in the admin controller for calendar_progress
   def find_completed_fit_wit_workouts
-    # TODO -- DELETE?
-    Exertion.find(:all, :conditions => ["fit_wit_workout_id = ?", self.id])
+    Workout.where(fit_wit_workout_id: self.id).all.to_a
   end
 
   # these exist only to help with the input process
@@ -87,13 +87,13 @@ class FitWitWorkout
     #self.exertions.select { |exu| exu.user.gender == gender_id }.map { |ex| ex.common_value }.max
   end
 
-  def find_leaders(the_gender)
-    if self.score_method.nil?
-      return false
-    else
-      return Exertion.find_by_sql("SELECT * from prs WHERE (fit_wit_workout_id = #{self.id} AND gender = #{the_gender}) ORDER BY common_value DESC LIMIT 10;")
-    end
-  end
+  #def find_leaders(the_gender)
+  #  if self.score_method.nil?
+  #    return false
+  #  else
+  #    return Exertion.find_by_sql("SELECT * from prs WHERE (fit_wit_workout_id = #{self.id} AND gender = #{the_gender}) ORDER BY common_value DESC LIMIT 10;")
+  #  end
+  #end
 
   def find_competition(user)
     # given a user's pr for this workout -- who are his competitors?
@@ -171,7 +171,7 @@ class FitWitWorkout
 
   def get_progress_chart(user, workouts)
     # TODO -- i think we should put this in a model . . .
-    is_time = (self.units == "seconds")
+    is_time = !(self.score_method =~ /time/).nil?
     gender = user.sex_symbol
     common_inputs = workouts.map { |e| e.common_value }
     common_vals = is_time ? common_inputs.delete_if { |e| e == 0 }.map { |cv| 1/cv } : common_inputs
@@ -182,25 +182,44 @@ class FitWitWorkout
     dates = self.score_method.nil? ? nil : workouts.map { |e| e.meeting.meeting_date }
     # build chart
     chart_width = 400
-    annotations = ''
-    workouts.each_with_index do |e, index|
-      score = e.score.gsub(",", "+").gsub("/", "+")
-      annotations+="|A#{score},666666,0,#{index},15"
-    end
     progress_chart = Gchart.line(
       title: "#{user.full_name}'s progress for #{self.name}",
       height: 200,
       width: chart_width,
       data: scores,
+      encoding: 'text',
       colors: '000000',
       show_labels: true,
-      labels: dates,
-      misc: "&chxt=x,r&chxl=1:|best|average&chxp=1,#{best*scale_factor},#{average*scale_factor}&chxs=1,0000dd,13,-1,t,FF0000&chxtc=1,-#{chart_width}",
-      fills: 'o,393939,0,-1,10.0' + annotations # filled, marker,
+      labels: dates
     )
+    annotations = ''
+    workouts.each_with_index do |e, index|
+      score = e.score.gsub(",", "+").gsub("/", "+")
+      annotations+="|A#{score},666666,0,#{index},15"
+    end
+    misc = "&chxt=x,r&chxl=1:|best|average&chxp=1,#{best*scale_factor},#{average*scale_factor}&chxs=1,0000dd,13,-1,t,FF0000&chxtc=1,-#{chart_width}"
+    fills = "&chm=o,393939,0,-1,10.0#{annotations}"
     #        fills: 'B,cccccc,0,0,0|o,393939,0,-1,10.0' + annotations # filled, marker,
-    progress_chart
+    progress_chart + misc + fills
   end
+
+  def javascript_chart_data(user, workouts)
+    # this is if we want to do a javascript chart . . .
+    # let's get ready
+    is_time = (self.units == "seconds")
+    gender = user.sex_symbol
+    # now let's build our data
+    common_inputs = workouts.map { |e| e.common_value }
+    common_vals = is_time ? common_inputs.delete_if { |e| e == 0 }.map { |cv| 1/cv } : common_inputs
+    average = is_time ? 1/self.find_average(gender) : self.find_average(gender)
+    best = is_time ? 1/self.find_best(gender) : self.find_best(gender)
+    scale_factor = 80/([best] + [average] + common_vals).max # google charts have a max of 100
+    scores = self.score_method.nil? ? '' : common_vals.map { |c| c*scale_factor }
+    dates = self.score_method.nil? ? nil : workouts.map { |e| e.meeting.meeting_date }
+    # chart specifics
+    {scores: scores, dates: dates}
+  end
+
 
   private
 

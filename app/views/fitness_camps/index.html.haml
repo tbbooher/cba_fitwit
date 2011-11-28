@@ -1,0 +1,27 @@
+%h1 Listing fitness_camps
+
+%table
+  %tr
+    %th Title
+    %th Session start date
+    %th Session end date
+    %th Session active
+    %th Description
+    %th
+    %th
+    %th
+
+  - @fitness_camps.each do |fitness_camp|
+    %tr
+      %td= fitness_camp.title
+      %td= fitness_camp.session_start_date
+      %td= fitness_camp.session_end_date
+      %td= fitness_camp.session_active
+      %td= fitness_camp.description
+      %td= link_to 'Show', fitness_camp
+      %td= link_to 'Edit', edit_fitness_camp_path(fitness_camp)
+      %td= link_to 'Destroy', fitness_camp, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Fitness camp', new_fitness_camp_path
