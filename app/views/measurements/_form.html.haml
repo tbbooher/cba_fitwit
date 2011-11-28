@@ -1,0 +1,40 @@
+= form_for @measurement do |f|
+  -if @measurement.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@measurement.errors.count, "error")} prohibited this measurement from being saved:"
+      %ul
+        - @measurement.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :review_date
+    = f.date_select :review_date
+  .field
+    = f.label :height
+    = f.text_field :height
+  .field
+    = f.label :weight
+    = f.text_field :weight
+  .field
+    = f.label :chest
+    = f.text_field :chest
+  .field
+    = f.label :waist
+    = f.text_field :waist
+  .field
+    = f.label :hip
+    = f.text_field :hip
+  .field
+    = f.label :right_arm
+    = f.text_field :right_arm
+  .field
+    = f.label :right_thigh
+    = f.text_field :right_thigh
+  .field
+    = f.label :bmi
+    = f.text_field :bmi
+  .field
+    = f.label :bodyfat_percentage
+    = f.number_field :bodyfat_percentage
+  .actions
+    = f.submit 'Save'

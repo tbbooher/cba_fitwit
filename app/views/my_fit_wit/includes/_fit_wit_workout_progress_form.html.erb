@@ -1,0 +1,7 @@
+<div class="floatRight full">
+  <%= form_tag('foo') do %>
+    <%= select_tag(:fit_wit_workout_id,
+                   options_for_select(@fit_wit_workouts_select_list, ['select a workout',0]))  %>
+  <% end %>
+</div>
+<div class="clear"></div>

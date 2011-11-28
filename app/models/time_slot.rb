@@ -20,7 +20,7 @@ class TimeSlot
     self.end_time.strftime(" %I:%M%p").gsub(/ 0(\d\D)/, '\1')
   end
 
-  def user_exercises(user_id)
+  def user_fit_wit_workouts(user_id)
     meeting_ids = self.meetings.map(&:id)
     Workout.where(user_id: user_id).and(:meeting_id.in => meeting_ids).to_a
   end

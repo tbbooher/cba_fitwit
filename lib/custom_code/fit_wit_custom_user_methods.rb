@@ -1,10 +1,29 @@
 module FitWitCustomUserMethods
 
   # TODO -- include this in a module?
+  def camper_since
+    self.orders.sort_by { |o| o.created_at }.first.created_at
+  end
+
+  def find_prs
+    self.user_prs
+  end
+
+  def find_pr_for(fit_wit_workout)
+    self.user_prs.where(fit_wit_workout_id: fit_wit_workout.id).first
+  end
+
+  def past_fitness_camps
+    self.user_time_slots.map{|ts| ts.fitness_camp}.uniq
+  end
 
   def user_time_slots
     order_ids = Order.where(user_id: self.id).all.map(&:id)
     Registration.where(:order_id.in => order_ids).map{|r| r.time_slot} 
+  end
+
+  def time_slots
+    user_time_slots
   end
 
   def full_name
@@ -35,6 +54,10 @@ module FitWitCustomUserMethods
 
   def dob
     self.date_of_birth.strftime("%d %b %y")
+  end
+
+  def sex_symbol
+    self.gender == 1 ? :male : :female
   end
 
   def sex
@@ -121,6 +144,7 @@ advice_from_physician_not_to_exercise  }
 
 #  def self.find_past(user_id)
     # TODO -- what camps has this user done in the past?
+    # TODO -- IT IS AT THE TOP
     # Registration.where
     # this finds past camps for a user -- should be moved to the User object
     # needs to be updated for time_slot relation with registration

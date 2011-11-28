@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Start time:
+  = @time_slot.start_time
+%p
+  %b End time:
+  = @time_slot.end_time
+%p
+  %b Sold out:
+  = @time_slot.sold_out
+
+= link_to 'Edit', edit_time_slot_path(@time_slot)
+\|
+= link_to 'Back', time_slots_path

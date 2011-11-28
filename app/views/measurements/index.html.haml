@@ -1,0 +1,37 @@
+%h1 Listing measurements
+
+%table
+  %tr
+    %th Review date
+    %th Height
+    %th Weight
+    %th Chest
+    %th Waist
+    %th Hip
+    %th Right arm
+    %th Right thigh
+    %th Bmi
+    %th Bodyfat percentage
+    %th
+    %th
+    %th
+
+  - @measurements.each do |measurement|
+    %tr
+      %td= measurement.review_date
+      %td= measurement.height
+      %td= measurement.weight
+      %td= measurement.chest
+      %td= measurement.waist
+      %td= measurement.hip
+      %td= measurement.right_arm
+      %td= measurement.right_thigh
+      %td= measurement.bmi
+      %td= measurement.bodyfat_percentage
+      %td= link_to 'Show', measurement
+      %td= link_to 'Edit', edit_measurement_path(measurement)
+      %td= link_to 'Destroy', measurement, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Measurement', new_measurement_path
