@@ -2,13 +2,13 @@
 
 Cba::Application.routes.draw do
 
-
-
   resources :locations do
     resources :fitness_camps
   end
 
-  resources :time_slots
+  resources :time_slots do
+    resources :meetings
+  end
 
   get "my_fit_wit/index"
   get "my_fit_wit/profile"
@@ -41,11 +41,8 @@ Cba::Application.routes.draw do
   get "my_fit_wit/get_months_and_years"
 
   resources :friends
-
   resources :fit_wit_workouts
   resources :workouts
-  resources :meetings
-
   resources :sponsors
   resources :events
 

@@ -1,4 +1,4 @@
-= form_for @fitness_camp do |f|
+= form_for [@location, @fitness_camp] do |f|
   -if @fitness_camp.errors.any?
     #error_explanation
       %h2= "#{pluralize(@fitness_camp.errors.count, "error")} prohibited this fitness_camp from being saved:"
