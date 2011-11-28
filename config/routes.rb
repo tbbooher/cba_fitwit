@@ -2,6 +2,10 @@
 
 Cba::Application.routes.draw do
 
+  resources :time_slots
+
+  resources :fitness_camps
+
   get "my_fit_wit/index"
   get "my_fit_wit/profile"
   get "my_fit_wit/upcoming_fitnesscamps"

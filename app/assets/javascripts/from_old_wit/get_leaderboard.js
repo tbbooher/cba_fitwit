@@ -12,6 +12,8 @@ $( document ).ready (function() {
                     $('#the_fit_wit_workout_progress').html(html);
                     $('div#moving_image').hide();
                     $('div#the_fit_wit_workout_progress').fadeIn(500);
-                });
+                },
+        'html'
+        );
     });
 });

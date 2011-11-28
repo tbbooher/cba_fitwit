@@ -32,7 +32,7 @@
   <% end %>
 </div>
 <div class="floatRight" style="width:400px; padding-right:10px;">
-  <%= image_tag @chart if @chart %>
+  <%= image_tag(@chart, alt: "Workout Progress Chart") if @chart %>
 </div>
 <div class="clear"></div>
 <h2>Peers</h2>
@@ -43,9 +43,9 @@
 	  <th>Date</th>
       	  <th>Score</th>
     	</tr>
-	<%= draw_peer_collection(@peers[:above]) %>
-	<%= draw_row(@peers[:me]) %>
-	<%= draw_peer_collection(@peers[:below]) %>
+	<% draw_peer_collection(@peers[:above]) %>
+	<% draw_row(@peers[:me]) %>
+	<% draw_peer_collection(@peers[:below]) %>
     </table>
 <% else %>
     <p>No peers yet (or no method defined)</p>
@@ -57,7 +57,7 @@
     <td>Date</td>
     <td>Score</td>
   </tr>
-  <%= draw_peer_collection(@leaders) %>
+  <% draw_peer_collection(@leaders) %>
 </table>
 
 
