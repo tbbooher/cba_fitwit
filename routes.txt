@@ -1,26 +1,47 @@
+                                   location_fitness_camps GET    /locations/:location_id/fitness_camps(.:format)                      {:action=>"index", :controller=>"fitness_camps"}
+                                                          POST   /locations/:location_id/fitness_camps(.:format)                      {:action=>"create", :controller=>"fitness_camps"}
+                                new_location_fitness_camp GET    /locations/:location_id/fitness_camps/new(.:format)                  {:action=>"new", :controller=>"fitness_camps"}
+                               edit_location_fitness_camp GET    /locations/:location_id/fitness_camps/:id/edit(.:format)             {:action=>"edit", :controller=>"fitness_camps"}
+                                    location_fitness_camp GET    /locations/:location_id/fitness_camps/:id(.:format)                  {:action=>"show", :controller=>"fitness_camps"}
+                                                          PUT    /locations/:location_id/fitness_camps/:id(.:format)                  {:action=>"update", :controller=>"fitness_camps"}
+                                                          DELETE /locations/:location_id/fitness_camps/:id(.:format)                  {:action=>"destroy", :controller=>"fitness_camps"}
+                                                locations GET    /locations(.:format)                                                 {:action=>"index", :controller=>"locations"}
+                                                          POST   /locations(.:format)                                                 {:action=>"create", :controller=>"locations"}
+                                             new_location GET    /locations/new(.:format)                                             {:action=>"new", :controller=>"locations"}
+                                            edit_location GET    /locations/:id/edit(.:format)                                        {:action=>"edit", :controller=>"locations"}
+                                                 location GET    /locations/:id(.:format)                                             {:action=>"show", :controller=>"locations"}
+                                                          PUT    /locations/:id(.:format)                                             {:action=>"update", :controller=>"locations"}
+                                                          DELETE /locations/:id(.:format)                                             {:action=>"destroy", :controller=>"locations"}
+                                               time_slots GET    /time_slots(.:format)                                                {:action=>"index", :controller=>"time_slots"}
+                                                          POST   /time_slots(.:format)                                                {:action=>"create", :controller=>"time_slots"}
+                                            new_time_slot GET    /time_slots/new(.:format)                                            {:action=>"new", :controller=>"time_slots"}
+                                           edit_time_slot GET    /time_slots/:id/edit(.:format)                                       {:action=>"edit", :controller=>"time_slots"}
+                                                time_slot GET    /time_slots/:id(.:format)                                            {:action=>"show", :controller=>"time_slots"}
+                                                          PUT    /time_slots/:id(.:format)                                            {:action=>"update", :controller=>"time_slots"}
+                                                          DELETE /time_slots/:id(.:format)                                            {:action=>"destroy", :controller=>"time_slots"}
                                          my_fit_wit_index GET    /my_fit_wit/index(.:format)                                          {:controller=>"my_fit_wit", :action=>"index"}
                                        my_fit_wit_profile GET    /my_fit_wit/profile(.:format)                                        {:controller=>"my_fit_wit", :action=>"profile"}
                          my_fit_wit_upcoming_fitnesscamps GET    /my_fit_wit/upcoming_fitnesscamps(.:format)                          {:controller=>"my_fit_wit", :action=>"upcoming_fitnesscamps"}
                             my_fit_wit_add_custom_workout GET    /my_fit_wit/add_custom_workout(.:format)                             {:controller=>"my_fit_wit", :action=>"add_custom_workout"}
-                          my_fit_wit_input_custom_workout GET    /my_fit_wit/input_custom_workout(.:format)                           {:controller=>"my_fit_wit", :action=>"input_custom_workout"}
-                                  my_fit_wit_leader_board GET    /my_fit_wit/leader_board(.:format)                                   {:controller=>"my_fit_wit", :action=>"leader_board"}
+                          my_fit_wit_input_custom_workout        /my_fit_wit/input_custom_workout(.:format)                           {:controller=>"my_fit_wit", :action=>"input_custom_workout"}
+                                                          GET    /my_fit_wit/leader_board/:id(.:format)                               {:controller=>"my_fit_wit", :action=>"leader_board"}
                             my_fit_wit_get_progress_chart GET    /my_fit_wit/get_progress_chart(.:format)                             {:controller=>"my_fit_wit", :action=>"get_progress_chart"}
-                              my_fit_wit_exercise_details GET    /my_fit_wit/exercise_details(.:format)                               {:controller=>"my_fit_wit", :action=>"exercise_details"}
+                                                          GET    /my_fit_wit/fit_wit_workout_details/:id(.:format)                    {:controller=>"my_fit_wit", :action=>"fit_wit_workout_details"}
                                         my_fit_wit_update GET    /my_fit_wit/update(.:format)                                         {:controller=>"my_fit_wit", :action=>"update"}
                              my_fit_wit_past_fitnesscamps GET    /my_fit_wit/past_fitnesscamps(.:format)                              {:controller=>"my_fit_wit", :action=>"past_fitnesscamps"}
-                        my_fit_wit_camp_exercise_progress GET    /my_fit_wit/camp_exercise_progress(.:format)                         {:controller=>"my_fit_wit", :action=>"camp_exercise_progress"}
+                 my_fit_wit_camp_fit_wit_workout_progress GET    /my_fit_wit/camp_fit_wit_workout_progress(.:format)                  {:controller=>"my_fit_wit", :action=>"camp_fit_wit_workout_progress"}
                                       my_fit_wit_my_goals GET    /my_fit_wit/my_goals(.:format)                                       {:controller=>"my_fit_wit", :action=>"my_goals"}
                                       my_fit_wit_add_goal GET    /my_fit_wit/add_goal(.:format)                                       {:controller=>"my_fit_wit", :action=>"add_goal"}
                                    my_fit_wit_delete_goal GET    /my_fit_wit/delete_goal(.:format)                                    {:controller=>"my_fit_wit", :action=>"delete_goal"}
                                    my_fit_wit_update_goal GET    /my_fit_wit/update_goal(.:format)                                    {:controller=>"my_fit_wit", :action=>"update_goal"}
-                             my_fit_wit_exercise_progress GET    /my_fit_wit/exercise_progress(.:format)                              {:controller=>"my_fit_wit", :action=>"exercise_progress"}
+                      my_fit_wit_fit_wit_workout_progress GET    /my_fit_wit/fit_wit_workout_progress(.:format)                       {:controller=>"my_fit_wit", :action=>"fit_wit_workout_progress"}
                            my_fit_wit_add_new_measurement GET    /my_fit_wit/add_new_measurement(.:format)                            {:controller=>"my_fit_wit", :action=>"add_new_measurement"}
                             my_fit_wit_load_calendar_date GET    /my_fit_wit/load_calendar_date(.:format)                             {:controller=>"my_fit_wit", :action=>"load_calendar_date"}
-                             my_fit_wit_specific_exercise GET    /my_fit_wit/specific_exercise(.:format)                              {:controller=>"my_fit_wit", :action=>"specific_exercise"}
+                      my_fit_wit_specific_fit_wit_workout GET    /my_fit_wit/specific_fit_wit_workout(.:format)                       {:controller=>"my_fit_wit", :action=>"specific_fit_wit_workout"}
                        my_fit_wit_process_fit_wit_history GET    /my_fit_wit/process_fit_wit_history(.:format)                        {:controller=>"my_fit_wit", :action=>"process_fit_wit_history"}
                                 my_fit_wit_health_history GET    /my_fit_wit/health_history(.:format)                                 {:controller=>"my_fit_wit", :action=>"health_history"}
                            my_fit_wit_get_calendar_events GET    /my_fit_wit/get_calendar_events(.:format)                            {:controller=>"my_fit_wit", :action=>"get_calendar_events"}
-                                 my_fit_wit_list_exercise GET    /my_fit_wit/list_exercise(.:format)                                  {:controller=>"my_fit_wit", :action=>"list_exercise"}
+                          my_fit_wit_list_fit_wit_workout GET    /my_fit_wit/list_fit_wit_workout(.:format)                           {:controller=>"my_fit_wit", :action=>"list_fit_wit_workout"}
                           my_fit_wit_find_previous_scores GET    /my_fit_wit/find_previous_scores(.:format)                           {:controller=>"my_fit_wit", :action=>"find_previous_scores"}
                                    my_fit_wit_get_user_id GET    /my_fit_wit/get_user_id(.:format)                                    {:controller=>"my_fit_wit", :action=>"get_user_id"}
            my_fit_wit_zero_out_all_unchecked_explanations GET    /my_fit_wit/zero_out_all_unchecked_explanations(.:format)            {:controller=>"my_fit_wit", :action=>"zero_out_all_unchecked_explanations"}
@@ -34,13 +55,6 @@
                                                    friend GET    /friends/:id(.:format)                                               {:action=>"show", :controller=>"friends"}
                                                           PUT    /friends/:id(.:format)                                               {:action=>"update", :controller=>"friends"}
                                                           DELETE /friends/:id(.:format)                                               {:action=>"destroy", :controller=>"friends"}
-                                                      prs GET    /prs(.:format)                                                       {:action=>"index", :controller=>"prs"}
-                                                          POST   /prs(.:format)                                                       {:action=>"create", :controller=>"prs"}
-                                                   new_pr GET    /prs/new(.:format)                                                   {:action=>"new", :controller=>"prs"}
-                                                  edit_pr GET    /prs/:id/edit(.:format)                                              {:action=>"edit", :controller=>"prs"}
-                                                       pr GET    /prs/:id(.:format)                                                   {:action=>"show", :controller=>"prs"}
-                                                          PUT    /prs/:id(.:format)                                                   {:action=>"update", :controller=>"prs"}
-                                                          DELETE /prs/:id(.:format)                                                   {:action=>"destroy", :controller=>"prs"}
                                          fit_wit_workouts GET    /fit_wit_workouts(.:format)                                          {:action=>"index", :controller=>"fit_wit_workouts"}
                                                           POST   /fit_wit_workouts(.:format)                                          {:action=>"create", :controller=>"fit_wit_workouts"}
                                       new_fit_wit_workout GET    /fit_wit_workouts/new(.:format)                                      {:action=>"new", :controller=>"fit_wit_workouts"}
@@ -62,13 +76,6 @@
                                                   meeting GET    /meetings/:id(.:format)                                              {:action=>"show", :controller=>"meetings"}
                                                           PUT    /meetings/:id(.:format)                                              {:action=>"update", :controller=>"meetings"}
                                                           DELETE /meetings/:id(.:format)                                              {:action=>"destroy", :controller=>"meetings"}
-                                                locations GET    /locations(.:format)                                                 {:action=>"index", :controller=>"locations"}
-                                                          POST   /locations(.:format)                                                 {:action=>"create", :controller=>"locations"}
-                                             new_location GET    /locations/new(.:format)                                             {:action=>"new", :controller=>"locations"}
-                                            edit_location GET    /locations/:id/edit(.:format)                                        {:action=>"edit", :controller=>"locations"}
-                                                 location GET    /locations/:id(.:format)                                             {:action=>"show", :controller=>"locations"}
-                                                          PUT    /locations/:id(.:format)                                             {:action=>"update", :controller=>"locations"}
-                                                          DELETE /locations/:id(.:format)                                             {:action=>"destroy", :controller=>"locations"}
                                                  sponsors GET    /sponsors(.:format)                                                  {:action=>"index", :controller=>"sponsors"}
                                                           POST   /sponsors(.:format)                                                  {:action=>"create", :controller=>"sponsors"}
                                               new_sponsor GET    /sponsors/new(.:format)                                              {:action=>"new", :controller=>"sponsors"}
@@ -107,21 +114,21 @@
                           fitness_camp_registration_index GET    /fitness_camp_registration/index(.:format)                           {:controller=>"fitness_camp_registration", :action=>"index"}
                                               add_to_cart        /fitness_camp_registration/add_to_cart/:id(.:format)                 {:controller=>"fitness_camp_registration", :action=>"add_to_cart"}
             fitness_camp_registration_no_need_to_register GET    /fitness_camp_registration/no_need_to_register(.:format)             {:controller=>"fitness_camp_registration", :action=>"no_need_to_register"}
-fitness_camp_registration_release_and_waiver_of_liability GET    /fitness_camp_registration/release_and_waiver_of_liability(.:format) {:controller=>"fitness_camp_registration", :action=>"release_and_waiver_of_liability"}
-         fitness_camp_registration_terms_of_participation GET    /fitness_camp_registration/terms_of_participation(.:format)          {:controller=>"fitness_camp_registration", :action=>"terms_of_participation"}
+fitness_camp_registration_release_and_waiver_of_liability        /fitness_camp_registration/release_and_waiver_of_liability(.:format) {:controller=>"fitness_camp_registration", :action=>"release_and_waiver_of_liability"}
+         fitness_camp_registration_terms_of_participation        /fitness_camp_registration/terms_of_participation(.:format)          {:controller=>"fitness_camp_registration", :action=>"terms_of_participation"}
         fitness_camp_registration_process_fit_wit_history GET    /fitness_camp_registration/process_fit_wit_history(.:format)         {:controller=>"fitness_camp_registration", :action=>"process_fit_wit_history"}
                       fitness_camp_registration_view_cart        /fitness_camp_registration/view_cart(.:format)                       {:controller=>"fitness_camp_registration", :action=>"view_cart"}
-                  fitness_camp_registration_add_discounts GET    /fitness_camp_registration/add_discounts(.:format)                   {:controller=>"fitness_camp_registration", :action=>"add_discounts"}
+                  fitness_camp_registration_add_discounts        /fitness_camp_registration/add_discounts(.:format)                   {:controller=>"fitness_camp_registration", :action=>"add_discounts"}
                 fitness_camp_registration_membership_info GET    /fitness_camp_registration/membership_info(.:format)                 {:controller=>"fitness_camp_registration", :action=>"membership_info"}
                         fitness_camp_registration_consent GET    /fitness_camp_registration/consent(.:format)                         {:controller=>"fitness_camp_registration", :action=>"consent"}
                  fitness_camp_registration_health_history GET    /fitness_camp_registration/health_history(.:format)                  {:controller=>"fitness_camp_registration", :action=>"health_history"}
                         fitness_camp_registration_payment GET    /fitness_camp_registration/payment(.:format)                         {:controller=>"fitness_camp_registration", :action=>"payment"}
                             fitness_camp_registration_pay GET    /fitness_camp_registration/pay(.:format)                             {:controller=>"fitness_camp_registration", :action=>"pay"}
-                     fitness_camp_registration_save_order GET    /fitness_camp_registration/save_order(.:format)                      {:controller=>"fitness_camp_registration", :action=>"save_order"}
+                     fitness_camp_registration_save_order        /fitness_camp_registration/save_order(.:format)                      {:controller=>"fitness_camp_registration", :action=>"save_order"}
                      fitness_camp_registration_empty_cart GET    /fitness_camp_registration/empty_cart(.:format)                      {:controller=>"fitness_camp_registration", :action=>"empty_cart"}
            fitness_camp_registration_registration_success GET    /fitness_camp_registration/registration_success(.:format)            {:controller=>"fitness_camp_registration", :action=>"registration_success"}
               fitness_camp_registration_all_fitness_camps GET    /fitness_camp_registration/all_fitness_camps(.:format)               {:controller=>"fitness_camp_registration", :action=>"all_fitness_camps"}
-                                            switch_locale        /switch_lcoale/:locale(.:format)                                     {:controller=>"home", :action=>"set_locale"}
+                                            switch_locale        /switch_locale/:locale(.:format)                                     {:controller=>"home", :action=>"set_locale"}
                                                draft_mode        /draft_mode/:mode(.:format)                                          {:controller=>"home", :action=>"set_draft_mode"}
                                                  searches        /search(.:format)                                                    {:action=>"index", :controller=>"search"}
                                                  comments GET    /comments(.:format)                                                  {:action=>"index", :controller=>"comments"}
@@ -205,6 +212,7 @@ fitness_camp_registration_release_and_waiver_of_liability GET    /fitness_camp_r
                                         show_notification        /show_notification/:id(.:format)                                     {:controller=>"users", :action=>"show_notification"}
                                             notifications        /notifications(.:format)                                             {:action=>"notifications", :controller=>"users"}
                                                   profile        /profile/:id(.:format)                                               {:controller=>"users", :action=>"show"}
+                                             my_group_ids        /my_group_ids(.:format)                                              {:action=>"my_group_ids", :controller=>"users"}
                                          new_user_session GET    /users/sign_in(.:format)                                             {:action=>"new", :controller=>"devise/sessions"}
                                              user_session POST   /users/sign_in(.:format)                                             {:action=>"create", :controller=>"devise/sessions"}
                                      destroy_user_session GET    /users/sign_out(.:format)                                            {:action=>"destroy", :controller=>"devise/sessions"}
@@ -221,6 +229,41 @@ fitness_camp_registration_release_and_waiver_of_liability GET    /fitness_camp_r
                                         user_confirmation POST   /users/confirmation(.:format)                                        {:action=>"create", :controller=>"devise/confirmations"}
                                     new_user_confirmation GET    /users/confirmation/new(.:format)                                    {:action=>"new", :controller=>"devise/confirmations"}
                                                           GET    /users/confirmation(.:format)                                        {:action=>"show", :controller=>"devise/confirmations"}
+                                                 user_prs GET    /users/:user_id/prs(.:format)                                        {:action=>"index", :controller=>"prs"}
+                                                          POST   /users/:user_id/prs(.:format)                                        {:action=>"create", :controller=>"prs"}
+                                              new_user_pr GET    /users/:user_id/prs/new(.:format)                                    {:action=>"new", :controller=>"prs"}
+                                             edit_user_pr GET    /users/:user_id/prs/:id/edit(.:format)                               {:action=>"edit", :controller=>"prs"}
+                                                  user_pr GET    /users/:user_id/prs/:id(.:format)                                    {:action=>"show", :controller=>"prs"}
+                                                          PUT    /users/:user_id/prs/:id(.:format)                                    {:action=>"update", :controller=>"prs"}
+                                                          DELETE /users/:user_id/prs/:id(.:format)                                    {:action=>"destroy", :controller=>"prs"}
+                                        user_measurements GET    /users/:user_id/measurements(.:format)                               {:action=>"index", :controller=>"measurements"}
+                                                          POST   /users/:user_id/measurements(.:format)                               {:action=>"create", :controller=>"measurements"}
+                                     new_user_measurement GET    /users/:user_id/measurements/new(.:format)                           {:action=>"new", :controller=>"measurements"}
+                                    edit_user_measurement GET    /users/:user_id/measurements/:id/edit(.:format)                      {:action=>"edit", :controller=>"measurements"}
+                                         user_measurement GET    /users/:user_id/measurements/:id(.:format)                           {:action=>"show", :controller=>"measurements"}
+                                                          PUT    /users/:user_id/measurements/:id(.:format)                           {:action=>"update", :controller=>"measurements"}
+                                                          DELETE /users/:user_id/measurements/:id(.:format)                           {:action=>"destroy", :controller=>"measurements"}
+                                               user_goals GET    /users/:user_id/goals(.:format)                                      {:action=>"index", :controller=>"goals"}
+                                                          POST   /users/:user_id/goals(.:format)                                      {:action=>"create", :controller=>"goals"}
+                                            new_user_goal GET    /users/:user_id/goals/new(.:format)                                  {:action=>"new", :controller=>"goals"}
+                                           edit_user_goal GET    /users/:user_id/goals/:id/edit(.:format)                             {:action=>"edit", :controller=>"goals"}
+                                                user_goal GET    /users/:user_id/goals/:id(.:format)                                  {:action=>"show", :controller=>"goals"}
+                                                          PUT    /users/:user_id/goals/:id(.:format)                                  {:action=>"update", :controller=>"goals"}
+                                                          DELETE /users/:user_id/goals/:id(.:format)                                  {:action=>"destroy", :controller=>"goals"}
+                                     user_custom_workouts GET    /users/:user_id/custom_workouts(.:format)                            {:action=>"index", :controller=>"custom_workouts"}
+                                                          POST   /users/:user_id/custom_workouts(.:format)                            {:action=>"create", :controller=>"custom_workouts"}
+                                  new_user_custom_workout GET    /users/:user_id/custom_workouts/new(.:format)                        {:action=>"new", :controller=>"custom_workouts"}
+                                 edit_user_custom_workout GET    /users/:user_id/custom_workouts/:id/edit(.:format)                   {:action=>"edit", :controller=>"custom_workouts"}
+                                      user_custom_workout GET    /users/:user_id/custom_workouts/:id(.:format)                        {:action=>"show", :controller=>"custom_workouts"}
+                                                          PUT    /users/:user_id/custom_workouts/:id(.:format)                        {:action=>"update", :controller=>"custom_workouts"}
+                                                          DELETE /users/:user_id/custom_workouts/:id(.:format)                        {:action=>"destroy", :controller=>"custom_workouts"}
+                                                    users GET    /users(.:format)                                                     {:action=>"index", :controller=>"users"}
+                                                          POST   /users(.:format)                                                     {:action=>"create", :controller=>"users"}
+                                                 new_user GET    /users/new(.:format)                                                 {:action=>"new", :controller=>"users"}
+                                                edit_user GET    /users/:id/edit(.:format)                                            {:action=>"edit", :controller=>"users"}
+                                                     user GET    /users/:id(.:format)                                                 {:action=>"show", :controller=>"users"}
+                                                          PUT    /users/:id(.:format)                                                 {:action=>"update", :controller=>"users"}
+                                                          DELETE /users/:id(.:format)                                                 {:action=>"destroy", :controller=>"users"}
                                          user_invitations GET    /users/:user_id/invitations(.:format)                                {:action=>"index", :controller=>"invitations"}
                                                           POST   /users/:user_id/invitations(.:format)                                {:action=>"create", :controller=>"invitations"}
                                       new_user_invitation GET    /users/:user_id/invitations/new(.:format)                            {:action=>"new", :controller=>"invitations"}
@@ -248,7 +291,7 @@ fitness_camp_registration_release_and_waiver_of_liability GET    /fitness_camp_r
                                          update_role_user PUT    /users/:id/update_role(.:format)                                     {:action=>"update_role", :controller=>"users"}
                                              details_user GET    /users/:id/details(.:format)                                         {:action=>"details", :controller=>"users"}
                                    autocomplete_ids_users GET    /users/autocomplete_ids(.:format)                                    {:action=>"autocomplete_ids", :controller=>"users"}
-                                                     user GET    /users/:id(.:format)                                                 {:action=>"show", :controller=>"users"}
+                                                          GET    /users/:id(.:format)                                                 {:action=>"show", :controller=>"users"}
                                                           DELETE /users/:id(.:format)                                                 {:action=>"destroy", :controller=>"users"}
                                                                  /auth/:provider/callback(.:format)                                   {:controller=>"authentications", :action=>"create"}
                                           authentications GET    /authentications(.:format)                                           {:action=>"index", :controller=>"authentications"}
