@@ -34,27 +34,6 @@ Feature: PageComponents
   Scenario: A Page using PageTemplate should render PLACEHOLDERS in body
     pending
 
-
-  Scenario: Page components should have input fields for translations
-    Given the following translated components for page "Page 1"
-       | title_en   | body_en      | title_de | body_de   |
-       | GB         | Fish n chips | Austria  | Schnitzel |
-    And I am on the page path of "Page 1"
-    And I click on link "Edit"
-    Then I should see "Body (de)" within "#components"
-
-  Scenario: Page components should be translated
-    Given the following translated components for page "Page 1"
-       | title_en   | body_en      | title_de | body_de   |
-       | GB         | Fish n chips | Austria  | Schnitzel |
-    And I am on the page path of "Page 1"
-    Then I should see "Fish n chips"
-    Then I click on link "locale_de"
-    Then I should see "Schnitzel"
-    Then I click on link "locale_en"
-    Then I should see "Fish n chips"
-    Then the default locale
-
   Scenario: A page component should be editable while viewing the page
     Given the following translated components for page "Page 2"
       | title_en   | body_en      | title_de | body_de      |

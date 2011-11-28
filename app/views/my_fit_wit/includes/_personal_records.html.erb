@@ -6,9 +6,9 @@
   </tr>
   <% @prs.each do |pr| %>
   <tr class="<%= cycle('light','dark')%>">
-    <td><%= pr.name %></td>
+    <td><%= pr.fit_wit_workout.name %></td>
     <td><%= pr.score %></td>
-    <td><%= pr.meeting_date %></td>
+    <td><%= pr.date_accomplished %></td>
   </tr>
   <% end %>
 </table>

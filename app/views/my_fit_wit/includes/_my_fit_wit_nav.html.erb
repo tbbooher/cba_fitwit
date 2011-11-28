@@ -4,13 +4,12 @@
   <li><%= link_to image_tag('my_fit_wit/sm_my_fit_wit.png',
           {:id => 'my_fit_wit_home', :title => 'MyFitWit Home'}), :action => 'index' %></li>
   <li><%= link_to image_tag('my_fit_wit/sm_progress_log.png',
-          {:id => 'exercise_progress', :title => 'Workout progress'}), :action => 'exercise_progress' %></li>
+          {:id => 'fit_wit_workout_progress', :title => 'Workout progress'}), :action => 'fit_wit_workout_progress' %></li>
   <li><%= link_to image_tag('my_fit_wit/sm_health_log.png',
-          {:id => 'camp_report', :title => 'See your camp reports'}), :action=>'camp_exercise_progress' %></li>
+          {:id => 'camp_report', :title => 'See your camp reports'}), :action=>'camp_fit_wit_workout_progress' %></li>
   <li><%= link_to image_tag('my_fit_wit/sm_goals_log.png',
           {:id => 'my_goals', :title => 'Your goals'}), :action => 'my_goals' %></li>
-  <li><%= link_to image_tag('my_fit_wit/sm_profile.png',
-          {:id => 'profile', :title => 'Edit your profile'}), :action => 'profile' %></li>
+  <li><%= link_to image_tag('my_fit_wit/sm_profile.png',  {id: 'profile', title: 'Edit your profile'} ), profile_path(current_user) %></li>
 </ul>
 
 <SCRIPT type="text/javascript">

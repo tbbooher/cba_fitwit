@@ -17,11 +17,11 @@ describe TimeSlot do
     @six_am.end_time_f.should eq("7:00AM")
   end
 
-  it "should show all the exercises a user has done in a time slot" do    
+  it "should show all the fit_wit_workouts a user has done in a time slot" do
     wo = FactoryGirl.create(:workout)
     ts = wo.meeting.time_slot
-    ts.user_exercises(wo.user.id).first.score.should eq("16")
-    ts.user_exercises(wo.user.id).first.fit_wit_workout.name.should eq("Bob . . . The Conquest")
+    ts.user_fit_wit_workouts(wo.user.id).first.score.should eq("16")
+    ts.user_fit_wit_workouts(wo.user.id).first.fit_wit_workout.name.should eq("Bob . . . The Conquest")
   end
 
   it "should be able to display all registered campers" do

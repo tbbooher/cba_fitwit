@@ -1,0 +1,29 @@
+%h1 Listing custom_workouts
+
+%table
+  %tr
+    %th Custom name
+    %th Workout date
+    %th Pr
+    %th Description
+    %th Score
+    %th Custom
+    %th
+    %th
+    %th
+
+  - @custom_workouts.each do |custom_workout|
+    %tr
+      %td= custom_workout.custom_name
+      %td= custom_workout.workout_date
+      %td= custom_workout.pr
+      %td= custom_workout.description
+      %td= custom_workout.score
+      %td= custom_workout.custom
+      %td= link_to 'Show', custom_workout
+      %td= link_to 'Edit', edit_custom_workout_path(custom_workout)
+      %td= link_to 'Destroy', custom_workout, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Custom workout', new_custom_workout_path

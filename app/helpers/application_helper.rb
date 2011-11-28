@@ -5,6 +5,12 @@
 #
 module ApplicationHelper
 
+  #fitwit add
+  def compact_date(date)
+    h date.strftime("%d %b %y")
+  end
+  #end fitwit add
+
   # yield :google_analytics will be loaded in HTML-HEAD
   def insert_google_analytics_script
     if File::exist?(
@@ -129,7 +135,7 @@ module ApplicationHelper
     if req
       obj.label(fld, "#{title}#{FIELD_REQUIRED}", :class => 'desc')
     else
-      obj.label(fld, "#{title}", :class => 'desc')
+      obj.label(fld, "#{title}".html_safe, :class => 'desc')
     end
   end
 

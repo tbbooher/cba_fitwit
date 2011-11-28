@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'simplecov', :require => false, :group => :test #, '>= 0.4.0'
 
-gem "rails" #, "~> 3.1.0" # prev was rc8
+gem "rails" #, "3.1.2" #, "~> 3.1.0" # prev was rc8
 
 # Rails 3.1 - Asset Pipeline
 group :assets do
@@ -23,7 +23,10 @@ gem "bson_ext", '>= 1.4.0'  #, "1.1.5"
 # Bundle gem needed for Devise and cancan
 gem "devise" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
-gem "omniauth", "0.2.6"
+gem "omniauth", '~> 1.0.1' #:git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
+#gem "omniauth-google-oauth2"
+
+gem 'omniauth-openid'
 
 # Bundle gem needed for paperclip and attachments
 # gem "paperclip" dependency of mongoid-paperclip
@@ -64,7 +67,7 @@ group :development, :test do
   gem 'mongoid-rspec'
   gem 'rspec-rails', '2.6.1'
   gem 'json_pure'
-  gem 'capybara'
+  gem 'capybara', git: 'git://github.com/jnicklas/capybara.git'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
@@ -74,7 +77,8 @@ group :development, :test do
   gem 'guard-spork'
   gem 'guard-livereload'
   gem 'spork-testunit'
-  gem 'launchy'
+  #gem 'addressable'
+  gem 'launchy', '2.0.5'
   gem 'factory_girl_rails', "1.3.0"
   gem 'ZenTest', '4.5.0'
   gem 'autotest'
@@ -101,10 +105,12 @@ end
 gem 'activemerchant', :git => 'git://github.com/tbbooher/active_merchant.git'
 #gem 'gibberish'
 gem 'ssl_requirement'
+#gem 'event-calendar', :require => 'event_calendar'
 #gem 'white_list_formatted_content'
 #gem 'activerecord-tableless-0.1.0'
 #gem 'google_charts_on_rails'
-gem 'table_builder'
+gem 'googlecharts'
+gem 'table_builder', :git => 'git://github.com/raw1z/table_builder.git'
 #gem 'ym4r_gm'
 #gem 'acts_as_list'
 #gem 'newrelic_rpm'
@@ -119,5 +125,4 @@ gem 'stateflow'
 gem 'wkhtmltopdf-binary'
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 #gem "jquery-rest"
-gem 'table_builder'
 

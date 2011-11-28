@@ -1,12 +1,6 @@
-<% content_for(:prototype) do %>
-    <%# stylesheet_link_tag "/javascripts/cropper/cropper.css" %>
-    <%= javascript_include_tag "/javascripts/fullcalendar/rails.js" %>
-    <%= javascript_include_tag "/javascripts/fullcalendar/jquery.rest.js" %>
-    <%= javascript_include_tag "/javascripts/fullcalendar/fullcalendar.min.js" %>
-    <%= javascript_include_tag "/javascripts/fullcalendar/calendar.js" %>
-<% end %>
+<!-- Probably move the stylesheet to you layout. Also make sure you include the javascript. -->
+<%= stylesheet_link_tag "event_calendar" %>
 
-<%= link_to "new event", new_event_path %>
+<h1>Calendar</h1>
 
-<div id='calendar'></div>
-
+<%= raw(event_calendar) %>
