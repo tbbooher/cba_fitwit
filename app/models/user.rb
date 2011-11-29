@@ -6,6 +6,7 @@ class User
   include Mongoid::Spacial::Document # GeoIndex
   include Mongoid::Timestamps
   include Mongoid::Paperclip
+  include Mongoid::MultiParameterAttributes
 
   cache
 

@@ -1,6 +1,7 @@
 class FitnessCamp
 
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
 
   field :title, :type => String
   field :session_start_date, :type => Date

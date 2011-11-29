@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @meeting
+= link_to 'Show', time_slot_meeting_path(@time_slot, @meeting)
 \|
-= link_to 'Back', meetings_path
+= link_to 'Back', time_slot_meetings_path

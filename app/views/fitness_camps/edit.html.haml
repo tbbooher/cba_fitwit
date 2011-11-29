@@ -1,8 +1,10 @@
-%h1 Editing fitness_camp
+- title "Edit #{controller_name.titleize}: #{@fitness_camp.title}"
 
 = render 'form'
 
-= link_to 'Show', @fitness_camp
+= link_to 'Show', location_fitness_camp_path(@location.id, @fitness_camp)
 \|
-= link_to 'Back', location_fitness_camps_path(@location)
-= link_to 'Back to Location', @location
+= link_to 'Back', location_fitness_camps_path(@location.id)
+
+%p
+  = link_to 'Back to Location', @location

@@ -124,6 +124,7 @@ gem 'stateflow'
 #gem 'query_reviewer'
 #gem 'white_list'
 gem 'wkhtmltopdf-binary'
+gem "stamp"
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 #gem "jquery-rest"
 

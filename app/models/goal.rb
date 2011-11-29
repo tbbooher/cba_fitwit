@@ -1,6 +1,7 @@
 class Goal
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::MultiParameterAttributes
 
   field :goal_name, :type => String
   field :description, :type => String
