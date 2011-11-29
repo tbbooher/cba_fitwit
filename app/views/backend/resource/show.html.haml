@@ -1,0 +1,11 @@
+- content_for :header do
+  %h1= resource_class.model_name.human
+
+%ul.tabs
+  %li= link_to "Index", collection_path
+  %li= link_to "New", new_resource_path
+  %li.active= link_to 'Show', '#'
+  %li= link_to "Edit", edit_resource_path
+  %li= link_to "Destroy", resource_path, method: :delete, confirm: "Are you sure?"
+
+= render "show"

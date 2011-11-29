@@ -399,6 +399,7 @@ DEPENDENCIES
   rb-fsevent
   rdoc
   redcarpet
+  responders
   rspec (= 2.6.0)
   rspec-rails (= 2.6.1)
   ruby-growl

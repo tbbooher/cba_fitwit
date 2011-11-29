@@ -130,4 +130,4 @@ gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 gem "simple_form"
 gem 'has_scope', git: 'git://github.com/plataformatec/has_scope.git'
 gem 'kaminari'
-
+gem "responders"

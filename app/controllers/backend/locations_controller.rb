@@ -1,3 +1,3 @@
-class LocationsController < InheritedResources::Base
+class Backend::LocationsController < Backend::ResourceController
 
 end

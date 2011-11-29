@@ -3,13 +3,20 @@
 Cba::Application.routes.draw do
 
   namespace :backend do
-    root to: "locations#index"
+    root to: "base#index"
     resources :locations do
       resources :fitness_camps
     end
 
     resources :time_slots do
       resources :meetings
+    end
+
+    resources :users do
+      resources :prs
+      resources :measurements
+      resources :goals
+      resources :custom_workouts
     end
 
     resources :friends
@@ -162,13 +169,6 @@ Cba::Application.routes.draw do
   match 'my_group_ids'  => 'users#my_group_ids'
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
-
-  resources :users do
-    resources :prs
-    resources :measurements
-    resources :goals
-    resources :custom_workouts
-  end
   
   resources :users, :only => [:show,:destroy] do
     resources :invitations    

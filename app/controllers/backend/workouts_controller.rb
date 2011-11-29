@@ -1,3 +1,3 @@
-class WorkoutsController < InheritedResources::Base
+class Backend::WorkoutsController <  Backend::ResourceController
 
 end

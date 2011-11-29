@@ -1,3 +1,3 @@
-class TimeSlotsController < InheritedResources::Base
+class Backend::TimeSlotsController < Backend::ResourceController
 
 end
