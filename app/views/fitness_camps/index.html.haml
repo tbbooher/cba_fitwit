@@ -1,4 +1,4 @@
-%h1 Listing fitness_camps
+- title "Listing #{controller_name.titleize}"
 
 %table
   %tr
@@ -18,9 +18,9 @@
       %td= fitness_camp.session_end_date
       %td= fitness_camp.session_active
       %td= fitness_camp.description
-      %td= link_to 'Show', location_fitness_camps_path(@location)
+      %td= link_to 'Show', location_fitness_camp_path(@location.id, fitness_camp.id)
       %td= link_to 'Edit', edit_location_fitness_camp_path(@location,fitness_camp)
-      %td= link_to 'Destroy', location_fitness_camp_path(@location), :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Destroy', location_fitness_camp_path(@location.id, fitness_camp.id), :confirm => 'Are you sure?', :method => :delete
 
 %br
 

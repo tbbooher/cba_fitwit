@@ -1,9 +1,10 @@
+- title "Index for #{controller_name.titleize}: #{@meeting.meeting_date.strftime('%A, %d %B')}"
 %p#notice= notice
 
 %p
   %b Meeting date:
-  = @meeting.meeting_date
+  = @meeting.meeting_date.strftime('%A, %d %B') #.stamp("Friday, 13 January")
 
-= link_to 'Edit', edit_meeting_path(@meeting)
+= link_to 'Edit', edit_time_slot_meeting_path(@meeting)
 \|
-= link_to 'Back', meetings_path
+= link_to 'Back', time_slot_meetings_path

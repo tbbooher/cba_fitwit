@@ -8,8 +8,6 @@ class Sponsor
   field :phone, :type => String
   field :url, :type => String
   field :img_name, :type => String
-  field :created_at, :type => DateTime
-  field :updated_at, :type => DateTime
   field :logo_file_name, :type => String
   field :logo_content_type, :type => String
   field :logo_file_size, :type => Integer

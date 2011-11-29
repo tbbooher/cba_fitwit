@@ -2,13 +2,21 @@
 
 %p
   %b Start time:
-  = @time_slot.start_time
+  = @time_slot.start_time.stamp("6:00 AM")
 %p
   %b End time:
-  = @time_slot.end_time
+  = @time_slot.end_time.stamp("6:00 AM")
 %p
   %b Sold out:
   = @time_slot.sold_out
+
+%p
+  %b Meetings:
+  %ul
+    - @time_slot.meetings.each do |meeting|
+      %li
+        = link_to meeting.meeting_date.stamp("Wednesday, 16 June"),
+          time_slot_meeting_path(@time_slot.id, meeting.id)
 
 = link_to 'Edit', edit_time_slot_path(@time_slot)
 \|

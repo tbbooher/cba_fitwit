@@ -1,5 +1,7 @@
 class Measurement
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
+
   field :review_date, :type => Date
   field :height, :type => Float
   field :weight, :type => Float

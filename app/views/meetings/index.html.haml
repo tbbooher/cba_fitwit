@@ -1,4 +1,4 @@
-%h1 Listing meetings
+- title "Index for #{controller_name.titleize}"
 
 %table
   %tr
@@ -9,11 +9,11 @@
 
   - @meetings.each do |meeting|
     %tr
-      %td= meeting.meeting_date
-      %td= link_to 'Show', meeting
-      %td= link_to 'Edit', edit_meeting_path(meeting)
-      %td= link_to 'Destroy', meeting, :confirm => 'Are you sure?', :method => :delete
+      %td= meeting.meeting_date.strftime('%A, %d %B') unless meeting.meeting_date.nil?
+      %td= link_to 'Show', time_slot_meeting_path(@time_slot.id, meeting.id)
+      %td= link_to 'Edit', edit_time_slot_meeting_path(@time_slot.id,meeting.id)
+      %td= link_to 'Destroy', time_slot_meeting_path(@time_slot.id, meeting.id), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Meeting', new_meeting_path
+= link_to 'New Meeting', new_time_slot_meeting_path(@time_slot.id)

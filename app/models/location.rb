@@ -10,8 +10,6 @@ class Location
   field :directions, :type => String
   field :contact_info, :type => String
   field :city, :type => String
-  field :created_at, :type => DateTime
-  field :updated_at, :type => DateTime
   field :franchise_id, :type => Integer
   field :us_state, :type => String
   field :short_description, :type => String

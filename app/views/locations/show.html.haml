@@ -3,6 +3,13 @@
 %p
   %b Name:
   = @location.name
+
+%p
+  %b Fitness Camps:
+  %ul
+    - @location.fitness_camps.each do |fc|
+      %li
+        = link_to fc.title,location_fitness_camp_path(@location.id, fc.id)
 %p
   %b Description:
   = @location.description
@@ -15,18 +22,7 @@
 %p
   %b City:
   = @location.city
-%p
-  %b Created at:
-  = @location.created_at
-%p
-  %b Updated at:
-  = @location.updated_at
-%p
-  %b Franchise:
-  = @location.franchise_id
-%p
-  %b Us state:
-  = @location.us_state
+
 %p
   %b Short description:
   = @location.short_description
@@ -36,12 +32,7 @@
 %p
   %b Street address:
   = @location.street_address
-%p
-  %b Lat:
-  = @location.lat
-%p
-  %b Lon:
-  = @location.lon
+
 
 = link_to 'Edit', edit_location_path(@location)
 \|

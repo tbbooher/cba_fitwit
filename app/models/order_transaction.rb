@@ -2,7 +2,6 @@ class OrderTransaction
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  # field :order_id, :type => Integer relation
   field :amount, :type => Integer
   field :success, :type => Boolean
   field :reference, :type => String
@@ -10,8 +9,6 @@ class OrderTransaction
   field :action, :type => String
   field :params, :type => Hash
   field :test, :type => Boolean
-  #field :created_at, :type => Datetime
-  #field :updated_at, :type => Datetime
 
   belongs_to :order
   #serialize :params
