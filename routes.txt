@@ -1,4 +1,4 @@
-                                             backend_root        /backend(.:format)                                                   {:controller=>"backend/locations", :action=>"index"}
+                                             backend_root        /backend(.:format)                                                   {:controller=>"backend/base", :action=>"index"}
                            backend_location_fitness_camps GET    /backend/locations/:location_id/fitness_camps(.:format)              {:action=>"index", :controller=>"backend/fitness_camps"}
                                                           POST   /backend/locations/:location_id/fitness_camps(.:format)              {:action=>"create", :controller=>"backend/fitness_camps"}
                         new_backend_location_fitness_camp GET    /backend/locations/:location_id/fitness_camps/new(.:format)          {:action=>"new", :controller=>"backend/fitness_camps"}
@@ -27,6 +27,41 @@
                                         backend_time_slot GET    /backend/time_slots/:id(.:format)                                    {:action=>"show", :controller=>"backend/time_slots"}
                                                           PUT    /backend/time_slots/:id(.:format)                                    {:action=>"update", :controller=>"backend/time_slots"}
                                                           DELETE /backend/time_slots/:id(.:format)                                    {:action=>"destroy", :controller=>"backend/time_slots"}
+                                         backend_user_prs GET    /backend/users/:user_id/prs(.:format)                                {:action=>"index", :controller=>"backend/prs"}
+                                                          POST   /backend/users/:user_id/prs(.:format)                                {:action=>"create", :controller=>"backend/prs"}
+                                      new_backend_user_pr GET    /backend/users/:user_id/prs/new(.:format)                            {:action=>"new", :controller=>"backend/prs"}
+                                     edit_backend_user_pr GET    /backend/users/:user_id/prs/:id/edit(.:format)                       {:action=>"edit", :controller=>"backend/prs"}
+                                          backend_user_pr GET    /backend/users/:user_id/prs/:id(.:format)                            {:action=>"show", :controller=>"backend/prs"}
+                                                          PUT    /backend/users/:user_id/prs/:id(.:format)                            {:action=>"update", :controller=>"backend/prs"}
+                                                          DELETE /backend/users/:user_id/prs/:id(.:format)                            {:action=>"destroy", :controller=>"backend/prs"}
+                                backend_user_measurements GET    /backend/users/:user_id/measurements(.:format)                       {:action=>"index", :controller=>"backend/measurements"}
+                                                          POST   /backend/users/:user_id/measurements(.:format)                       {:action=>"create", :controller=>"backend/measurements"}
+                             new_backend_user_measurement GET    /backend/users/:user_id/measurements/new(.:format)                   {:action=>"new", :controller=>"backend/measurements"}
+                            edit_backend_user_measurement GET    /backend/users/:user_id/measurements/:id/edit(.:format)              {:action=>"edit", :controller=>"backend/measurements"}
+                                 backend_user_measurement GET    /backend/users/:user_id/measurements/:id(.:format)                   {:action=>"show", :controller=>"backend/measurements"}
+                                                          PUT    /backend/users/:user_id/measurements/:id(.:format)                   {:action=>"update", :controller=>"backend/measurements"}
+                                                          DELETE /backend/users/:user_id/measurements/:id(.:format)                   {:action=>"destroy", :controller=>"backend/measurements"}
+                                       backend_user_goals GET    /backend/users/:user_id/goals(.:format)                              {:action=>"index", :controller=>"backend/goals"}
+                                                          POST   /backend/users/:user_id/goals(.:format)                              {:action=>"create", :controller=>"backend/goals"}
+                                    new_backend_user_goal GET    /backend/users/:user_id/goals/new(.:format)                          {:action=>"new", :controller=>"backend/goals"}
+                                   edit_backend_user_goal GET    /backend/users/:user_id/goals/:id/edit(.:format)                     {:action=>"edit", :controller=>"backend/goals"}
+                                        backend_user_goal GET    /backend/users/:user_id/goals/:id(.:format)                          {:action=>"show", :controller=>"backend/goals"}
+                                                          PUT    /backend/users/:user_id/goals/:id(.:format)                          {:action=>"update", :controller=>"backend/goals"}
+                                                          DELETE /backend/users/:user_id/goals/:id(.:format)                          {:action=>"destroy", :controller=>"backend/goals"}
+                             backend_user_custom_workouts GET    /backend/users/:user_id/custom_workouts(.:format)                    {:action=>"index", :controller=>"backend/custom_workouts"}
+                                                          POST   /backend/users/:user_id/custom_workouts(.:format)                    {:action=>"create", :controller=>"backend/custom_workouts"}
+                          new_backend_user_custom_workout GET    /backend/users/:user_id/custom_workouts/new(.:format)                {:action=>"new", :controller=>"backend/custom_workouts"}
+                         edit_backend_user_custom_workout GET    /backend/users/:user_id/custom_workouts/:id/edit(.:format)           {:action=>"edit", :controller=>"backend/custom_workouts"}
+                              backend_user_custom_workout GET    /backend/users/:user_id/custom_workouts/:id(.:format)                {:action=>"show", :controller=>"backend/custom_workouts"}
+                                                          PUT    /backend/users/:user_id/custom_workouts/:id(.:format)                {:action=>"update", :controller=>"backend/custom_workouts"}
+                                                          DELETE /backend/users/:user_id/custom_workouts/:id(.:format)                {:action=>"destroy", :controller=>"backend/custom_workouts"}
+                                            backend_users GET    /backend/users(.:format)                                             {:action=>"index", :controller=>"backend/users"}
+                                                          POST   /backend/users(.:format)                                             {:action=>"create", :controller=>"backend/users"}
+                                         new_backend_user GET    /backend/users/new(.:format)                                         {:action=>"new", :controller=>"backend/users"}
+                                        edit_backend_user GET    /backend/users/:id/edit(.:format)                                    {:action=>"edit", :controller=>"backend/users"}
+                                             backend_user GET    /backend/users/:id(.:format)                                         {:action=>"show", :controller=>"backend/users"}
+                                                          PUT    /backend/users/:id(.:format)                                         {:action=>"update", :controller=>"backend/users"}
+                                                          DELETE /backend/users/:id(.:format)                                         {:action=>"destroy", :controller=>"backend/users"}
                                           backend_friends GET    /backend/friends(.:format)                                           {:action=>"index", :controller=>"backend/friends"}
                                                           POST   /backend/friends(.:format)                                           {:action=>"create", :controller=>"backend/friends"}
                                        new_backend_friend GET    /backend/friends/new(.:format)                                       {:action=>"new", :controller=>"backend/friends"}
@@ -230,41 +265,6 @@ fitness_camp_registration_release_and_waiver_of_liability        /fitness_camp_r
                                         user_confirmation POST   /users/confirmation(.:format)                                        {:action=>"create", :controller=>"devise/confirmations"}
                                     new_user_confirmation GET    /users/confirmation/new(.:format)                                    {:action=>"new", :controller=>"devise/confirmations"}
                                                           GET    /users/confirmation(.:format)                                        {:action=>"show", :controller=>"devise/confirmations"}
-                                                 user_prs GET    /users/:user_id/prs(.:format)                                        {:action=>"index", :controller=>"prs"}
-                                                          POST   /users/:user_id/prs(.:format)                                        {:action=>"create", :controller=>"prs"}
-                                              new_user_pr GET    /users/:user_id/prs/new(.:format)                                    {:action=>"new", :controller=>"prs"}
-                                             edit_user_pr GET    /users/:user_id/prs/:id/edit(.:format)                               {:action=>"edit", :controller=>"prs"}
-                                                  user_pr GET    /users/:user_id/prs/:id(.:format)                                    {:action=>"show", :controller=>"prs"}
-                                                          PUT    /users/:user_id/prs/:id(.:format)                                    {:action=>"update", :controller=>"prs"}
-                                                          DELETE /users/:user_id/prs/:id(.:format)                                    {:action=>"destroy", :controller=>"prs"}
-                                        user_measurements GET    /users/:user_id/measurements(.:format)                               {:action=>"index", :controller=>"measurements"}
-                                                          POST   /users/:user_id/measurements(.:format)                               {:action=>"create", :controller=>"measurements"}
-                                     new_user_measurement GET    /users/:user_id/measurements/new(.:format)                           {:action=>"new", :controller=>"measurements"}
-                                    edit_user_measurement GET    /users/:user_id/measurements/:id/edit(.:format)                      {:action=>"edit", :controller=>"measurements"}
-                                         user_measurement GET    /users/:user_id/measurements/:id(.:format)                           {:action=>"show", :controller=>"measurements"}
-                                                          PUT    /users/:user_id/measurements/:id(.:format)                           {:action=>"update", :controller=>"measurements"}
-                                                          DELETE /users/:user_id/measurements/:id(.:format)                           {:action=>"destroy", :controller=>"measurements"}
-                                               user_goals GET    /users/:user_id/goals(.:format)                                      {:action=>"index", :controller=>"goals"}
-                                                          POST   /users/:user_id/goals(.:format)                                      {:action=>"create", :controller=>"goals"}
-                                            new_user_goal GET    /users/:user_id/goals/new(.:format)                                  {:action=>"new", :controller=>"goals"}
-                                           edit_user_goal GET    /users/:user_id/goals/:id/edit(.:format)                             {:action=>"edit", :controller=>"goals"}
-                                                user_goal GET    /users/:user_id/goals/:id(.:format)                                  {:action=>"show", :controller=>"goals"}
-                                                          PUT    /users/:user_id/goals/:id(.:format)                                  {:action=>"update", :controller=>"goals"}
-                                                          DELETE /users/:user_id/goals/:id(.:format)                                  {:action=>"destroy", :controller=>"goals"}
-                                     user_custom_workouts GET    /users/:user_id/custom_workouts(.:format)                            {:action=>"index", :controller=>"custom_workouts"}
-                                                          POST   /users/:user_id/custom_workouts(.:format)                            {:action=>"create", :controller=>"custom_workouts"}
-                                  new_user_custom_workout GET    /users/:user_id/custom_workouts/new(.:format)                        {:action=>"new", :controller=>"custom_workouts"}
-                                 edit_user_custom_workout GET    /users/:user_id/custom_workouts/:id/edit(.:format)                   {:action=>"edit", :controller=>"custom_workouts"}
-                                      user_custom_workout GET    /users/:user_id/custom_workouts/:id(.:format)                        {:action=>"show", :controller=>"custom_workouts"}
-                                                          PUT    /users/:user_id/custom_workouts/:id(.:format)                        {:action=>"update", :controller=>"custom_workouts"}
-                                                          DELETE /users/:user_id/custom_workouts/:id(.:format)                        {:action=>"destroy", :controller=>"custom_workouts"}
-                                                    users GET    /users(.:format)                                                     {:action=>"index", :controller=>"users"}
-                                                          POST   /users(.:format)                                                     {:action=>"create", :controller=>"users"}
-                                                 new_user GET    /users/new(.:format)                                                 {:action=>"new", :controller=>"users"}
-                                                edit_user GET    /users/:id/edit(.:format)                                            {:action=>"edit", :controller=>"users"}
-                                                     user GET    /users/:id(.:format)                                                 {:action=>"show", :controller=>"users"}
-                                                          PUT    /users/:id(.:format)                                                 {:action=>"update", :controller=>"users"}
-                                                          DELETE /users/:id(.:format)                                                 {:action=>"destroy", :controller=>"users"}
                                          user_invitations GET    /users/:user_id/invitations(.:format)                                {:action=>"index", :controller=>"invitations"}
                                                           POST   /users/:user_id/invitations(.:format)                                {:action=>"create", :controller=>"invitations"}
                                       new_user_invitation GET    /users/:user_id/invitations/new(.:format)                            {:action=>"new", :controller=>"invitations"}
@@ -292,7 +292,7 @@ fitness_camp_registration_release_and_waiver_of_liability        /fitness_camp_r
                                          update_role_user PUT    /users/:id/update_role(.:format)                                     {:action=>"update_role", :controller=>"users"}
                                              details_user GET    /users/:id/details(.:format)                                         {:action=>"details", :controller=>"users"}
                                    autocomplete_ids_users GET    /users/autocomplete_ids(.:format)                                    {:action=>"autocomplete_ids", :controller=>"users"}
-                                                          GET    /users/:id(.:format)                                                 {:action=>"show", :controller=>"users"}
+                                                     user GET    /users/:id(.:format)                                                 {:action=>"show", :controller=>"users"}
                                                           DELETE /users/:id(.:format)                                                 {:action=>"destroy", :controller=>"users"}
                                                                  /auth/:provider/callback(.:format)                                   {:controller=>"authentications", :action=>"create"}
                                           authentications GET    /authentications(.:format)                                           {:action=>"index", :controller=>"authentications"}

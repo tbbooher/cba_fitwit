@@ -1,3 +1,2 @@
-class FitWitWorkoutsController < InheritedResources::Base
-
+class Backend::FitWitWorkoutsController <  Backend::ResourceController
 end
