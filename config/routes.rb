@@ -2,19 +2,31 @@
 
 Cba::Application.routes.draw do
 
-  resources :locations do
-    resources :fitness_camps
+  namespace :backend do
+    root to: "locations#index"
+    resources :locations do
+      resources :fitness_camps
+    end
+
+    resources :time_slots do
+      resources :meetings
+    end
+
+    resources :friends
+    resources :fit_wit_workouts
+    resources :workouts
+    resources :sponsors
+    resources :news_items
+
+    resources :events
   end
 
-  resources :time_slots do
-    resources :meetings
-  end
+  match "my_fit_wit/input_custom_workout"
 
   get "my_fit_wit/index"
   get "my_fit_wit/profile"
   get "my_fit_wit/upcoming_fitnesscamps"
   get "my_fit_wit/add_custom_workout"
-  match "my_fit_wit/input_custom_workout"
   get "my_fit_wit/leader_board/:id" => "my_fit_wit#leader_board"
   get "my_fit_wit/get_progress_chart"
   get "my_fit_wit/fit_wit_workout_details/:id" => "my_fit_wit#fit_wit_workout_details"
@@ -40,15 +52,7 @@ Cba::Application.routes.draw do
   get "my_fit_wit/get_inches_height"
   get "my_fit_wit/get_months_and_years"
 
-  resources :friends
-  resources :fit_wit_workouts
-  resources :workouts
-  resources :sponsors
-  resources :events
-
   get "calendar/index"
-
-  resources :news_items
 
   # FitWit Routes
 
@@ -67,20 +71,23 @@ Cba::Application.routes.draw do
   get 'base/posts'
 
   # fitness camp registrations
-  get 'fitness_camp_registration/index'
+  # TODO -- change these to post
   match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
-  get 'fitness_camp_registration/no_need_to_register'
   match 'fitness_camp_registration/release_and_waiver_of_liability'
   match 'fitness_camp_registration/terms_of_participation'
-  get 'fitness_camp_registration/process_fit_wit_history'
   match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#view_cart"
   match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
+  match 'fitness_camp_registration/save_order'
+
+  get 'fitness_camp_registration/index'
+  get 'fitness_camp_registration/no_need_to_register'
+  get 'fitness_camp_registration/process_fit_wit_history'
   get 'fitness_camp_registration/membership_info'
   get 'fitness_camp_registration/consent'
   get 'fitness_camp_registration/health_history'
   get 'fitness_camp_registration/payment'
   get 'fitness_camp_registration/pay'
-  match 'fitness_camp_registration/save_order'
+
   get 'fitness_camp_registration/empty_cart'
   get 'fitness_camp_registration/registration_success'
   get 'fitness_camp_registration/all_fitness_camps'
