@@ -3,13 +3,13 @@
 Cba::Application.routes.draw do
 
   namespace :backend do
-    root to: "base#index"
+    root to: "locations#index"
     resources :locations do
-      resources :fitness_camps
-    end
-
-    resources :time_slots do
-      resources :meetings
+      resources :fitness_camps do
+        resources :time_slots do
+          resources :meetings
+        end
+      end
     end
 
     resources :users do

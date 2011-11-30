@@ -1,0 +1,8 @@
+= simple_form_for [ :backend, @location, @fitness_camp, resource ], :wrapper => :inline  do |f|
+  %fieldset
+    = f.input :fitness_camp, :collection => FitnessCamp.all
+    = f.input :start_time, :as => :time
+    = f.input :end_time, :as => :time
+    = f.input :sold_out, :as => :boolean
+  .actions
+    = f.submit class: "btn primary"

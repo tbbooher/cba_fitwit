@@ -1,0 +1,8 @@
+= simple_form_for @fit_wit_workout do |f|
+  %fieldset
+    = f.text_field :name
+    = f.text_field :description, :as => :text
+    = f.text_field :units
+    = f.text_field :score_method
+  .actions
+    = f.submit :class => "btn primary"

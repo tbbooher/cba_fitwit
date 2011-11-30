@@ -1,0 +1,35 @@
+- content_for :header do
+  %h1= resource_class.model_name.human(count: 2)
+
+%ul.tabs
+  %li.active= link_to "Index", "#"
+  %li= link_to "New", new_resource_path
+
+%table
+  %tr
+    %th Title
+    %th Session start date
+    %th Session end date
+    %th Session active
+    %th
+
+  - @fitness_camps.each do |resource|
+    %tr
+      %td= resource.title
+      %td= resource.session_start_date
+      %td= resource.session_end_date
+      %td= resource.session_active
+      %td.row-actions
+        = link_to 'show', resource_path(resource)
+        |
+        = link_to 'edit', edit_resource_path(resource)
+        |
+        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+    - unless resource.time_slots.empty?
+      - resource.time_slots.each do |ts|
+        %tr
+          %td &nbsp;
+          %td= link_to ts.short_title, '' # backend_time_slots_path(ts.id)
+          %td
+          %td
+          %td

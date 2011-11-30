@@ -17,6 +17,14 @@ GIT
     has_scope (0.5.1)
 
 GIT
+  remote: git://github.com/plataformatec/simple_form.git
+  revision: 0dc1dff2566c57e306c665adef5ee82bc3698329
+  specs:
+    simple_form (2.0.0.dev)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+
+GIT
   remote: git://github.com/raw1z/table_builder.git
   revision: 8917e3d001ca9045176d25fbf4a1cdffda63d7eb
   specs:
@@ -295,9 +303,6 @@ GEM
       ffi (~> 1.0.9)
       json_pure
       rubyzip
-    simple_form (1.5.2)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
     simplecov (0.5.4)
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
@@ -405,7 +410,7 @@ DEPENDENCIES
   ruby-growl
   ruby-prof!
   sass-rails (~> 3.1.0.rc)
-  simple_form
+  simple_form!
   simplecov
   spork (= 0.9.0.rc9)
   spork-testunit

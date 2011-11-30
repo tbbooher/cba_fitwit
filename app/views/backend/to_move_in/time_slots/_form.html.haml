@@ -1,5 +1,7 @@
-= simple_form_for @time_slot do |f|
-    = f.input :start_time
-    = f.input :end_time
+= simple_form_for @time_slot, :wrapper => :inline do |f|
+  %fieldset
+    = f.input :start_time, :input_html => { :class => 'timepicker' }
+    = f.input :end_time, :input_html => { :class => 'timepicker' }
     = f.input :sold_out
-    = f.button 'Save'
+  .actions
+    = f.submit class: "btn primary"

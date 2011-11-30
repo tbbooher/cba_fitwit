@@ -1,0 +1,9 @@
+= simple_form_for [ :backend, @location, @fitness_camp ] do |f|
+  %fieldset
+    = f.input :title
+    = f.input :session_start_date
+    = f.input :session_end_date
+    = f.input :session_active
+    = f.input :description, as: :text
+  .actions
+    = f.submit 'Save'

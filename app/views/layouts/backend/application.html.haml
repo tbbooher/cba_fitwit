@@ -13,13 +13,11 @@
           %ul.nav
             %li.active= link_to "Home", "#"
             %li= link_to "Locations", backend_locations_path
-            %li= link_to "Time Slots", backend_time_slots_path
             %li= link_to "Friends", backend_friends_path
             %li= link_to "News Items", backend_news_items_path
             %li= link_to "Sponsors", backend_sponsors_path
             %li= link_to "Workouts", backend_workouts_path
             %li= link_to "FitWit Workouts", backend_fit_wit_workouts_path
-
 
     .container
       .content
@@ -40,8 +38,6 @@
               %h4 FitWit Admin Site
               %p Tim made this to make your life easier.
               %p Should we put some cool stuff over here?
-              %p
-                = link_to "Manage Users", backend_users_path
               %h3 Manage Camps
               %p
                 = link_to "Locations", backend_locations_path
