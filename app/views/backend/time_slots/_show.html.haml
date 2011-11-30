@@ -1,0 +1,9 @@
+= "#{@time_slot.start_time.strftime("%l:%M %p")} to #{@time_slot.end_time.strftime("%l:%M %p")}"
+%p Sold Out
+%p= @time_slot.sold_out
+
+%h3 Meetings
+%p
+  - @time_slot.meetings.each do |m|
+    %ul
+      %li= link_to m.meeting_date_f

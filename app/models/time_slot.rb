@@ -1,6 +1,7 @@
 class TimeSlot
 
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
 
   field :start_time, :type => Time
   field :end_time, :type => Time

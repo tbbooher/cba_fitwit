@@ -2,6 +2,7 @@ class Meeting
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::MultiParameterAttributes
 
   field :meeting_date, type: Date
 

@@ -1,0 +1,27 @@
+- content_for :header do
+  %h1= resource_class.model_name.human(count: 2)
+
+%ul.tabs
+  %li.active= link_to "Index", "#"
+  %li= link_to "New", new_resource_path
+
+%table.zebra-striped
+  %thead
+    %tr
+      %th Time
+      %th Sold out
+      %th Meetings
+      %th &nbsp;
+  %tbody
+    - @time_slots.each do |resource|
+      %tr[resource]{odd_or_even}
+        %td= link_to resource.start_time.strftime("%l:%M %p") + " to " + resource.end_time.strftime("%l:%M %p"), resource_path(resource)
+        %td= resource.sold_out
+        - m = resource.meetings.size
+        %td= link_to pluralize(m, 'meeting'),
+        %td.row-actions
+          = link_to 'edit', edit_resource_path(resource)
+          |
+          = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+
+= paginate collection
