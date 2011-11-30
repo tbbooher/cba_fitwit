@@ -1,0 +1,41 @@
+%p
+  %dd
+    %b Name:
+    = @location.name
+
+%p
+  %dd
+    %b Fitness Camps:
+    %ul
+      - @location.fitness_camps.each do |fc|
+        %li
+          = link_to fc.title, backend_location_fitness_camp_path(@location.id, fc.id)
+%dt
+  %dd
+    %b Description:
+    = @location.description
+%dt
+  %dd
+    %b Directions:
+    = @location.directions
+%dt
+  %dd
+    %b Contact info:
+    = @location.contact_info
+%dt
+  %dd
+    %b City:
+    = @location.city
+
+%dt
+  %dd
+    %b Short description:
+    = @location.short_description
+%dt
+  %dd
+    %b Zip:
+    = @location.zip
+%dt
+  %dd
+    %b Street address:
+    = @location.street_address

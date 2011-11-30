@@ -1,12 +1,10 @@
-= simple_form_for @location, :wrapper => :inline do |f|
+= simple_form_for [:backend, @location], :wrapper => :inline do |f|
   %fieldset
     = f.input :name
     = f.input :description
     = f.input :directions
     = f.input :contact_info
     = f.input :city
-    = f.input :created_at, :input_html => { :class => 'datepicker' }
-    = f.input :updated_at, :input_html => { :class => 'datepicker' }
     = f.input :franchise_id
     = f.input :us_state
     = f.input :short_description

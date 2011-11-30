@@ -1,0 +1,5 @@
+= simple_form_for [:backend, @location, @fitness_camp, @time_slot, @meeting], :wrapper => :inline do |f|
+  %fieldset
+    = f.input :meeting_date
+  .actions
+    = f.submit
