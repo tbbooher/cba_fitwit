@@ -49,7 +49,7 @@ class Ability
           can :create, Invitation
         end
         if user.role?(:author)
-          can :create, [Page, Blog, Posting]
+          can :create, [Page, Blog, Posting, FitnessCamp, Measurement]
         end
         if user.role?(:moderator)
           can :manage, [Posting, Comment]

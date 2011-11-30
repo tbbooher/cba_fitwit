@@ -127,7 +127,7 @@ gem 'wkhtmltopdf-binary'
 gem "stamp"
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 #gem "jquery-rest"
-gem "simple_form"
 gem 'has_scope', git: 'git://github.com/plataformatec/has_scope.git'
 gem 'kaminari'
 gem "responders"
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'

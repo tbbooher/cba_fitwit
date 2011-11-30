@@ -19,7 +19,7 @@ describe FitnessCamp do
                                    )
   end
 
-  it "should display all" do
+  it "should display all camps that exist" do
     assert_equal 3, FitnessCamp.all.size
   end
 
