@@ -7,14 +7,12 @@ class Location
 
   field :name, :type => String
   field :description, :type => String
-  field :directions, :type => String
   field :contact_info, :type => String
-  field :city, :type => String
-  field :active, type: Boolean
-  field :us_state, :type => String
-  field :short_description, :type => String
-  field :zip, :type => String
   field :street_address, :type => String
+  field :city, :type => String
+  field :us_state, :type => String
+  field :zip, :type => String
+  field :active, type: Boolean
   field :lat, :type => Float
   field :lon, :type => Float
 

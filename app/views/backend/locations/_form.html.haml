@@ -1,15 +1,13 @@
 = simple_form_for [:backend, @location], :wrapper => :inline do |f|
   %fieldset
     = f.input :name
-    = f.input :description
-    = f.input :directions
+    = f.input :description, as: :text
     = f.input :contact_info
-    = f.input :city
-    = f.input :active, as: :boolean
-    = f.input :us_state
-    = f.input :short_description
-    = f.input :zip
     = f.input :street_address
+    = f.input :city
+    = f.input :us_state
+    = f.input :zip
+    = f.input :active, as: :boolean
     = f.input :lat
     = f.input :lon
   .actions

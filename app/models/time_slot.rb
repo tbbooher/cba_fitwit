@@ -7,6 +7,11 @@ class TimeSlot
   field :end_time, :type => Time
   field :sold_out, :type => Boolean
 
+  validates_presence_of :start_time, :end_time
+  #validates_format_of :start_time,
+  #                    with: /^(20|21|22|23|[01]\d|\d)(([:][0-5]\d){1,2})$/,
+  #                    message: "Must be a time"
+
   belongs_to :fitness_camp
 
   has_many :registrations

@@ -31,3 +31,14 @@
       %li= link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
       %span.divider |
 
+%h4 Add Meetings
+
+= form_tag "add_meetings" do
+  %fieldset
+    = text_field_tag "meeting_dates"
+  .actions
+    = submit_tag "Apply to this time slot", class: "btn primary"
+    = submit_tag "Apply to all time slots", class: "btn"
+
+#multi-months
+

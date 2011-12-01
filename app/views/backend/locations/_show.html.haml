@@ -39,3 +39,11 @@
   %dd
     %b Street address:
     = @location.street_address
+%p
+  &nbsp;
+
+= link_to "Add new camp for this location", new_backend_location_fitness_camp_path(@location.id), class: "btn primary"
+
+%h3 Map
+%span10
+  %div{:id => 'location-map', style: 'margin: auto;'}

@@ -1,5 +1,5 @@
 //= require bootstrap
-//= require jquery-ui
+//= require jquery-ui-1.8.2.custom.css.scss
 
 html, body
   background-color: #eee
@@ -47,3 +47,33 @@ body
 
 select.time
   width: 50px
+
+/* time picker
+
+div
+  &.time-picker
+    position: absolute
+    height: 191px
+    width: 4em
+    /* needed for IE
+    overflow: auto
+    background: #fff
+    border: 1px solid #aaa
+    z-index: 99
+    margin: 0
+  &.time-picker-12hours
+    width: 6em
+    /* needed for IE
+  &.time-picker
+    ul
+      list-style-type: none
+      margin: 0
+      padding: 0
+    li
+      cursor: pointer
+      height: 10px
+      font: 12px / 1 Helvetica, Arial, sans-serif
+      padding: 4px 3px
+      &.selected
+        background: #0063CE
+        color: #fff
