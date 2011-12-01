@@ -1,0 +1,5 @@
+%ul.breadcrumb
+  - @time_slot.meetings.each do |meeting|
+    %li{class: meeting.id == @meeting.id ? "active" : ""}
+      = link_to meeting.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, meeting.id)
+      %span.divider |

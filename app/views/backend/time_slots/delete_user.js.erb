@@ -1,0 +1,8 @@
+$("#javascript_top_row").show('slow');
+$("#javascript_top_row").html("<div class='alert-message info'><p>User deleted</p></div>");
+$("#javascript_top_row").delay(5000, function(){$("#javascript_top_row").fadeOut()});
+$("tr#<%= "user_#{@user_id}" %>").remove();
+$('#user_id').append(
+  $('<option></option>').val('<%= @user_id %>').html('<%= @user_name %>')
+);
+$("#registration_number").html("<%= @time_slot.registrations.size %>")

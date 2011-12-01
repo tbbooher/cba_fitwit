@@ -29,7 +29,7 @@ describe TimeSlot do
     @six_am.campers.size.should eq(10)
   end
 
-  it "should show the meeting time" do 
+  it "should show the meetings time" do
     @six_am.show_meeting_txt.should eq("<span class=\"time\">6:00AM</span>\n<span class=\"time\"> to 7:00AM</span>")
   end
 
@@ -38,10 +38,10 @@ describe TimeSlot do
     @six_am.longer_title.should eq("Parkour at 6:00AM located at #{@six_am.fitness_camp.location.name}")
   end
 
-  it "should display all of its meeting dates" do
-    # load some meeting dates
+  it "should display all of its meetings dates" do
+    # load some meetings dates
     fc = @six_am.fitness_camp
-    # add a meeting for every potential date
+    # add a meetings for every potential date
     meeting_count = 0
     (fc.session_start_date..fc.session_end_date).to_a.each do |dt|
       @six_am.meetings << Meeting.new(meeting_date: dt) if meeting_count < 10

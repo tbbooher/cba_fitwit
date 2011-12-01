@@ -1,0 +1,9 @@
+- @meeting.attendees.empty? ? @already_registered = false : @already_registered = @meeting.attendees.map(&:id).include?(attendee.id)
+= check_box_tag "user_ids[]", attendee.id, @already_registered
+- if @already_registered
+  -# my_meeting_user_id = @my_meeting_users.detect{|mu| mu.user_id == attendee.id}.id
+  = link_to attendee.full_name, backend_add_workout_for_user_path(attendee.id,@meeting.id) #, meeting_user_exertions_url(my_meeting_user_id)
+  %br/
+- else
+  = attendee.full_name
+  %br/

@@ -10,13 +10,15 @@ class Location
   field :directions, :type => String
   field :contact_info, :type => String
   field :city, :type => String
-  field :franchise_id, :type => Integer
+  field :active, type: Boolean
   field :us_state, :type => String
   field :short_description, :type => String
   field :zip, :type => String
   field :street_address, :type => String
   field :lat, :type => Float
   field :lon, :type => Float
+
+  validates_presence_of :name, :lat, :lon, :description
   
   # named scopes
 

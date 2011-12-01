@@ -1,0 +1,22 @@
+- content_for :header do
+  %h1= "Meetings for #{@time_slot.short_title}"
+
+%ul.tabs
+  %li.active= link_to "Index", "#"
+  %li= link_to "New", new_resource_path
+
+%table.zebra-striped
+  %thead
+    %tr
+      %th Meeting Date
+      %th Attendees
+      %th
+  %tbody
+    - @meetings.each do |resource|
+      %tr[resource]{odd_or_even}
+        %td= link_to resource.meeting_date, resource_path(resource)
+        %td.row-actions
+          = link_to 'edit', edit_resource_path(resource)
+          |
+          = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+

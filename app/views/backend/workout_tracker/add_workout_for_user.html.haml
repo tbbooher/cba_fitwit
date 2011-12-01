@@ -1,0 +1,35 @@
+- content_for :header do
+  %h3= "Add workout for #{@user.name} at #{@meeting.full_context}"
+/ Left thumbnail column
+.row
+  .span2
+    %h2 Other attendees
+    %ul
+      - @other_attendees.each do |a|
+        %li
+          = link_to a.full_name, backend_add_workout_for_user_path(a.id,@meeting.id)
+  / Right column
+  .span8
+    = render "workout_form"
+    - unless @users_workouts.empty?
+      %table.zebra-striped
+      %thead
+        %tr
+          %th Workout
+          %th Score
+          %th Notes
+          %th As Rx'd
+      %tbody
+        - @users_workouts.each do |workout|
+          %tr{odd_or_even}
+            %td= workout.fit_wit_workout.name
+            %td= workout.score.to_s + " " + workout.exercise.units
+            %td= workout.notes
+            %td= workout.rxd
+            %td=# link_to 'Edit', edit_meeting_user_workout_path(@meeting_user_id,workout)
+            %td=# link_to 'Destroy', meeting_user_workout_path(@meeting_user_id,workout), :confirm => 'Are you sure?', :method => :delete
+    - else
+      %p
+        No workouts yet recorded for #{@user.full_name} at this meeting.
+    %div= link_to "back to attendance sheet", backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, @meeting.id)
+

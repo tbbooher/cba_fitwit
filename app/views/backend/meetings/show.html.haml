@@ -1,0 +1,24 @@
+- content_for :header do
+  %h1= "Meeting on #{@meeting.meeting_date.strftime('%e %B')} for #{@meeting.time_slot.short_title}"
+
+%ul.breadcrumb
+  %li
+    = link_to @location.name, backend_location_path(@location.id)
+    %span.divider /
+  %li
+    = link_to @fitness_camp.title, backend_location_fitness_camp_path(@location.id, @fitness_camp.id)
+    %span.divider /
+  %li
+    = link_to @time_slot.start_time_f, backend_location_fitness_camp_time_slot_path(@location.id, @fitness_camp.id, @time_slot.id)
+    %span.divider /
+  %li.active
+    = @meeting.meeting_date.strftime('%e %B')
+
+%ul.tabs
+  %li= link_to "Index", collection_path
+  %li= link_to "New", new_resource_path
+  %li.active= link_to 'Show', '#'
+  %li= link_to "Edit", edit_resource_path
+  %li= link_to "Destroy", resource_path, method: :delete, confirm: "Are you sure?"
+
+= render "show"

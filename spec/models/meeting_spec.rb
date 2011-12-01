@@ -4,10 +4,10 @@ describe Meeting do
 
   before(:all) do
     cleanup_database
-    @meeting = FactoryGirl.create(:meeting)
+    @meeting = FactoryGirl.create(:meetings)
   end
 
-  it "should have a meeting date" do
+  it "should have a meetings date" do
     @meeting.meeting_date_f.should eq("15-Nov") 
   end
 

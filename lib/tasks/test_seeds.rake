@@ -13,9 +13,9 @@ namespace :data do
        FactoryGirl.create(:workout, fit_wit_workout: cindy,
                           score: "5", user: u)
     ["15:21", "16:23","15:48","16:20", "17:10", "18:30"].each_with_index do |race_time, i|
-      m = FactoryGirl.create(:meeting, meeting_date: Date.civil(2012,12,i+5))
+      m = FactoryGirl.create(:meetings, meeting_date: Date.civil(2012,12,i+5))
       FactoryGirl.create(:workout, fit_wit_workout: fiveK,
-                         score: race_time, user: u, meeting: m)
+                         score: race_time, user: u, meetings: m)
     end
 
        FactoryGirl.create(:workout, fit_wit_workout: fiveK,

@@ -1,0 +1,20 @@
+= form_tag "update_url", id: "workout_form", remote: true do
+  %fieldset
+    .clearfix
+      = label_tag :fit_wit_workout_id, "Workout"
+      .input
+        = select_tag :fit_wit_workout_id, options_for_select(FitWitWorkout.all.map{ |u| [u.name, u.id] })
+    .clearfix
+      = label_tag :score
+      .input
+        = text_field_tag :score
+    .clearfix
+      = label_tag :rxd
+      .input
+        = check_box_tag :rxd
+    .clearfix
+      = label_tag :notes
+      .input
+        = text_area_tag :notes
+  .actions
+    = submit_tag "Add Workout", class: "btn primary"

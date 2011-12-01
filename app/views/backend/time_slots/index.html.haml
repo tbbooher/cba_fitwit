@@ -1,5 +1,5 @@
 - content_for :header do
-  %h1= resource_class.model_name.human(count: 2)
+  %h1= "Time Slots for #{@fitness_camp.title}"
 
 %ul.tabs
   %li.active= link_to "Index", "#"
@@ -18,7 +18,7 @@
         %td= link_to resource.start_time.strftime("%l:%M %p") + " to " + resource.end_time.strftime("%l:%M %p"), resource_path(resource)
         %td= resource.sold_out
         - m = resource.meetings.size
-        %td= link_to pluralize(m, 'meeting'),
+        %td= link_to pluralize(m, 'meeting'), backend_location_fitness_camp_time_slot_meetings_path(@location.id, @fitness_camp.id, resource.id)
         %td.row-actions
           = link_to 'edit', edit_resource_path(resource)
           |
