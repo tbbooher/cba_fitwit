@@ -101,7 +101,7 @@
       <div id="container">
 
         <% if content_for?(:right_column) || content_for?(:right_column_top) %>
-            <div id='sidebar' class="one_third last">
+            <div id='right-column'>
               <% if content_for?(:right_column_top) %>
                   <div id='right-column-top'>
                     <%= yield(:right_column_top) %>
