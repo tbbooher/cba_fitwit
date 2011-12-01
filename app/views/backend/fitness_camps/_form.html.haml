@@ -4,6 +4,6 @@
     = f.input :session_start_date, :input_html => { :class => 'datepicker' }
     = f.input :session_end_date, :input_html => { :class => 'datepicker' }
     = f.input :session_active, as: :boolean
-    = f.input :description, as: :text
+    = f.input :description, as: :text, :input_html => { style: "width:400px; height:200px;"}
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: "btn primary"
