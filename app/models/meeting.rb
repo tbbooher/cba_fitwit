@@ -47,4 +47,8 @@ class Meeting
     # self.users.map{|user| user.id }.include?(user_id)
   end
 
+  def full_context
+    "#{self.time_slot.short_title} on #{meeting_date_f}"
+  end
+
 end

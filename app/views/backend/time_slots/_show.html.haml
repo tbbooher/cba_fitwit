@@ -1,9 +1,33 @@
-= "#{@time_slot.start_time.strftime("%l:%M %p")} to #{@time_slot.end_time.strftime("%l:%M %p")}"
-%p Sold Out
-%p= @time_slot.sold_out
+%p
+  - if @time_slot.sold_out
+    This time slot is
+    %strong Sold Out
 
-%h3 Meetings
+%h4
+  There are
+  %span#registration_number
+    = @time_slot.registrations.size
+  users registered
+  %table#registrants
+    - @time_slot.users_going.each do |user|
+      - @user = user
+      = render "table_row"
+
+%h4
+  - @unregistered_users =  (User.all.to_a - @time_slot.users_going.to_a).map{|u| [u.full_name, u.id]}
+  = form_tag backend_location_fitness_camp_time_slot_register_user_path(@location.id, @fitness_camp.id, @time_slot.id), remote: true do
+    %fieldset
+    .clearfix
+      = label_tag :user_id, "User"
+      .input
+        = select_tag :user_id, options_for_select(@unregistered_users)
+    .actions
+      = submit_tag "Add User", class: "btn primary"
+
+%h4 Meetings
 %p
   - @time_slot.meetings.each do |m|
-    %ul
-      %li= link_to m.meeting_date_f
+    %ul.breadcrumb
+      %li= link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
+      %span.divider |
+

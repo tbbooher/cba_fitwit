@@ -1,5 +1,5 @@
 = simple_form_for [:backend, @location, @fitness_camp, @time_slot, @meeting], :wrapper => :inline do |f|
   %fieldset
-    = f.input :meeting_date
+    = f.input :meeting_date, :input_html => { :class => 'datepicker' }
   .actions
-    = f.submit
+    = f.submit class: "btn primary"

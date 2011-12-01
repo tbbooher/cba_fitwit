@@ -1,0 +1,16 @@
+%h4 Workouts
+- if @fit_wit_workouts.nil?
+  There have been no workouts yet for this meeting
+- else
+  - @fit_wit_workouts.each do |fww|
+    %h2
+      = fww.name
+      Results
+    %table{:style => "width:400px;"}
+      - @meeting.workouts.select {|w| w.exercise_id == fww.id}.each do |workout|
+        %tr{:class => cycle('light','dark')}
+          %td
+            = workout.user.short_name
+            \.
+          %td= workout.score
+          %td{:cellpadding => "10px"}= workout.notes

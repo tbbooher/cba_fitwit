@@ -1,0 +1,14 @@
+%h4 Attendees
+%p= @potential_users
+= render "other_meetings"
+
+.row
+  #attendance_div.span5
+    = render "take_attendance"
+  .span5
+    = render "show_workouts"
+.row
+  .span10
+    .well
+      = link_to "Enter Scores for Class", backend_coach_score_entry_path(@meeting.id), class: "btn primary"
+      = link_to "See Scores for Class", backend_show_workout_results_path(@meeting.id), class: "btn success"

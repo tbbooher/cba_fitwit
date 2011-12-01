@@ -1,0 +1,32 @@
+- content_for :header do
+  %h3= "Add workouts for #{@meeting.full_context}"
+/ Left thumbnail column
+&lt;
+= link_to "Back to #{@meeting.full_context}", backend_location_fitness_camp_time_slot_meeting_path(@meeting.time_slot.fitness_camp.location.id, @meeting.time_slot.fitness_camp.id, @meeting.time_slot.id, @meeting.id)
+= form_tag "update_url", id: "workout_form", remote: true do
+  %fieldset
+    .clearfix
+      = label_tag :fit_wit_workout_id, "Workout"
+      .input
+        = select_tag :fit_wit_workout_id, options_for_select(@possible_workouts)
+    .clearfix
+      %table.zebra-striped
+        %thead
+          %tr
+            %th
+              User
+            %th
+              Score
+            %th
+              Note
+            %th
+              Rxd
+        %tbody
+        - @meeting.attendees.each do |user|
+          %tr{odd_or_even}
+            %td= user.full_name
+            %td= text_field_tag "exercise_score_#{user.id}", '', :size => 15
+            %td= text_field_tag "exercise_note_#{user.id}", '', :size => 30
+            %td= check_box_tag "rxd_#{user.id}"
+  .actions
+    = submit_tag "Add or Update All Workouts", class: "btn primary"

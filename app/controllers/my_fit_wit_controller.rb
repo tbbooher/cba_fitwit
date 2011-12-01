@@ -275,22 +275,22 @@ class MyFitWitController < ApplicationController
     meeting_date = @meeting.meeting_date
     @the_date = meeting_date.strftime("%b #{meeting_date.day.ordinalize} %Y")
     @other_scores = find_previous_scores(@user, @fit_wit_workout, @fit_wit_workout.name, @workout.id)
-    # now what about other users at the same meeting
-    #@other_folks_workouts = Workout.all(:conditions => ["meetings.id = ?", @meeting.id], :joins => [{:meeting_user => :meeting}, :user], :order => "common_value DESC")
+    # now what about other users at the same meetings
+    #@other_folks_workouts = Workout.all(:conditions => ["meetings.id = ?", @meetings.id], :joins => [{:meeting_user => :meetings}, :user], :order => "common_value DESC")
     @other_folks_workouts = Workout.all(:select => "users.first_name, users.last_name, workouts.score, workouts.rxd",
                                           :conditions => ["meetings.id = ?", @meeting.id],
-                                          :joins => [{:meeting_user => :meeting}, {:meeting_user => :user}],
+                                          :joins => [{:meeting_user => :meetings}, {:meeting_user => :user}],
                                           :order => "common_value DESC")
 
-    #@other_folks_workouts = @workout.meeting.workouts.select { |e| e.fit_wit_workout.id == @fit_wit_workout.id }.sort_by { |e| e.common_value }.reverse
+    #@other_folks_workouts = @workout.meetings.workouts.select { |e| e.fit_wit_workout.id == @fit_wit_workout.id }.sort_by { |e| e.common_value }.reverse
     # and now what about all other folks that day
 
     @workouts_that_day = Workout.all(:select => "users.first_name, users.last_name, workouts.score, workouts.rxd",
                                       :conditions => ["meetings.meeting_date = ? AND workouts.fit_wit_workout_id = ?", meeting_date, @fit_wit_workout.id],
-                                      :joins => [{:meeting_user => :meeting}, {:meeting_user => :user}],
+                                      :joins => [{:meeting_user => :meetings}, {:meeting_user => :user}],
                                       :order => "common_value DESC")
     
-    #@fit_wit_workout.workouts.select { |e| e.meeting.meeting_date == @workout.meeting.meeting_date }.sort_by { |e| e.common_value }.reverse
+    #@fit_wit_workout.workouts.select { |e| e.meetings.meeting_date == @workout.meetings.meeting_date }.sort_by { |e| e.common_value }.reverse
     # leader board
     @leaders = @fit_wit_workout.find_leaders(@user.gender)
   end

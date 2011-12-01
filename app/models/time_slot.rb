@@ -72,12 +72,7 @@ class TimeSlot
   end
   
   def users_going
-    # newer push
-    self.registrations.map{|r| r.order.user}
-    # User.find(:all, 
-    #   :joins => {:orders => {:registrations => :time_slot}},
-    #   :order => 'first_name',
-    #   :conditions => ['time_slot_id = ?', self.id])
+      self.registrations.map{|r| r.user}
   end
   
   def who_is_not_going

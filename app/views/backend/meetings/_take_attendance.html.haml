@@ -1,0 +1,14 @@
+%h4 Attendance
+- if @time_slot.users_going.empty?
+  %p
+    There are no potential users for
+    the time slot from #{@time_slot.start_to_finish}
+- else # we can take attendance
+  %p
+    Number of Attendees:
+    %strong= @meeting.attendees.size
+  = form_tag backend_location_fitness_camp_time_slot_meeting_take_attendance_path(@location.id, @fitness_camp.id, @time_slot.id, @meeting.id), id: "attendance_form", remote: true do
+    %fieldset
+      = render :partial => "attendee", :collection => @time_slot.users_going
+    .actions
+      = submit_tag "Update", class: "btn primary"

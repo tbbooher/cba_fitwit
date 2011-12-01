@@ -23,10 +23,11 @@
       .content
         .page-header
           = yield :header
-        .row
+        #top_row.row
           - if flash[:alert]
             .alert-message.error
               %p= flash[:alert]
+          #javascript_top_row{style: "display:none;"}
           - if flash[:notice]
             .alert-message.info
               %p= flash[:notice]
@@ -35,13 +36,14 @@
           .span4
             = yield :sidebar
             .block.notice
-              %h4 FitWit Admin Site
-              %p Tim made this to make your life easier.
-              %p Should we put some cool stuff over here?
-              %h3 Manage Camps
-              %p
-                = link_to "Locations", backend_locations_path
-              %p Let's list all current and upcoming fitness camps here
+              %h4 Manage Camps
+              %ul
+                - FitnessCamp.all.each do |fc|
+                  %li
+                    = link_to fc.title, backend_location_fitness_camp_path(fc.location.id, fc.id)
+                    %ul
+                      - fc.time_slots.all.each do |ts|
+                        %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
 
       %footer
         %p Copyright &copy; #{Time.now.year} Tim Booher.

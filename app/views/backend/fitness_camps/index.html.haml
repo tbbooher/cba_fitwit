@@ -1,5 +1,5 @@
 - content_for :header do
-  %h1= resource_class.model_name.human(count: 2)
+  %h1= "Fitness Camps for #{@location.name}"
 
 %ul.tabs
   %li.active= link_to "Index", "#"
