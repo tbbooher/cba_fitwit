@@ -208,6 +208,7 @@ Cba::Application.routes.draw do
   end
 
   # ROOT
+  match "fitwit_blogs" => "home#index"
   #root :to => 'home#index'
   root :to => "home#start_page"
 
