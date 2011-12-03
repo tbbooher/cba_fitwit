@@ -1,0 +1,8 @@
+= simple_form_for(@backend_offer) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :content
+
+  .actions
+    = f.button :submit
