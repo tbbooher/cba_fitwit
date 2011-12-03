@@ -18,10 +18,9 @@ class Pr
   belongs_to :user
   belongs_to :fitness_camp
   belongs_to :time_slot
-  belongs_to :meetings
+  belongs_to :meeting
 
   # first we can load this loosely where everyone gets stored under a workout
-
 
 end
 

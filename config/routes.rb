@@ -2,6 +2,8 @@
 
 Cba::Application.routes.draw do
 
+  namespace :backend do resources :offers end
+
   namespace :backend do
     root to: "locations#index"
     get "remove_user/:time_slot_id/user/:user_id" => "time_slots#delete_user", as: :remove_user
@@ -16,6 +18,7 @@ Cba::Application.routes.draw do
       end
     end
 
+    post "meetings_for_single_camp/:time_slot_id" => "time_slots#meetings_for_single_camp", as: :add_meetings_for_single_camp
     get "add_workout_for_user/:user_id/meeting/:meeting_id" => "workout_tracker#add_workout_for_user", as: :add_workout_for_user
     get "coach_enters_scores/:meeting_id" => "workout_tracker#coach_enters_scores", as: :coach_score_entry
     get "show_workout_results/:meeting_id" => "meetings#show_workout_results", as: :show_workout_results

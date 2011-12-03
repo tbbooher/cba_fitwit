@@ -26,19 +26,9 @@
 
 %h4 Meetings
 %p
-  - @time_slot.meetings.each do |m|
-    %ul.breadcrumb
-      %li= link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
-      %span.divider |
-
-%h4 Add Meetings
-
-= form_tag "add_meetings" do
-  %fieldset
-    = text_field_tag "meeting_dates"
-  .actions
-    = submit_tag "Apply to this time slot", class: "btn primary"
-    = submit_tag "Apply to all time slots", class: "btn"
-
-#multi-months
-
+  %ul.breadcrumb
+    - @time_slot.meetings.each do |m|
+      %li
+        = link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
+      %span.divider /
+%p= link_to "Edit Meetings", backend_location_fitness_camp_time_slot_meetings_path(@location.id, @fitness_camp.id, @time_slot.id) 

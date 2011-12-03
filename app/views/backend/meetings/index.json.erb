@@ -1,0 +1,6 @@
+{
+    "start_date": <%= raw(@fitness_camp.session_start_date.strftime('%m/%d/%Y').to_json) %>,
+    "end_date": <%= raw(@fitness_camp.session_end_date.strftime('%m/%d/%Y').to_json) %>,
+    "meeting_dates":<%= raw(@time_slot.meetings.map{|m| m.meeting_date.strftime('%m/%d/%Y')}.to_json) %>
+}
+

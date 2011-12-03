@@ -1,5 +1,6 @@
 class Backend::TimeSlotsController < Backend::ResourceController
   nested_belongs_to :location, :fitness_camp
+  respond_to :json, only: :show
 
   def delete_user
     @user_id = params[:user_id]
@@ -38,4 +39,5 @@ class Backend::TimeSlotsController < Backend::ResourceController
       end
     end
   end
+
 end
