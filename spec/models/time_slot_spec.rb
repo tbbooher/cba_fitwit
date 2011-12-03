@@ -8,8 +8,21 @@ describe TimeSlot do
     # create 10 registrations
     FactoryGirl.create_list(:user,10).each do |the_user|
       o = FactoryGirl.create(:order, user: the_user)
-      r = FactoryGirl.create(:registration, order: o, time_slot: @six_am)
+      FactoryGirl.create(:registration, order: o, time_slot: @six_am)
     end
+  end
+
+  it "should be able to add a set of meetings" do
+    meetings = %w(2011-12-14 2011-12-23 2011-12-28).map{|m| Date.parse(m)}
+    @six_am.add_meetings(meetings)
+    @six_am.meetings.size.should eq(3)
+  end
+
+  it "should be able to add a set of meetings for every time slot in a camp" do
+    meetings = %w(2011-12-14 2011-12-23 2011-12-28).map{|m| Date.parse(m)}
+    five_am = FactoryGirl.create(:time_slot, fitness_camp: @six_am.fitness_camp)
+    @six_am.add_meetings_for_every_ts(meetings)
+    five_am.meetings.first.meeting_date.should == meetings.first
   end
 
   it "should have a start and end time" do
@@ -20,8 +33,16 @@ describe TimeSlot do
   it "should show all the fit_wit_workouts a user has done in a time slot" do
     wo = FactoryGirl.create(:workout)
     ts = wo.meeting.time_slot
-    ts.user_fit_wit_workouts(wo.user.id).first.score.should eq("16")
+    ts.user_fit_wit_workouts(wo.user.id).first.score.should eq(wo.score)
     ts.user_fit_wit_workouts(wo.user.id).first.fit_wit_workout.name.should eq("Bob . . . The Conquest")
+  end
+
+  it "should not add a meeting if one already exists " do
+    @six_am.meetings.clear
+    @six_am.add_meetings([Date.parse("2011-12-1")])
+    @six_am.add_meetings([Date.parse("2011-12-1")])
+    @six_am.meetings.map{|m| m}.size.should == 1
+    #@six_am.meetings.map{|m| m.meeting_date}.include?(Date.civil(2011,12,1)).should be false
   end
 
   it "should be able to display all registered campers" do
@@ -41,6 +62,7 @@ describe TimeSlot do
   it "should display all of its meetings dates" do
     # load some meetings dates
     fc = @six_am.fitness_camp
+    @six_am.meetings.clear
     # add a meetings for every potential date
     meeting_count = 0
     (fc.session_start_date..fc.session_end_date).to_a.each do |dt|
@@ -51,7 +73,6 @@ describe TimeSlot do
   end
 
   it "should show who is going" do
-    User.all.count.should eq(11)
     @six_am.users_going.count.should eq(10) 
   end
   

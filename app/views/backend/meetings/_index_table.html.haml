@@ -1,0 +1,7 @@
+- @meetings.each do |resource|
+  %tr[resource]{odd_or_even}
+    %td= link_to resource.meeting_date.stamp("Wed, July 23, 2011"), resource_path(resource)
+    %td.row-actions
+      = link_to 'edit', edit_resource_path(resource)
+      |
+      = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"

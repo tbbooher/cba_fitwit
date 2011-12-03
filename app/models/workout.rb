@@ -9,7 +9,7 @@ class Workout
 
   # relations
   belongs_to :user
-  belongs_to :meetings
+  belongs_to :meeting
   belongs_to :fit_wit_workout
 
   # after save callback

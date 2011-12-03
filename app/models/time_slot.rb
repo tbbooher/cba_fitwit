@@ -87,6 +87,24 @@ class TimeSlot
     User.all - self.users_going
   end
 
+  def add_meetings(meeting_dates, time_slot = self)
+      meeting_dates.each do |date|
+        add_meeting(time_slot, date)
+      end
+  end
+
+  def add_meetings_for_every_ts(dates)
+    self.fitness_camp.time_slots.each do |ts|
+      add_meetings(dates, ts)
+    end
+  end
+
+  def add_meeting(time_slot, the_date)
+    unless time_slot.meetings.map{|m| m.meeting_date}.include?(the_date)
+      time_slot.meetings << Meeting.new(meeting_date: the_date)
+    end
+  end
+
   # really not needed this is just a property of the association
   #def all_prizes
   #  self.prizes

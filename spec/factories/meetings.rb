@@ -1,7 +1,7 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :meetings do
+  factory :meeting do
     meeting_date "2011-11-15"
     time_slot
   end
