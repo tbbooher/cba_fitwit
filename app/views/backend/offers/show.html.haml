@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Content:
+  = @backend_offer.content
+
+= link_to 'Edit', edit_backend_offer_path(@backend_offer)
+\|
+= link_to 'Back', backend_offers_path

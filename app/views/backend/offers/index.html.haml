@@ -1,0 +1,19 @@
+%h1 Listing backend_offers
+
+%table
+  %tr
+    %th Content
+    %th
+    %th
+    %th
+
+  - @backend_offers.each do |backend_offer|
+    %tr
+      %td= backend_offer.content
+      %td= link_to 'Show', backend_offer
+      %td= link_to 'Edit', edit_backend_offer_path(backend_offer)
+      %td= link_to 'Destroy', backend_offer, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Offer', new_backend_offer_path
