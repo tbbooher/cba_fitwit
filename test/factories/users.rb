@@ -14,9 +14,9 @@ FactoryGirl.define do
     email
     name
     roles_mask 1
-    first_name "Michael"
-    last_name "Payne"
-    gender 1
+    first_name {Faker::Name.first_name}
+    last_name {Faker::Name.last_name}
+    gender {rand > 0.5 ? 1 : 2}
     occupation "Scientist"
     company "USAF"
     street_address1 "1050 Wilderness"
