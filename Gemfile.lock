@@ -385,6 +385,7 @@ DEPENDENCIES
   kaminari
   launchy (= 2.0.5)
   mocha
+  mongo (= 1.4.0)
   mongoid (~> 2.3.0)
   mongoid-paperclip
   mongoid-rspec
