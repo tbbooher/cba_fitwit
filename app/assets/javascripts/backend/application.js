@@ -23,5 +23,8 @@ $(document).ready(function() {
             }
             $('#multiple_date_select').multiDatesPicker(options);
         });
+        $(".del_button").click( function() {
+            $('#multiple_date_select').datepicker('refresh');
+        })
     }
 });
