@@ -4,6 +4,7 @@
 
 //= require backend/jquery-ui.multidatespicker
 //= require backend/jquery.timePicker.min
+//= require backend/location
 
 $(document).ready(function() {
     $(".input_time").timePicker({ startTime: "5:00", endTime: "19:00", step: 60});
