@@ -32,7 +32,7 @@ class Backend::MeetingsController < Backend::ResourceController
     @fitness_camp = @time_slot.fitness_camp
     @location = @fitness_camp.location
     @meeting_dates = params[:meeting_dates].split(",").map{|m| m.split("/").map(&:to_i)}.map{|r| Date.civil(r[2],r[0],r[1])} # from form
-    @meetings = Meeting.all.to_a
+    @meetings = @time_slot.meetings.desc(:meeting_date)
     if params[:commit] == "Apply to this time slot"
       @time_slot.add_meetings(@meeting_dates)
     else
