@@ -30,6 +30,10 @@ class Workout
     self.common_value = self.fit_wit_workout.common_value(self.score)
   end
 
+  def self.add_whole_class()
+    # eieio
+  end 
+
   def update_prs
     # if the common_value is better than the users previous value, put this value in
     # and update the global pr table for that workout . . .
