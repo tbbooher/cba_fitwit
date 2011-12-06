@@ -23,6 +23,7 @@
 //= require jsort_sortable
 //= require progress_upload_field
 //= require autocomplete
+//= require jquery.Jcrop
 
 //= require cba
 //= require cba_string
