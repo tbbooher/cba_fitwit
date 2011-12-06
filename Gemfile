@@ -133,3 +133,5 @@ gem 'kaminari'
 gem "responders"
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 #gem 'client_side_validations'
+gem 'bootstrap-sass', '1.4.1'
+# gem 'forem', :git => "git://github.com/radar/forem.git"
