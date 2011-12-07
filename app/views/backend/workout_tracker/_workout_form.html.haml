@@ -1,5 +1,6 @@
 = form_tag backend_update_workout_for_user_path(@user.id), id: "workout_form", remote: true do
   %fieldset
+    = hidden_field_tag :meeting_id, @meeting.id
     .clearfix
       = label_tag :fit_wit_workout_id, "Workout"
       .input
@@ -8,13 +9,15 @@
       = label_tag :score
       .input
         = text_field_tag :score
+        %span.help-block Make sure you enter times like HH:MM:SS
     .clearfix
       = label_tag :rxd
       .input
         = check_box_tag :rxd
     .clearfix
-      = label_tag :notes
-      .input
-        = text_area_tag :notes
+      = label_tag :user_note
+      .input.span4
+        = text_area_tag :user_note
+        %span.help-block Anything of note?
   .actions
     = submit_tag "Add Workout", class: "btn primary"
