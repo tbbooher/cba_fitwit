@@ -15,6 +15,7 @@ if ENV['MONGOHQ_URL']
 end
 
 # require 'mongoid/railtie'
+#require 'bootstrap-sass'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'active_resource/railtie'
@@ -33,7 +34,7 @@ module Cba
     config.assets.enabled = true
 
     # but we want to debug
-    config.assets.debug = true
+    #config.assets.debug = true
 
 
     # Settings in config/environments/* take precedence over those specified here.
