@@ -19,18 +19,23 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
   def update_workout_for_user
     # action_method
     @user = User.find(params[:user_id])
-    w = Workout.new
-    w.user_id = @user.id
-    # need to figure out what these params are called
-    w.rxd = params[:rxd]
-    w.user_note = params[:user_note]
-    w.fit_wit_workout_id = params[:fit_wit_workout_id]
-    w.score = params[:score]
-    # need to respond to js
+    @w = Workout.new
+    @w.user_id = @user.id
+    @w.rxd = params[:rxd]
+    @w.user_note = params[:user_note]
+    @w.score = params[:score]
+    @w.fit_wit_workout_id = params[:fit_wit_workout_id]
+    @w.meeting_id = params[:meeting_id]
+    @w.save
   end
 
   def update_workouts_for_camp
     # workouts_method
+  end
+
+  def delete_workout
+    @workout = Workout.find(params[:workout_id])
+    @workout.destroy
   end
 
 end

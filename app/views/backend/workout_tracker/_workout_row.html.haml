@@ -1,0 +1,6 @@
+%tr[workout]{odd_or_even}
+  %td= workout.fit_wit_workout.name
+  %td= workout.score.to_s + " " + workout.fit_wit_workout.units
+  %td= truncate(workout.user_note, length: 15)
+  %td= workout.rxd
+  %td= link_to 'Destroy', backend_delete_workout_path(workout.id), confirm: 'Are you sure?', class: "btn danger small", remote: true

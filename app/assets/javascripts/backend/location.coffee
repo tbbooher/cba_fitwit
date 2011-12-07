@@ -1,7 +1,8 @@
 $(document).ready ->
   if $("#location-map")
     $("#location-map").html('<img src="/images/spinner.gif" alt="Loading ...">')
-    loadUserMap(parseFloat(33.739562),parseFloat(-84.361428))
+    $.getJSON window.location.pathname + ".json", (data) ->
+      loadUserMap parseFloat(data.lat), parseFloat(data.lon)
 
 loadUserMap = (lng,lat) ->
   latlng = new google.maps.LatLng(lng,lat)
