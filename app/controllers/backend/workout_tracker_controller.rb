@@ -21,10 +21,12 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
     @user = User.find(params[:user_id])
     w = Workout.new
     w.user_id = @user.id
+    # need to figure out what these params are called
     w.rxd = params[:rxd]
     w.user_note = params[:user_note]
+    w.fit_wit_workout_id = params[:fit_wit_workout_id]
     w.score = params[:score]
-    w.save
+    # need to respond to js
   end
 
   def update_workouts_for_camp
