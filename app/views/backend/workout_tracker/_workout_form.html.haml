@@ -1,4 +1,4 @@
-= form_tag "update_url", id: "workout_form", remote: true do
+= form_tag backend_update_workout_for_user_path(@user.id), id: "workout_form", remote: true do
   %fieldset
     .clearfix
       = label_tag :fit_wit_workout_id, "Workout"

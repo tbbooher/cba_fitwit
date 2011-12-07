@@ -18,11 +18,17 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
 
   def update_workout_for_user
     # action_method
+    @user = User.find(params[:user_id])
+    w = Workout.new
+    w.user_id = @user.id
+    w.rxd = params[:rxd]
+    w.user_note = params[:user_note]
+    w.score = params[:score]
+    w.save
   end
 
   def update_workouts_for_camp
     # workouts_method
-
   end
 
 end

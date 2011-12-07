@@ -23,6 +23,8 @@ Cba::Application.routes.draw do
     get "coach_enters_scores/:meeting_id" => "workout_tracker#coach_enters_scores", as: :coach_score_entry
     get "show_workout_results/:meeting_id" => "meetings#show_workout_results", as: :show_workout_results
     #match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
+    post "update_workout_for_user/:user_id" => "workout_tracker#update_workout_for_user", as: :update_workout_for_user
+    post "update_workouts_for_camp" => "workout_tracker#update_workouts_for_camp", as: :update_workouts_for_camp
 
     resources :users do
       resources :prs
