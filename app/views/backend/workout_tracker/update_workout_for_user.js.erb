@@ -1,0 +1,2 @@
+$("#workout_form")[0].reset();
+$("#workouts_table").append("<%= escape_javascript(render(partial: "workout_row", locals: {workout: @w})) %>");
