@@ -31,6 +31,18 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
 
   def update_workouts_for_camp
     # workouts_method
+    @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
+    @params = params
+    # params[:form_data].each do |form|
+    #   w = Workout.new
+    #   w.user_id = form[:user_id]
+    #   w.rxd = form[:rxd]
+    #   w.user_note = form[:user_note]
+    #   w.score = form[:score]
+    #   w.fit_wit_workout_id = form[:fit_wit_workout_id]
+    #   w.meeting_id = form[:meeting_id]
+    #   w.save      
+    # end
   end
 
   def delete_workout
