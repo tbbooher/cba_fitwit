@@ -228,7 +228,8 @@ class User
 
   # return user's role as symbol.
   def role
-    ROLES[roles_mask].to_sym
+    self.roles_mask = 0 if self.roles_mask < 0 || self.roles_mask >= ROLES.count
+    self.roles_mask ? ROLES[self.roles_mask].to_sym : guest
   end
 
   # Ask if the user has at least a specific role.
