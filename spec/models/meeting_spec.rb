@@ -4,7 +4,7 @@ describe Meeting do
 
   before(:all) do
     cleanup_database
-    @meeting = FactoryGirl.create(:meetings)
+    @meeting = FactoryGirl.create(:meeting)
   end
 
   it "should have a meetings date" do

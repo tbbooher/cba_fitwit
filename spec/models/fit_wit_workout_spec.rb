@@ -33,19 +33,25 @@ describe FitWitWorkout do
     @fww.top_10_all_fit_wit.size.should eq(10)
     @fww.top_10_all_fit_wit.first.score.should eq("50")
     #puts @fww.top_10_all_fit_wit_by_gender(:female).first.score
-    @fww.top_10_all_fit_wit_by_gender(:male).first.score.should eq("15")
-    @fww.top_10_all_fit_wit_by_gender(:female).first.score.should eq("50")
+    top_male_score = @fww.prs.where(sex: :male).desc(:common_value).first.score
+    top_female_score = @fww.prs.where(sex: :female).desc(:common_value).first.score
+    @fww.top_10_all_fit_wit_by_gender(:male).first.score.should eq(top_male_score)
+    @fww.top_10_all_fit_wit_by_gender(:female).first.score.should eq(top_female_score)
+
     # make sure the users collection is unique, not Tim, 15, Tim, 14, Tim, 13 . . .
     @fww.top_10_all_fit_wit.map{|pr| pr.user.name}.uniq.size.should eq(10)
   end
 
   it "should be able to find an average of common values" do
-    @fww.find_average(:male).should eq(8)
-    @fww.find_average(:female).should eq(50.0)
+    males = @fww.prs.where(sex: :male).map(&:common_value)
+    females = @fww.prs.where(sex: :female).map(&:common_value)
+    @fww.find_average(:male).should eq(males.sum/males.size)
+    @fww.find_average(:female).should eq(females.sum/females.size)
   end
 
   it "should be able to find the max workout" do
-    @fww.find_best(:male).should eq(15.0)
+    top_male_cv = @fww.prs.where(sex: :male).desc(:common_value).first.common_value
+    @fww.find_best(:male).should eq(top_male_cv)
     # make a girl, give her a great score
     @fww.find_best(:female).should eq(50.0)
   end

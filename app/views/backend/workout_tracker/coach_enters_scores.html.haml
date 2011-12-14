@@ -4,6 +4,7 @@
 &lt;
 = link_to "Back to #{@meeting.full_context}", backend_location_fitness_camp_time_slot_meeting_path(@meeting.time_slot.fitness_camp.location.id, @meeting.time_slot.fitness_camp.id, @meeting.time_slot.id, @meeting.id)
 = form_tag backend_update_workouts_for_camp_path, id: "workout_form" do
+  = hidden_field_tag "meeting_id", @meeting.id
   %fieldset
     .clearfix
       = label_tag :fit_wit_workout_id, "Workout"
@@ -23,11 +24,11 @@
               Rxd
         %tbody
         - @meeting.attendees.each do |user|
-          = form_tag "foo" do 
-            %tr{odd_or_even}
-              %td= user.full_name
-              %td= text_field_tag "#{user.id}[score]", '', :size => 15
-              %td= text_field_tag "exercise_note[#{user.id}]", '', :size => 30
-              %td= check_box_tag "rxd_[#{user.id}]"
+          = hidden_field_tag "workouts[][user_id]", user.id
+          %tr{odd_or_even}
+            %td= user.full_name
+            %td= text_field_tag "workouts[][score]", '', :size => 15
+            %td= text_field_tag "workouts[][note]", '', :size => 30
+            %td= check_box_tag "workouts[][rxd]"
   .actions
     = submit_tag "Add or Update All Workouts", class: "btn primary"
