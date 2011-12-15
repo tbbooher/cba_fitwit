@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 class HomeController < ApplicationController
-
   respond_to :html, :js
+  layout "canvas"
 
   # Display the top pages on the home-page
   def index
@@ -73,6 +73,10 @@ class HomeController < ApplicationController
   def tags
     blog_ids = Blog.for_role(current_role).only(:id).map(&:id)
     @postings ||= Posting.any_in( blog_id: blog_ids).tagged_with(params[:tag]).order([:created_at, :desc])
+  end
+
+  def start_page
+
   end
 
 end

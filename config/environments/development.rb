@@ -7,7 +7,7 @@ Cba::Application.configure do
   config.cache_classes = false
 
   # I want to debug my javascript in development
-  config.assets.debug = true
+  config.assets.debug = false
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
@@ -16,7 +16,7 @@ Cba::Application.configure do
   config.consider_all_requests_local       = true
   # next line remarked for 3.1     
   # config.action_view.debug_rjs             = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   ### ActionMailer Config
   config.action_mailer.default_url_options ||= { :host => ENV['DEFAULT_URL']}
