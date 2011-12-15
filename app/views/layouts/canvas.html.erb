@@ -19,10 +19,7 @@
   <%= insert_extra_headers %>
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" if @google_maps -%>
-  <!-- eieio -->
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "from_old_wit/jquery.validate.min", "from_old_wit/old_application", "qtip/jquery.qtip-1.0.0-rc3.min" if @my_fit_wit -%>
-  <!-- prototype-lib will be loaded only when needed (if ever?) -->
   <%= javascript_tag do %>
       <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
   <% end %>
@@ -54,10 +51,6 @@
 
 <body>
 
-<!-- this needs to go to the proper place -->
-
-<!-- main content area -->
-<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 <% setup_action_buttons %>
 <% if content_for? :action_buttons %>
     <div id='action_buttons'>
@@ -79,13 +72,7 @@
 
     <div id='overlay' class="ui-widget-content"></div>
 
-    <div id="intro" class="text-intro">
-      <%= content_tag(:h1, :id => 'title') do
-          yield(:title)
-      end if show_title? %>
-    </div>
-
-    <div id='page-content' class="two_third">
+    <div class='page-content'>
       <div id='flashes'>
         <% flash.each do |name, msg| %>
             <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
@@ -99,38 +86,16 @@
             <% end %>
         <% end %>
       </div>
+    </div>
 
+      <%= content_tag(:h1, :id => 'title') do
+          yield(:title)
+      end if show_title? %>
       <%= yield %>
-
-    </div><!-- end page content -->
-
-    <div id="sidebar" class="one_third last">
-      <% if content_for?(:right_column) || content_for?(:right_column_top) %>
-          <div class="widgets subpages-widget">
-            <%= render 'home/menu/application' %>
-            <% if content_for?(:right_column_top) %>
-                <div id='right-column-top'>
-                  <%= yield(:right_column_top) %>
-                </div>
-            <% end %>
-            <div id='right-column-bottom'>
-              <%= yield(:right_column) if content_for?(:right_column) %>
-            </div>
-          </div>
-      <% end %>
-      <% if sidebar_partial_exists? %>
-          <%= content_tag :div, class: 'submenu_box' do %>
-              <%= render current_view_sidebar_left_path %>
-          <% end %>
-      <% elsif current_root(self) %>
-          <br class='clear'> <!-- TODO -- REMOVE !!? -->
-      <% end %>
-      <br class="clear">
-    </div><!-- end sidebar -->
-    <br class="clear">
-
   </div>
+
 </div>
+
 
 <%= render :partial => 'layouts/footer' %>
 

@@ -27,7 +27,6 @@
 
 //= require cba
 //= require cba_string
-//= require endless_page
 //= require flashes
 //= require jquery.tokeninput
 //= require maps

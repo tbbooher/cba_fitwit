@@ -1,6 +1,7 @@
 class BaseController < ApplicationController
   skip_before_filter :check_authentication, :check_authorization
   caches_page :home, :community, :about_us, :not_authorized, :logoff_success, :all_sponsors
+  layout "canvas"
 
   # TODO REMOVE THIS
   def error

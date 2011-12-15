@@ -13,10 +13,10 @@ Feature: Pages
       | Page D | This is a Draft      | false        | false       | true     | :markdown   |
     And I am logged in as user "admin@iboard.cc" with password "thisisnotsecret"
 
-  Scenario: Pages with 'show_in_menu' should be on the menu-bar
-    Given I am on the pages page
-    Then I should see "Page 1" within "#session"
-    And I should not see "Page 2" within "#session"
+#  Scenario: Pages with 'show_in_menu' should be on the menu-bar
+#    Given I am on the pages page
+#    Then I should see "Page 1" within "#session"
+#    And I should not see "Page 2" within "#session"
 
   Scenario: A page should be shown when clicking read from the index
     Given I am on the pages page
@@ -42,7 +42,6 @@ Feature: Pages
     And I should see "successfully created"
     And I should see "Page 3"
     And I should see "Page three body" within "#container"
-    And I should see "Page 3" within "#session"
 
   Scenario: It should not be able to save a page with no title
     Given I am on the pages page
@@ -90,17 +89,6 @@ Feature: Pages
 
   Scenario: Pagination should work on pages::index
     pending
-
-  Scenario: Page title and body should be translated
-    Given the following translated pages
-      | title_en  | body_en      | title_de     | body_de    |
-      | GB        | Fish n chips | Deutschland  | Sauerkraut |
-    And I am on the page path of "GB"
-    And I click on link "locale_de"
-    Then I should see "Sauerkraut"
-    Then I click on link "locale_en"
-    Then I should see "Fish n chips"
-    Then the default locale
 
   Scenario: Page index should not include Template-Pages
     Given I am on the pages page

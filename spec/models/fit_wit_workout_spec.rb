@@ -71,4 +71,14 @@ describe FitWitWorkout do
         map(&:common_value).max.should be < pr.common_value
   end
 
+  it "should still be able to find no peers when none exist" do
+    pending "on time to write this"
+    # case that none are above
+
+    # case that none are below
+
+    # case that there are none at all
+
+  end
+
 end
