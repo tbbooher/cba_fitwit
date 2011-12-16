@@ -10,7 +10,7 @@ module HomeHelper # :nodoc:
   end
   
   # == Menu structure
-  # The main menue, displayed in the #session-div on top of application's layout
+  # The main menu, displayed in the #session-div on top of application's layout
   # will _yield_ on 'root-menus' if `SiteMenu.roots.any?` otherwise _yield_ on
   # a 'home-link', 'top-pages', 'blogs', 'userlist', and 'comments'
   #
@@ -45,7 +45,7 @@ module HomeHelper # :nodoc:
       # Use default menu
       
       # home
-      menu_items = [ yield(:home, menu_link_to( t("menu.home"), root_path)) ]
+      menu_items = [ ]
       
       # Top pages
       menu_items << top_pages.map { |page|

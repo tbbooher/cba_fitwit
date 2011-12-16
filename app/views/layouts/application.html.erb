@@ -79,13 +79,14 @@
 
     <div id='overlay' class="ui-widget-content"></div>
 
+    <% if show_title? %>
     <div id="intro" class="text-intro">
-      <%= content_tag(:h1, :id => 'title') do
-          yield(:title)
-      end if show_title? %>
+        <%= content_tag(:h1,:id => 'title') do yield(:title) end %>
     </div>
+    <% end %>
 
     <div id='page-content' class="two_third">
+      &nbsp;
       <div id='flashes'>
         <% flash.each do |name, msg| %>
             <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
