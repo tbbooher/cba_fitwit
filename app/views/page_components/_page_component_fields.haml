@@ -1,11 +1,16 @@
 %h3= link_to_function f.object.title, "toggle_div('fields_for_component_#{f.object.id.to_s}');"
+
 %div{:id =>  "fields_for_component_#{f.object.id.to_s}", :class => "fields_for_component" }
+
     .fields{ :style=>'margin-top: 10px;' }
         .field
             = f.label :title
             = f.text_field :title, size: 80
             - if f.object.new_record? || (f.object.page && (f.object.page.allow_removing_component||f.object.page.is_template)) 
-                %span{ :style => "float: right;" }= link_to_remove_fields( t(:destroy_component), f )
+                %span{ :style => "float: right; width: 200px" }
+                    = link_to_remove_fields( t(:destroy_component), f )
+                    %br
+                    = t(:html_template_label).html_safe
         .field
             = f.label :body
             = f.text_area :body, rows: 5, cols: 80

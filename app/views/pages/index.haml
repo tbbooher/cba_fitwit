@@ -2,7 +2,7 @@
 
 - if can? Page, :create
   - content_for :resource_actions do
-    = ui_button( 'add', t(:new_page), new_page_path, :add_class => 'green')
+    = ui_button( 'add', t(:new_page), new_page_path, :add_class => '')
 
 - render_pagination_box @pages
 

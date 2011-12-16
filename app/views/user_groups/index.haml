@@ -1,7 +1,7 @@
 -title t(:user_groups_of, username: @user.name)
 - content_for :resource_actions do
   = ui_button 'back', t(:your_profile), user_path(@user)
-  = ui_button 'add', t(:add_user_group), new_user_user_group_path(@user), :add_class => 'green'
+  = ui_button 'add', t(:add_user_group), new_user_user_group_path(@user), :add_class => ''
   
 %usergroups
   - if @user.user_groups.any?
