@@ -10,13 +10,13 @@
 // require at_top/l10n
 //= require jquery-1.7.min
 
-//= require at_top/preloader
-//= require at_top/hoverIntent
-//= require at_top/superfish
-//= require at_top/scrollable.min
-//= require at_top/jquery.prettyphoto
-//= require at_top/prettyphoto_init
-//= require at_top/comment-reply
+// require at_top/preloader
+// require at_top/hoverIntent
+// require at_top/superfish
+// require at_top/scrollable.min
+// require at_top/jquery.prettyphoto
+// require at_top/prettyphoto_init
+// require at_top/comment-reply
 
 //= require jquery_ujs
 //= require jquery-ui.min

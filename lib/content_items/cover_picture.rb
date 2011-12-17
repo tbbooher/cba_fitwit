@@ -14,7 +14,8 @@ module CoverPicture
                                     :medium => "300x500>",
                                     :thumb  => "100x150>",
                                     :icon   => "64x90"
-                                  }
+                                  },
+                                  :default_url => "/images/avatars/:style/missing.png"
         # check if a picture exists. If you call <code>paperclip_field.url(:mode)</code>
         # paperclip will return <code>.../missing.png</code> at least and this is
         # always true. Use <code>cover_picture_exists?</code> to check if there
