@@ -7,6 +7,8 @@
     <%= f.text_field :title, :size => 80 %>
   </div>
 
+  <div class="clear"></div>
+
   <div class="field">
     <%= f.label :cover_picture %>
     <%= render(
@@ -16,25 +18,30 @@
     -%>
     <%= f.file_field :cover_picture %>
   </div>
+
+  <div class="clear"></div>
+
   <div class='field'>
     <%= f.label :delete_picture, sc(:nbsp) %>
     <%= ui_button( 'delete', t(:delete_picture),  delete_cover_picture_blog_path(blog), :remote => true,
         :confirm => t(:are_you_sure)) unless blog.new_record? %>
   </div>
 
+  <div class="clear"></div>
+
   <div class="field">
-    <%= f.label :user_role, t(:necessary_role) %>
+    <%= f.label :user_role, "Role necessary to view" %>
     <%= f.select :user_role, options_for_user_role(f.object.user_role) %>
   </div>
 
   <div class="field">
     <%= f.label :allow_comments %>
-    <%= f.check_box :allow_comments %><%= t(:allow_comments) %>
+    <%= f.check_box :allow_comments %>
   </div>
 
   <div class="field">
     <%= f.label :allow_public_comments %>
-    <%= f.check_box :allow_public_comments %><%= t(:allow_public_comments) %>
+    <%= f.check_box :allow_public_comments %>
   </div>
   
   <div class="field">
@@ -45,7 +52,7 @@
 
   <div class='field'>
     <%= f.label :page_tokens, t(:sidebar_pages) %>
-    <div style='margin-left: 200px;'>
+    <div style='margin-left: 200px;' class="widgets">
       <% for page in Page.asc(:title) %>
         <%= check_box_tag "blog[page_tokens][]", page.id.to_s, blog.pages.include?(page) %> <%= page.title %><br/>
       <% end %>
@@ -54,9 +61,8 @@
   
   <div class='field'>
     <%= f.label :is_draft, t(:save_as_draft) %>
-    <%= f.check_box :is_draft %> <%= t(:will_be_shown_to_authors_only)%>
+    <%= f.check_box :is_draft, default: 0 %> &nbsp; &nbsp;
   </div>
-  
   
   <div class='clear'></div>
 
