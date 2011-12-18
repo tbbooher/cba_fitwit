@@ -1,29 +1,21 @@
-<% if defined?(ENV['OMNIAUTH_TWITTER_KEY']) %>
+<% if defined?(ENV['OMNIAUTH_GOOGLE_KEY']) %>
+    <a href="/auth/google_apps" class="auth_provider">
+      <%= image_tag "google_sixtyfour.png", :size => "64x64", :alt => "Twitter" %>
+      Google
+    </a>
+<% end %>
+
+<% if defined?(ENV['OMNIAUTH_TWITTER_ID']) %>
   <a href="/auth/twitter" class="auth_provider">
     <%= image_tag "twitter_sixtyfour.png", :size => "64x64", :alt => "Twitter" %>
     Twitter
   </a>
 <% end %>
 
-<% if defined?(ENV['OMNIAUTH_GOOGLE']) %>
-  <%= link_to(                 
-        image_tag( "google_sixtyfour.png", :size => "64x64", :alt => "Google")+"Google",
-        "/auth/google_apps",
-        :class => "auth_provider"
-        ) -%>
-<% end %>
-
-<% if defined?(ENV['OMNIAUTH_FACEBOOK_KEY']) %>
+<% if defined?(ENV['OMNIAUTH_FACEBOOK_ID']) %>
   <a href="/auth/facebook" class="auth_provider">
     <%= image_tag "facebook_sixtyfour.png", :size => "64x64", :alt => "Facebook" %>
     Facebook
-  </a>
-<% end %>
-
-<% if defined?(ENV['OMNIAUTH_LINKED_IN_KEY']) %>
-  <a href="/auth/linked_in" class="auth_provider">
-    <%= image_tag "linkedin_sixtyfour.png", :size => "64x64", :alt => "LinkedIn" %>
-    LinkedIn
   </a>
 <% end %>
 

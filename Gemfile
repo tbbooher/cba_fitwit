@@ -26,10 +26,10 @@ gem "devise" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/a
 gem "cancan"
 
 gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
-#gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
-#gem 'omniauth-twitter'
-#gem 'omniauth-facebook'
-#gem 'omniauth-google-oauth2'
+gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 #gem "omniauth", '~> 1.0.1' #:git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
 #gem "omniauth-google-oauth2"
