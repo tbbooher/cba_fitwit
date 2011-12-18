@@ -5,7 +5,7 @@
     </a>
 <% end %>
 
-<% if defined?(ENV['OMNIAUTH_TWITTER_CONSUMER_KEY']) %>
+<% if false # defined?(ENV['OMNIAUTH_TWITTER_CONSUMER_KEY']) %>
   <a href="/auth/twitter" class="auth_provider">
     <%= image_tag "twitter_sixtyfour.png", :size => "64x64", :alt => "Twitter" %>
     Twitter
@@ -26,7 +26,7 @@
   </a>
 <% end %>
 
-<% if false %>
+<% if true %>
 <a href="/auth/open_id" class="auth_provider">
   <%= image_tag "openid_sixtyfour.png", :size => "64x64", :alt => "OpenID" %>
   OpenID
