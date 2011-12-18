@@ -1,11 +1,11 @@
-<% if defined?(ENV['OMNIAUTH_GOOGLE_KEY']) %>
+<% if defined?(ENV['OMNIAUTH_GOOGLE_KEY2']) %>
     <a href="/auth/google_apps" class="auth_provider">
       <%= image_tag "google_sixtyfour.png", :size => "64x64", :alt => "Twitter" %>
       Google
     </a>
 <% end %>
 
-<% if defined?(ENV['OMNIAUTH_TWITTER_ID']) %>
+<% if defined?(ENV['OMNIAUTH_TWITTER_CONSUMER_KEY']) %>
   <a href="/auth/twitter" class="auth_provider">
     <%= image_tag "twitter_sixtyfour.png", :size => "64x64", :alt => "Twitter" %>
     Twitter
