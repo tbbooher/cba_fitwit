@@ -2,13 +2,19 @@
 <div style='float: right; width: 200px;'>
   <%= t(:html_template_label) -%>
 </div>
+<br class="clear" />
 <%= form_for([blog,posting], :html => { :multipart => true } ) do |f| %>
 
   <%= errors_for(posting) %>
 
   <!-- FIELDS ===================================== -->
 
-  <div class='top_right_box'>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :size => 80 %>
+  </div>
+
+  <div class='posting_cover_picture_box' style="border: 1px solid red;">
     <div class="field">
       <strong><%= f.label :cover_picture %></strong><br /><br />
       <%= f.file_field :cover_picture %>
@@ -17,17 +23,12 @@
             :partial => 'cover_picture',
             :locals => { :posting => posting, :format => :thumb }
           )
-    -%><br/>
-      <%= ui_button('delete', t(:delete_picture), delete_cover_picture_blog_posting_path(posting.blog,posting), 
+    -%><br />
+      <%= ui_button('delete', t(:delete_picture), delete_cover_picture_blog_posting_path(posting.blog,posting),
             :remote => true,
             :confirm => t(:are_you_sure), :id => 'delete_cover_picture_link') unless posting.new_record? %>
   </div>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, :size => 80 %>
-  </div>
-  
   <div class="field">
     <%= f.label :tags %>
     <%= f.text_field :tags, :size => 80, "data-pre" => posting.tags_array.map{ |t| {id: t, name: t} }.to_json %>
@@ -59,9 +60,9 @@
   </div>
 
   <!-- ATTACHMENTS ================================ -->
-  <div id='attachments' style='clear: right;'>
-    <h3><%= t(:attachments) -%></h3>
-    <blockquote>
+  <div class="field" style='clear: right;'>
+    <label for="attachments">Attachments</label>
+    <div class="widgets old_block">
       <%= f.fields_for :attachments do |builder| %>
         <%= render '/attachments/attachment_fields', :f => builder %>
       <% end %>
@@ -69,7 +70,7 @@
       <p>
         <%= link_to_add_fields(t(:new_attachment).html_safe, f, :attachments)%>
       </p>
-    </blockquote>
+    </div>
   </div>
 
   <div class='before_save_button'></div>
