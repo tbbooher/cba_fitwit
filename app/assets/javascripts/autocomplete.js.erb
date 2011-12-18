@@ -3,7 +3,7 @@ $(function() {
     crossDomain: false,
     prePopulate: $("#posting_tags").data("pre"),
     theme: "facebook",
-    hintText: "search existing tag / bestehenden Tag suchen",
+    hintText: "search existing tag",
     preventDuplicates: true,
     tokenValue: 'name'
   });
@@ -13,7 +13,7 @@ $(function() {
   $("#user_notification_recipients").tokenInput("/user_notifications/emails.json", {
     crossDomain: false,
     theme: "facebook",
-    hintText: "Blank => all users / leer => alle",
+    hintText: "Blank => all users",
     preventDuplicates: true,
     tokenValue: 'id'
   });

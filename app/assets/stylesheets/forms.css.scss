@@ -1,6 +1,6 @@
 $form-width: 600px;
 $label-width: $form-width / 3;
-$field-width: $form-width / 3 * 2;
+$field-width: $form-width / 3 * 1.8;
 $color-base: #888;
 $color-text: darken($color-base,80%);
 $color-paper: lighten($color-base,35%);
@@ -13,8 +13,15 @@ $hud-background: lighten($color-base,50%);
 $color-action-delete: #99363C;
 $color-action-delete-text: white;
 
+#wrapper #main_wrapper {
+  form {
+    border:1px solid green;
+  }
+  .old_block {
+     width:336px;
+     float:left;
+  }
 
-#container #container_main {
   label {
     width: $label-width;
     float: left;
