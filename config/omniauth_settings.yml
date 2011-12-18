@@ -6,6 +6,7 @@ OMNIAUTH_GITHUB_SECRET: '7567e1ef9afb9caee87bf3b2292f006c77c25d62'
 # todo when we have the main domain setup
 #OMNIAUTH_GOOGLE_KEY: 'fitwit.com'
 #OMNIAUTH_GOOGLE_SECRET: '8il+pvlUtwSnbkUQ/BDDy9m9'
+# https://www.google.com/a/cpanel/fitwit.com/SetupOAuth
 
 OMNIAUTH_FACEBOOK_ID: '258145227580356'
 OMNIAUTH_FACEBOOK_SECRET: 'e03528aeeb51fec9fa8549e75aa3d4c4'
