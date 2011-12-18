@@ -42,16 +42,15 @@ this.showSideTab = (what) ->
       $("#side-tab-#{id}").show()
       style = what.attr('style')
       unless style.match /display: block/
-        what.show('slide', {direction: 'right', class: 'comment-links'},250)
-        
-    
+        what.show('slide', {direction: 'down', class: 'comment-links'},250)
+
 this.hideSideTab = (what) ->
   try
     sidetab_focus = null
     style = what.attr('style')
     if style.match /display: block/
       this.cancelSideTabTimeouts()
-      what.hide('slide',{direction: 'right'}, 250)
+      what.hide('slide',{direction: 'up'}, 250)
   catch e
     # nothing
   sidetab_timeouts.push setTimeout("hideSideTabs()",260)
@@ -61,5 +60,3 @@ $(document).ready ->
   if $(".comment-links")
     hideSideTabs()
     $(".comment-links").hide()
-  
-  
