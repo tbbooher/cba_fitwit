@@ -6,7 +6,7 @@
 
  *= require fitwit
  *= require token-input
- *= require token-input-facebook
+ *= require token-input-facebook.css
  *= require token-input-mac
  *= require jquery-ui
  *= require jquery.Jcrop.css
