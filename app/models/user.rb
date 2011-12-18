@@ -250,7 +250,7 @@ class User
 
   # fetch attributes from the omniauth-record.
   def apply_omniauth(omniauth)
-    self.email = omniauth['user_info']['email'] if email.blank?
+    self.email = omniauth['info']['email'] if email.blank?
     apply_trusted_services(omniauth) if self.new_record?
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
@@ -307,7 +307,7 @@ private
   def apply_trusted_services(omniauth)
 
     # Merge user_info && extra.user_info
-    user_info = omniauth['user_info']
+    user_info = omniauth['info']
     if omniauth['extra'] && omniauth['extra']['user_hash']
       user_info.merge!(omniauth['extra']['user_hash'])
     end
