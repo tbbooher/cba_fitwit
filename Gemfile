@@ -24,10 +24,17 @@ gem "bson_ext", '>= 1.4.0'  #, "1.1.5"
 # Bundle gem needed for Devise and cancan
 gem "devise" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
-gem "omniauth", '~> 1.0.1' #:git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
+
+gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
+#gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
+#gem 'omniauth-twitter'
+#gem 'omniauth-facebook'
+#gem 'omniauth-google-oauth2'
+
+#gem "omniauth", '~> 1.0.1' #:git => 'git://github.com/intridea/omniauth.git' # "0.2.6"
 #gem "omniauth-google-oauth2"
 
-gem 'omniauth-openid'
+#gem 'omniauth-openid'
 
 # Bundle gem needed for paperclip and attachments
 # gem "paperclip" dependency of mongoid-paperclip
