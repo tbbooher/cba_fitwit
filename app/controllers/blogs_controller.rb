@@ -21,10 +21,10 @@ class BlogsController < ApplicationController
     @blog = scoped_find(params[:id])
     unless current_user
       @postings = @blog.scoped_postings({:is_draft => draft_mode}).public.desc(:created_at)\
-        .paginate(:page => params[:page],:per_page => CONSTANTS['paginate_postings_per_page'].to_i)
+        .paginate(:page => params[:page],:per_page => ENV['CONSTANTS_paginate_postings_per_page'].to_i)
     else
       @postings = @blog.scoped_postings({:is_draft => draft_mode}).addressed_to(current_user.id).desc(:created_at)\
-        .paginate(:page => params[:page],:per_page => CONSTANTS['paginate_postings_per_page'].to_i)
+        .paginate(:page => params[:page],:per_page => ENV['CONSTANTS_paginate_postings_per_page'].to_i)
     end
     respond_to do |format|
       format.js {
