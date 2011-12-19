@@ -1,7 +1,7 @@
 .page_intro
   - interpret page do |presenter|
     = presenter.cover_picture('',:thumb)
-    %h1= link_to page.title_and_flags, page
+    %h3= link_to page.title_and_flags, page
     %p
       = ui_button('read', '', "/p/#{page.link_to_title}")
       - if can? :manage, page

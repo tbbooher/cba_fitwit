@@ -5,7 +5,7 @@
 %div
   - if @blog.pages.any?
     - content_for :right_column do
-      .sidebar-right
+      %div{class: 'widgets subpages-widget'}
         - for page in @blog.pages.where(is_draft: draft_mode)
           = render :partial => 'pages/page_intro', :locals => { :page => page }
           %p.content_seperator

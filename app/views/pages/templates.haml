@@ -1,7 +1,7 @@
 - title t(:article_templates)
 
 - content_for :right_column do
-  .sidebar-right
+  %div{class: 'widgets subpages-widget'}
     = render '/home/menu/page_template_menu'
 
 #page_template_list{ style: "overflow: hidden" }
