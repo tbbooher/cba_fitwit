@@ -54,10 +54,6 @@
 
 <body>
 
-<!-- this needs to go to the proper place -->
-
-<!-- main content area -->
-<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 <% setup_action_buttons %>
 <% if content_for? :action_buttons %>
     <div id='action_buttons'>
@@ -109,16 +105,16 @@
       <% if content_for?(:right_column) || content_for?(:right_column_top) %>
           <div class="widgets subpages-widget">
             <%= render 'home/menu/application' %>
-            <% if content_for?(:right_column_top) %>
-                <div id='right-column-top'>
-                  <%= yield(:right_column_top) %>
-                </div>
-            <% end %>
-            <div id='right-column-bottom'>
-              <%= yield(:right_column) if content_for?(:right_column) %>
-            </div>
           </div>
       <% end %>
+      <% if content_for?(:right_column_top) %>
+        <div id='right-column-top'>
+          <%= yield(:right_column_top) %>
+        </div>
+      <% end %>
+      <div id='right-column-bottom'>
+        <%= yield(:right_column) if content_for?(:right_column) %>
+      </div>
       <% if sidebar_partial_exists? %>
           <%= content_tag :div, class: 'submenu_box' do %>
               <%= render current_view_sidebar_left_path %>
