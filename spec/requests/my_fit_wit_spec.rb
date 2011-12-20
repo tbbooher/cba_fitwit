@@ -84,7 +84,7 @@ describe "The my_fit_wit section" do
     visit my_fit_wit_my_goals_path
     fill_in "Name for goal:", with: "Lose 10 lbs"
     fill_in "Description:", with: "I am going to eat paleo and lost 10 lbs"
-    fill_in "Target date:", with: Date.civil(2011,10,08)
+    fill_in "Target date:", with: Date.civil(2011,10,8)
   end
 
 end
