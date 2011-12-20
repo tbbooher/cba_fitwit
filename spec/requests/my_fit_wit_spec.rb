@@ -52,21 +52,21 @@ describe "The my_fit_wit section" do
     page.should have_content("Defend Sparta")
   end
 
-  it "should let a user do a fitwit workout on their own" do
-    visit my_fit_wit_fit_wit_workout_progress_path
-    calendar = page.find('div#calendar')
-    calendar.click_link :first
-    # now we are on the subform
-    click_button "custom_workout_button"
-    second_option_xpath = "//*[@id='custom_workout_fit_wit_workout_id']/option[2]"
-    second_option = find(:xpath, second_option_xpath).text
-    select second_option, from: "custom_workout_fit_wit_workout_id"
-    fill_in "Score", with: "300"
-    click_button "Submit"
-    page.should have_content("Custom Workout was successfully created.")
-    # it needs to display the fit wit workout
-    page.should have_content(second_option)
-  end
+  #it "should let a user do a fitwit workout on their own" do
+  #  visit my_fit_wit_fit_wit_workout_progress_path
+  #  calendar = page.find('div#calendar')
+  #  calendar.click_link :first
+  #  # now we are on the subform
+  #  click_button "custom_workout_button"
+  #  second_option_xpath = "//*[@id='custom_workout_fit_wit_workout_id']/option[2]"
+  #  second_option = find(:xpath, second_option_xpath).text
+  #  select second_option, from: "custom_workout_fit_wit_workout_id"
+  #  fill_in "Score", with: "300"
+  #  click_button "Submit"
+  #  page.should have_content("Custom Workout was successfully created.")
+  #  # it needs to display the fit wit workout
+  #  page.should have_content(second_option)
+  #end
 
   it "should show you all your previous progress for a workout" do
     # create 10 exertions of the Bob ... the conquest

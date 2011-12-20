@@ -38,7 +38,7 @@ Feature: Blogs
     And I click on link "Create a new Blog"
     And I uncheck "blog_is_draft"
     And I click on "Create Blog"
-    Then I should see "Create a new Blog" within "#container"
+    Then I should see "Create a new Blog" within "#main_wrapper"
     And I should see "can't be blank"
 
   Scenario: Admin should be able to delete a blog
@@ -115,7 +115,7 @@ Feature: Blogs
 
   Scenario: Blog index shuould display title of blog as link to blog:show
     Given I am on the blogs page
-    And I click on link "Blog 1" within "#container_main"
+    And I click on link "Blog 1" within "#page-content"
     Then I should be reading "Blog 1"
 
   Scenario: A blog marked as draft should not be shown on the blogs page
