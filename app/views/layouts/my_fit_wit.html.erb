@@ -18,13 +18,9 @@
   -%></title>
   <%= insert_extra_headers %>
   <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" if @google_maps -%>
-  <!-- eieio -->
+  <%#= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" if @google_maps -%>
   <%= javascript_include_tag "application" %>
-  <!-- prototype-lib will be loaded only when needed (if ever?) -->
-  <%= javascript_tag do %>
-      <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
-  <% end %>
+  <%= javascript_include_tag "from_old_wit/jquery.validate.min", "from_old_wit/old_application", "qtip/jquery.qtip-1.0.0-rc3.min" -%>
   <%= yield :head %>
   <%= auto_discovery_link_tag(:atom, "/feed") %>
   <%= insert_google_analytics_script if  (Rails.env == 'production') %>
@@ -40,15 +36,6 @@
 
   <link rel="shortcut icon" href="http://e404themes.com/cold/wp-content/themes/cold/admin/images/favicon.ico"/>
 
-  <script type="text/javascript">
-      jQuery(document).ready(function() {
-          jQuery(".stylespanel-toggle").click(function(e) {
-              e.preventDefault();
-              jQuery(".stylespanel-content").slideToggle();
-          });
-          jQuery(".stylespanel-content").hide();
-      });
-  </script>
 </head>
 
 <body>
@@ -74,14 +61,7 @@
 
     <div id='overlay' class="ui-widget-content"></div>
 
-    <% if show_title? %>
-    <div id="intro" class="text-intro">
-        <%= content_tag(:h1,:id => 'title') do yield(:title) end %>
-    </div>
-    <% end %>
-
-    <div id='page-content' class="two_third">
-      &nbsp;
+    <div class='page-content'>
       <div id='flashes'>
         <% flash.each do |name, msg| %>
             <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
@@ -95,38 +75,16 @@
             <% end %>
         <% end %>
       </div>
+    </div>
 
+      <%= content_tag(:h1, :id => 'title') do
+          yield(:title)
+      end if show_title? %>
       <%= yield %>
-
-    </div><!-- end page content -->
-
-    <div id="sidebar" class="one_third last">
-      <% if content_for?(:right_column) || content_for?(:right_column_top) %>
-          <div class="widgets subpages-widget">
-            <%= render 'home/menu/application' %>
-          </div>
-      <% end %>
-      <% if content_for?(:right_column_top) %>
-        <div id='right-column-top'>
-          <%= yield(:right_column_top) %>
-        </div>
-      <% end %>
-      <div id='right-column-bottom'>
-        <%= yield(:right_column) if content_for?(:right_column) %>
-      </div>
-      <% if sidebar_partial_exists? %>
-          <%= content_tag :div, class: 'submenu_box' do %>
-              <%= render current_view_sidebar_left_path %>
-          <% end %>
-      <% elsif current_root(self) %>
-          <br class='clear'> <!-- TODO -- REMOVE !!? -->
-      <% end %>
-      <br class="clear">
-    </div><!-- end sidebar -->
-    <br class="clear">
-
   </div>
+
 </div>
+
 
 <%= render :partial => 'layouts/footer' %>
 
