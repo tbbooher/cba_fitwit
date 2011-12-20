@@ -43,7 +43,7 @@
 </div>
 <div class="clear"></div>
 <div style="width:100%;">
-  <% form_for(@new_goal, :class => "fitwit", :url => {:action => 'add_goal'}) do |f| %>
+  <%= form_for(@new_goal, :class => "fitwit", :url => my_fit_wit_add_goal_path) do |f| %>
       <%= f.error_messages %>
       <%= f.hidden_field :date_added, :value => Date.today.to_s %>
       <%= f.hidden_field :user_id, :value => @user.id %>
