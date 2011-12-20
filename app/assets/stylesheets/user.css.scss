@@ -1,6 +1,21 @@
+@mixin clipboard-shape($radius) {
+  border-radius: 0 0 $radius $radius;
+  -moz-border-radius: 0 0 $radius $radius;
+  -webkit-border-radius: 0 0 $radius $radius;
+}
+
+@mixin button-shape($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
 .user {
   clear: both;
-  @include standard-box;
+  margin: 5px;
+  border: 1px solid #ddd;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
   padding: 20px;
   padding-left: 20px;
   padding-top: 0px;
@@ -9,7 +24,6 @@
   .avatar img {
     margin-top: 0px;
     @include clipboard-shape(5px);
-    @include clipboard-box-shadow;
   }
 }
 
@@ -29,7 +43,6 @@
   height: 150px;
   margin-top: 20px;
   background: #eee;
-  @include box-shadow;
   img {
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -51,8 +64,8 @@
 .user-list-user {
   clear: right;
   @include button-shape(10px);
-  @include default-box-border;
-  border-color: lighten($color-shadow, 50%);
+  /* @include default-box-border; */
+  border-color: red;
   padding: 10px;
   margin-bottom: 5px;
 }
