@@ -1,0 +1,9 @@
+- get twitter box working
+- get my fit wit template working
+- get javascript for maps update to work
+- get annoying progress bar from user update
+- jcrop not working correctly
+
+- focus: my fitwit goals
+ ~ content not showing up (fixed)
+ ~ routes not added
