@@ -1,13 +1,16 @@
 <% title t(:sign_up) %>
 
 <% invited? %>
-<div class="one_third">
-  <h3>cool quote about taking some steps . . .</h3>
 
-  <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
-    Duis autem vel eum iriure dolor in hendrerit.</p>
-</div>
-<div class="two_third last">
+<% content_for :right_column do %>
+    <h3>cool quote about taking some steps . . .</h3>
+
+    <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
+      Duis autem vel eum iriure dolor in hendrerit.</p>
+
+<% end %>
+
+
   <div class="wpcf7">
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
         <%= devise_error_messages! %>
@@ -59,7 +62,7 @@
         </p>
     <% end %>
   </div>
-  <!-- wpcf7 -->
+
   <h3><%= t(:or_user_omni_auth) -%></h3>
 
   <%= render '/authentications/authentications' %>
@@ -67,5 +70,4 @@
   <h3><%= t(:links) %></h3>
 
   <%= render :partial => "devise/shared/links" %>
-</div>
 

@@ -1,65 +1,49 @@
 <% title t(:sign_in) %>
-<div class="one_third">
-  <h3>Everyone had to take a first step</h3>
 
-  <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
-    Duis autem vel eum iriure dolor in hendrerit.</p>
+<% content_for :right_column do %>
+    <h3>cool quote about taking some steps . . .</h3>
 
-  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-    magna aliquyam erat, sed diam voluptua.</p>
+    <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
+      Duis autem vel eum iriure dolor in hendrerit.</p>
 
-  <h3>Address</h3>
+<% end %>
 
-  <p><strong>Company Name</strong><br>
-    Stet clita kasd gubergren<br>
-    Duis autem vel eum iriure<br>
-    Dolor in hendrerit in vulputate</p>
+<h3>Take the Blue Pill</h3>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'wpcf7-form') do |f| %>
+    <p>
+      <%= f.label :email %>
+      <span class='wpcf7-form-control-wrap'>
+        <%= f.text_field :email, class: 'wpcf7-text' %>
+      </span>
+    </p>
 
-  <p>Phone: +01 555 55 55</p>
+    <p>
+      <%= f.label :password %>
+      <span class='wpcf7-form-control-wrap'>
+        <%= f.password_field :password, class: 'wpcf7-text' %>
+      </span>
+    </p>
 
-  <p>Fax: +01 555 12 34</p>
-
-  <p>E-mail: <a href="#">name@domain.com</a>
-  </p>
-</div>
-<div class="two_third last">
-  <div class="wpcf7">
-    <h3>Take the Blue Bill</h3>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'wpcf7-form') do |f| %>
+    <% if devise_mapping.rememberable? -%>
         <p>
-          <%= f.label :email %>
+          <%= f.label :remember_me %>
           <span class='wpcf7-form-control-wrap'>
-            <%= f.text_field :email, class: 'wpcf7-text' %>
-          </span>
-        </p>
-
-        <p>
-          <%= f.label :password %>
-          <span class='wpcf7-form-control-wrap'>
-            <%= f.password_field :password, class: 'wpcf7-text' %>
-          </span>
-        </p>
-
-        <% if devise_mapping.rememberable? -%>
-            <p>
-              <%= f.label :remember_me %>
-              <span class='wpcf7-form-control-wrap'>
               <%= f.check_box :remember_me %>
               <%= t(:stay_logged_in) %>
-              </span>
-            </p>
-        <% end -%>
+          </span>
+        </p>
+    <% end -%>
 
-        <p>
-          <%= f.label :sign_in, sc(:nbsp).html_safe %>
-          <%= f.submit t(:sign_in), class: "medium-btn glass-btn wpcf7-submit" %>
-        <p>
-    <% end %>
-  </div>
-  <!-- omniauth now -->
-  <h3><%= t(:or_user_omni_auth) -%></h3>
+    <p>
+      <%= f.label :sign_in, sc(:nbsp).html_safe %>
+      <%= f.submit t(:sign_in), class: "medium-btn glass-btn wpcf7-submit" %>
+    </p>
+<% end %>
+<!-- omniauth now -->
 
-  <%= render '/authentications/authentications' %>
+<h3><%= t(:or_user_omni_auth) -%></h3>
 
-</div>
+<%= render '/authentications/authentications' %>
+
+
 <%= render :partial => "devise/shared/links" %>
