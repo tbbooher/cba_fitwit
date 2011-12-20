@@ -49,7 +49,7 @@ Feature: Postings
 
   Scenario: On a Blog page I want create a new posting
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"
@@ -60,7 +60,7 @@ Feature: Postings
 
   Scenario: On the Blog page I want delete a posting
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"
@@ -71,7 +71,7 @@ Feature: Postings
 
   Scenario: On the Blog page I want edit a posting
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"
@@ -85,12 +85,12 @@ Feature: Postings
 
   Scenario: It should not be possible to use the same title twice
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"
     And I click on "Create Posting"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I click on "Create Posting"
@@ -98,7 +98,7 @@ Feature: Postings
 
   Scenario: There should be a link to edit, delete, and back to the blog when I read a posting
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"

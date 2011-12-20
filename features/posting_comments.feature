@@ -17,7 +17,7 @@ Feature: Comments on postings
 
   Scenario: When showing a posting, there should be an 'Add-Comment-Button'
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"
@@ -27,7 +27,7 @@ Feature: Comments on postings
 
   Scenario: When I fill in a comment and press commit I should see my comment
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"
@@ -43,7 +43,7 @@ Feature: Comments on postings
 
   Scenario: Comments without a name should not be saved
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"    
@@ -58,7 +58,7 @@ Feature: Comments on postings
 
   Scenario: Comments without an email should not be saved
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"    
@@ -73,7 +73,7 @@ Feature: Comments on postings
 
   Scenario: Comments without a comment should not be saved
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"    
@@ -87,7 +87,7 @@ Feature: Comments on postings
 
   Scenario: As an admin I should be able to edit a comment
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"    
@@ -109,7 +109,7 @@ Feature: Comments on postings
 
   Scenario: As an admin I should be able to destroy a comment
     Given I am on the blog path of "Blog 1"
-    And I click on link "Create new posting" within "#container"
+    And I click on link "Create new posting" within "#main_wrapper"
     And I fill in "posting_title" with "My First Posting"
     And I fill in "posting_body" with "Lorem ipsum Postingum"
     And I uncheck "posting_is_draft"    

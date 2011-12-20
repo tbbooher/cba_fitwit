@@ -57,7 +57,7 @@ describe "The user registration process" do
     click_on "6:00AM to 7:00AM"
     page.should have_content("Total fitness camps")
     click_on "Checkout"
-    page.should have_content("Everyone had to take a first step")
+    page.should have_content("cool quote about taking")
     page.should have_content("You must log in to complete the registration process. If you do not have an account. Please sign-up before proceeding.")
     #visit user_session_path
     fill_in "Email", with: "admin@iboard.cc"

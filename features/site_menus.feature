@@ -59,14 +59,14 @@ Feature: SiteMenus
   Scenario: Admin should be able to add a new site_menu
     Given I am logged in as user "admin@iboard.cc" with password "thisisnotsecret"
     And I am on the site_menus page
-    And I click on link "Add New Menu" within "#container"
+    And I click on link "Add New Menu" within "#main_wrapper"
     Then I should be on the new site_menu page
     And I should see "New menu entry"
 
   Scenario: Admin should be able to add a submenu item
     Given I am logged in as user "admin@iboard.cc" with password "thisisnotsecret"
     And I am on the site_menus page
-    And I click on link "Add submenu" within "#container"
+    And I click on link "Add submenu" within "#main_wrapper"
     Then I should be on the new site_menu page
     And I should see "New submenu for rootA"
     And I fill in "Name" with "Submenu"

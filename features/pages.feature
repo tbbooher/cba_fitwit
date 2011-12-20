@@ -41,7 +41,7 @@ Feature: Pages
     Then I should be on the page path of "Page 3"
     And I should see "successfully created"
     And I should see "Page 3"
-    And I should see "Page three body" within "#container"
+    And I should see "Page three body" within "#main_wrapper"
 
   Scenario: It should not be able to save a page with no title
     Given I am on the pages page
@@ -49,7 +49,7 @@ Feature: Pages
     And I fill in "Body" with "h1. Page three body"
     And I uncheck "page_is_draft"
     And I click on "Create Page"
-    Then I should see "Create a new Page" within "#container"
+    Then I should see "Create a new Page" within "#main_wrapper"
     And I should see "can't be blank"
 
   Scenario: It should not be able to save a page without a body
@@ -58,7 +58,7 @@ Feature: Pages
     And I fill in "Title" with "Page three body"
     And I uncheck "page_is_draft"
     And I click on "Create Page"
-    Then I should see "Create a new Page" within "#container"
+    Then I should see "Create a new Page" within "#main_wrapper"
     And I should see "can't be blank"
 
   Scenario: Moderator/Admin should be able to edit a page
@@ -99,9 +99,9 @@ Feature: Pages
     Then I should see "Choose a template"
     And I select "Page T" from "page_template_id" within ".field"
     And I click on "Create"
-    And I fill in "page_title" with "This is a filled Page Template" within "#container_main form"
-    And I fill in "page_body" with "This is a filled page body" within "#container_main form"
-    And I uncheck "page_is_draft" within "#container_main form"
+    And I fill in "page_title" with "This is a filled Page Template" within "#page-content form"
+    And I fill in "page_body" with "This is a filled page body" within "#page-content form"
+    And I uncheck "page_is_draft" within "#page-content form"
     And I click on "Create Page"
     Then I should see "This is a filled Page Template"
     And I should see "This is a filled page body"
@@ -109,14 +109,14 @@ Feature: Pages
   Scenario: A derived page should save it's template
     Given I am on the new_article page
     Then I should see "Choose a template"
-    And I select "Page T" from "page_template_id" within "#container_main form"
+    And I select "Page T" from "page_template_id" within "#page-content form"
     And I click on "Create"
-    And I fill in "page_title" with "Derived Page" within "#container_main form"
-    And I fill in "page_body" with "This is derived from Page T" within "#container_main form"
-    And I uncheck "page_is_draft" within "#container_main form"
+    And I fill in "page_title" with "Derived Page" within "#page-content form"
+    And I fill in "page_body" with "This is derived from Page T" within "#page-content form"
+    And I uncheck "page_is_draft" within "#page-content form"
     And I click on "Create Page"
     Then I should see "Page was successfully created"
-    And I click on link "Derived from Page T" within "#container"
+    And I click on link "Derived from Page T" within "#main_wrapper"
     Then I should see "Page T"
     And I should see "This is a Template"
 
