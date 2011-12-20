@@ -6,9 +6,9 @@ MAILSERVER_DOMAIN: 'fitwit.com'
 # not used in initial setup      |
 #                                v
 ADMIN_EMAIL_ADDRESS: 'messenger@fitwit.com'
-DEFAULT_URL: 'www.fitwit.com'
+DEFAULT_URL: 'http://fitwit.herokuapp.com/'
 DEFAULT_MAIL_FROM: 'messenger@fitwit.com'
-DEVELOPMENT_MAIL_RECIPIENT: 'messenger@fitwit.com'
+DEVELOPMENT_MAIL_RECIPIENT: 'developer@fitwit.com'
 
 #ActionMailer::Base.smtp_settings = {
 #  #:enable_starttls_auto => true,
