@@ -7,3 +7,10 @@
 - focus: my fitwit goals
  ~ content not showing up (fixed)
  ~ routes not added
+
+- Goals page
+ ~ Add new goal formatting
+ ~ my_fit_wit/add_goal route (fixed)
+ ~ date format is off (need to look up jquery date picker and correct formats)
+
+
