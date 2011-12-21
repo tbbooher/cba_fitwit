@@ -2,11 +2,10 @@
 
 FactoryGirl.define do
   factory :goal do
-      goal_name "MyString"
-      description "MyString"
-      date_added "2011-11-24"
-      target_date "2011-11-24"
+      goal_name "Lose 10 lbs"
+      description "I want to lose my big gut"
+      date_added Date.civil(2011,11,20)
+      target_date Date.civil(2012,11,20)
       completed false
-      completed_date "2011-11-24"
     end
 end
