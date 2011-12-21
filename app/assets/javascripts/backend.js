@@ -3,7 +3,7 @@
 //= require jquery-ui
 
 $(function (){
-    $(".datepicker").datepicker();
+    $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
 });
 
 jQuery.fn.delay = function(time,func){
