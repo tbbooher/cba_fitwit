@@ -2,7 +2,7 @@ require 'ostruct'
 
 class MyFitWitController < ApplicationController
   layout "my_fit_wit"
-  before_filter :get_user_id, :except => [:update_goal]
+  before_filter :get_user, :except => [:update_goal]
   # TODO Should I activate this again?	
   #ssl_required  :health_history
 
@@ -10,10 +10,7 @@ class MyFitWitController < ApplicationController
     @pagetitle = "My FitWit"
     @include_jquery = true
     @qtip = true
-    # TODO
-    # why are these all here anyway ?
-    if @user_id
-      @user = current_user # User.find(@user_id)
+    if @user
       @my_time_slots = @user.user_time_slots
       @my_fitness_camps = @my_time_slots.map { |ts| ts.fitness_camp } # ??
       @my_fit_wit_workouts = Workout.where(user: @user).all
@@ -25,7 +22,6 @@ class MyFitWitController < ApplicationController
 
   def profile
     @pagetitle = "Edit profile information"
-    @user = current_user
     @include_jquery = true
     @qtip = true
     @fit_wit_form = true
@@ -35,11 +31,10 @@ class MyFitWitController < ApplicationController
 
   def upcoming_fitnesscamps
     @pagetitle = "Upcoming Fitness Camps"
-    @mycamps = FitnessCamp.find_upcoming(@user_id)
+    @mycamps = FitnessCamp.find_upcoming(@user.id)
   end
 
   def add_custom_workout
-    @user = User.find(@user_id)
     @date = Date.parse(params[:date])
     @fit_wit_form = true
     @include_jquery = true
@@ -137,7 +132,6 @@ class MyFitWitController < ApplicationController
 
   def camp_fit_wit_workout_progress
     @pagetitle = 'Fitness Camp Report'
-    @u = User.find(@user_id)
     @qtip = true
     @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
     unless @my_completed_fitnesscamps.empty?
@@ -146,10 +140,10 @@ class MyFitWitController < ApplicationController
       else
         fitness_camp_id = @my_completed_fitnesscamps.first[1]
       end
-      @myworkouts = Workout.find_for_user_and_fitness_camp(@user_id, fitness_camp_id)
+      @myworkouts = Workout.find_for_user_and_fitness_camp(@user.id, fitness_camp_id)
       @my_fitness_camp = FitnessCamp.find(fitness_camp_id)
       @my_completed_fitnesscamps.delete_if { |bc_title, bc_id| bc_id == fitness_camp_id }
-      @time_slot = @u.get_time_slot(@my_fitness_camp.id)
+      @time_slot = @user.get_time_slot(@my_fitness_camp.id)
       unless @time_slot.nil?
         @meetings = @time_slot.meetings
         @meeting_count = @meetings.length
@@ -162,7 +156,6 @@ class MyFitWitController < ApplicationController
   end
 
   def my_goals
-    @user = User.find(@user_id)
     @include_jquery = true
     @qtip = true
     @checkbox = true
@@ -175,19 +168,23 @@ class MyFitWitController < ApplicationController
   end
 
   def add_goal
-
     begin
-      the_date = Date.parse(params[:goal][:target_date])
-      @goal = Goal.new(params[:goal])
+      g = Goal.new
+      g.goal_name = params[:goal][:goal_name]
+      g.description = params[:goal][:description]
+      g.date_added = Date.parse(params[:goal][:date_added])
+      g.target_date = Date.parse(params[:goal][:target_date])
+      g.completed = false
+      @user.goals << g
       respond_to do |format|
-        if @goal.save
+        if @user.save
           flash[:notice] = 'Goal was successfully created.'
           format.html { redirect_to :action => :my_goals }
           format.js
-          format.xml { render :xml => @goal, :status => :created, :location => @goal }
+          format.xml { render :xml => g, :status => :created, :location => g }
         else
           format.html { render :action => :my_goals }
-          format.xml { render :xml => @goal.errors, :status => :unprocessable_entity }
+          format.xml { render :xml => g.errors, :status => :unprocessable_entity }
         end
       end
     rescue
@@ -266,7 +263,6 @@ class MyFitWitController < ApplicationController
   end
 
   def specific_fit_wit_workout
-    @user = User.find(@user_id)
     @pagetitle = "Exercise history"
     @workout = Workout.find(params[:id])
     @fit_wit_workout = @workout.fit_wit_workout
@@ -297,7 +293,6 @@ class MyFitWitController < ApplicationController
   end
 
   def process_fit_wit_history
-    @user = User.find(@user_id)
     # @back_page = request.env["HTTP_REFERER"]
     if @user.update_attributes(params[:user])
       flash[:notice] = 'FitWit History Updated.'
@@ -312,7 +307,6 @@ class MyFitWitController < ApplicationController
 
   def health_history
     # just a process node at this point
-    @user = User.find(@user_id) #needed
     # @back_page = request.env["HTTP_REFERER"]
     unless request.put?
       # needed still? maybe a raise here
@@ -461,15 +455,15 @@ class MyFitWitController < ApplicationController
     ((my_feet.to_i*12) + my_inches.to_i)
   end
 
-  def get_months_and_years(st, ed)
-    yr_month_array = []
-    date = st
-    while date.month <= ed.month do
-      yr_month_array << [date.month, date.year]
-      date = date.next_month
-    end
-    yr_month_array
-  end
+  #def get_months_and_years(st, ed)
+  #  yr_month_array = []
+  #  date = st
+  #  while date.month <= ed.month do
+  #    yr_month_array << [date.month, date.year]
+  #    date = date.next_month
+  #  end
+  #  yr_month_array
+  #end
 
   def get_months_and_years(st, ed)
     m = []
@@ -481,9 +475,9 @@ class MyFitWitController < ApplicationController
     return m
   end
 
-  def get_user_id
+  def get_user
     authorize! :manage, User, message: "You need to be logged to access MyFitWit"
-    @user_id = current_user.id
+    @user = current_user
     @my_fit_wit = true
   end
 

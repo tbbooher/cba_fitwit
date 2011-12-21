@@ -1,0 +1,24 @@
+%div{id: goal.id, class: 'one_half'}
+  %div{class: "info_box info_box1"}
+    .title_box
+      = h(goal.goal_name)
+    .content_box
+      %b Description:
+      = goal.description
+      %br/
+      %b
+        Target Date: #{compact_date(goal.target_date)}
+      %br/
+      - days_left = goal.target_date - Date.today()
+      - remaining = distance_of_time_in_words(Date.today, goal.target_date)
+      %b Time Remaining:
+      = days_left > 0 ? remaining : remaining + " past"
+      %span.to_the_right
+        %a.small-btn.light-btn{:href => ""}
+          %span
+            = image_tag "/images/cold/bullets/write.png"
+            Complete
+        %a.small-btn.light-btn{:href => ""}
+          %span
+            = image_tag "/images/cold/bullets/alert.png"
+            Remove
