@@ -58,7 +58,7 @@ $(document).ready(function() {
         }
     });
     //datepicker
-    $(".inputdate").datepicker();
+    $(".inputdate").datepicker({ dateFormat: 'D, dd M yy' });
     // main admin page
     $("#tabs").tabs();
     // specific fit_wit_workout page
