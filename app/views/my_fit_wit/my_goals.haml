@@ -1,0 +1,48 @@
+= render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'goals'}
+#top_notice{:style => "width:100%; height:30px;"}
+%p
+  Set your goals and set them high! You can track your goals below. Check them off when you are done.
+.one_half
+  %form#current_goals_form
+    %h3 Current Goals
+    - unless @current_goals.empty?
+      - @current_goals.each do |goal|
+        = render :partial => "my_fit_wit/includes/goal_include", :locals => {:goal => goal}
+    - else
+      %p No goals yet. Add your first goal today.
+%div{class: "one_half last"}
+  %form#completed_goals_form
+    %h3 Completed Goals
+    - unless @completed_goals.empty?
+      %ul#completed_goals{:style => "line-height:2em"}
+        - @completed_goals.each do |goal|
+          %li{:id => "dt_#{goal.id}", :style => "list-style-type:none; width:100%;"}
+            %span.ui-icon.ui-icon-check.floatLeft{:style => "margin-top:6px; margin-right:10px;padding-bottom:0px;"}
+            = "#{goal.goal_name} completed on #{compact_date(goal.completed_date)}"
+            .delete_goal.ui-state-default.ui-corner-all.fg-button{:style => "position:absolute; top:0; right:20px;", :title => goal.id}
+              %span.ui-icon.ui-icon-closethick{:style => "padding-bottom: 0px;"}
+    - else
+      %p We're excited to put your first completed goal here.
+.clear
+%hr.dotted
+%div.info_box.info_box1.rounded
+  = form_for(@new_goal, :class => "fitwit", :url => my_fit_wit_add_goal_path) do |f|
+    = f.error_messages
+    = f.hidden_field :date_added, :value => Date.today.to_s
+    = f.hidden_field :user_id, :value => @user.id
+    = f.hidden_field :completed_date, :value => ""
+    %div
+      %h3 Add new goal
+      %fieldset
+        .field
+          = desc_label(f, :goal_name, 'Name for goal:', false)
+          = f.text_field :goal_name, :class=> 'required'
+        .field
+          = desc_label(f, :description, 'Description:', false)
+          = f.text_area :description, :rows => 2
+        .field
+          = desc_label(f, :target_date, "Target date:", false)
+          = f.text_field :target_date, {:class=>"inputdate date required", :size => 8}
+        .field
+          %label &nbsp;
+          = f.submit "Submit", :class => 'button'

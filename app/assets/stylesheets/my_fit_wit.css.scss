@@ -148,3 +148,18 @@ div#tabs ul li {
     width:auto;
     list-style:inherit;
 }
+
+#current_goals_form {
+ dd {
+ padding:10px;
+ }
+ dt {
+  padding-left:10px;
+    color: #C3291F;
+    font-style: italic;
+    font-size: medium;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    text-transform: capitalize;
+  }
+}

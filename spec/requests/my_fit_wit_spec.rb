@@ -85,6 +85,8 @@ describe "The my_fit_wit section" do
     fill_in "Name for goal:", with: "Lose 10 lbs"
     fill_in "Description:", with: "I am going to eat paleo and lost 10 lbs"
     fill_in "Target date:", with: Date.civil(2011,10,8)
+    click_button "Submit"
+    page.should have_content("Lose 10 lbs")
   end
 
 end
