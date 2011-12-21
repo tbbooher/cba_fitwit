@@ -89,4 +89,10 @@ describe "The my_fit_wit section" do
     page.should have_content("Lose 10 lbs")
   end
 
+  it "should allow a user to complete a goal" do
+    g = FactoryGirl.create(:goal)
+    visit my_fit_wit_my_goals_path
+    click_link
+  end
+
 end

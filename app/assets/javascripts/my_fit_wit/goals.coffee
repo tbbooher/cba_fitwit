@@ -12,8 +12,3 @@ $(document).ready ->
       id: goal_id
     , null, "script"
     false
-
-  $("#new_goal").validate submitHandler: (form) ->
-    form.submit ->
-      $.post $(this).attr("action"), $(this).serialize(), null, "script"
-      false
