@@ -57,7 +57,7 @@ Cba::Application.routes.draw do
   get "my_fit_wit/past_fitnesscamps"
   get "my_fit_wit/camp_fit_wit_workout_progress"
   get "my_fit_wit/my_goals"
-  get "my_fit_wit/add_goal"
+  post "my_fit_wit/add_goal"
   get "my_fit_wit/delete_goal"
   get "my_fit_wit/update_goal"
   get "my_fit_wit/fit_wit_workout_progress"
