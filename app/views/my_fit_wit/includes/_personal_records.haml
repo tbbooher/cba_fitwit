@@ -1,0 +1,12 @@
+%table.tables.table-light.highlight-row
+  %thead
+    %tr
+      %th workout
+      %th Score
+      %th Date Set
+  %tbody
+    - @prs.each do |pr|
+      %tr
+        %td= pr.fit_wit_workout.name
+        %td= pr.score
+        %td= pr.date_accomplished

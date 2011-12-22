@@ -1,0 +1,40 @@
+= form_for(@custom_workout, :class=> "fitwit", :url => @action_url) do |f|
+  = f.error_messages
+  = hidden_field_tag "adding_new_workout", true
+  %fieldset
+    .field#custom_section
+      = desc_label(f, :custom_name, 'Workout Name', false)
+      = f.text_field :custom_name, :size => 51, :class => "required"
+    .field#fit_wit_workout_select
+      = desc_label(f, :fit_wit_workout_id, 'FitWit Workout', false)
+      = f.select :fit_wit_workout_id, @fit_wit_workout_list, {:prompt => 'Select one of the FitWit workouts or a custom workout '}, {:style => "width:400px"}
+    .field#fit_wit_workout_description
+      = desc_label(f, :fit_wit_workout_description, 'Description', false)
+      #the_description{:style => "margin-left:209px; width:560px;"}  
+    .field#the_button
+      = desc_label(f, :button, "", false).html_safe
+      %button#custom_workout_button.fg-button.ui-state-default.fg-button-toggleable.ui-corner-all.fg-button-icon-left
+        %span.ui-icon.ui-icon-plusthick{:style => "padding-bottom: 0;"}>
+        Do a FitWit workout
+    - if @admin
+      .field
+        = desc_label(f, :user_id, "Camper", false)
+        = f.select :user_id, @users
+      .field
+        = desc_label(f, :workout_date, "Date", false)
+        = f.date_select :workout_date
+    - else
+      = f.hidden_field :user_id, :value => @user.id
+      = f.hidden_field :workout_date, :value => @date
+    .field
+      = desc_label(f, :pr, "Personal record?", false)
+      = f.check_box :pr
+    .field
+      = desc_label(f, :description, 'Description', false)
+      = f.text_area :description, :rows => 3
+    .field
+      = desc_label(f, :score, 'Score', false)
+      = f.text_field :score, :size => 51
+    .field
+      = desc_label(f, :submit,' ', false)
+      = f.submit "Submit", :class => 'button'
