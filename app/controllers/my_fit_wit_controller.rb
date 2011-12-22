@@ -221,7 +221,6 @@ class MyFitWitController < ApplicationController
     @qtip = true
     @fit_wit_form = true
     @pagetitle = "Fitness Progress"
-    @user = current_user # User.find(@user_id)
     # for calendar
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
@@ -243,10 +242,20 @@ class MyFitWitController < ApplicationController
   end
 
   def add_new_measurement
-    @measurement = Measurement.new(params[:measurement])
-
+    m = Measurement.new
+    m.review_date = Date.parse(params[:measurement][:review_date])
+    m.height = params[:measurement][:height]
+    m.weight = params[:measurement][:weight]
+    m.chest = params[:measurement][:chest]
+    m.waist = params[:measurement][:waist]
+    m.hip = params[:measurement][:hip]
+    m.right_arm = params[:measurement][:right_arm]
+    m.right_thigh = params[:measurement][:right_thigh]
+    m.bmi = params[:measurement][:bmi]
+    m.bodyfat_percentage = params[:measurement][:bodyfat_percentage]
+    @user.measurements << m
     respond_to do |format|
-      if @measurement.save
+      if @user.save
         flash[:notice] = 'Measurement was successfully created.'
         format.html { redirect_to "/my_fit_wit/fit_wit_workout_progress#tabs-4" }
         format.js
