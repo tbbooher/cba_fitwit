@@ -1,52 +1,56 @@
-!!!
+!!! 5
 %html
   %head
-    %title Simple Backend Example
+    %title= @page_name
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %meta{:content => "NONE,NOARCHIVE", :name => "robots"}
     = stylesheet_link_tag "backend/backend"
     = javascript_include_tag "backend"
     = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false"
     = javascript_include_tag "backend/application"
-    =# javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"
     = csrf_meta_tag
-  %body
-    .topbar
-      .fill
-        .container
-          = link_to "FitWit Admin Site", backend_root_path, :class => "brand"
-          %ul.nav
-            %li.active= link_to "Home", "#"
-            %li= link_to "Locations", backend_locations_path
-            %li= link_to "Friends", backend_friends_path
-            %li= link_to "News Items", backend_news_items_path
-            %li= link_to "Sponsors", backend_sponsors_path
-            %li= link_to "Workouts", backend_workouts_path
-            %li= link_to "FitWit Workouts", backend_fit_wit_workouts_path
-
-    .container
+  %body.rails_admin{:style => "padding-top: 60px;"}
+    .topbar-wrapper{:style => "z-index: 5;"}
+      .topbar{:'data-dropdown' => 'dropdown'}
+        .topbar-inner
+          .container-fluid
+            %h3
+              = link_to "FitWit Admin Site", backend_root_path, :class => "brand"
+            %ul.nav
+              %li= link_to "Locations", backend_locations_path
+              %li= link_to "Friends", backend_friends_path
+              %li= link_to "News Items", backend_news_items_path
+              %li= link_to "Sponsors", backend_sponsors_path
+              %li= link_to "Workouts", backend_workouts_path
+              %li= link_to "FitWit Workouts", backend_fit_wit_workouts_path
+    .container-fluid
+      .sidebar
+        .well
+          %h3 Navigation
+          = yield :sidebar
+          .block.notice
+            %h4 Manage Camps
+            %ul
+              - FitnessCamp.all.each do |fc|
+                %li
+                  = link_to fc.title, backend_location_fitness_camp_path(fc.location.id, fc.id)
+                  %ul
+                    - fc.time_slots.all.each do |ts|
+                      %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
       .content
         .page-header
-          = yield :header
-        #top_row.row
-          - if flash[:alert]
-            .alert-message.error
-              %p= flash[:alert]
-          #javascript_top_row{style: "display:none;"}
-          - if flash[:notice]
-            .alert-message.info
-              %p= flash[:notice]
-          .span10
-            = yield
-          .span4
-            = yield :sidebar
-            .block.notice
-              %h4 Manage Camps
-              %ul
-                - FitnessCamp.all.each do |fc|
-                  %li
-                    = link_to fc.title, backend_location_fitness_camp_path(fc.location.id, fc.id)
-                    %ul
-                      - fc.time_slots.all.each do |ts|
-                        %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
-
-      %footer
-        %p Copyright &copy; #{Time.now.year} Tim Booher.
+          %h1= @page_name
+        - flash && flash.each do |key, value|
+          .alert-message.fade.in{:class => key}
+            %a.close{:href => '#'}×
+            %p= value
+        /= breadcrumbs_for params[:action].to_sym, @abstract_model, @object
+        /- if @abstract_model
+        /  - if @object && !@object.new_record?
+        /    %ul.tabs= render :partial => 'rails_admin/main/object_links', :locals => { :add_active_class => true, :model_name => params[:model_name], :object => @object }
+        /  - else
+        /    %ul.tabs= render :partial => 'rails_admin/main/models_links', :locals => { :abstract_model => @abstract_model }
+        %span.row
+        = yield
+        %footer
+          %p &copy; FitWit 2011
