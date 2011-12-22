@@ -272,3 +272,15 @@ div.checkbox {
 
 label.error { width: 10em; float: left; float: none; color: red; padding-left: .5em; vertical-align: top; }
 em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+
+form li, div.disp  {
+    display:block;
+    width:80%;
+    clear:both;
+    margin:0pt;
+    padding:4px 5px 2px 9px;
+    position:relative;
+    list-style-image:none;
+    /*        background-color: yellow;*/
+    /*        border: 1px solid blue;*/
+}

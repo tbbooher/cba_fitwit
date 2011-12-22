@@ -1,6 +1,8 @@
 // rjs type file to handle request for incoming rails object to update goal
 $('#top_notice').html('<%= @message %>');
-var delete_button = "<div class=\"delete_goal ui-state-default ui-corner-all fg-button\" style=\"position:absolute; top:0; right:20px;\" title=\"<%= @goal.id %>\"><span style=\"padding-bottom: 0px;\" class=\"ui-icon ui-icon-closethick\"></span></div>"
-$("<li id=\"li_<%= @goal.id %>\" style=\"list-style-type:none;width:100%;\"><span class=\"ui-icon ui-icon-check floatLeft\" style=\"margin:6px 10px 0 0;padding-bottom:0px;\"></span><%= @goal.goal_name %> completed today!" + delete_button + "</li>").hide().prependTo("#completed_goals").fadeIn('slow');
-$("dt#dt_<%= @goal.id %>").hide();
-$("dd#dd_<%= @goal.id %>").hide();
+$('#top_notice').show();
+$("#completed_goals").append("<%= escape_javascript(render(partial: 'my_fit_wit/includes/completed_goal', locals: {goal: @goal})) %>");
+$("#<%= "goal_#{@goal.id}" %>").hide();
+
+// var delete_button = "<div class=\"delete_goal ui-state-default ui-corner-all fg-button\" style=\"position:absolute; top:0; right:20px;\" title=\"<%= @goal.id %>\"><span style=\"padding-bottom: 0px;\" class=\"ui-icon ui-icon-closethick\"></span></div>"
+// $("<li id=\"li_<%= @goal.id %>\" style=\"list-style-type:none;width:100%;\"><span class=\"ui-icon ui-icon-check floatLeft\" style=\"margin:6px 10px 0 0;padding-bottom:0px;\"></span><%= @goal.goal_name %> completed today!" + delete_button + "</li>").hide().prependTo("#completed_goals").fadeIn('slow');

@@ -2,7 +2,7 @@ require 'ostruct'
 
 class MyFitWitController < ApplicationController
   layout "my_fit_wit"
-  before_filter :get_user, :except => [:update_goal]
+  before_filter :get_user
   # TODO Should I activate this again?	
   #ssl_required  :health_history
 
@@ -194,10 +194,9 @@ class MyFitWitController < ApplicationController
   end
 
   def delete_goal
-    @goal = Goal.find(params[:goal_id])
-    @goal_id = @goal.id
-    @message = "\"#{@goal.goal_name}\" has been deleted."
-    Goal.destroy(@goal_id)
+    @goal = @user.goals.find(params[:goal_id])
+    @message = "Your goal: \"#{@goal.goal_name}\" has been deleted."
+    @user.goals.find(params[:goal_id]).destroy
     respond_to do |format|
       format.html { redirect_to :action => 'my_goals' }
       format.js
@@ -205,11 +204,11 @@ class MyFitWitController < ApplicationController
   end
 
   def update_goal
-    @goal = Goal.find(params[:goal_id])
+    @goal = @user.goals.find(params[:goal_id])
     @message = "Congrats on completing your goal of \"#{@goal.goal_name}\"."
     @goal.completed = true
     @goal.completed_date = Date.today
-    @goal.save!
+    @user.save!
     respond_to do |format|
       format.html { redirect_to :action => 'my_goals' }
       format.js

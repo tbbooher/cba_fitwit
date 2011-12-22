@@ -1,5 +1,5 @@
 = render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'goals'}
-#top_notice{:style => "width:100%; height:30px;"}
+#top_notice.message.msg-tip{style: "display:none;"}
 %p
   Set your goals and set them high! You can track your goals below. Check them off when you are done.
 .one_half
@@ -14,13 +14,15 @@
   %form#completed_goals_form
     %h3 Completed Goals
     - unless @completed_goals.empty?
-      %ul#completed_goals{:style => "line-height:2em"}
-        - @completed_goals.each do |goal|
-          %li{:id => "dt_#{goal.id}", :style => "list-style-type:none; width:100%;"}
-            %span.ui-icon.ui-icon-check.floatLeft{:style => "margin-top:6px; margin-right:10px;padding-bottom:0px;"}
-            = "#{goal.goal_name} completed on #{compact_date(goal.completed_date)}"
-            .delete_goal.ui-state-default.ui-corner-all.fg-button{:style => "position:absolute; top:0; right:20px;", :title => goal.id}
-              %span.ui-icon.ui-icon-closethick{:style => "padding-bottom: 0px;"}
+      %table#completed_goals.tables.table-light.highlight-row
+        %thead
+          %tr
+            %th.left Goal
+            %th Completed On
+            %th Delete
+        %tbody
+          - @completed_goals.each do |goal|
+            = render :partial => 'my_fit_wit/includes/completed_goal', locals: {:goal => goal}
     - else
       %p We're excited to put your first completed goal here.
 .clear
