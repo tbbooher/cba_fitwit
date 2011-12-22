@@ -1,5 +1,5 @@
-%div{id: goal.id, class: 'one_half'}
-  %div{class: "info_box info_box1"}
+%div{class: "one_half", id: "goal_#{goal.id}"}
+  %div{class: "info_box info_box1 rounded"}
     .title_box
       = h(goal.goal_name)
     .content_box
@@ -14,5 +14,5 @@
       %b Time Remaining:
       = days_left > 0 ? remaining : remaining + " past"
       .goal_actions
-        = link_to "Complete", my_fit_wit_update_goal_path(goal.id), class: "small-btn light-btn", remote: true, id: goal.id
-        = link_to "Remove", my_fit_wit_delete_goal_path(goal.id), class: "small-btn light-btn", remote: true, id: goal.id, confirm: "Do you really want to delete your goal?"
+        = link_to "Complete", my_fit_wit_update_goal_path(goal.id), class: "small-btn light-btn", remote: true, id: "complete_#{goal.id}"
+        = link_to "Remove", my_fit_wit_delete_goal_path(goal.id), class: "small-btn light-btn", remote: true, id: "remove_#{goal.id}", confirm: "Do you really want to delete your goal?"

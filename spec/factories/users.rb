@@ -54,6 +54,7 @@ FactoryGirl.define do
     has_active_subscription false
     password "secret"
     password_confirmation "secret"
+    goals {[FactoryGirl.build(:goal)]}
   end
 
   factory :admin, :class => User do

@@ -1,0 +1,5 @@
+%tr{id: "tr_#{goal.id}"}
+  %td.left= goal.goal_name
+  %td= compact_date(goal.completed_date)
+  %td= link_to raw("<span>delete</span>"),  my_fit_wit_delete_goal_path(goal.id), class: "small-btn light-btn", |
+  confirm: "Do you really want to delete this goal?", remote: true
