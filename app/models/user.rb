@@ -20,22 +20,22 @@ class User
   field :use_gravatar, :type => Boolean, :default => true
   field :invitation_id, :type => BSON::ObjectId
 
-  field :first_name, :type => String
-  field :last_name, :type => String
+  field :first_name
+  field :last_name
   field :gender, :type => Integer
-  field :occupation, :type => String
-  field :company, :type => String
-  field :street_address1, :type => String
-  field :street_address2, :type => String
-  field :city, :type => String
-  field :us_state, :type => String
-  field :zip, :type => String
-  field :primary_phone, :type => String
-  field :secondary_phone, :type => String
-  field :t_shirt_size, :type => String
-  field :emergency_contact_information, :type => String
+  field :occupation
+  field :company
+  field :street_address1
+  field :street_address2
+  field :city
+  field :us_state
+  field :zip
+  field :primary_phone
+  field :secondary_phone
+  field :t_shirt_size
+  field :emergency_contact_information
   field :weight, :type => Integer
-  field :how_did_you_hear_about_us, :type => String
+  field :how_did_you_hear_about_us
   field :history_of_heart_problems, :type => Boolean
   field :cigarette_cigar_or_pipe_smoking, :type => Boolean
   field :increased_blood_pressure, :type => Boolean
@@ -58,23 +58,23 @@ class User
   field :veteran_status, type: Symbol, default: :newbie # [:veteran, :supervet, :newbie, :staff]
   field :number_of_logins, :type => Integer
   field :has_active_subscription, :type => Boolean
-  field :history_of_heart_problems_explanation, :type => String
-  field :cigarette_cigar_or_pipe_smoking_explanation, :type => String
-  field :increased_blood_pressure_explanation, :type => String
-  field :increased_total_blood_cholesterol_explanation, :type => String
-  field :diabetes_mellitus_explanation, :type => String
-  field :heart_problems_chest_pain_or_stroke_explanation, :type => String
-  field :breathing_or_lung_problems_explanation, :type => String
-  field :muscle_joint_or_back_disorder_explanation, :type => String
-  field :hernia_explanation, :type => String
-  field :chronic_illness_explanation, :type => String
-  field :obesity_explanation, :type => String
-  field :recent_surgery_explanation, :type => String
-  field :pregnancy_explanation, :type => String
-  field :difficulty_with_physical_exercise_explanation, :type => String
-  field :advice_from_physician_not_to_exercise_explanation, :type => String
-  field :participation_approved_explanation, :type => String
-  field :taking_medications_explanation, :type => String
+  field :history_of_heart_problems_explanation
+  field :cigarette_cigar_or_pipe_smoking_explanation
+  field :increased_blood_pressure_explanation
+  field :increased_total_blood_cholesterol_explanation
+  field :diabetes_mellitus_explanation
+  field :heart_problems_chest_pain_or_stroke_explanation
+  field :breathing_or_lung_problems_explanation
+  field :muscle_joint_or_back_disorder_explanation
+  field :hernia_explanation
+  field :chronic_illness_explanation
+  field :obesity_explanation
+  field :recent_surgery_explanation
+  field :pregnancy_explanation
+  field :difficulty_with_physical_exercise_explanation
+  field :advice_from_physician_not_to_exercise_explanation
+  field :participation_approved_explanation
+  field :taking_medications_explanation
 
   # fitwit
   # validates_numericality_of :weight, :height_feet, :height_inches
