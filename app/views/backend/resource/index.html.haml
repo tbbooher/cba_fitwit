@@ -1,1 +1,1 @@
-= render "index", attributes: attributes
+= render "index", attributes: resource_class.fields.keys - %w(_id _type created_at updated_at encrypted_password)

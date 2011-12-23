@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title= @page_name
+    %title FitWit Admin
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
     %meta{:content => "NONE,NOARCHIVE", :name => "robots"}
     = stylesheet_link_tag "backend/backend"
@@ -26,7 +26,6 @@
     .container-fluid
       .sidebar
         .well
-          %h3 Navigation
           = yield :sidebar
           .block.notice
             %h4 Manage Camps
@@ -39,7 +38,7 @@
                       %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
       .content
         .page-header
-          %h1= @page_name
+          = yield :header
         - flash && flash.each do |key, value|
           .alert-message.fade.in{:class => key}
             %a.close{:href => '#'}×
