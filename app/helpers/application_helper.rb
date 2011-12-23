@@ -183,7 +183,7 @@ module ApplicationHelper
   # tim's additions
   #############
 
-  FIELD_REQUIRED = "<span class=\"req\">*</span>"
+  FIELD_REQUIRED = "<span class=\"req\">*</span>".html_safe
 
   def desc_label(obj,fld,title,req = true)
     if req

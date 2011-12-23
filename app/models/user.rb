@@ -55,7 +55,7 @@ class User
   field :date_of_birth, :type => Date
   field :height_inches, :type => Integer
   field :height_feet, :type => Integer
-  field :veteran_status, type: Integer, default: 0
+  field :veteran_status, type: Symbol, default: :newbie # [:veteran, :supervet, :newbie, :staff]
   field :number_of_logins, :type => Integer
   field :has_active_subscription, :type => Boolean
   field :history_of_heart_problems_explanation, :type => String

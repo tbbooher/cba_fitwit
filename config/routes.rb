@@ -99,6 +99,7 @@ Cba::Application.routes.draw do
   match 'fitness_camp_registration/release_and_waiver_of_liability'
   match 'fitness_camp_registration/terms_of_participation'
   match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#view_cart"
+  match 'fitness_camp_registration/cart' => "fitness_camp_registration#cart"
   match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
   match 'fitness_camp_registration/save_order'
 

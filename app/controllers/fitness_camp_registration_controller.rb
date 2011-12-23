@@ -27,7 +27,8 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def view_cart
-    if current_user.has_active_subscription # they need to be blocked from registration
+    @user = current_user
+    if @user.has_active_subscription # they need to be blocked from registration
       redirect_to(:action => 'no_need_to_register')
     end
     # now we check to see if they are adding a subscription
@@ -42,7 +43,34 @@ class FitnessCampRegistrationController < ApplicationController
     end
     @fit_wit_form = true
     @include_jquery = true
-    @existing_time_slots = current_user.time_slots
+    @existing_time_slots = @user.time_slots
+    @pagetitle = 'View FitWit Cart'
+    @vet_status = current_user.veteran_status
+    delete_existing_camps_from_cart(@cart)
+    @cart_view =  true
+    # 0 \equiv normal
+    # 1 \equiv vet
+    # 2 \equiv supervet
+  end
+
+  def cart
+    @user = current_user
+    if @user.has_active_subscription # they need to be blocked from registration
+      redirect_to(:action => 'no_need_to_register')
+    end
+    # now we check to see if they are adding a subscription
+    if params[:commit] == "Return to cart" # they submitted the consent form
+      if params[:agree_to_terms] == "yes" # then we add a membership
+        @cart.new_membership = true
+      else # they didn't agree to the          # terms as needed
+        flash[:notice] = "You must agree to the terms of this membership
+                          by clicking on the consent form below before proceeding."
+        redirect_to :action => :membership_info
+      end
+    end
+    @fit_wit_form = true
+    @include_jquery = true
+    @existing_time_slots = @user.time_slots
     @pagetitle = 'View FitWit Cart'
     @vet_status = current_user.veteran_status
     delete_existing_camps_from_cart(@cart)

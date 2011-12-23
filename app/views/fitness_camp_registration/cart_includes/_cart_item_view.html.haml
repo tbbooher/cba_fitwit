@@ -1,54 +1,72 @@
-/ this needs a presenter !!!!!!!
-%dt
-  / camp title
-  %h2= cart_item_view.title_with_camp_dates
 - camp_cost = fitness_camp_price(@vet_status,cart_item_view, @user.has_active_subscription)
-/ # this displays for each cart item
-%dd{:style => "border:none;"}
-  - unless (@vet_status > 0)
-    %div{:style => "clear:both;"}
-    .financial_info
-      Bring a friend, get a $40 discount
-    = display_standard_price.html_safe
-    %div
-      = render :partial => 'friends_form',          |
-        :locals => {:cart_item => cart_item_view,   |
-        :cart_item_count => cart_item_view_counter, |
-        :vet_status => @vet_status}                 |
-      / friend's form
-  - else
-    - if @cart.new_membership
+/ this needs a presenter !!!!!!!
+.info_box.info_box1.rounded
+  / camp title
+  .title_box{style: "background-color: white; border:1px solid #cfcfcf;"}
+    %h4{style: "color:black;"}= cart_item_view.title_with_camp_dates
+  #price_info
+    - if membership
+      = render :membership_price_screen
+    - else # they are signing up for a camp
+      - case status
+        - when :vet
+          - if pay_by_session
+            = render :pay_by_session
+          - else # pay for camp
+            = render :coupon_discount_form
+            = render :friend_discount_Form
+        - when :supervet
+          - if pay_by_session
+            = render :pay_by_session_form
+          - else # pay for camp
+            = render :coupon_discount_form
+        - when :newbie
+            = render :coupon_discount_form
+            = render :friend_discount_form
+
+  / end refactoring
+
+  %div{style: "padding:10px;"}
+    - unless (@vet_status > 0)
       .financial_info
-        %p As a member, you do not need to pay for this registration.
-        %p
-          Please continue the registration process to help us plan
-          for your participation. In the future, let us know which camp you will
-          participate in.
+        Bring a friend, get a $40 discount
+      = display_standard_price.html_safe
+      %div
+        = render :partial => 'fitness_camp_registration/cart_includes/friends_form', :locals => {:cart_item => cart_item_view, :cart_item_count => cart_item_view_counter, :vet_status => @vet_status}
     - else
-      - unless cart_item_view.pay_by_session
-        - unless @cart.coupon_code
-          = render :partial => 'fitness_camp_registration/cart_includes/regular_discounts', |
-            :locals => {:cart => cart_item_view,                                            |
-            :item_count => cart_item_view_counter}                                          |
+      - if @cart.new_membership
+        .financial_info
+          %p As a member, you do not need to pay for this registration.
+          %p
+            Please continue the registration process to help us plan
+            for your participation. In the future, let us know which camp you will
+            participate in.
       - else
-        / we pay by session
-        = render :partial => 'fitness_camp_registration/cart_includes/pay_by_session', |
-          :locals => {:cart => cart_item_view,                                         |
-          :item_count => cart_item_view_counter,                                       |
-          :camp_cost => camp_cost }                                                    |
-  - unless cart_item_view.pay_by_session
-    .coupon_code
-      - if @cart.coupon_code
-        %span.price_desc
-          Coupon: #{h @cart.coupon_code.code}
-        %span.price= display_coupon_code_discount(@cart.coupon_code)
-      %div{:style => "clear:both;"}
-      = text_field_tag :coupon_code
-      = submit_tag 'Add coupon', :class => 'button'
-  %div{:style => "clear:both;"}
-    %span.price_desc Your final price is
-    %span.price{:style => "text-decoration:underline;"}
-      = @cart.new_membership ? "covered by membership" : number_to_currency(camp_cost)
-  %div{:style => "clear:both;"}
-  = hidden_field("item#{cart_item_view_counter}", |
-    :price, {:value => camp_cost})                |
+        - unless cart_item_view.pay_by_session
+          - unless @cart.coupon_code
+            = render :partial => 'fitness_camp_registration/cart_includes/regular_discounts', |
+              :locals => {:cart => cart_item_view,                                            |
+              :item_count => cart_item_view_counter}                                          |
+        - else
+          / we pay by session
+          = render :partial => 'fitness_camp_registration/cart_includes/pay_by_session', |
+            :locals => {:cart => cart_item_view,                                         |
+            :item_count => cart_item_view_counter,                                       |
+            :camp_cost => camp_cost }
+                                                                |
+    - unless cart_item_view.pay_by_session
+      .coupon_code
+        - if @cart.coupon_code
+          %span.price_desc
+            Coupon: #{h @cart.coupon_code.code}
+          %span.price= display_coupon_code_discount(@cart.coupon_code)
+        %div{:style => "clear:both;"}
+        = text_field_tag :coupon_code
+        = submit_tag 'Add coupon', :class => 'button'
+
+      %span.price_desc Your final price is
+      %span.price{:style => "text-decoration:underline;"}
+        = @cart.new_membership ? "covered by membership" : number_to_currency(camp_cost)
+
+    = hidden_field("item#{cart_item_view_counter}", :price, {:value => camp_cost})
+  %br.clear

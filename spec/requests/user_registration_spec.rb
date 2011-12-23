@@ -24,6 +24,7 @@ require File::expand_path('../../spec_helper', __FILE__)
 
 # seems like all views are there, let's create a skelton
 
+
 describe "The user registration process" do
 
   before(:all) do

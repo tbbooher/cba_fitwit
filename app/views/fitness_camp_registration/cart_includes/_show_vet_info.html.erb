@@ -16,6 +16,8 @@
   <p>Click <%= link_to "here", :action => "membership_info" %>
   to save money with the FitWit Club Membership option!</p>
 
+  <!-- TODO -- THIS NEEDS TO PULL FROM THE YAML FILE -->
+
   <ul>
     <li>$153/year savings if you are a super vet ($197/camp
     vs. $219/camp)</li>
@@ -42,3 +44,4 @@
   <% end %>
   <div style="clear:both"></div>
 </div><!-- end vet status -->
+<h3>You are registering for the following <%= pluralize(@cart.items.size , "fitness camp") %>:</h3>
