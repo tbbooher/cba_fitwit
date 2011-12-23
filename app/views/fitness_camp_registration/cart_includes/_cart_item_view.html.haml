@@ -11,21 +11,21 @@
       - case status
         - when :vet
           - if pay_by_session
-            = render :pay_by_session
+            = render :pay_by_session_form
           - else # pay for camp
             = render :coupon_discount_form
-            = render :friend_discount_Form
+            = render :friend_discount_form
         - when :supervet
           - if pay_by_session
             = render :pay_by_session_form
           - else # pay for camp
             = render :coupon_discount_form
         - when :newbie
-            = render :coupon_discount_form
-            = render :friend_discount_form
+          = render :coupon_discount_form
+          = render :friend_discount_form
 
   / end refactoring
-
+/
   %div{style: "padding:10px;"}
     - unless (@vet_status > 0)
       .financial_info
