@@ -1,0 +1,11 @@
+%div
+- unless cart_item.friends.empty?
+  - cart_item.friends.each_with_index do |friend, index|
+    %span.price_desc
+      = friend
+      = submit_tag "[x] oops, remove friend", name: "delfriend[#{cart_item_count}_#{index}]", class: 'no_button'
+    %span.price
+      = display_friend_discount(index,vet_status)
+    %div{:style => "clear:both;"}
+= text_field_tag "friends_name"
+= submit_tag 'Add Friend', :name => "addfriend[#{cart_item_count}]", :class => 'small-btn'

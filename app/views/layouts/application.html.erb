@@ -81,7 +81,6 @@
     <% end %>
 
     <div id='page-content' class="two_third">
-      &nbsp;
       <div id='flashes'>
         <% flash.each do |name, msg| %>
             <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
@@ -95,9 +94,7 @@
             <% end %>
         <% end %>
       </div>
-
       <%= yield %>
-
     </div><!-- end page content -->
 
     <div id="sidebar" class="one_third last">
