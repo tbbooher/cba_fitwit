@@ -1,4 +1,5 @@
 - title "View Cart: Registration Step 2 of 6"
+
 - content_for :right_column do
   = render(:partial => "cart", :object => @cart)
 
@@ -16,7 +17,6 @@
 / time to display the sign up form
 = form_tag :action => 'add_discounts' do
   %dl
-    = render(:partial => "fitness_camp_registration/cart_includes/cart_item_view", |
-      :collection => @cart.items)                                                  |
+    = render(:partial => "fitness_camp_registration/cart_includes/cart_item_view", :collection => @cart.items)
   / if all pay_by_sessions are ready
   = submit_tag 'Proceed to health consent', :class => 'button'

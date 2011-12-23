@@ -1,14 +1,13 @@
 require 'pp'
 
 class FitnessCampRegistrationController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :add_to_cart, :empty_cart, :view_cart, :all_fitness_camps]
   # must change !!
   #ssl_required  :consent, :save_order, :payment, :pay,
   #   :release_and_waiver_of_liability, :terms_of_participation
 
   before_filter :find_cart, :except => :empty_cart
   before_filter :ensure_items_in_cart, :only => [:view_cart, :consent, :payment]
-  skip_before_filter :check_authentication, :check_authorization,
-    :only => [:index, :add_to_cart, :empty_cart, :view_cart, :all_fitness_camps]
 
   def index
     @fit_wit_form = true
@@ -18,6 +17,39 @@ class FitnessCampRegistrationController < ApplicationController
     @fitnesscamps = FitnessCamp.future # can work in location
     @locations = Location.where(_id: @location_id)
 #    @include_javascript = true
+  end
+
+  def all_fitness_camps
+    # @mystates = Location.find_all_states
+    # TODO: change to active fitness camps and camps with time_slots
+    # we want all upcoming fitness camps
+    @fitness_camps = FitnessCamp.upcoming_and_current
+  end
+
+  def view_cart
+    if current_user.has_active_subscription # they need to be blocked from registration
+      redirect_to(:action => 'no_need_to_register')
+    end
+    # now we check to see if they are adding a subscription
+    if params[:commit] == "Return to cart" # they submitted the consent form
+      if params[:agree_to_terms] == "yes" # then we add a membership
+        @cart.new_membership = true
+      else # they didn't agree to the          # terms as needed
+        flash[:notice] = "You must agree to the terms of this membership
+                          by clicking on the consent form below before proceeding."
+        redirect_to :action => :membership_info
+      end
+    end
+    @fit_wit_form = true
+    @include_jquery = true
+    @existing_time_slots = current_user.time_slots
+    @pagetitle = 'View FitWit Cart'
+    @vet_status = current_user.veteran_status
+    delete_existing_camps_from_cart(@cart)
+    @cart_view =  true
+    # 0 \equiv normal
+    # 1 \equiv vet
+    # 2 \equiv supervet
   end
 
   def add_to_cart
@@ -43,10 +75,7 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def release_and_waiver_of_liability
-    @pagetitle = "Release and Waiver of Liability"
-    @fit_wit_form = true
-    user = current_user # User.find(session[:user_id])
-    int_gender = user.gender
+    int_gender = current_user.gender
     unless session[:must_check] == true # this just ensures that we
       # are not rejected by the next page
       if not_assigned?(int_gender, params[:health_approval]) # then they
@@ -69,8 +98,6 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def terms_of_participation
-    @pagetitle = "Terms of Participation"
-    @fit_wit_form = true
     unless session[:must_check_yes_on_terms] == true
       if params[:commit] == "Continue to Terms of Participation" # they submitted the consent form
         unless params[:agree_to_terms] == "yes" # then we add a membership
@@ -87,8 +114,7 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def process_fit_wit_history
-    @user = User.find(session[:user_id])
-    if @user.update_attributes(params[:user])
+    if current_user.update_attributes(params[:user])
       flash[:notice] = 'FitWit History Updated.'
       redirect_to :action => :view_cart
     else
@@ -98,44 +124,8 @@ class FitnessCampRegistrationController < ApplicationController
     end
   end
 
-  def view_cart
-    # this page shows the @cart contents to the user
-    # the next page is the consent page
-    # just check to see if the user is logged in
-    # we need to use devise for this
-    unless @user = current_user # User.find_by_id(session[:user_id])
-      flash[:notice] = "You must log in to complete the registration process." +
-        " If you do not have an account. Please sign-up before proceeding."
-      session[:return_to] = request.fullpath
-      redirect_to user_session_path 
-    else # they are logged in
-      if @user.has_active_subscription # they need to be blocked from registration
-        redirect_to(:action => 'no_need_to_register')
-      end
-      # now we check to see if they are adding a subscription
-      if params[:commit] == "Return to cart" # they submitted the consent form
-        if params[:agree_to_terms] == "yes" # then we add a membership
-          @cart.new_membership = true
-        else # they didn't agree to the          # terms as needed
-          flash[:notice] = "You must agree to the terms of this membership
-                            by clicking on the consent form below before proceeding."
-          redirect_to :action => :membership_info
-        end
-      end
-      @fit_wit_form = true
-      @include_jquery = true
-      @existing_time_slots = @user.time_slots
-      @pagetitle = 'View FitWit Cart'
-      @vet_status = @user.veteran_status
-      delete_existing_camps_from_cart(@cart)
-      @cart_view =  true
-      # 0 \equiv normal
-      # 1 \equiv vet
-      # 2 \equiv supervet
-    end
-  end
-
   def add_discounts
+    # need to move this to model -- shouldn't be here
     # this function processes the data from our form
     if request.post?
       if params[:addfriend]
@@ -212,7 +202,7 @@ class FitnessCampRegistrationController < ApplicationController
     @fit_wit_form = true
     @include_jquery = true
     @pagetitle = "Consent"
-    @user = current_user # User.find(session[:user_id])
+    @user = current_user
     # which path do we want to go down, membership or payment
     @checked_values = flash[:checked_values] || []
     @button_hash = flash[:button_hash] || {}
@@ -223,15 +213,12 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def health_history
-    # just a process node at this point
-    @user = User.find(session[:user_id])
-    # @back_page = request.env["HTTP_REFERER"]
     unless request.put?
       # needed still? maybe a raise here
     else
       # zero out all unchecked explanations
       user_params = zero_out_all_unchecked_explanations(params[:user])
-      if @user.update_attributes(user_params)
+      if current_user.update_attributes(user_params)
         if names_of_titles_that_require_more_information = \
             user_has_not_explained_themself(params[:user]) #names_of_titles_that_require_more_information.empty?
           flash[:notice] = <<-END_OF_STRING
@@ -278,7 +265,7 @@ class FitnessCampRegistrationController < ApplicationController
     @credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])
     is_membership = @cart.new_membership
     if @credit_card.valid? #=> auto-detects the card type
-      @user = User.find(session[:user_id])
+      @user = current_user
       options = build_options(@user, params[:billing_address][:us_state],
         params[:billing_address][:zip],
         params[:billing_address][:city],
@@ -384,25 +371,8 @@ class FitnessCampRegistrationController < ApplicationController
     @pagetitle = 'Successful Registration'
     # need successful registrations
     @registrations = Order.find(params[:id]).registrations
-    @user = User.find(session[:user_id])
+    @user = current_user
     (flash[:membership] == "true") ? @membership = true : @membership = nil
-  end
-
-  def all_fitness_camps
-    @pagetitle = 'Register for a Fitness Camp'
-    @include_jquery = true
-    @fit_wit_form = true
-    @mystates = Location.find_all_states
-    # TODO: change to active fitness camps and camps with time_slots
-    # we want all upcoming fitness camps
-    @fitness_camps = FitnessCamp.upcoming_and_current
-    # find(:all,
-    #      :joins => 'INNER JOIN time_slots ON time_slots.fitness_camp_id = fitness_camps.id',
-    #      :select => 'fitness_camps.*, count(time_slots.id) time_slots_count',
-    #      :conditions => ['fitness_camps.session_active = true AND fitness_camps.session_end_date >= ?',  Date.today.to_s(:db)],
-    #      :group => 'time_slots.fitness_camp_id HAVING time_slots_count > 0',
-    #      :order => 'session_start_date ASC')
-    #      :conditions => 'fitness_camps.session_active = true',
   end
 
   private

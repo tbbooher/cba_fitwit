@@ -8,7 +8,7 @@
   click on the desired time-slot located at
   the bottom of each camp's description.
   - @fitness_camps.each do |fc|
-    .one_half
+    %div{class: "one_third #{@fitness_camps.last == fc ? "last":""}"}
       .pricebox
         %h3= fc.full_title
         %p.price-td
@@ -19,10 +19,9 @@
         %h4 Time Slots:
         - fc.time_slots.each do |time_slot|
           - if time_slot.sold_out
-            %div
-              %b
-                = time_slot.start_time_f
-                SOLD OUT!
+            %b
+              = time_slot.start_time_f
+              SOLD OUT!
           - else
             = form_tag({ :action => :add_to_cart, :id => time_slot }) do
               = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'small-btn')
