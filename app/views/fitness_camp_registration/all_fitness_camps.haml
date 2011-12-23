@@ -1,17 +1,22 @@
-= render(:partial => "cart", :object => @cart)
-  = image_tag "headers/h1_register.jpg"
-  %p
-    To register for a camp,
-    click on the desired time-slot located at
-    the bottom of each camp's description.
-  %dl
-    - @fitness_camps.each do |fc|
-      %dt= fc.full_title
-      %dd
-        = "#{fc.description}<br />".html_safe unless fc.description.nil?
-        Location: #{fc.location.name_in_context}
-        %br/
-        / NOW LIST TIME SLOTS
+- title "Register for a Fitness Camp"
+- content_for :right_column do
+  .widgets
+    = render(:partial => "cart", :object => @cart)
+
+%p
+  To register for a camp,
+  click on the desired time-slot located at
+  the bottom of each camp's description.
+  - @fitness_camps.each do |fc|
+    .one_half
+      .pricebox
+        %h3= fc.full_title
+        %p.price-td
+          = raw("#{fc.location.name_in_context}")
+        %p.price-body
+          = "#{fc.description}<br />".html_safe unless fc.description.nil?
+        %p.price-foot
+        %h4 Time Slots:
         - fc.time_slots.each do |time_slot|
           - if time_slot.sold_out
             %div
@@ -19,13 +24,5 @@
                 = time_slot.start_time_f
                 SOLD OUT!
           - else
-            %div{:style => "float:left;padding-top:10px;"}
-              = form_tag({ :action => :add_to_cart, :id => time_slot }) do
-                = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'registration_submit button')
-            / for time slot end
-        %div{:style => "clear:both;"}
-          / clear div
-  %div{:style => "clear:both;height:100px;"}
-    / clear div
-  %p.last
-    \ 
+            = form_tag({ :action => :add_to_cart, :id => time_slot }) do
+              = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'small-btn')
