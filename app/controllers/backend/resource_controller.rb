@@ -4,9 +4,8 @@ class Backend::ResourceController < Backend::ApplicationController
   has_scope :page, default: 1
 
   self.responder = Backend::Responder
-#  def index
-#    @a = []
-#    resource_class.all.collect { |r| r.fields.keys.each { |k| @a << k } }
-#    @a.uniq - %w(_id _type created_at updated_at encrypted_password)
-#  end
+  #def index
+    #attributes = resource_class.all.collect { |r| r.fields.keys} - %w(_id _type created_at updated_at encrypted_password)
+  #end
+
 end
