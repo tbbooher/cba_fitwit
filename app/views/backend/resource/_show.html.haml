@@ -1,4 +1,6 @@
 %dl
-  - resource_class.fields.keys.each do |attr|
-    %dt= resource_class.human_attribute_name(attr)
-    %dd= resource.public_send(attr)
+  - (resource_class.fields.keys - %w{_id _type}).each do |attr|
+    %dt.color_field.label= resource_class.human_attribute_name(attr)
+    %dd
+      %pre.prettyprint
+        = resource.public_send(attr)

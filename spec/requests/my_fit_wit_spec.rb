@@ -70,7 +70,7 @@ describe "The my_fit_wit section" do
 
   it "should show you all your previous progress for a workout" do
     # create 10 exertions of the Bob ... the conquest
-    workouts = FactoryGirl.build_list(:workout, 10, user: @user)
+    FactoryGirl.build_list(:workout, 10, user: @user)
     visit my_fit_wit_fit_wit_workout_progress_path
     click_link "By workout"
     select :first, from: "fit_wit_workout_id"
@@ -89,23 +89,20 @@ describe "The my_fit_wit section" do
     page.should have_content("Lose 10 lbs")
   end
 
-  #it "should allow a user to complete a goal" do
-  #  @user.goals = []
-  #  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  #  puts @user.goals.size
-  #  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  #  @user.goals << FactoryGirl.build(:goal)
-  #  @user.save!
-  #  my_id = @user.goals.first.id
-  #  puts "**********************"
-  #  puts "goal_#{my_id}"
-  #  visit my_fit_wit_my_goals_path
-  #  save_and_open_page
-  #  within "#goal_#{my_id}" do
-  #    click_link "Complete"
-  #  end
-  #
-  #  page.should have_content("#{@user.goals.first.goal_name} completed today!")
-  #end
+  it "should allow a user to complete a goal" do
+    @user.goals = []
+    puts @user.goals.size
+    @user.goals << FactoryGirl.build(:goal)
+    @user.save!
+    my_id = @user.goals.first.id
+    visit my_fit_wit_my_goals_path
+    within "#goal_#{my_id}" do
+      click_link "Complete"
+    end
+    #save_and_open_page
+    within "#completed_goals_form" do
+      page.should have_content(@user.goals.first.goal_name)
+    end
+  end
 
 end
