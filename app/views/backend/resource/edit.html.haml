@@ -8,4 +8,4 @@
   %li.active= link_to "Edit", "#"
   %li= link_to "Destroy", resource_path, method: :delete, confirm: "Are you sure?"
 
-= render "form", attributes: attributes
+= render "form", attributes: resource_class.fields.keys - %w(_id _type created_at updated_at encrypted_password)
