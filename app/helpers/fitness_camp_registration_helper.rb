@@ -7,6 +7,10 @@ module FitnessCampRegistrationHelper
     content_tag("div", attributes, &block);
   end
 
+  def p
+    "fitness_camp_registration/cart_includes/view_cart/"
+  end
+
   def display_cc_errors(cc_err)
     # TODO still needed?? -- don't these come from active_merchant?
     out = "Please correct the following:"
