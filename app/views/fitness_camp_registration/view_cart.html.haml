@@ -20,6 +20,6 @@
 / time to display the camps they signed up for
 = form_tag :action => 'add_discounts' do
   %dl
-    = render(:partial => "fitness_camp_registration/cart_includes/cart_item_view", :collection => @cart.items)
+    = render(:partial => "fitness_camp_registration/cart_includes/cart_item", :collection => @cart.items)
   / if all pay_by_sessions are ready
   = submit_tag 'Proceed to health consent', :class => 'small-btn glass-b'

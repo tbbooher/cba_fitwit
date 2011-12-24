@@ -1,6 +1,6 @@
 %h3 Your Registrations
 %table
-  = render(:partial => "cart_item", :collection => cart.items)
+  = render(:partial => "simple_cart_item", :collection => cart.items)
   %tr
     %td{:colspan => "2"} Total fitness camps
     %td.total-cell= cart.total_items

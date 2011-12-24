@@ -15,7 +15,7 @@ class CartPresenter < BasePresenter
   end
 
   def show_camps(cart_items)
-    render :partial => "fitness_camp_registration/cart_includes/cart_item_view", :collection => cart_items
+    render :partial => "fitness_camp_registration/cart_includes/cart_item", :collection => cart_items
   end
 
 
