@@ -21,10 +21,6 @@ module FitnessCampRegistrationHelper
     out += "</ul>"
   end
 
-  def what_kind_of_vet(vet_status)
-    (vet_status == 1) ? "veteran" : "super-vet"
-  end
-
   def vet_savings(vet_status)
     if vet_status == 1
       savings = PRICE['first_time']-PRICE['veteran']

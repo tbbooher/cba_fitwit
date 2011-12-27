@@ -39,6 +39,7 @@ Cba::Application.routes.draw do
     resources :fit_wit_workouts
     resources :workouts
     resources :sponsors
+    resources :coupon_codes
     resources :news_items
 
     resources :events

@@ -30,6 +30,12 @@ module FitWitCustomUserMethods
     "#{first_name} #{last_name}"
   end
 
+  def veteran_title
+    #  [:veteran, :supervet, :newbie, :staff]
+    titles = {:vet => "veteran", :supervet => "super-vet", :newbie => "first-timer", :staff => "staff"}
+    titles[self.veteran_status]
+  end
+
   def short_name
     "#{first_name} #{last_name.first}"
   end
