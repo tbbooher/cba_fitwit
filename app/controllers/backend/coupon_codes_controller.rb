@@ -1,2 +1,2 @@
-class Backend::CouponCodeController < Backend::ResourceController
+class Backend::CouponCodesController < Backend::ResourceController
 end
