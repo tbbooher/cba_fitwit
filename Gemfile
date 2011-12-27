@@ -69,6 +69,7 @@ gem "nokogiri", "1.4.6"
 
 # Testing
 group :development, :test do
+  #gem 'linecache', git: 'git://github.com/mark-moseley/linecache.git'
   gem 'jasmine' #, '1.0.2.1'
   gem 'headless', '0.1.0'  
   gem 'rspec', '2.6.0'
