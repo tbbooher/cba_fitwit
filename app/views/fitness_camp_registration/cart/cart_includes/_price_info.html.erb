@@ -1,5 +1,5 @@
 <div>
-  <% unless @vet_status == :newbie %>
+  <% unless user.veteran_status == :newbie %>
   <p>
     <b>Congratulations, your veteran status saves you money.</b>
     (<%= link_to "Incorrect? correct your veteran status",
@@ -7,16 +7,14 @@
   </p>
 
   <p>
-    You are listed as a <%= @user.veteran_title %>,
-    which saves you <%= vet_savings(@vet_status) %> on each
+    You are listed as a <%= user.veteran_title %>,
+    which saves you <%= user.vet_savings %> on each
     FitnessCamp. Also, your veteran status enables you to pay by
     the session or establish a membership.
   </p>
 
   <p>Click <%= link_to "here", :action => "membership_info" %>
   to save money with the FitWit Club Membership option!</p>
-
-  <!-- TODO -- THIS NEEDS TO PULL FROM THE YAML FILE -->
 
   <ul>
     <li>$153/year savings if you are a super vet ($197/camp
@@ -42,6 +40,6 @@
   </p>
 
   <% end %>
-  <div style="clear:both"></div>
-</div><!-- end vet status -->
+  <div style="clear:both;"></div>
+</div>
 <h3>You are registering for the following fitness camp<%= @cart.items.size > 1 ? "s" : "" %>:</h3>

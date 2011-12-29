@@ -1,12 +1,12 @@
 %h3 Your Registrations
 %table
-  = render(:partial => "simple_cart_item", :collection => cart.items)
+  = render(:partial => "fitness_camp_registration/cart/simple_cart_item", :collection => cart.items)
   %tr
     %td{:colspan => "2"} Total fitness camps
     %td.total-cell= cart.total_items
 - unless @cart_view
-  %div{style: "width: 50%; float:left;"}
-    = button_to "Checkout", {:action => :view_cart}, class: 'small-btn glass-btn'
-  %div{style: "width: 50%; float:right;"}
+  .one_half
+    = button_to "Checkout", {:action => :cart}, class: 'small-btn glass-btn'
+  .one_half
     = button_to "Empty cart", fitness_camp_registration_empty_cart_path(@location), class: 'small-btn glass-btn'
   %br.clear

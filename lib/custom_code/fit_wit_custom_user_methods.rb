@@ -146,18 +146,12 @@ advice_from_physician_not_to_exercise  }
     [known_health_conditions, no_history]
   end
 
-  # END FITWIT CUSTOM METHODS
-
-#  def self.find_past(user_id)
-    # TODO -- what camps has this user done in the past?
-    # TODO -- IT IS AT THE TOP
-    # Registration.where
-    # this finds past camps for a user -- should be moved to the User object
-    # needs to be updated for time_slot relation with registration
-    # self.find :all,
-    #   :joins => {:time_slots => {:registrations => {:order => :user}}},
-    #   :conditions => ['users.id = ? AND fitness_camps.session_start_date <= ?',
-    #   user_id,Date.today().to_s(:db)]
-#  end
+  def vet_savings
+     if self.veteran_status == :veteran
+       CartItem::PRICE['traditional']['newbie'] - CartItem::PRICE['traditional']['veteran']
+     else
+       CartItem::PRICE['traditional']['newbie'] - CartItem::PRICE['traditional']['supervet']
+     end
+  end
 
 end

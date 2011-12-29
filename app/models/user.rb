@@ -92,19 +92,20 @@ class User
   ["female", 2]
   ]
 
+  # [:veteran, :supervet, :newbie, :staff]
   VETERAN_STATUS = [
           # DISP              # IN DB
-  ['No previous camps', 0], # no vet
-  ['One to three camps', 1], # vet
-  ['Four or more camps', 2] #super-vet
+  ['No previous camps', :newbie], # no vet
+  ['One to three camps', :veteran], # vet
+  ['Four or more camps', :supervet] #super-vet
   ]
 
   TSHIRT_SIZES = [
           #  Displayed        stored in db
-  ["Small", "s"],
-  ["Medium", "m"],
-  ["Large", "l"],
-  ["Extra Large", "xl"]
+  ["Small", :s],
+  ["Medium", :m],
+  ["Large", :l],
+  ["Extra Large", :xl]
   ]
 
   # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -49,7 +49,7 @@ FactoryGirl.define do
     date_of_birth "2008-12-22"
     height_inches 8
     height_feet 7
-    veteran_status 1
+    veteran_status :newbie
     number_of_logins 4
     has_active_subscription false
     password "secret"

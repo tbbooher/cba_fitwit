@@ -1,13 +1,17 @@
-first_time: 299
-friend_discount: 25
-veteran: 259
-super_vet: 219
+# [:veteran, :supervet, :newbie, :staff]
+traditional:
+  newbie: 299
+  veteran: 259
+  supervet: 219
 friend_discount:
-  vet: 25
-  virgin: 25
+  veteran: 25
+  supervet: 0
+  newbie: 25
   max_vet_friends: 6
 pay_by_session:
   0:
   12: 180
   16: 224
   20: 240
+setup_fee: 50
+monthly_membership_fee: 115
