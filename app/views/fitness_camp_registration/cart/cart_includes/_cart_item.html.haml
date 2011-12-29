@@ -1,0 +1,21 @@
+- present cart_item do |cart_item_presenter|
+  .info_box.info_box1.rounded
+    .title_box{style: "background-color: white; border:1px solid #cfcfcf;"}
+      %h4{style: "color:black;"}= cart_item.title_with_camp_dates
+    #price_info
+      - if @cart.new_membership
+        = render "#{p}membership_price_screen"
+      - else # they are signing up for a camp
+        - case @user.veteran_status
+          - when :vet
+            cart_item_presenter.show_vet_options
+          - when :supervet
+            - if cart_item.pay_by_session
+              = render "#{p}pay_by_session_form"
+            - else # pay for whole camp
+              = render "#{p}coupon_discount_form"
+          - when :newbie # no pay by session option
+            = render "#{p}coupon_discount_form"
+            = render partial: "#{p}friend_discount_form", locals: {cart_item_includes: cart_item}
+          - otherwise
+            You must be staff

@@ -2,6 +2,16 @@
 
 Cba::Application.routes.draw do
 
+  get "cart_item/add_friend"
+
+  get "cart_item/delete_friend"
+
+  get "cart_item/add_coupon"
+
+  get "cart_item/remove_coupon"
+
+  get "cart_item/set_payment_arrangement"
+
   namespace :backend do resources :offers end
 
   namespace :backend do

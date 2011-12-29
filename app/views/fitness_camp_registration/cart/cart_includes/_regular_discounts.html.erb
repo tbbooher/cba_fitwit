@@ -13,7 +13,7 @@
      <%= vet_savings(@vet_status) %>
    </span>
    <%= render :partial => 'friends_form',
-   :locals => {:cart_item => cart,
+   :locals => {:cart_item_includes => cart,
    :cart_item_count => item_count,
    :vet_status => @vet_status} %>
 <% else %> <!-- # we have a super vet -->
