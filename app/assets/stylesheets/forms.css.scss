@@ -13,6 +13,10 @@ $hud-background: lighten($color-base,50%);
 $color-action-delete: #99363C;
 $color-action-delete-text: white;
 
+#discount_forms {
+  padding:30px;
+}
+
 #wrapper #main_wrapper {
   form {
     /* border:1px solid green; */

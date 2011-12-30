@@ -20,37 +20,7 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def all_fitness_camps
-    # @mystates = Location.find_all_states
-    # TODO: change to active fitness camps and camps with time_slots
-    # we want all upcoming fitness camps
     @fitness_camps = FitnessCamp.upcoming_and_current
-  end
-
-  def view_cart
-    @user = current_user
-    if @user.has_active_subscription # they need to be blocked from registration
-      redirect_to(:action => 'no_need_to_register')
-    end
-    # now we check to see if they are adding a subscription
-    if params[:commit] == "Return to cart" # they submitted the consent form
-      if params[:agree_to_terms] == "yes" # then we add a membership
-        @cart.new_membership = true
-      else # they didn't agree to the          # terms as needed
-        flash[:notice] = "You must agree to the terms of this membership
-                          by clicking on the consent form below before proceeding."
-        redirect_to :action => :membership_info
-      end
-    end
-    @fit_wit_form = true
-    @include_jquery = true
-    @existing_time_slots = @user.time_slots
-    @pagetitle = 'View FitWit Cart'
-    @vet_status = current_user.veteran_status
-    delete_existing_camps_from_cart(@cart)
-    @cart_view =  true
-    # 0 \equiv normal
-    # 1 \equiv vet
-    # 2 \equiv supervet
   end
 
   def cart
@@ -68,16 +38,11 @@ class FitnessCampRegistrationController < ApplicationController
         redirect_to :action => :membership_info
       end
     end
-    @fit_wit_form = true
-    @include_jquery = true
     @existing_time_slots = @user.time_slots
     @pagetitle = 'View FitWit Cart'
     @vet_status = current_user.veteran_status
     delete_existing_camps_from_cart(@cart)
     @cart_view =  true
-    # 0 \equiv normal
-    # 1 \equiv vet
-    # 2 \equiv supervet
   end
 
   def add_to_cart
@@ -150,68 +115,6 @@ class FitnessCampRegistrationController < ApplicationController
       raise RuntimeError, "fit_wit_history update error"
       redirect_to :action => :view_cart
     end
-  end
-
-  def add_discounts
-    # need to move this to model -- shouldn't be here
-    # this function processes the data from our form
-    if request.post?
-      if params[:addfriend]
-        if params[:friends_name].empty?
-          flash[:notice] = "You must provide a name for your friend"
-        else
-          # keys gets the hash values, we want the first as an integer
-          item_count = params[:addfriend].keys.first.to_i
-          # we need to save all existing forms
-          @cart.items[item_count].bring_a_friend(params[:friends_name])
-        end
-        redirect_to :action => :view_cart
-      elsif params[:delfriend]
-        friend_info = params[:delfriend].keys.first.split('_').collect {|n| n.to_i}
-        # we need to save all existing forms
-        @cart.items[friend_info[0]].delete_a_friend(friend_info[1])
-        redirect_to :action => :view_cart
-      elsif !params[:coupon_code].blank?
-        code = CouponCode.find_by_code(params[:coupon_code])
-        msg = "Sorry, that coupon code was not found."
-        if code
-          if !code.live?
-            msg = "Sorry, that code is no longer active"
-            msg = "Sorry, that code has expired" if code.expired?
-            msg = "Sorry, that code has been used the maximum number of times" if code.used_up?
-          else
-            # Live coupon code
-            msg = "Coupon code applied!"
-            @cart.coupon_code = code
-          end
-        end
-        
-        flash[:notice] = msg
-        redirect_to :action => :view_cart
-      elsif params[:pay_by_session]
-        item_count = params[:pay_by_session].keys.first.to_i
-        # um, what is going on here?
-        @cart.items[item_count].pay_by_session = !@cart.items[item_count].pay_by_session
-        redirect_to :action => :view_cart
-      elsif params[:define_pay_by_sessions]
-        session_detail = params[:define_pay_by_sessions].keys.first.split('_').collect{|n| n.to_i}
-        @cart.items[session_detail[0]].number_of_sessions = session_detail[1]
-        redirect_to :action => :view_cart
-      else # let's move on to the next step
-        if @cart.items.collect{|i| \
-              [i.pay_by_session, i.number_of_sessions]}.any? {|u, v| u && v == 0}
-          flash[:notice] = "You need to select a session number"
-          redirect_to :action => :view_cart
-        else
-          @cart.items.each_with_index do |ci, i| # go through each item in cart
-            price = params["item#{i}"][:price].to_f
-            # price = fitness_camp_price(previous_camp_count = 0, friend_count = 0, pay_by_session = nil)
-            ci.price = price
-          end # cart item iteration
-          redirect_to :action => :consent
-        end # total price check
-      end # params check
-    end # post check
   end
 
   # def

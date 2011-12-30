@@ -2,52 +2,69 @@ class CartItemPresenter < BasePresenter
 
   presents :cart_item # registration stuff
 
-  PPATH = "fitness_camp_registration/cart_includes/view_cart/"
+  PPATH = "fitness_camp_registration/cart/cart_includes/cart_item_includes/"
+
+  def show_summary_table(user)
+    content_tag(:table, :id => "discounts_table", :class => "table-light highlight-row", style: "background: white;") {
+        content_tag(:tbody) {
+          display_standard_price +
+          display_coupon_discounts +
+          display_friend_discounts(user) +
+          display_final_price(user)
+        }
+    }
+  end
 
   def show_vet_options
     if cart_item.pay_by_session
       render "#{PPATH}pay_by_session_form"
     else # pay for whole camp
-      render "#{PPATH}coupon_discount_form"
-      render(partial: "#{PPATH}friend_discount_form", locals: {cart_item_includes: cart_item})
+      render "#{PPATH}coupon_discount_form" unless cart_item.coupon_discount > 0
+      render partial: "#{PPATH}friend_discount_form", locals: {cart_item: cart_item}
     end
   end
 
-
-  def show_friends_discount
-
+  def show_supervet_options
+    if cart_item.pay_by_session
+      render "#{PPATH}pay_by_session_form"
+    else # pay for whole camp
+      render "#{PPATH}coupon_discount_form"
+    end
   end
 
-  def show_coupon_code_discount
+  def show_newbie_options(user)
+    content_tag(:div, :id => "discount_forms") {
+      (cart_item.coupon_discount > 0 ? "".html_safe : render(partial: "#{PPATH}coupon_discount_form", locals: {cart_item: cart_item })) +
+      render(partial: "#{PPATH}friend_discount_form", locals: {cart_item: cart_item})
+    }
+  end
 
+  def display_final_price(user)
+    content_tag(:tr, "<th class='left'>Final Price</td><td id='final_camp_price'>#{number_to_currency(cart_item.camp_price(user)/100)}</td>".html_safe)
+  end
+
+  def display_friend_discounts(user)
+    rows = ""
+    if cart_item.friends.size > 0
+      cart_item.friends.each do |friend|
+        rows += render(partial:"#{PPATH}friend_discount_row", locals: {friend: friend, savings: PRICE['friend_discount'][user.veteran_status.to_s], cart_item: cart_item})
+      end
+    end
+    rows.html_safe
+  end
+
+  def display_coupon_discounts
+    if cart_item.coupon_discount > 0
+      coupon = CouponCode.find(cart_item.coupon_code_id)
+      render partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/coupon_discount_row", locals: {coupon: coupon}
+    end
   end
 
   def display_standard_price
-    out = "<span class=\"price_desc\">Standard price is</span>\n"
-    out += "<span class=\"price\">#{number_to_currency(PRICE['first_time'])}</span>\n"
-    out += "<div style=\"clear:both;\"></div>"
-    out
-  end
-
-  def display_friend_discount(index, vet_status)
-    if vet_status == 0
-      if index == 0
-        out = number_to_currency(-PRICE['friend_discount']['virgin'])
-      else
-        out = 'thanks'
-      end # index == 0 check
-    else
-      if index < PRICE['friend_discount']['max_vet_friends']
-        out = number_to_currency(-PRICE['friend_discount']['vet'])
-      else
-        out = 'wow, thanks'
-      end
-    end
-    out
+    content_tag(:tr, content_tag(:th, "Standard price:", class: 'left') + content_tag(:td, number_to_currency(PRICE['traditional']['newbie'])), id: 'standard_price')
   end
 
   def display_coupon_code_discount(coupon_code)
-    #discount = PRICE['first_time'] - coupon_code.price
     discount = coupon_code.price
     number_to_currency(discount)
   end

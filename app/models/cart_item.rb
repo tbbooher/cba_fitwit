@@ -1,8 +1,10 @@
+require 'digest/sha1'
+
 class CartItem
 
 #  has_many :friends
-  attr_reader :timeslot
-  attr_accessor :friends, :payment_arrangement, :number_of_sessions, :camp_price, :coupon_discount
+  attr_reader :timeslot, :unique_id
+  attr_accessor :friends, :payment_arrangement, :number_of_sessions, :camp_price, :coupon_discount, :coupon_code_id
 
   PRICE = YAML.load_file("#{Rails.root}/config/prices.yml")
 
@@ -18,9 +20,9 @@ class CartItem
     @friends = []
     @payment_arrangement= nil
     @coupon_discount = 0
+    @coupon_code = 'no coupon'
     @number_of_sessions = 0
-#    @new_membership = false
-    #    @quantity = 1
+    @unique_id = Digest::SHA1.hexdigest Time.now.to_s
   end
   
   def bring_a_friend(friend_name)
@@ -55,7 +57,7 @@ class CartItem
         vs = user.veteran_status.to_s
         (PRICE['traditional'][vs] -
             PRICE['friend_discount'][vs]*self.friend_count -
-            self.coupon_discount)*100
+            self.coupon_discount/100)*100
     end
   end
 
