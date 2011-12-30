@@ -1,1 +1,5 @@
-coupon discount form
+#coupon_discount_form
+  = form_tag add_coupon_path, remote: true do
+    = text_field_tag "coupon_code"
+    = hidden_field_tag "unique_id", cart_item.unique_id
+    = submit_tag "Add coupon", class: 'small-btn'

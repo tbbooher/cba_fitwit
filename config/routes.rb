@@ -2,15 +2,15 @@
 
 Cba::Application.routes.draw do
 
-  get "cart_item/add_friend"
+  #get "cart_item/add_friend"
 
-  get "cart_item/delete_friend"
+  #get "cart_item/delete_friend"
 
-  get "cart_item/add_coupon"
+  #get "cart_item/add_coupon"
 
-  get "cart_item/remove_coupon"
+  #get "cart_item/remove_coupon"
 
-  get "cart_item/set_payment_arrangement"
+  #get "cart_item/set_payment_arrangement"
 
   namespace :backend do resources :offers end
 
@@ -109,9 +109,13 @@ Cba::Application.routes.draw do
   match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
   match 'fitness_camp_registration/release_and_waiver_of_liability'
   match 'fitness_camp_registration/terms_of_participation'
-  match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#view_cart"
+  match 'cart_item/add_friend' => "cart_item#add_friend", as: :add_friend
+  match "cart_item/remove_friend/:friend_name/:unique_id" => "cart_item#remove_friend", as: :remove_friend
+  match 'cart_item/add_coupon' => "cart_item#add_coupon", as: :add_coupon
+  match "cart_item/remove_coupon/:friend_name/:unique_id" => "cart_item#remove_coupon", as: :remove_coupon
+  #match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#cart"
   match 'fitness_camp_registration/cart' => "fitness_camp_registration#cart"
-  match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
+  #match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
   match 'fitness_camp_registration/save_order'
 
   get 'fitness_camp_registration/index'

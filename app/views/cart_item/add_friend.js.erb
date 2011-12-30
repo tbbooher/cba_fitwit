@@ -1,0 +1,7 @@
+<% if @too_many_friends %>
+ $("#flashes").html("<div class='message msg-error'><%= "Thanks, but no discounts after #{@max_friends} friends."%></div>");
+<% else %>
+$('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/friend_discount_row",
+ locals: {friend: @new_friend, savings: @savings, cart_item: @cart_item})) %>");
+$('#final_camp_price').html("<%= number_to_currency(@updated_camp_price) %>");
+<% end %>

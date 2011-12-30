@@ -1,0 +1,6 @@
+$("#flashes").html("<div class='message <%= @category %>'><%= @notice %></div>");
+<% if @updated_camp_price %>
+ $('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/coupon_discount_row", locals: {coupon: @coupon})) %>");
+ $('#final_camp_price').html("<%= number_to_currency(@updated_camp_price) %>");
+ $('#coupon_discount_form').remove();
+<% end %>

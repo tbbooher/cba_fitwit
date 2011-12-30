@@ -8,14 +8,11 @@
       - else # they are signing up for a camp
         - case @user.veteran_status
           - when :vet
-            cart_item_presenter.show_vet_options
+            = cart_item_presenter.show_vet_options
           - when :supervet
-            - if cart_item.pay_by_session
-              = render "#{p}pay_by_session_form"
-            - else # pay for whole camp
-              = render "#{p}coupon_discount_form"
+            = cart_item_presenter.show_supervet_options
           - when :newbie # no pay by session option
-            = render "#{p}coupon_discount_form"
-            = render partial: "#{p}friend_discount_form", locals: {cart_item_includes: cart_item}
+            = cart_item_presenter.show_newbie_options(@user)
           - otherwise
             You must be staff
+        = cart_item_presenter.show_summary_table(@user)

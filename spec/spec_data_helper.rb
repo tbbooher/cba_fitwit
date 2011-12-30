@@ -38,6 +38,7 @@ module SpecDataHelper
   # * maintainer@iboard.cc
   # * staff@iboard.cc
   def create_default_userset
+    puts "creating default userset"
     User.unscoped.delete_all
     [
       #ROLES = [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin]
@@ -57,6 +58,27 @@ module SpecDataHelper
         :name  => 'testmax',
         :roles_mask => 1,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
+      },
+      {
+        :email => 'veteran@fitwit.com',
+        :name  => 'veteran',
+        :roles_mask => 1,
+        :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret',
+        :veteran_status => :veteran
+      },
+      {
+        :email => 'supervet@fitwit.com',
+        :name  => 'supervet',
+        :roles_mask => 1,
+        :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret',
+        :veteran_status => :supervet
+      },
+      {
+        :email => 'newbie@fitwit.com',
+        :name  => 'newbie',
+        :roles_mask => 1,
+        :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret',
+        :veteran_status => :newbie
       },
       {
         :email => 'author@iboard.cc',

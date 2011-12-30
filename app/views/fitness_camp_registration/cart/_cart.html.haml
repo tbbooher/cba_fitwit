@@ -6,7 +6,7 @@
     %td.total-cell= cart.total_items
 - unless @cart_view
   .one_half
-    = button_to "Checkout", {:action => :cart}, class: 'small-btn glass-btn'
+    = button_to "Checkout", fitness_camp_registration_cart_path, class: 'small-btn glass-btn'
   .one_half
     = button_to "Empty cart", fitness_camp_registration_empty_cart_path(@location), class: 'small-btn glass-btn'
   %br.clear
