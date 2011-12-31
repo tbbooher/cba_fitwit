@@ -39,6 +39,8 @@ describe "The user registration process" do
     @fc2 = FactoryGirl.create(:a_camp)
     @fc2.time_slots << FactoryGirl.create(:six_am_sold_out, fitness_camp: @fc2)
     @cpn = FactoryGirl.create(:coupon_code)
+    @cpn.expires_at = 10.weeks.from_now
+    @cpn.save
   end
 
   it "should allow a non-registered user to add a class to their cart" do
@@ -65,12 +67,14 @@ describe "The user registration process" do
     page.should have_content("Signed in successfully.")
   end
 
-  context "a newbie views their cart" do
+  context "if a newbie views their cart they " do
     before(:each) do
       log_in_as 'newbie@fitwit.com', 'thisisnotsecret'
       visit fitness_camp_registration_all_fitness_camps_path
       click_on "6:00AM to 7:00AM"
       click_on "Checkout"
+      CouponCode.destroy_all
+      @cpn = FactoryGirl.create(:coupon_code)
     end
     it "should show newbie information for a first time camper" do
       page.should have_content "If you have completed a Fitness Camp before"
@@ -90,22 +94,45 @@ describe "The user registration process" do
     end
 
     it "should let them add a valid coupon", js: true do
+      @cpn.expires_at = 10.weeks.from_now
+      @cpn.save
       fill_in "coupon_code", with: @cpn.code
       click_on "Add coupon"
-      page.should have_content "Discount for coupon"
+      page.should have_content "Coupon code #{@cpn.code}"
     end
 
-    describe "should not accept a bogus coupon" do
+    describe "should not accept a bogus coupon and specifically " do
       it "should reject an invalid coupon code", js: true do
         fill_in "coupon_code", with: "bad cat"
         click_on "Add coupon"
-        page.should have_content "that coupon code is invalid"
+        page.should have_content "That code was not found"
       end
-      it "should reject an expired coupon code" do
-        pending
+      it "should reject an expired coupon code", js: true do
+        @cpn.expires_at = 10.weeks.ago
+        @cpn.save
+        fill_in "coupon_code", with: @cpn.code
+        click_on "Add coupon"
+        page.should have_content "Sorry, that code has expired"
       end
-      it "should reject an overused coupon code" do
-        pending
+      it "should reject an overused coupon code", js: true do
+        @cpn.expires_at = 10.weeks.from_now
+        @cpn.uses = 11
+        @cpn.max_uses = 10
+        @cpn.save
+        fill_in "coupon_code", with: @cpn.code
+        click_on "Add coupon"
+        page.should have_content "Sorry, that code has been used the maximum number of times"
+        #sleep(5)
+        # should we check the cart price for no change
+      end
+      it "should reject an inactive coupon code", js: true do
+        @cpn.expires_at = 10.weeks.from_now
+        @cpn.active = false
+        @cpn.save
+        fill_in "coupon_code", with: @cpn.code
+        click_on "Add coupon"
+        page.should have_content "Sorry, that code is no longer active"
+        #sleep()
       end
     end
 
@@ -113,8 +140,6 @@ describe "The user registration process" do
       pending
     end
   end
-
-
 
 #
 #  it "should show take a user through the most benign registration process" do

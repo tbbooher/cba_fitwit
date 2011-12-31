@@ -3,6 +3,7 @@ class CartItemPresenter < BasePresenter
   presents :cart_item # registration stuff
 
   PPATH = "fitness_camp_registration/cart/cart_includes/cart_item_includes/"
+  UI_BUTTON = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 
   def show_summary_table(user)
     content_tag(:table, :id => "discounts_table", :class => "table-light highlight-row", style: "background: white;") {
@@ -15,24 +16,23 @@ class CartItemPresenter < BasePresenter
     }
   end
 
-  def show_vet_options
-    if cart_item.pay_by_session
-      render "#{PPATH}pay_by_session_form"
-    else # pay for whole camp
-      render "#{PPATH}coupon_discount_form" unless cart_item.coupon_discount > 0
-      render partial: "#{PPATH}friend_discount_form", locals: {cart_item: cart_item}
-    end
+  def show_membership_sign_up
+    render "#{PPATH}membership_sign_up"
   end
 
-  def show_supervet_options
-    if cart_item.pay_by_session
-      render "#{PPATH}pay_by_session_form"
-    else # pay for whole camp
-      render "#{PPATH}coupon_discount_form"
-    end
+  def give_option_to_pay_by_session
+      content_tag(:div, id: "session_options") do
+          (content_tag(:h4, "Select to pay by session") +
+            [12,16,20].map { |s|
+              content_tag(:span, link_to("#{s} Sessions", add_sessions_to_cart_path(s, cart_item.unique_id), remote: true),
+                          class: "#{UI_BUTTON} #{cart_item.number_of_sessions.to_i == s.to_i ? "ui-state-hover" : ""}")
+            }.join("\n").html_safe +
+           content_tag(:div, link_to("You can still pay using the traditional method", set_traditional_path(cart_item.unique_id), remote: true))
+          )
+      end
   end
 
-  def show_newbie_options(user)
+  def show_traditional_options(user)
     content_tag(:div, :id => "discount_forms") {
       (cart_item.coupon_discount > 0 ? "".html_safe : render(partial: "#{PPATH}coupon_discount_form", locals: {cart_item: cart_item })) +
       render(partial: "#{PPATH}friend_discount_form", locals: {cart_item: cart_item})

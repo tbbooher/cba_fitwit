@@ -113,6 +113,8 @@ Cba::Application.routes.draw do
   match "cart_item/remove_friend/:friend_name/:unique_id" => "cart_item#remove_friend", as: :remove_friend
   match 'cart_item/add_coupon' => "cart_item#add_coupon", as: :add_coupon
   match "cart_item/remove_coupon/:friend_name/:unique_id" => "cart_item#remove_coupon", as: :remove_coupon
+  match "cart_item/add_pay_by_session/:number_of_sessions/:unique_id" => "cart_item#add_pay_by_session", as: :add_sessions_to_cart
+  match "cart_item/set_traditional/:unique_id" => "cart_item#set_traditional", as: :set_traditional
   #match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#cart"
   match 'fitness_camp_registration/cart' => "fitness_camp_registration#cart"
   #match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
