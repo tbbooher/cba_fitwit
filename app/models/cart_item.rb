@@ -64,7 +64,7 @@ class CartItem
   private
 
   def session_payment(num_sessions)
-    PRICE['pay_by_session'][num_sessions]
+    PRICE['pay_by_session'][num_sessions.to_i]
   end
 
 end

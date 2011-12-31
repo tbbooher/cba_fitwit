@@ -17,6 +17,7 @@
 // require at_top/jquery.prettyphoto
 // require at_top/prettyphoto_init
 // require at_top/comment-reply
+//= require at_bottom/cold_custom
 
 //= require jquery_ujs
 //= require jquery-ui.min

@@ -2,17 +2,28 @@
   .info_box.info_box1.rounded
     .title_box{style: "background-color: white; border:1px solid #cfcfcf;"}
       %h4{style: "color:black;"}= cart_item.title_with_camp_dates
-    #price_info
-      - if @cart.new_membership
-        = render "#{p}membership_price_screen"
-      - else # they are signing up for a camp
-        - case @user.veteran_status
-          - when :vet
-            = cart_item_presenter.show_vet_options
-          - when :supervet
-            = cart_item_presenter.show_supervet_options
-          - when :newbie # no pay by session option
-            = cart_item_presenter.show_newbie_options(@user)
-          - otherwise
-            You must be staff
-        = cart_item_presenter.show_summary_table(@user)
+    %ul#payment_arrangement.tabs
+      - unless @user.veteran_status == :newbie
+        %li
+          %a.tab{:href => "#"} Membership
+      %li.current
+        %a.tab{:href => "#"} Traditional
+      %li
+        %a.tab{:href => "#"} Pay by Session
+    - unless @user.veteran_status == :newbie
+      #initial_member.tab_content{style: "position: absolute; left: -10000px;"}
+        = cart_item_presenter.show_membership_sign_up
+    #traditional.tab_content{style: "position: absolute; left: -10000px;"}
+      #price_info
+        %p
+          Invite your friends and receive a
+          = number_to_currency(PRICE['friend_discount'][@user.veteran_status.to_s])
+          discount of
+          = PRICE['friend_discount']['max_vet_friends']
+          for each friend (up to six).
+        = cart_item_presenter.show_traditional_options(@user)
+    #pay_by_session.tab_content{style: "position: absolute; left: -10000px;"}
+      %p
+        = cart_item_presenter.give_option_to_pay_by_session
+    #final_payment_table{style: "clear:both;"}
+      = cart_item_presenter.show_summary_table(@user)

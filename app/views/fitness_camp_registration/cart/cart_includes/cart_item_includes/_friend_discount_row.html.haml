@@ -1,4 +1,4 @@
-%tr{id: friend.parameterize}
+%tr{id: friend.parameterize, class: 'friend_row'}
   %th.left="Discount for #{friend}"
   %td= number_to_currency(-savings)
   %td= link_to "oops, remove #{friend}", remove_friend_path(url_encode(friend), cart_item.unique_id), remote: true

@@ -1,0 +1,9 @@
+$('.friend_row').remove();
+$('.coupon_row').remove();
+if ($("#pay_by_session_row").size() == 0) {
+  $('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row")) %>");
+} else {
+  $("#pay_by_session_row").remove();
+  $('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row")) %>");
+}
+$('#final_camp_price').html("<%= number_to_currency(@updated_camp_price/100) %>");

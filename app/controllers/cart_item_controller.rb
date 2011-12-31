@@ -18,6 +18,10 @@ class CartItemController < ApplicationController
     @updated_camp_price =  @cart_item.camp_price(@user)/100
   end
 
+  def set_traditional
+    @cart_item.payment_arrangement = :traditional
+  end
+
   def add_coupon
     @coupon_code = params[:coupon_code]
     @category = 'message msg-error'
@@ -48,7 +52,12 @@ class CartItemController < ApplicationController
 
   end
 
-  def remove_coupon
+  def add_pay_by_session
+    @session_count = params[:number_of_sessions].to_i
+    @session_price = PRICE['pay_by_session'][@session_count]
+    @cart_item.payment_arrangement = :pay_by_session
+    @cart_item.number_of_sessions = @session_count
+    @updated_camp_price = @cart_item.camp_price(@user)
   end
 
   def set_payment_arrangement
