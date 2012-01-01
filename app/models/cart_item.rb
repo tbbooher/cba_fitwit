@@ -61,6 +61,23 @@ class CartItem
     end
   end
 
+  def show_payment_method_text
+    # End this sentence :
+    # You are currently . . .
+    case self.payment_arrangement
+      when :initial_member
+        "starting a new membership"
+      when :member
+        "on an active membership"
+      when :staff
+        "a staff member"
+      when :pay_by_session
+        "paying by session"
+      else
+        "paying using traditional method"
+    end
+  end
+
   private
 
   def session_payment(num_sessions)

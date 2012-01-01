@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/jnicklas/capybara.git
-  revision: c32f9a95f5dadfaf8c6e40b049c9bc0a8ceba43e
+  revision: fcbad2540f736cc60cec6f72e2ff85c034cfb4ee
   specs:
     capybara (1.1.1)
       mime-types (>= 1.16)
@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: 0dc1dff2566c57e306c665adef5ee82bc3698329
+  revision: 2296d25ce36d41f31b72638d9f0fdb92ffc3d513
   specs:
     simple_form (2.0.0.dev)
       actionpack (~> 3.0)
@@ -114,17 +114,18 @@ GEM
       sass-rails (~> 3.1.0)
     braintree (2.13.1)
       builder (>= 2.0.0)
-    bson (1.4.0)
-    bson_ext (1.4.0)
+    bson (1.5.2)
+    bson_ext (1.5.2)
+      bson (= 1.5.2)
     builder (3.0.0)
     cancan (1.6.7)
-    childprocess (0.2.2)
+    childprocess (0.2.4)
       ffi (~> 1.0.6)
-    cocaine (0.2.0)
+    cocaine (0.2.1)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.1.3)
+    coffee-script-source (1.2.0)
     cucumber (1.0.6)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
@@ -136,18 +137,18 @@ GEM
       cucumber (~> 1.0.0)
       nokogiri (>= 1.4.6)
     database_cleaner (0.7.0)
-    devise (1.5.1)
+    devise (1.5.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
     diff-lcs (1.1.3)
-    em-websocket (0.3.5)
+    em-websocket (0.3.6)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     erubis (2.7.0)
     escape_utils (0.2.4)
     eventmachine (0.12.10)
-    execjs (1.2.9)
+    execjs (1.2.13)
       multi_json (~> 1.0)
     factory_girl (2.2.0)
       activesupport
@@ -164,18 +165,19 @@ GEM
     gherkin (2.4.21)
       json (>= 1.4.6)
     googlecharts (1.6.8)
-    guard (0.8.8)
+    guard (0.9.4)
+      ffi (>= 0.5.0)
       thor (~> 0.14.6)
     guard-livereload (0.3.1)
       em-websocket (>= 0.2.0)
       guard (>= 0.4.0)
       multi_json (~> 1.0.3)
-    guard-rspec (0.5.7)
+    guard-rspec (0.5.11)
       guard (>= 0.8.4)
-    guard-spork (0.3.2)
+    guard-spork (0.4.1)
       guard (>= 0.8.4)
       spork (>= 0.8.4)
-    haml (3.1.3)
+    haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
@@ -194,16 +196,18 @@ GEM
       rspec (>= 1.3.1)
       selenium-webdriver (>= 0.1.3)
     jasmine-core (1.1.0)
-    jquery-rails (1.0.18)
+    jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.1)
-    json_pure (1.6.1)
+    json (1.6.4)
+    json_pure (1.6.4)
     jsort (0.0.2)
       jquery-rails
-    kaminari (0.12.4)
-      rails (>= 3.0.0)
-    kgio (2.6.0)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
+    kgio (2.7.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     libv8 (3.3.10.4)
@@ -218,8 +222,8 @@ GEM
     money (4.0.1)
       i18n (~> 0.4)
       json
-    mongo (1.4.0)
-      bson (= 1.4.0)
+    mongo (1.5.2)
+      bson (= 1.5.2)
     mongoid (2.3.4)
       activemodel (~> 3.1)
       mongo (~> 1.3)
@@ -231,13 +235,13 @@ GEM
       rspec (~> 2)
     mongoid-tree (0.6.2)
       mongoid (~> 2.0)
-    mongoid_fulltext (0.5.4)
+    mongoid_fulltext (0.5.6)
       unicode_utils (~> 1.0.0)
     mongoid_spacial (0.2.16)
       activesupport (~> 3.0)
       mongoid (>= 2.3.0)
     mongoid_taggable (0.1.7)
-    multi_json (1.0.3)
+    multi_json (1.0.4)
     multipart-post (1.1.4)
     nifty-generators (0.4.6)
     nokogiri (1.4.6)
@@ -272,7 +276,7 @@ GEM
     posix-spawn (0.3.6)
     progress_upload_field (0.0.1)
       jquery-rails
-    rack (1.3.5)
+    rack (1.3.6)
     rack-cache (1.1)
       rack (>= 0.4)
     rack-mount (0.8.3)
@@ -307,8 +311,7 @@ GEM
       thor (~> 0.14.6)
     raindrops (0.8.0)
     rake (0.9.2.2)
-    rb-fsevent (0.4.3.1)
-    rdoc (3.11)
+    rdoc (3.12)
       json (~> 1.4)
     redcarpet (1.17.2)
     responders (0.6.4)
@@ -329,16 +332,16 @@ GEM
     ruby-growl (3.0)
     ruby-openid (2.1.8)
     rubyzip (0.9.5)
-    sass (3.1.10)
+    sass (3.1.12)
     sass-rails (3.1.5)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
-    selenium-webdriver (2.13.0)
+    selenium-webdriver (2.15.0)
       childprocess (>= 0.2.1)
       ffi (~> 1.0.9)
-      json_pure
+      multi_json (~> 1.0.4)
       rubyzip
     simplecov (0.5.4)
       multi_json (~> 1.0.3)
@@ -356,7 +359,7 @@ GEM
     stateflow (0.4.2)
     syntax (1.0.0)
     term-ansicolor (1.0.7)
-    test-unit (2.4.2)
+    test-unit (2.4.3)
     therubyracer (0.9.9)
       libv8 (~> 3.3.10)
     thor (0.14.6)
@@ -365,7 +368,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
-    uglifier (1.1.0)
+    uglifier (1.2.1)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     unicode_utils (1.0.0)
@@ -379,7 +382,7 @@ GEM
     wkhtmltopdf-binary (0.9.5.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    yard (0.7.3)
+    yard (0.7.4)
 
 PLATFORMS
   ruby
@@ -393,7 +396,7 @@ DEPENDENCIES
   autotest-growl
   autotest-rails
   bootstrap-sass (= 1.4.1)
-  bson_ext (>= 1.4.0)
+  bson_ext
   cancan
   capybara!
   coffee-script
@@ -423,8 +426,8 @@ DEPENDENCIES
   kaminari
   launchy (= 2.0.5)
   mocha
-  mongo (= 1.4.0)
-  mongoid (~> 2.3.0)
+  mongo
+  mongoid
   mongoid-paperclip
   mongoid-rspec
   mongoid-tree
@@ -443,7 +446,6 @@ DEPENDENCIES
   rails
   rails-erd
   rails3-generators
-  rb-fsevent
   rdoc
   redcarpet (= 1.17.2)
   responders
