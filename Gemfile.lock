@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: 2296d25ce36d41f31b72638d9f0fdb92ffc3d513
+  revision: 81ac8fa9b206f3654e799d50c97e67de1df23c5d
   specs:
     simple_form (2.0.0.dev)
       actionpack (~> 3.0)
@@ -311,6 +311,7 @@ GEM
       thor (~> 0.14.6)
     raindrops (0.8.0)
     rake (0.9.2.2)
+    rb-fsevent (0.4.3.1)
     rdoc (3.12)
       json (~> 1.4)
     redcarpet (1.17.2)
@@ -446,6 +447,7 @@ DEPENDENCIES
   rails
   rails-erd
   rails3-generators
+  rb-fsevent
   rdoc
   redcarpet (= 1.17.2)
   responders
