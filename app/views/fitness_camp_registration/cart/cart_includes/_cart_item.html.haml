@@ -15,6 +15,7 @@
         = cart_item_presenter.show_membership_sign_up
     #traditional.tab_content{style: "position: absolute; left: -10000px;"}
       #price_info
+        = cart_item_presenter.show_option_to_switch_to_traditional
         %p
           Invite your friends and receive a
           = number_to_currency(PRICE['friend_discount'][@user.veteran_status.to_s])

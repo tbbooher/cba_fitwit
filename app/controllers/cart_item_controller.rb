@@ -1,5 +1,6 @@
 class CartItemController < ApplicationController
-  before_filter :find_cart_item
+  before_filter :find_cart_item, except: [:get_friend_savings]
+
   def add_friend
     @new_friend = params[:friend_name]
     @max_friends = PRICE['friend_discount']['max_vet_friends']
@@ -9,7 +10,7 @@ class CartItemController < ApplicationController
     else
       @too_many_friends = true
     end
-    @savings = PRICE['friend_discount'][@user.veteran_status.to_s]
+    @savings = get_friend_savings(@user)
   end
 
   def remove_friend
@@ -19,7 +20,16 @@ class CartItemController < ApplicationController
   end
 
   def set_traditional
-    @cart_item.payment_arrangement = :traditional
+    unless @cart_item.payment_arrangement == :traditional
+      @cart_item.payment_arrangement = :traditional
+      @savings = get_friend_savings(@user)
+    if (@cart_item.coupon_discount > 0)
+      @coupon = CouponCode.find(@cart_item.coupon_code_id)
+    end
+      @updated_camp_price =  @cart_item.camp_price(@user)/100
+    else
+      render nothing: true
+    end
   end
 
   def add_coupon
@@ -68,6 +78,10 @@ class CartItemController < ApplicationController
   def find_cart_item
     @cart_item = session[:cart].items.select{|i| i.unique_id == params[:unique_id]}.first
     @user = current_user
+  end
+
+  def get_friend_savings(user)
+    PRICE['friend_discount'][user.veteran_status.to_s]
   end
 
 end

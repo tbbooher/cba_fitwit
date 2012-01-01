@@ -1,9 +1,21 @@
+// remove summary items
 $('.friend_row').remove();
 $('.coupon_row').remove();
+// update the summary table payment method description
+$('#payment_method_description').html("You are currently <%= @cart_item.show_payment_method_text %>.")
+// give the user the options to switch back
+$('#traditional_switch_link').html("<%= escape_javascript(link_to("Switch to traditional", set_traditional_path(@cart_item.unique_id), remote: true)) %>")
+// set the flash
+$("#flashes").html("<div class='message msg-tip'>Switched to pay by session</div>");
+// if pay by session row doesn't exist, add it
 if ($("#pay_by_session_row").size() == 0) {
-  $('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row")) %>");
-} else {
+  // $('#standard_price').remove()
+  $('#final_price_row').before("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row",
+  locals: {session_count: @session_count, session_price: @session_price})) %>");
+} else { // remove and update it
   $("#pay_by_session_row").remove();
-  $('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row")) %>");
+  $('#final_price_row').before("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row",
+  locals: {session_count: @session_count, session_price: @session_price})) %>");
 }
+// update the final camp price
 $('#final_camp_price').html("<%= number_to_currency(@updated_camp_price/100) %>");

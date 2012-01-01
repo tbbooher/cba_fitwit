@@ -1,1 +1,27 @@
-alert("now_traditional");
+// notify the user
+ $("#flashes").html("<div class='message msg-tip'>Switched to traditional payment</div>");
+
+//update the payment method description
+$('#payment_method_description').html("You are currently <%= @cart_item.show_payment_method_text %>.")
+
+//remove pay_by_session_row
+$("#pay_by_session_row").remove();
+
+// empty the switch link
+$("#traditional_switch_link").html("");
+
+//display standard price (not needed now)
+
+// add friend discounts
+<% @cart_item.friends.each do |friend| %>
+$('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/friend_discount_row",
+ locals: {friend: friend, savings: @savings, cart_item: @cart_item})) %>");
+<% end %>
+
+// add coupon discount
+<% if @coupon %>
+  $('#standard_price').after("<%= escape_javascript(render(partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/coupon_discount_row", locals: {coupon: @coupon})) %>");
+<% end %>
+
+// update final price
+$('#final_camp_price').html("<%= number_to_currency(@updated_camp_price) %>");
