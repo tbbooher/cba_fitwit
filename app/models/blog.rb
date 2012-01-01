@@ -26,7 +26,7 @@ class Blog
                                 {:user_role => nil } 
                               )}
                               
-  scope :public, any_of( 
+  scope :public_blogs, any_of( 
                    {:user_role => 0},
                    {:user_role => nil} 
                  )
@@ -70,7 +70,56 @@ class Blog
   # @return [Boolean] true if user_role is not defined or eql 0
   def public?
     self.user_role == nil || self.user_role == 0
-  end  
+  end
+
+  # @param [User] _user - the current user or nil
+  # @param [Symbol] _role - the current user's role
+  # @param [Boolean] _draft_mode - select for draft-mode if true
+  # @return [Criteria] for all visible postings for this user
+  def postings_for_user_and_mode(_user,_draft_mode=false)
+    # if no user is given then return only public and online postings
+    unless _user
+      _online =  self.postings.online.only(:id).map(&:id)
+      _public =  self.postings.publics.only(:id).map(&:id) 
+      _published=self.postings.published.only(:id).map(&:id) 
+      return self.postings.for_ids(_online & _public & _published)
+    end
+
+    # if user is moderator and in draft_mode then return all postings
+    if _draft_mode && _user.role?(:moderator)
+      return self.postings.all
+    end
+
+    # The mongo-driver is not able to combine two any_of ($or) as "and"
+    #
+    # model.any_of( :f1 => '1', :f2 => '2').any_of( :d1 => 'x', :d2 => 'y')
+    # is not equal to
+    #    select * from model where ( f1 = 1 OR f2 = 2) AND ( d1 = x OR d2 = y ) 
+    # but it will act as
+    #    select * from model where ( f1 = 1 OR f2 = 2 OR d1 = x OR d2 = y )
+    #
+    # Posting scopes using any_of are:
+    #   * addressed_to(user_id)
+    #   * online
+    
+    # public or addressed to _user
+    _addressed_ids = self.postings.addressed_to(_user.id).only(:id).map(&:id)
+    # in range of publish_at and enxpire_at
+    _online_ids = self.postings.online.only(:id).map(&:id)
+
+    unless _user.role?(:moderator)
+      unless _draft_mode
+        _visible_ids = _online_ids & self.postings.published.only(:id).map(&:id) & _addressed_ids
+      else
+        _visible_ids = _addressed_ids
+      end
+    else
+      _visible_ids = _online_ids & self.postings.published.only(:id).map(&:id)
+    end
+
+    self.postings.for_ids( _visible_ids )
+  end
+  
 
 private
   # ContentItems need to override the abstract method but a Blog didn't
