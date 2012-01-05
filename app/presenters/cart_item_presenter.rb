@@ -9,11 +9,33 @@ class CartItemPresenter < BasePresenter
     content_tag(:div, "You are currently #{cart_item.show_payment_method_text}.", id: "payment_method_description") +
     content_tag(:table, :id => "discounts_table", :class => "table-light highlight-row", style: "background: white;") {
         content_tag(:tbody) {
-          display_standard_price +
+          display_standard_price(user) +
           summary_table_content(user) +
           display_final_price(user)
         }
     }
+  end
+
+  def show_tabs(user)
+      # cases
+      # -----
+      # they are a newbie --> no membership option
+      # they can do init mem + other two
+      # they have a membership (do this later)
+      tabs = ['Membership', 'Traditional', 'Pay by Session']
+      [:initial_member, :traditional, :pay_by_session].each_with_index do |tab, i|
+        css_class = find_css_class(user)
+        content_tag(:li, content_tag(:a, tabs[i], href: '#'), class: css_class) unless (user.veteran_status == :newbie && tab == :initial_member)
+      end
+  end
+
+  def find_css_class(user)
+    #
+    if user.veteran_status == :newbie # it can't be (!)
+
+    else
+
+    end
   end
 
   def summary_table_content(user)
@@ -71,25 +93,22 @@ class CartItemPresenter < BasePresenter
   end
 
   def display_friend_discounts(user)
-    rows = ""
-    if cart_item.friends.size > 0
-      cart_item.friends.each do |friend|
-        rows += render(partial:"#{PPATH}friend_discount_row", locals: {friend: friend, savings: PRICE['friend_discount'][user.veteran_status.to_s], cart_item: cart_item})
-      end
-    end
-    rows.html_safe
+    render(partial:"#{PPATH}friend_discount_row", collection: cart_item.friends, as: :friend, locals: {savings: PRICE['friend_discount'][user.veteran_status.to_s], cart_item: cart_item})
   end
 
   def display_coupon_discounts
     if cart_item.coupon_discount > 0
       coupon = CouponCode.find(cart_item.coupon_code_id)
       render partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/coupon_discount_row", locals: {coupon: coupon}
+    else
+      "".html_safe
     end
   end
 
-  def display_standard_price
+  def display_standard_price(user)
     content_tag(:tr, content_tag(:th, "Standard price:", class: 'left') +
-    content_tag(:td, number_to_currency(PRICE['traditional']['newbie'])), id: 'standard_price')
+    content_tag(:td, number_to_currency(PRICE['traditional'][user.veteran_status.to_s])), id: 'standard_price')
+
   end
 
   def display_coupon_code_discount(coupon_code)
