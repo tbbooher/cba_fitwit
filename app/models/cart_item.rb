@@ -3,8 +3,10 @@ require 'digest/sha1'
 class CartItem
 
 #  has_many :friends
-  attr_reader :timeslot, :unique_id
+  attr_reader :time_slot_id, :unique_id
   attr_accessor :friends, :payment_arrangement, :number_of_sessions, :camp_price, :coupon_discount, :coupon_code_id
+
+  before_filter :find_time_slot, only: [:title, :title_with_camp_dates]
 
   PRICE = YAML.load_file("#{Rails.root}/config/prices.yml")
 
@@ -14,8 +16,8 @@ class CartItem
     end # friends
   end
   
-  def initialize(timeslot)
-    @timeslot = timeslot
+  def initialize(time_slot_id)
+    @time_slot_id = time_slot_id
     @camp_price = 359.to_f
     @friends = []
     @payment_arrangement= nil
@@ -34,11 +36,11 @@ class CartItem
   end
 
   def title
-    @timeslot.short_title
+    @time_slot.short_title
   end
   
   def title_with_camp_dates
-    "#{@timeslot.short_title} from #{@timeslot.fitness_camp.stdt} to #{@timeslot.fitness_camp.eddt}"
+    "#{@time_slot.short_title} from #{@time_slot.fitness_camp.stdt} to #{@time_slot.fitness_camp.eddt}"
   end
 
   def friend_count
@@ -82,6 +84,10 @@ class CartItem
 
   def session_payment(num_sessions)
     PRICE['pay_by_session'][num_sessions.to_i]
+  end
+
+  def find_time_slot
+    @time_slot = TimeSlot.find(self.time_slot_id)
   end
 
 end

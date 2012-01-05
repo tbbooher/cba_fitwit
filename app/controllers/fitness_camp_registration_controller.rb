@@ -48,12 +48,12 @@ class FitnessCampRegistrationController < ApplicationController
   def add_to_cart
     # this processes the form when we add a camp to a cart
     begin
-      timeslot = TimeSlot.find(params[:id])
+      timeslot_id = params[:id]
     rescue ActiveRecord::RecordNotFound
       logger.error("Attempt to access invalid product #{params[:id]}")
       redirect_to_index("Invalid Product")
     else
-      @current_item = @cart.add_timeslot(timeslot)
+      @current_item = @cart.add_timeslot(timeslot_id)
       # now remove
       #redirect_to_index unless request.xhr?
       respond_to do |format|
