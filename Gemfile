@@ -66,6 +66,7 @@ gem "nokogiri", "1.4.6"
 
 # tim booher custom gems
 
+gem 'heroku'
 
 # Testing
 group :development, :test do

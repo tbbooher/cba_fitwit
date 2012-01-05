@@ -7,34 +7,42 @@ class CartItemPresenter < BasePresenter
 
   def show_summary_table(user)
     content_tag(:div, "You are currently #{cart_item.show_payment_method_text}.", id: "payment_method_description") +
-    content_tag(:table, :id => "discounts_table", :class => "table-light highlight-row", style: "background: white;") {
-        content_tag(:tbody) {
-          display_standard_price(user) +
-          summary_table_content(user) +
-          display_final_price(user)
+        content_tag(:table, :id => "discounts_table", :class => "table-light highlight-row", style: "background: white;") {
+          content_tag(:tbody) {
+            display_standard_price(user) +
+                summary_table_content(user) +
+                display_final_price(user)
+          }
         }
-    }
   end
 
   def show_tabs(user)
-      # cases
-      # -----
-      # they are a newbie --> no membership option
-      # they can do init mem + other two
-      # they have a membership (do this later)
-      tabs = ['Membership', 'Traditional', 'Pay by Session']
-      [:initial_member, :traditional, :pay_by_session].each_with_index do |tab, i|
-        css_class = find_css_class(user)
-        content_tag(:li, content_tag(:a, tabs[i], href: '#'), class: css_class) unless (user.veteran_status == :newbie && tab == :initial_member)
-      end
+    # cases
+    # -----
+    # they are a newbie --> no membership option
+    # they can do init mem + other two
+    # they have a membership (do this later)
+    out = ""
+    tabs = ['Membership', 'Traditional', 'Pay by Session']
+    [:initial_member, :traditional, :pay_by_session].each_with_index do |tab, i|
+      css_class = find_css_class(user, tab)
+      out += content_tag(:li, content_tag(:a, tabs[i], href: '#'), class: css_class) unless (user.veteran_status == :newbie && tab == :initial_member)
+    end
+    out.html_safe
   end
 
-  def find_css_class(user)
-    #
-    if user.veteran_status == :newbie # it can't be (!)
-
+  def find_css_class(user, tab)
+    # there could be no payment arrangement
+    if cart_item.payment_arrangement && cart_item.payment_arrangement == tab
+        "current"
     else
-
+      if user.veteran_status == :newbie && tab == :traditional
+        "current"
+      elsif tab == :initial_member
+        "current"
+      else
+        ""
+      end
     end
   end
 
@@ -54,9 +62,9 @@ class CartItemPresenter < BasePresenter
   end
 
   def pay_by_session_row
-      render partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row",
-             locals: {session_count: cart_item.number_of_sessions,
-                      session_price: PRICE['pay_by_session'][cart_item.number_of_sessions]}
+    render partial: "fitness_camp_registration/cart/cart_includes/cart_item_includes/pay_by_session_row",
+           locals: {session_count: cart_item.number_of_sessions,
+                    session_price: PRICE['pay_by_session'][cart_item.number_of_sessions]}
   end
 
   def show_membership_sign_up
@@ -71,29 +79,29 @@ class CartItemPresenter < BasePresenter
 
   def give_option_to_pay_by_session
     content_tag(:div, id: "session_options") do
-        (content_tag(:h4, "Select to pay by session") +
-          [12,16,20].map { |s|
+      (content_tag(:h4, "Select to pay by session") +
+          [12, 16, 20].map { |s|
             content_tag(:span, link_to("#{s} Sessions", add_sessions_to_cart_path(s, cart_item.unique_id), remote: true),
                         class: "#{UI_BUTTON} #{cart_item.number_of_sessions.to_i == s.to_i ? "ui-state-hover" : ""}")
           }.join("\n").html_safe
-        )
+      )
     end
   end
 
   def show_traditional_options(user)
     content_tag(:div, :id => "discount_forms") {
-      (cart_item.coupon_discount > 0 ? "".html_safe : render(partial: "#{PPATH}coupon_discount_form", locals: {cart_item: cart_item })) +
-      render(partial: "#{PPATH}friend_discount_form", locals: {cart_item: cart_item})
+      (cart_item.coupon_discount > 0 ? "".html_safe : render(partial: "#{PPATH}coupon_discount_form", locals: {cart_item: cart_item})) +
+          render(partial: "#{PPATH}friend_discount_form", locals: {cart_item: cart_item})
     }
   end
 
   def display_final_price(user)
     content_tag(:tr, "<th class='left'>Final Price</td><td id='final_camp_price'>#{number_to_currency(cart_item.camp_price(user)/100)}</td>".html_safe,
-    id: 'final_price_row')
+                id: 'final_price_row')
   end
 
   def display_friend_discounts(user)
-    render(partial:"#{PPATH}friend_discount_row", collection: cart_item.friends, as: :friend, locals: {savings: PRICE['friend_discount'][user.veteran_status.to_s], cart_item: cart_item})
+    render(partial: "#{PPATH}friend_discount_row", collection: cart_item.friends, as: :friend, locals: {savings: PRICE['friend_discount'][user.veteran_status.to_s], cart_item: cart_item})
   end
 
   def display_coupon_discounts
@@ -107,7 +115,7 @@ class CartItemPresenter < BasePresenter
 
   def display_standard_price(user)
     content_tag(:tr, content_tag(:th, "Standard price:", class: 'left') +
-    content_tag(:td, number_to_currency(PRICE['traditional'][user.veteran_status.to_s])), id: 'standard_price')
+        content_tag(:td, number_to_currency(PRICE['traditional'][user.veteran_status.to_s])), id: 'standard_price')
 
   end
 
