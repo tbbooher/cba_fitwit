@@ -26,6 +26,10 @@ class CartItem
     @number_of_sessions = 0
     @unique_id = Digest::SHA1.hexdigest Time.now.to_s
   end
+
+  def time_slot
+    TimeSlot.find(@time_slot_id)
+  end
   
   def bring_a_friend(friend_name)
     @friends.push(friend_name)
@@ -36,13 +40,12 @@ class CartItem
   end
 
   def title
-    @time_slot = TimeSlot.find(self.time_slot_id)
-    @time_slot.short_title
+    TimeSlot.find(self.time_slot_id).short_title
   end
   
   def title_with_camp_dates
-    @time_slot = TimeSlot.find(self.time_slot_id)
-    "#{@time_slot.short_title} from #{@time_slot.fitness_camp.stdt} to #{@time_slot.fitness_camp.eddt}"
+    time_slot = TimeSlot.find(self.time_slot_id)
+    "#{time_slot.short_title} from #{time_slot.fitness_camp.stdt} to #{time_slot.fitness_camp.eddt}"
   end
 
   def friend_count
