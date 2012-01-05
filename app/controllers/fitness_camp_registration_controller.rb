@@ -490,7 +490,7 @@ class FitnessCampRegistrationController < ApplicationController
     # there is a class in the cart that the user is already registered for
     # TODO tbb 0812 -- this really needs refactored
     cart.items.each do |ci|
-      if @existing_time_slots.include?(ci.timeslot)
+      if @existing_time_slots.include?(ci.time_slot)
         del_items += "#{ci.timeslot.short_title}<br />"
         cart.items.delete(ci)
         deleted = true
