@@ -17,16 +17,11 @@ class CartItemPresenter < BasePresenter
   end
 
   def show_tabs(user)
-    # cases
-    # -----
-    # they are a newbie --> no membership option
-    # they can do init mem + other two
-    # they have a membership (do this later)
     out = ""
     tabs = ['Membership', 'Traditional', 'Pay by Session']
     [:initial_member, :traditional, :pay_by_session].each_with_index do |tab, i|
       css_class = find_css_class(user, tab)
-      out += content_tag(:li, content_tag(:a, tabs[i], href: '#'), class: css_class) unless (user.veteran_status == :newbie && tab == :initial_member)
+      out += content_tag(:li, content_tag(:a, tabs[i], href: '#', id: tab.to_s.parameterize, class: 'tab'), class: css_class) unless (user.veteran_status == :newbie && tab == :initial_member)
     end
     out.html_safe
   end

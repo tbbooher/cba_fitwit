@@ -10,18 +10,13 @@ class Cart
     @new_membership = false
   end
 
-  def add_timeslot(timeslot)
-    current_item = @items.find {|item| item.timeslot == timeslot}
-    if current_item # do nothing
-      # TODO THIS REALLY NEEDS FIXED!
-      # don't need increment_quantity -- should do error here
-      #current_item.increment_quantity
-    else
-      # hide the button
-      current_item = CartItem.new(timeslot)
-      @items << current_item
+  def add_timeslot(time_slot_id)
+    item = @items.select {|i| i.time_slot_id == time_slot_id}
+    if item.empty? # @items.map(&:time_slot_id).include?(time_slot_id)
+      item = CartItem.new(time_slot_id)
+      @items << item
     end
-    current_item
+    item
   end
   
 #  def add_discount_data(my_id, discount_category, name_of_friend, price)

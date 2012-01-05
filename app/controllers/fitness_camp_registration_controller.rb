@@ -54,8 +54,6 @@ class FitnessCampRegistrationController < ApplicationController
       redirect_to_index("Invalid Product")
     else
       @current_item = @cart.add_timeslot(timeslot_id)
-      # now remove
-      #redirect_to_index unless request.xhr?
       respond_to do |format|
         format.html { redirect_to :action => "all_fitness_camps" }
         format.js
