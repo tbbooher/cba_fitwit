@@ -55,7 +55,7 @@ class ActiveSupport::TestCase
 
   def add_cart_with_items
     @cart = Cart.new
-    @cart.add_timeslot(TimeSlot.find(:first))
+    @cart.add_timeslot(TimeSlot.find(:first).id)
     @request.session[:cart] = @cart
   end
 
