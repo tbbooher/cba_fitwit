@@ -2,13 +2,11 @@
   <% unless user.veteran_status == :newbie %>
   <p>
     <b>Congratulations, your veteran status saves you money.</b>
-    (<%= link_to "Incorrect? correct your veteran status",
-      "/my_fit_wit/profile#tabs-3", :id => 'vet_status' %>)
   </p>
 
   <p>
     You are listed as a <%= user.veteran_title %>,
-    which saves you <%= user.vet_savings %> on each
+    which saves you <%= number_to_currency(user.vet_savings) %> on each
     FitnessCamp. Also, your veteran status enables you to pay by
     the session or establish a membership.
   </p>
@@ -18,8 +16,7 @@
   <p>
     If you have completed a Fitness Camp before, you are eligible for
     discounts and other payment options.  However, our records show
-    that this is your first camp. If this is incorrect, please
-    <%= link_to "correct your veteran status", '#', :id => 'vet_status' %>.
+    that this is your first camp. Please let us know if this is incorrect.
   </p>
 
   <% end %>

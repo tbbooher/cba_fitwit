@@ -18,7 +18,7 @@ class CartItem
   
   def initialize(time_slot_id)
     @time_slot_id = time_slot_id
-    @camp_price = 359.to_f
+    @camp_price = 0.to_f
     @friends = []
     @payment_arrangement= nil
     @coupon_discount = 0
