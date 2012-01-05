@@ -24,7 +24,7 @@
 
 <h4>Terms:</h4>
 
-<ul>
+<ol>
   <li>
     I agree to a nonrefundable activation fee of <strong>$50.00</strong>
     with a monthly charge of $115.00 on my credit card charged on
@@ -36,9 +36,10 @@
     FitWit runs 7 camps/year, with a short break between camps.
   </li>
   <li>
-    I understand that with 30 days written notice, I may cancel my FitWit Club membership at any time without penalty.
+    I understand that with 30 days written notice,
+    I may cancel my FitWit Club membership at any time without penalty.
   </li>
-</ul>
+</ol>
 
 
 <%= form_tag "view_cart" do -%>
@@ -46,8 +47,5 @@
       <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By checking
       this box, you agree to the terms and conditions of this
       membership.
-    </div>
-    <div>
-      <%= submit_tag "Return to cart", :class => "button" %>
     </div>
 <% end -%>
