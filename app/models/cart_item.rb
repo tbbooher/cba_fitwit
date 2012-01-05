@@ -6,7 +6,7 @@ class CartItem
   attr_reader :time_slot_id, :unique_id
   attr_accessor :friends, :payment_arrangement, :number_of_sessions, :camp_price, :coupon_discount, :coupon_code_id
 
-  before_filter :find_time_slot, only: [:title, :title_with_camp_dates]
+  # before_filter :find_time_slot, only: [:title, :title_with_camp_dates]
 
   PRICE = YAML.load_file("#{Rails.root}/config/prices.yml")
 
@@ -36,10 +36,12 @@ class CartItem
   end
 
   def title
+    @time_slot = TimeSlot.find(self.time_slot_id)
     @time_slot.short_title
   end
   
   def title_with_camp_dates
+    @time_slot = TimeSlot.find(self.time_slot_id)
     "#{@time_slot.short_title} from #{@time_slot.fitness_camp.stdt} to #{@time_slot.fitness_camp.eddt}"
   end
 
@@ -84,10 +86,6 @@ class CartItem
 
   def session_payment(num_sessions)
     PRICE['pay_by_session'][num_sessions.to_i]
-  end
-
-  def find_time_slot
-    @time_slot = TimeSlot.find(self.time_slot_id)
   end
 
 end
