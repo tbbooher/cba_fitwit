@@ -63,12 +63,12 @@ module FitWitCustomUserMethods
   end
 
   def sex_symbol
-    self.gender == 1 ? :male : :female
+    self.gender == :male ? :male : :female
   end
 
   def sex
     if (defined? self.gender)
-      if self.gender == 1
+      if self.gender == :male
         mysex = "male"
       else
         mysex = "female"
@@ -114,44 +114,30 @@ module FitWitCustomUserMethods
     return ma
   end
 
-  def load_health_array
-    %w{  history_of_heart_problems
-cigarette_cigar_or_pipe_smoking
-increased_blood_pressure
-increased_total_blood_cholesterol
-diabetes_mellitus
-heart_problems_chest_pain_or_stroke
-breathing_or_lung_problems
-muscle_joint_or_back_disorder
-hernia
-chronic_illness
-obesity
-recent_surgery
-pregnancy
-difficulty_with_physical_exercise
-advice_from_physician_not_to_exercise  }
-  end  
-
-  def find_health_problems
-    health_array = load_health_array
-    known_health_conditions = []
-    no_history = []
-    health_array.each do |h|
-      if self[h]
-        known_health_conditions << h
-      else
-        no_history << h
-      end
-    end
-    [known_health_conditions, no_history]
-  end
-
   def vet_savings
      if self.veteran_status == :veteran
        CartItem::PRICE['traditional']['newbie'] - CartItem::PRICE['traditional']['veteran']
      else
        CartItem::PRICE['traditional']['newbie'] - CartItem::PRICE['traditional']['supervet']
      end
+  end
+
+  def user_condition_ids
+    self.health_issues.map(&:medical_condition_id)
+  end
+
+  def medical_conditions_absent
+    issues = []
+    MedicalCondition.all.to_a.each do |condition|
+      unless self.has_condition?(condition.id)
+        issues << condition
+      end
+    end
+    issues
+  end
+
+  def has_condition?(mc_id)
+    self.user_condition_ids.include?(mc_id)
   end
 
 end
