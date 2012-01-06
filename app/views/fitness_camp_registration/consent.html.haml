@@ -3,20 +3,22 @@
 - present @cart do |cart_presenter|
 
   - content_for :right_column do
-    %br
-    %h4 Medical Conditions
-    %p If you have any of the following, please update:
+
     .info_box.info_box1.rounded
       .content_box
         %p
-          = form_tag 'baddie' do
+          %h4 Medical Conditions
+          %p If you have any of the following, please update:
+          = form_tag update_health_items_path do
+            = hidden_field_tag "user[medical_condition_ids][]", nil
             - MedicalCondition.all.each do |c|
+              - user_has_it = @user.has_condition?(c.id)
               .field{id: c.name.parameterize}
-                = label_tag c.name
-                = check_box_tag c.name, true, @user.has_condition?(c.id)
+                = label_tag dom_id(c), c.name.titlecase, style: "width: 247px;"
+                = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c)
+                = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "width: 245px;#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
             .content_box
-              %p
-                = submit_tag "Update Conditions", class: "small-btn"
+              = submit_tag "Update Conditions", class: "small-btn"
   %p
     Before completing registration, it is important that you have reported an up-to-date
     health history. If you have submitted a health history before, please let us know if anything has changed.
@@ -36,7 +38,7 @@
 
   %br.clear
 
-  = form_tag 'foo' do
+  = form_tag fitness_camp_registration_release_and_waiver_of_liability_path do
     #order_details
       %h2
         Health history
