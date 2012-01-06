@@ -140,4 +140,9 @@ module FitWitCustomUserMethods
     self.user_condition_ids.include?(mc_id)
   end
 
+  def explanation_for(mc_id)
+    i = self.health_issues.where(medical_condition_id: mc_id).first
+    i.explanation if i
+  end
+
 end

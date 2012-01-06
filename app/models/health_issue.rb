@@ -3,6 +3,6 @@ class HealthIssue
 
   embedded_in :user
   belongs_to :medical_condition
-  field :explanation, type: String
+  field :explanation, type: String, default: "Please explain"
 
 end

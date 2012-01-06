@@ -145,6 +145,8 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/payment'
   get 'fitness_camp_registration/pay'
 
+  post "update_health_items" => "fitness_camp_registration#update_health_items"
+
   get 'fitness_camp_registration/empty_cart'
   get 'fitness_camp_registration/registration_success'
   get 'fitness_camp_registration/all_fitness_camps'
