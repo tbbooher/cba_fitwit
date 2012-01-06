@@ -7,13 +7,6 @@ class BaseController < ApplicationController
     raise RuntimeError, "Generating an error"
   end
 
-  def home
-    # TODO -- delete?
-    @bigpic = true
-    @news_items = NewsItem.where(display: true) #find(:all, :conditions => 'display = true', :order => 'created_at DESC')
-    #schedule_data
-  end
-
   def posts
     @blog = Blog.where(:title => t(:news)).first
     if @blog
@@ -29,14 +22,6 @@ class BaseController < ApplicationController
        }
        format.html { render :posts }
     end
-  end
-
-  def create_your_own_fitwit
-    @pagetitle = "Create Your Own FitWit"
-  end
-
-  def community
-    @pagetitle = "FitWit Community"
   end
 
   def contact_us
@@ -62,31 +47,8 @@ class BaseController < ApplicationController
     end
   end
 
-  def about_us
-    @pagetitle = "Our Story"
-  end
-
   def not_authorized
     @pagetitle = "Not Authorized"
-  end
-
-  def login_success
-    @pagetitle = "Successful Login"
-    @locations = Location.find(:all)
-    @user = User.find_by_id(session[:user_id])
-  end
-
-  def logoff_success
-    @pagetitle = "Successful Logoff"
-  end
-
-  def all_sponsors
-    @pagetitle = "All FitWit Sponsors"
-    @sponsors = Sponsor.find(:all)
-  end
-
-  def locations
-    #@google_maps = true
   end
 
   def camp_details
@@ -113,6 +75,7 @@ class BaseController < ApplicationController
 
   end
 
+  # stories
   def stories
 
   end
@@ -128,4 +91,53 @@ class BaseController < ApplicationController
   def contact
 
   end
+
+  def amanda
+
+  end
+  def arthur_and_anna
+
+  end
+  def brandi
+
+  end
+  def catherine
+
+  end
+  def christina
+
+  end
+
+  def dawn
+
+  end
+
+  def denise
+
+  end
+
+  def greg
+
+  end
+
+  def jose
+
+  end
+
+  def katherine
+
+  end
+
+  def lisa
+
+  end
+
+  def mary
+
+  end
+
+  def mike
+
+  end
+
 end

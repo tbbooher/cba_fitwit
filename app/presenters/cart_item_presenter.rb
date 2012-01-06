@@ -28,15 +28,25 @@ class CartItemPresenter < BasePresenter
 
   def find_css_class(user, tab)
     # there could be no payment arrangement
-    if cart_item.payment_arrangement && cart_item.payment_arrangement == tab
-        "current"
-    else
-      if user.veteran_status == :newbie && tab == :traditional
-        "current"
-      elsif tab == :initial_member
-        "current"
+    if user.veteran_status == :newbie # traditional is default
+      if cart_item.payment_arrangement
+        if tab == cart_item.payment_arrangement
+          "current"
+        end
       else
-        ""
+        if tab == :traditional
+          "current"
+        end
+      end
+    else # membership is default
+      if cart_item.payment_arrangement
+        if tab == cart_item.payment_arrangement
+          "current"
+        end
+      else
+        if tab == :initial_member
+          "current"
+        end
       end
     end
   end
