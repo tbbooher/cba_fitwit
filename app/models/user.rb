@@ -20,37 +20,22 @@ class User
   field :use_gravatar, :type => Boolean, :default => true
   field :invitation_id, :type => BSON::ObjectId
 
-  field :first_name
-  field :last_name
-  field :gender, :type => Integer
-  field :occupation
-  field :company
-  field :street_address1
-  field :street_address2
-  field :city
-  field :us_state
-  field :zip
-  field :primary_phone
-  field :secondary_phone
-  field :t_shirt_size
+  field :first_name, type: String
+  field :last_name, type: String
+  field :gender, type: Symbol, default: :male
+  field :occupation, type: String
+  field :company, type: String
+  field :street_address1, type: String
+  field :street_address2, type: String
+  field :city, type: String
+  field :us_state, type: String
+  field :zip, type: String
+  field :primary_phone, type: String
+  field :secondary_phone, type: String
+  field :t_shirt_size, type: String
   field :emergency_contact_information
   field :weight, :type => Integer
   field :how_did_you_hear_about_us
-  field :history_of_heart_problems, :type => Boolean
-  field :cigarette_cigar_or_pipe_smoking, :type => Boolean
-  field :increased_blood_pressure, :type => Boolean
-  field :increased_total_blood_cholesterol, :type => Boolean
-  field :diabetes_mellitus, :type => Boolean
-  field :heart_problems_chest_pain_or_stroke, :type => Boolean
-  field :breathing_or_lung_problems, :type => Boolean
-  field :muscle_joint_or_back_disorder, :type => Boolean
-  field :hernia, :type => Boolean
-  field :chronic_illness, :type => Boolean
-  field :obesity, :type => Boolean
-  field :recent_surgery, :type => Boolean
-  field :pregnancy, :type => Boolean
-  field :difficulty_with_physical_exercise, :type => Boolean
-  field :advice_from_physician_not_to_exercise, :type => Boolean
   field :fitness_level, :type => Integer
   field :date_of_birth, :type => Date
   field :height_inches, :type => Integer
@@ -58,23 +43,17 @@ class User
   field :veteran_status, type: Symbol, default: :newbie # [:veteran, :supervet, :newbie, :staff]
   field :number_of_logins, :type => Integer
   field :has_active_subscription, :type => Boolean
-  field :history_of_heart_problems_explanation
-  field :cigarette_cigar_or_pipe_smoking_explanation
-  field :increased_blood_pressure_explanation
-  field :increased_total_blood_cholesterol_explanation
-  field :diabetes_mellitus_explanation
-  field :heart_problems_chest_pain_or_stroke_explanation
-  field :breathing_or_lung_problems_explanation
-  field :muscle_joint_or_back_disorder_explanation
-  field :hernia_explanation
-  field :chronic_illness_explanation
-  field :obesity_explanation
-  field :recent_surgery_explanation
-  field :pregnancy_explanation
-  field :difficulty_with_physical_exercise_explanation
-  field :advice_from_physician_not_to_exercise_explanation
-  field :participation_approved_explanation
-  field :taking_medications_explanation
+
+  # approvals
+  field :has_physician_approval, type: Boolean, default: false
+  field :has_physician_approval_explanation, type: String
+  field :meds_affect_vital_signs, type: Boolean, default: true
+  field :meds_affect_vital_signs_explanation, type: String
+
+  # female specific
+  field :post_menopausal_female, type: Boolean, default: false
+  field :taking_estrogen, type: Boolean, default: false
+
 
   # fitwit
   # validates_numericality_of :weight, :height_feet, :height_inches
@@ -87,9 +66,9 @@ class User
 
 
   GENDER = [
-          #  Displayed        stored in db
-  ["male", 1],
-  ["female", 2]
+  #  Displayed        stored in db
+  ["male", :male],
+  ["female", :female]
   ]
 
   # [:veteran, :supervet, :newbie, :staff]
@@ -146,6 +125,7 @@ class User
   embeds_many :custom_workouts
   embeds_many :goals
   embeds_many :measurements
+  embeds_many :health_issues
 
   validates_presence_of   :name
   validates_uniqueness_of :name, :case_sensitive => false
