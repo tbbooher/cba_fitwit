@@ -21,11 +21,6 @@ if File.exist?(config_file)
   CONSTANTS.each{|k,v| ENV["CONSTANTS_#{k}"] = v.to_s}
 end
 
-price_file = File.expand_path('../../config/prices.yml', __FILE__)
-if File.exist?(price_file)
-  PRICES = YAML.load_file(price_file)
-end
-
 # MAILSERVER settings
 mailserver_file =  File.expand_path('../../config/mailserver_setting.yml', __FILE__)
 if File.exist?(mailserver_file)
