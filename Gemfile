@@ -45,7 +45,7 @@ gem 'mongoid-tree', :require => 'mongoid/tree'
 gem 'mongoid_fulltext'
 gem 'mongoid_taggable'
 gem 'mongoid_spacial' # For GeoIndex
-
+gem 'mongoid_session_store'
 
 # Bundle gems for views
 gem "haml"
@@ -66,6 +66,7 @@ gem "nokogiri", "1.4.6"
 
 # tim booher custom gems
 
+gem 'heroku'
 
 # Testing
 group :development, :test do

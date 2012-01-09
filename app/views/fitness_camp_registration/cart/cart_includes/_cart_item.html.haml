@@ -3,13 +3,7 @@
     .title_box{style: "background-color: white; border:1px solid #cfcfcf;"}
       %h4{style: "color:black;"}= cart_item.title_with_camp_dates
     %ul#payment_arrangement.tabs
-      - unless @user.veteran_status == :newbie
-        %li
-          %a.tab{:href => "#"} Membership
-      %li.current
-        %a.tab{:href => "#"} Traditional
-      %li
-        %a.tab{:href => "#"} Pay by Session
+      = cart_item_presenter.show_tabs(@user)
     - unless @user.veteran_status == :newbie
       #initial_member.tab_content{style: "position: absolute; left: -10000px;"}
         = cart_item_presenter.show_membership_sign_up
