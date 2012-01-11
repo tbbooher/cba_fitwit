@@ -23,7 +23,8 @@ function getFlickr(userid, target, numberToDisplay) {
                 var sourceSquare = 
                     (item.media.m).replace("_m.jpg", "_s.jpg");
                 var sourceOrig = 
-                    (item.media.m).replace("_m.jpg", ".jpg");
+                	(item.link)
+				//    (item.media.m).replace("_m.jpg", ".jpg");
 
 				htmlString += '<div style="float:right; margin-bottom: 10px;">';
                 htmlString += '<a href="' + sourceOrig + '" class="preview border-img" title="' + item.title + '" target="_blank" style="opacity: 1;">';
