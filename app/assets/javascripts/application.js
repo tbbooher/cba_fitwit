@@ -9,13 +9,12 @@
 // This is just temporary so I don't have to pull from inteweb
 // require plusone
 
+
 // require at_top/l10n
 //= require jquery-1.7.min
 
-// require at_top/preloader
 //= require at_top/preloader
 // require at_top/hoverIntent
-// require at_top/superfish
 //= require at_top/superfish
 // require at_top/scrollable.min
 // require at_top/jquery.prettyphoto
@@ -45,9 +44,8 @@
 //= require user_list
 //= require user_notifications
 
-// maybe . . .
-
 //= require flickr/jQuery.flickr
 
 //= require twitter/jquery.tweet
 
+// maybe . . .
