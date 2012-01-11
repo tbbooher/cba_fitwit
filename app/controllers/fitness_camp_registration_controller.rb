@@ -39,7 +39,6 @@ class FitnessCampRegistrationController < ApplicationController
       end
     end
     @existing_time_slots = @user.time_slots
-    @pagetitle = 'View FitWit Cart'
     @vet_status = current_user.veteran_status
     delete_existing_camps_from_cart(@cart)
     @cart_view =  true
@@ -48,14 +47,12 @@ class FitnessCampRegistrationController < ApplicationController
   def add_to_cart
     # this processes the form when we add a camp to a cart
     begin
-      timeslot = TimeSlot.find(params[:id])
+      timeslot_id = params[:id]
     rescue ActiveRecord::RecordNotFound
       logger.error("Attempt to access invalid product #{params[:id]}")
       redirect_to_index("Invalid Product")
     else
-      @current_item = @cart.add_timeslot(timeslot)
-      # now remove
-      #redirect_to_index unless request.xhr?
+      @current_item = @cart.add_timeslot(timeslot_id)
       respond_to do |format|
         format.html { redirect_to :action => "all_fitness_camps" }
         format.js
@@ -117,22 +114,12 @@ class FitnessCampRegistrationController < ApplicationController
     end
   end
 
-  # def
-
-  def membership_info
-    @pagetitle = "Membership Information"
-    @fit_wit_form = true
-  end
-
   def consent
     # the purpose of the consent view is to let the user view their
     # health history then they can go on to the payment view
     # testing
     # if form element agree_to_terms is not 'yes' then we must
     # redirect back to membership_info
-    @fit_wit_form = true
-    @include_jquery = true
-    @pagetitle = "Consent"
     @user = current_user
     # which path do we want to go down, membership or payment
     @checked_values = flash[:checked_values] || []
@@ -141,6 +128,23 @@ class FitnessCampRegistrationController < ApplicationController
     @membership = @cart.new_membership # this need to be here ??
     # for health consent form
     @names_of_titles_that_require_more_information = flash[:names_of_titles_that_require_more_information] || []
+  end
+
+  def update_health_items
+    # only checked items have an update matters
+    u = current_user
+    u.health_issues = []
+    params[:user][:medical_condition_ids].each do |id|
+      unless id.empty?
+        h = HealthIssue.new
+        m = MedicalCondition.find(id)
+        h.medical_condition = m
+        h.explanation = params[:user]["explanation_#{m.id}"]
+        u.health_issues << h
+      end
+    end
+    u.save!
+    redirect_to fitness_camp_registration_consent_path
   end
 
   def health_history
@@ -490,7 +494,7 @@ class FitnessCampRegistrationController < ApplicationController
     # there is a class in the cart that the user is already registered for
     # TODO tbb 0812 -- this really needs refactored
     cart.items.each do |ci|
-      if @existing_time_slots.include?(ci.timeslot)
+      if @existing_time_slots.include?(ci.time_slot)
         del_items += "#{ci.timeslot.short_title}<br />"
         cart.items.delete(ci)
         deleted = true

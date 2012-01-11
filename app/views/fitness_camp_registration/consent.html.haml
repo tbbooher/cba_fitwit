@@ -1,0 +1,57 @@
+- title "Registration step 3 of 6"
+
+- present @cart do |cart_presenter|
+
+  - content_for :right_column do
+
+    .info_box.info_box1.rounded
+      .content_box
+        %p
+          %h4 Medical Conditions
+          %p If you have any of the following, please update:
+          = form_tag update_health_items_path do
+            = hidden_field_tag "user[medical_condition_ids][]", nil
+            - MedicalCondition.all.each do |c|
+              - user_has_it = @user.has_condition?(c.id)
+              .field{id: c.name.parameterize}
+                = label_tag dom_id(c), c.name.titlecase, style: "width: 247px;"
+                = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c)
+                = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "width: 245px;#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
+            .content_box
+              = submit_tag "Update Conditions", class: "small-btn"
+  %p
+    Before completing registration, it is important that you have reported an up-to-date
+    health history. If you have submitted a health history before, please let us know if anything has changed.
+    Of course, your information will be protected and only used to help us tailor our program
+    to your fitness needs.
+  #health_history_update
+    = render :partial => 'my_fit_wit/includes/health_history', :object => @user
+
+  - if @membership
+
+    %p
+      As a FitWit Club member, it is important that you keep us informed of
+      any change in your medical status. Please fill out the Health Consent
+      questions and update your Health History as necessary. We will send
+      you an e-mail reminder prior to each camp to keep your Health Consent
+      and Health History current.
+
+  %br.clear
+
+  = form_tag fitness_camp_registration_release_and_waiver_of_liability_path do
+    #order_details
+      %h2
+        Health history
+      .info_box.info_box1.rounded
+        .content_box
+          %p
+            = cart_presenter.verify_user_is_healthy(@user)
+    #verify_health_history
+      %br.clear
+      #reported_problems.one_half
+        = cart_presenter.show_health_problems(@user)
+      #unreported.one_half.last
+        %h4 You did not report any previous:
+        = cart_presenter.show_clear_health(@user)
+    %br.clear
+    = submit_tag "Proceed to Release and Waiver of Liability", :class => "small-btn"
