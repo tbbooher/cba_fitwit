@@ -13,5 +13,5 @@
 
   #cart_contents_region
     = cart_presenter.show_camps(@cart.items)
-    = link_to 'Proceed to health consent', 'joo', :class => 'small-btn glass-btn'
+    = link_to 'Proceed to health consent', fitness_camp_registration_consent_path, :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only', style: "width:220px; height:30px; padding-top: 13px;"
 

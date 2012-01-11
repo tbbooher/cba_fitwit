@@ -1,4 +1,20 @@
-<h1>Terms of Membership</h1>
+<h4>Sign up for a FitWit membership</h4>
+
+  <p>FitWit memberships save you money and provide you a consistent fitness community.</p>
+
+  <ul class="img-list ico-plus">
+    <li>$153/year savings if you are a super vet ($197/camp
+    vs. $219/camp)</li>
+    <li>$233/year savings if you are a vet camper ($197/camp
+    vs. $259/camp)</li>
+    <li>10% discount at the FitWit Store</li>
+  </ul>
+
+  <p>
+    AND never have to register or worry about a camp selling out. Your
+    credit card will be charged monthly and you'll be automatically
+    enrolled in the FitWit program – 7 full camps/year.
+  </p>
 
 <p>
   Congratulations on becoming a member. Please review the following
@@ -6,11 +22,12 @@
   membership.
 </p>
 
-<p>Terms:</p>
+<h4>Terms:</h4>
 
-<ul>
+<ol>
   <li>
-    I agree to a nonrefundable activation fee of $50.00 with a monthly charge of $115.00 on my credit card charged on
+    I agree to a nonrefundable activation fee of <strong>$50.00</strong>
+    with a monthly charge of $115.00 on my credit card charged on
     the last day of every month.
   </li>
   <li>
@@ -19,18 +36,16 @@
     FitWit runs 7 camps/year, with a short break between camps.
   </li>
   <li>
-    I understand that with 30 days written notice, I may cancel my FitWit Club membership at any time without penalty.
+    I understand that with 30 days written notice,
+    I may cancel my FitWit Club membership at any time without penalty.
   </li>
-</ul>
+</ol>
 
 
-<% form_tag "view_cart" do -%>
+<%= form_tag "view_cart" do -%>
     <div <%= flash[:notice].nil? ? "style=\"margin:8px; padding:5px; border: 1px solid gray;\"" : "class = \"errorExplanation\"" %>>
       <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By checking
       this box, you agree to the terms and conditions of this
       membership.
-    </div>
-    <div>
-      <%= submit_tag "Return to cart", :class => "button" %>
     </div>
 <% end -%>

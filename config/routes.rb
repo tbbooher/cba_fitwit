@@ -51,6 +51,7 @@ Cba::Application.routes.draw do
     resources :sponsors
     resources :coupon_codes
     resources :news_items
+    resources :medical_conditions
 
     resources :events
   end
@@ -104,6 +105,21 @@ Cba::Application.routes.draw do
   get 'base/error'
   get 'base/posts'
 
+  # stories
+  get "base/stories/amanda" => "base#amanda"
+  get "base/stories/arthur_and_anna" => "base#arthur_and_anna"
+  get "base/stories/brandi" => 'base#brandi'
+  get "base/stories/catherine" => 'base#catherine'
+  get "base/stories/christina" => 'base#christina'
+  get "base/stories/dawn" => 'base#dawn'
+  get "base/stories/denise" => 'base#denise'
+  get "base/stories/greg" => 'base#greg'
+  get "base/stories/jose" => 'base#jose'
+  get "base/stories/katherine" => 'base#katherine'
+  get "base/stories/lisa" => 'base#lisa'
+  get "base/stories/mary" => 'base#mary'
+  get "base/stories/mike"  => 'base#mike'
+
   # fitness camp registrations
   # TODO -- change these to post
   match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
@@ -128,6 +144,8 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/health_history'
   get 'fitness_camp_registration/payment'
   get 'fitness_camp_registration/pay'
+
+  post "update_health_items" => "fitness_camp_registration#update_health_items"
 
   get 'fitness_camp_registration/empty_cart'
   get 'fitness_camp_registration/registration_success'
