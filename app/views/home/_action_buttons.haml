@@ -9,7 +9,7 @@
 = link_to( t(:manage_menus), site_menus_path) if can? :manage, SiteMenu
 
 -# Communications
-= link_to( (twitter_name||'Twitter'), twitter_link, :target => 'ext_tools') if twitter_link
+= link_to( (twitter_name||'FitWitNation'), twitter_link, :target => 'ext_tools') if twitter_link
 
 -# Draft Mode
 - if current_role?(:author)

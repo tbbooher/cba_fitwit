@@ -11,8 +11,10 @@
 //= require jquery-1.7.min
 
 // require at_top/preloader
+//= require at_top/preloader
 // require at_top/hoverIntent
 // require at_top/superfish
+//= require at_top/superfish
 // require at_top/scrollable.min
 // require at_top/jquery.prettyphoto
 // require at_top/prettyphoto_init
