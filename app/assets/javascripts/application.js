@@ -6,6 +6,8 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+// This is just temporary so I don't have to pull from inteweb
+// require plusone
 
 // require at_top/l10n
 //= require jquery-1.7.min
