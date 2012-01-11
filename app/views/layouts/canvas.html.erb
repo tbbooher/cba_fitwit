@@ -36,7 +36,7 @@
   <%= csrf_meta_tag %>
   <link rel='stylesheet' id='Lato-css' href='http://fonts.googleapis.com/css?family=Lato&#038;ver=3.2.1' type='text/css' media='all'/>
 
-  <link rel="shortcut icon" href="http://e404themes.com/cold/wp-content/themes/cold/admin/images/favicon.ico"/>
+  <link rel="shortcut icon" href="images/favicon.ico"/>
 
   <script type="text/javascript">
       jQuery(document).ready(function() {
@@ -47,6 +47,22 @@
           jQuery(".stylespanel-content").hide();
       });
   </script>
+<script type='text/javascript'>
+    jQuery(function($){
+        $(".tweet").tweet({
+            username: "FitWitNation",
+            join_text: "auto",
+            avatar_size: 32,
+            count: 3,
+            auto_join_text_default: "we said,", 
+            auto_join_text_ed: "we",
+            auto_join_text_ing: "we were",
+            auto_join_text_reply: "we replied to",
+            auto_join_text_url: "we were checking out",
+            loading_text: "loading tweets..."
+        });
+    });
+</script>
 </head>
 
 <body>

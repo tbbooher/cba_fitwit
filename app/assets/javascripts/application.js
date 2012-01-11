@@ -43,5 +43,7 @@
 
 // maybe . . .
 
+//= require flickr/jQuery.flickr
 
+//= require twitter/jquery.tweet
 
