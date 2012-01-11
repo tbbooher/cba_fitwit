@@ -1,0 +1,39 @@
+.flickrResize {
+  width: 50px;
+  height : auto;
+}
+
+.flickrResize {
+  width: auto;
+  height : 50px;
+}
+
+.flickerPadding {
+  display: block;
+  line-height: 20px;
+  
+}
+
+.flickerPadding a {
+  cursor: auto;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  line-height: 20px;
+}
+
+.flickrPadding img {
+  cursor: auto;
+  display: inline;
+  float: none;
+  margin-bottom: 9px;
+  margin-left: 9px;
+  margin-right: 0px;
+  margin-top: 0px;
+  overflow-x: visible;
+  overflow-y: visible;
+  line-height: 50px;
+}
