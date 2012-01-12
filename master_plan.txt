@@ -1,16 +1,12 @@
-- get twitter box working
+- get twitter box working (andrew)
 - get my fit wit template working
-- get javascript for maps update to work
-- get annoying progress bar from user update
-- jcrop not working correctly
 
-- focus: my fitwit goals
- ~ content not showing up (fixed)
- ~ routes not added
+- get javascript for maps update to work (? still problem)
 
-- Goals page
- ~ Add new goal formatting
- ~ my_fit_wit/add_goal route (fixed)
- ~ date format is off (need to look up jquery date picker and correct formats)
+- get annoying progress bar from user update (tim)
 
+- jcrop not working correctly (iboard)
 
+- remove veteran status from on-line sign up and create membership management capability on the back-end
+
+- get health-history to update
