@@ -61,5 +61,5 @@ jQuery(document).ready(function(){
 });
 
 jQuery(function() {
-	jQuery('ul.sf-menu').superfish({ delay: 300, animation: { height:'show' }, speed: 'normal' });
+//	jQuery('ul.sf-menu').superfish({ delay: 300, animation: { height:'show' }, speed: 'normal' });
 });
