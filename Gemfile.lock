@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/intridea/omniauth-openid.git
-  revision: df07ddf98ac4681aab7120cbb1530ff5ac4a2ac8
+  revision: e9965493e2d8a2fc138ccae39c8bcf49311e496f
   specs:
     omniauth-openid (1.0.1)
       omniauth (~> 1.0)
@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: git://github.com/jnicklas/capybara.git
-  revision: fcbad2540f736cc60cec6f72e2ff85c034cfb4ee
+  revision: edd4283edfe702674a4caa4b8278f3c2f4750e7d
   specs:
-    capybara (1.1.1)
+    capybara (1.1.2)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: 81ac8fa9b206f3654e799d50c97e67de1df23c5d
+  revision: 9038c6b6d3498600464fd3bc6324413a81ede5bf
   specs:
     simple_form (2.0.0.dev)
       actionpack (~> 3.0)
@@ -42,7 +42,7 @@ GIT
 
 GIT
   remote: git://github.com/raw1z/table_builder.git
-  revision: 8917e3d001ca9045176d25fbf4a1cdffda63d7eb
+  revision: bf21f0e4a0ae2bdbff47d17323bc34c8ea49e2b6
   specs:
     table_builder (0.2.0)
 
@@ -112,14 +112,14 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (1.4.1)
       sass-rails (~> 3.1.0)
-    braintree (2.13.1)
+    braintree (2.13.2)
       builder (>= 2.0.0)
     bson (1.5.2)
     bson_ext (1.5.2)
       bson (= 1.5.2)
     builder (3.0.0)
     cancan (1.6.7)
-    childprocess (0.2.4)
+    childprocess (0.3.0)
       ffi (~> 1.0.6)
     cocaine (0.2.1)
     coffee-script (2.2.0)
@@ -165,17 +165,17 @@ GEM
     gherkin (2.4.21)
       json (>= 1.4.6)
     googlecharts (1.6.8)
-    guard (0.9.4)
+    guard (0.10.0)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
-    guard-livereload (0.3.1)
+    guard-livereload (0.4.0)
       em-websocket (>= 0.2.0)
-      guard (>= 0.4.0)
+      guard (>= 0.10.0)
       multi_json (~> 1.0.3)
-    guard-rspec (0.5.11)
-      guard (>= 0.8.4)
-    guard-spork (0.4.1)
-      guard (>= 0.8.4)
+    guard-rspec (0.6.0)
+      guard (>= 0.10.0)
+    guard-spork (0.5.1)
+      guard (>= 0.10.0)
       spork (>= 0.8.4)
     haml (3.1.4)
     haml-rails (0.3.4)
@@ -185,7 +185,7 @@ GEM
       railties (~> 3.0)
     hashie (1.2.0)
     headless (0.1.0)
-    heroku (2.17.0)
+    heroku (2.18.1)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       rubyzip
@@ -212,7 +212,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
-    kgio (2.7.0)
+    kgio (2.7.2)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     libv8 (3.3.10.4)
@@ -229,7 +229,7 @@ GEM
       json
     mongo (1.5.2)
       bson (= 1.5.2)
-    mongoid (2.3.4)
+    mongoid (2.4.0)
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
@@ -240,7 +240,7 @@ GEM
       rspec (~> 2)
     mongoid-tree (0.6.2)
       mongoid (~> 2.0)
-    mongoid_fulltext (0.5.6)
+    mongoid_fulltext (0.5.7)
       unicode_utils (~> 1.0.0)
     mongoid_session_store (2.1.0)
       mongoid (~> 2.3)
@@ -254,15 +254,15 @@ GEM
     nifty-generators (0.4.6)
     nokogiri (1.4.6)
     oauth (0.4.5)
-    oauth2 (0.5.1)
-      faraday (~> 0.7.4)
-      multi_json (~> 1.0.3)
+    oauth2 (0.5.2)
+      faraday (~> 0.7)
+      multi_json (~> 1.0)
     omniauth (1.0.1)
       hashie (~> 1.2)
       rack
-    omniauth-facebook (1.1.0)
+    omniauth-facebook (1.2.0)
       omniauth-oauth2 (~> 1.0.0)
-    omniauth-google-oauth2 (0.1.8)
+    omniauth-google-oauth2 (0.1.9)
       omniauth (~> 1.0)
       omniauth-oauth2
     omniauth-oauth (1.0.0)
@@ -273,8 +273,8 @@ GEM
       omniauth (~> 1.0)
     omniauth-twitter (0.0.7)
       omniauth-oauth (~> 1.0)
-    orm_adapter (0.0.5)
-    paperclip (2.4.5)
+    orm_adapter (0.0.6)
+    paperclip (2.5.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -349,8 +349,8 @@ GEM
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
-    selenium-webdriver (2.15.0)
-      childprocess (>= 0.2.1)
+    selenium-webdriver (2.16.0)
+      childprocess (>= 0.2.5)
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
@@ -370,7 +370,7 @@ GEM
     stateflow (0.4.2)
     syntax (1.0.0)
     term-ansicolor (1.0.7)
-    test-unit (2.4.3)
+    test-unit (2.4.4)
     therubyracer (0.9.9)
       libv8 (~> 3.3.10)
     thor (0.14.6)
@@ -379,7 +379,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
-    uglifier (1.2.1)
+    uglifier (1.2.2)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     unicode_utils (1.0.0)
