@@ -12,7 +12,7 @@ describe "Users and registrations" do
     visit registrations_path
     click_link "by name"
     page.should have_content "admin"
-    page.should have_content "Author"
+    page.should have_content "veteran"
     click_link "by date created"
     page.should have_content "admin"
     page.should have_content "testmax"

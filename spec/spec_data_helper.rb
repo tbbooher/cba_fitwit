@@ -294,7 +294,7 @@ module SpecDataHelper
       FactoryGirl.create(:workout, user: user, fit_wit_workout: @fww, score: the_high_score[i])
       FactoryGirl.create(:workout, user: user, fit_wit_workout: @fww, score: the_low_score[i])
     end
-    u = FactoryGirl.create(:user, gender:2, email: Faker::Internet.email)
+    u = FactoryGirl.create(:user, gender: :female, email: Faker::Internet.email)
     FactoryGirl.create(:workout, fit_wit_workout: @fww, user: u, score: "50")
   end
 

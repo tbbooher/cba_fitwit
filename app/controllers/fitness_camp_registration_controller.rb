@@ -461,7 +461,7 @@ class FitnessCampRegistrationController < ApplicationController
     else
       out = health_hash[:participation_approved].nil? || out
       out = health_hash[:taking_medications].nil? || out
-      if int_gender == 2
+      if int_gender == :female
         out = health_hash[:post_menopausal_female].nil? || out
         out = health_hash[:taking_estrogen].nil? || out
       end
