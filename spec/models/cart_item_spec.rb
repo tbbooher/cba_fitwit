@@ -63,7 +63,7 @@ describe CartItem do
         1.upto(s[:friends_count]) do
           @c.bring_a_friend(Faker::Name.first_name + " " + Faker::Name.last_name)
         end
-        @c.coupon_discount = s[:coupon]
+        @c.coupon_discount = s[:coupon]*100
         @u.veteran_status = s[:veteran_status].to_sym
         @c.camp_price(@u).should == s[:price]*100
       end

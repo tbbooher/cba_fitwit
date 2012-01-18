@@ -16,7 +16,7 @@ FactoryGirl.define do
     roles_mask 1
     first_name {Faker::Name.first_name}
     last_name {Faker::Name.last_name}
-    gender {rand > 0.5 ? 1 : 2}
+    gender {rand > 0.5 ? :male : :female}
     occupation "Scientist"
     company "USAF"
     street_address1 "1050 Wilderness"
@@ -30,8 +30,6 @@ FactoryGirl.define do
     emergency_contact_information "mom 3222"
     weight 176.22
     how_did_you_hear_about_us "church"
-    difficulty_with_physical_exercise false
-    advice_from_physician_not_to_exercise false
     fitness_level 1
     date_of_birth "2008-12-22"
     height_inches 8

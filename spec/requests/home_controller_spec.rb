@@ -28,9 +28,9 @@ describe "HomeController:" do
     it "should list public postings of blog News in root_path" do
       page.should have_content "A News Posting"
     end
-    it "should not list private postings in root_path" do
-      page.should have_no_content "A Private Posting"
-    end
+    #it "should not list private postings in root_path" do
+    #  page.should have_no_content "A Private Posting"
+    #end
 
     describe "Blog index" do
       it "should list public blogs in blogs index" do
