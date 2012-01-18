@@ -30,19 +30,6 @@ FactoryGirl.define do
     emergency_contact_information "mom 3222"
     weight 176.22
     how_did_you_hear_about_us "church"
-    history_of_heart_problems false
-    cigarette_cigar_or_pipe_smoking false
-    increased_blood_pressure false
-    increased_total_blood_cholesterol false
-    diabetes_mellitus true
-    heart_problems_chest_pain_or_stroke false
-    breathing_or_lung_problems false
-    muscle_joint_or_back_disorder false
-    hernia false
-    chronic_illness false
-    obesity true
-    recent_surgery false
-    pregnancy false
     difficulty_with_physical_exercise false
     advice_from_physician_not_to_exercise false
     fitness_level 1
