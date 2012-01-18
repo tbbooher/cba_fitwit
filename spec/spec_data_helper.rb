@@ -19,6 +19,7 @@ module SpecDataHelper
       Order.unscoped.delete_all
       Registration.unscoped.delete_all
       Page.delete_all
+      MedicalCondition.delete_all
       puts "cleaned up database"
     rescue => e
       puts "*** ERROR CLEANING UP DATABASE -- #{e.inspect}"
@@ -110,6 +111,28 @@ module SpecDataHelper
       user.save!
       user.reload
       raise "NOT CONFIRMED!" unless user.confirmed?
+    end
+  end
+
+  def add_a_bunch_of_health_conditions
+    %w{
+      history_of_heart_problems
+      cigarette_cigar_or_pipe_smoking
+      increased_blood_pressure
+      increased_total_blood_cholesterol
+      diabetes_mellitus
+      heart_problems_chest_pain_or_stroke
+      breathing_or_lung_problems
+      muscle_joint_or_back_disorder
+      hernia
+      chronic_illness
+      obesity
+      recent_surgery
+      pregnancy
+      difficulty_with_physical_exercise
+    }.each do |condition|
+      FactoryGirl.create(:medical_condition, name: condition.humanize)
+      puts "creating #{condition.humanize}"
     end
   end
 
