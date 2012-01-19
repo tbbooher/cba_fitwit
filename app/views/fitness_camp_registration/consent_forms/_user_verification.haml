@@ -12,7 +12,7 @@
     %p Are you taking any medications that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance?
     .field
       = label_tag "meds_affect_vital_signs", ""
-      = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], user.meds_affect_vital_signs)
+      = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], user.meds_affect_vital_signs), class: 'required'
     #meds_affect_vital_signs_explanation.field
       = label_tag "meds_affect_vital_signs_explanation", "Please provide an explanation"
       = text_area_tag :meds_affect_vital_signs_explanation, user.meds_affect_vital_signs_explanation
