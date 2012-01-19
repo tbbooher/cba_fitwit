@@ -35,7 +35,7 @@
 
   %br.clear
 
-  = form_tag fitness_camp_registration_release_and_waiver_of_liability_path do
+  = form_tag fitness_camp_registration_release_and_waiver_of_liability_path, id: 'consent_form' do
     #order_details
       %h2
         Health history
@@ -46,7 +46,7 @@
     #verify_health_history
       %h4 Medical Conditions
       %p If you have any of the following, please update:
-      = form_tag update_health_items_path do
+      = form_tag update_health_items_path, id: 'health_items' do
         = hidden_field_tag "user[medical_condition_ids][]", nil
         - MedicalCondition.all.each do |c|
           - user_has_it = @user.has_condition?(c.id)

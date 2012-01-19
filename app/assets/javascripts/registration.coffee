@@ -23,3 +23,5 @@ $(document).ready ->
 
   $(".med_checkbox").click ->
     $('#' + this.id + "_explanation").toggle()
+
+  $("#consent_form").validate();
