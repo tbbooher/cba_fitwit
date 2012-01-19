@@ -96,11 +96,13 @@ Cba::Application.routes.draw do
   get "base/whats_included", as: "whats_included"
   get "base/faq", as: "faq"
   get "base/price", as: "price"
-  get "base/schedule", as: "schedule"
+  get "base/referrals", as: "referrals"
+  get "base/getting_started", as: "getting_started"
   get "base/non_profit", as: "non_profit"
   get "base/stories", as: "stories"
   get "base/company_story", as: "company_story"
   get "base/camper_stories", as: "camper_stories"
+  get "base/team_story", as: "team_story"
   get "base/contact", as: "contact"
   get 'base/error'
   get 'base/posts'
