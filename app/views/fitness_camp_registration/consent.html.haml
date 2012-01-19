@@ -52,7 +52,7 @@
           - user_has_it = @user.has_condition?(c.id)
           .field{id: c.name.parameterize}
             = label_tag dom_id(c), c.name.titlecase, style: ""
-            = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c)
+            = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c), class: 'med_checkbox'
             = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
         .content_box
           = submit_tag "Update Conditions", class: "small-btn"
