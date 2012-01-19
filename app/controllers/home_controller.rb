@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   respond_to :html, :js
   layout "canvas"
 
+  include LayoutHelper #TODO: Why we need this here? (otherwise accessible_postings will not be loaded)
+
   # Display the top pages on the home-page
   def index
     @blog = Blog.public_blogs.where(:title => t(:news) ).first
@@ -67,8 +69,7 @@ class HomeController < ApplicationController
   
   # GET /tag/:tag
   def tags
-    blog_ids = Blog.for_role(current_role).only(:id).map(&:id)
-    @postings ||= Posting.any_in( blog_id: blog_ids).tagged_with(params[:tag]).order([:created_at, :desc])
+    @postings ||= accessible_postings(params[:tag],current_role).order([:created_at, :desc])
   end
 
   def start_page
