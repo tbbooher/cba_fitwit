@@ -67,7 +67,7 @@ class BaseController < ApplicationController
 
   end
 
-  def schedule
+  def referrals
 
   end
 

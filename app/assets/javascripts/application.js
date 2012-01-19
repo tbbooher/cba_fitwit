@@ -38,6 +38,7 @@
 //= require search
 //= require side_tab
 //= require sprintf
+//= require registration
 
 //= require textile
 //= require user
