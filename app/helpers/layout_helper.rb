@@ -69,6 +69,10 @@ module LayoutHelper
       end
     end
   end
+
+  def current_tag_cache_key
+    key = "tag_cloud_" + (current_user ? current_user.id.to_s : 'public')
+  end
   
   # render a tag-cloud
   def tag_cloud
@@ -94,6 +98,14 @@ module LayoutHelper
     setup_button(icon,label_text,options)
     link_to_function(icon_and_text(label_text,icon),function_call,options).html_safe
   end
+
+  def accessible_postings(tag,role)
+    _ids = Blog.for_role(role).only(:id).map{ |blog|
+      blog.postings_for_user_and_mode(current_user,draft_mode).only(:id).map(&:_id)
+    }.flatten
+    Posting.any_in(_id: _ids).tagged_with(tag)
+  end
+
 
 private
 
@@ -164,11 +176,6 @@ private
     else
       shortcut
     end
-  end
-
-  def accessible_postings(tag,role)
-    blog_ids = Blog.for_role(role).only(:id).map(&:id)
-    Posting.any_in(blog_id: blog_ids).tagged_with(tag)
   end
 
 end
