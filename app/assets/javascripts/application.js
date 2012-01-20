@@ -11,7 +11,7 @@
 
 
 // require at_top/l10n
-//= require jquery-1.7.min
+// require jquery-1.7.min
 
 //= require at_top/preloader
 // require at_top/hoverIntent
