@@ -17,6 +17,21 @@ $color-action-delete-text: white;
   padding:30px;
 }
 
+label.error {
+  color: red;
+  font-style: italic;
+  clear: both;
+  margin-left:200px;
+}
+
+.clearfix:before {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
 #verify_health_history {
   width:350px;
 }

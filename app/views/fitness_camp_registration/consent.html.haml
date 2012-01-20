@@ -1,9 +1,8 @@
-- title "Registration step 3 of 6"
+- title "Registration step 3 of 6: Health History"
 
 - present @cart do |cart_presenter|
 
   - content_for :right_column do
-
     .info_box.info_box1.rounded
       .content_box
         %br.clear
@@ -21,8 +20,6 @@
     health history. If you have submitted a health history before, please let us know if anything has changed.
     Of course, your information will be protected and only used to help us tailor our program
     to your fitness needs.
-  #health_history_update
-    = render :partial => 'my_fit_wit/includes/health_history', :object => @user
 
   - if @membership
 
@@ -33,26 +30,30 @@
       you an e-mail reminder prior to each camp to keep your Health Consent
       and Health History current.
 
+  #verify_health_history
+    %h4 Medical Conditions
+    = form_tag fitness_camp_registration_release_and_waiver_of_liability_path, id: 'consent_form' do
+      .info_box.info_box1.rounded{style: "width:550px;"}
+        .content_box
+          %p If you have any of the following, please update:
+          = hidden_field_tag "user[medical_condition_ids][]", nil
+          - MedicalCondition.all.each do |c|
+            - user_has_it = @user.has_condition?(c.id)
+            .field{id: c.name.parameterize}
+              = label_tag dom_id(c), c.name.titlecase, style: ""
+              = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c), class: 'med_checkbox'
+              = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
+      .submit_box
+        = submit_tag "Update Health History", class: "small-btn"
+
   %br.clear
 
   = form_tag fitness_camp_registration_release_and_waiver_of_liability_path, id: 'consent_form' do
     #order_details
-      %h2
-        Health history
-      .info_box.info_box1.rounded
+      %h4 Current Health Status
+      .info_box.info_box1.rounded{style: "width:550px;"}
         .content_box
           %p
             = cart_presenter.verify_user_is_healthy(@user)
-    #verify_health_history
-      %h4 Medical Conditions
-      %p If you have any of the following, please update:
-      = hidden_field_tag "user[medical_condition_ids][]", nil
-      - MedicalCondition.all.each do |c|
-        - user_has_it = @user.has_condition?(c.id)
-        .field{id: c.name.parameterize}
-          = label_tag dom_id(c), c.name.titlecase, style: ""
-          = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c), class: 'med_checkbox'
-          = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
-      .content_box
-        = submit_tag "Update Conditions", class: "small-btn"
-    = submit_tag "Proceed to Release and Waiver of Liability", class: "small-btn"
+    .submit_box
+      = submit_tag "Proceed to Release and Waiver of Liability", class: "small-btn"

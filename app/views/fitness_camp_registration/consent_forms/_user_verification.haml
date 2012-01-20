@@ -1,23 +1,25 @@
-%p
-  %span
-  #physician_approval
-    %p Does your physician approve of your participation in this exercise program?
-    .field
-      = label_tag :has_physician_approval, " "
-      = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], user.has_physician_approval)
-    #has_physician_approval_explanation.field
-      = label_tag "has_physician_approval_explanation", "Please provide an explanation"
-      = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: 'required'
-  #medications
-    %p Are you taking any medications that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance?
-    .field
-      = label_tag "meds_affect_vital_signs", ""
-      = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], user.meds_affect_vital_signs), class: 'required'
-    #meds_affect_vital_signs_explanation.field
-      = label_tag "meds_affect_vital_signs_explanation", "Please provide an explanation"
-      = text_area_tag :meds_affect_vital_signs_explanation, user.meds_affect_vital_signs_explanation
+#fitness_level
+  = label_tag :fitness_level, "Current fitness level (10=best)"
+  = select_tag :fitness_level, options_for_select((1..10))
+
+#physician_approval.clearfix
+  %p Does your physician approve of your participation in this exercise program?
+  .field
+    = label_tag :has_physician_approval, " "
+    = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], user.has_physician_approval), class: 'approval_field_yes_is_good'
+  #has_physician_approval_explanation.field
+    = label_tag "has_physician_approval_explanation", "Please provide an explanation"
+    = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: "required", id: "has_physician_approval_explanation_ta"
+#medications.clearfix
+  %p Are you taking any medications that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance?
+  .field
+    = label_tag "meds_affect_vital_signs", ""
+    = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], user.meds_affect_vital_signs),  class: 'approval_field_yes_is_bad'
+  #meds_affect_vital_signs_explanation.field
+    = label_tag "meds_affect_vital_signs_explanation", "Please provide an explanation"
+    = text_area_tag :meds_affect_vital_signs_explanation, user.meds_affect_vital_signs_explanation, class: "required", id: "meds_affect_vital_signs_explanation_ta"
 - if user.gender == :female
-  #girl_stuff
+  #girl_stuff.clearfix
     #post_menopausal_female.field
       = label_tag "post_menopausal_female", "Post-menopausal female?"
       = select_tag :post_menopausal_female, options_for_select([["Yes",true],["No",false]], user.post_menopausal_female)
