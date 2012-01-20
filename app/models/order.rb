@@ -18,7 +18,7 @@ class Order
     :class_name => 'OrderTransaction', 
     :dependent => :destroy
   belongs_to :user
-  belongs_to :coupon_code # , :counter_cache => :uses
+  # belongs_to :coupon_code # , :counter_cache => :uses
   # serialize :params TODO -- fix this
   # we don't need this
   # field :hash_params, type: Hash

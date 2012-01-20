@@ -81,26 +81,29 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def release_and_waiver_of_liability
+    #layout "canvas"
     # some check to make sure we have the right data
     # save the user data
-    pa = params[:has_physician_approval]
-    pa_exp = params[:has_physician_approval_explanation]
-    ma = params[:meds_affect_vital_signs]
-    ma_exp = params[:meds_affect_vital_signs_explanation]
-    if ((pa_exp.empty? && !pa) || (ma_exp.empty? && ma))
-      flash[:notice] = 'You must explain'
-      flash[:checked_values] = params[:health_approval]
-      redirect_to :action => 'consent'
-    else
-      u = current_user
-      u.fitness_level = params[:fitness_level]
-      u.has_physician_approval = pa
-      u.has_physician_approval_explanation = pa_exp
-      u.meds_affect_vital_signs = ma
-      u.meds_affect_vital_signs_explanation = ma_exp
-      u.save!
-
-      # we need to think about how we save this . . .
+    unless @cart.consent_updated
+      pa = params[:has_physician_approval]
+      pa_exp = params[:has_physician_approval_explanation]
+      ma = params[:meds_affect_vital_signs]
+      ma_exp = params[:meds_affect_vital_signs_explanation]
+      if ((pa_exp.empty? && !pa) || (ma_exp.empty? && ma))
+        flash[:notice] = 'You must explain'
+        flash[:checked_values] = params[:health_approval]
+        redirect_to :action => 'consent'
+      else
+        u = current_user
+        u.fitness_level = params[:fitness_level]
+        u.has_physician_approval = pa
+        u.has_physician_approval_explanation = pa_exp
+        u.meds_affect_vital_signs = ma
+        u.meds_affect_vital_signs_explanation = ma_exp
+        u.save!
+        @cart.consent_updated = true
+        # we need to think about how we save this . . .
+      end
     end
 
     ## load the next page
@@ -123,6 +126,7 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def terms_of_participation
+    #layout "canvas"
     unless session[:must_check_yes_on_terms] == true
       if params[:commit] == "Continue to Terms of Participation" # they submitted the consent form
         unless params[:agree_to_terms] == "yes" # then we add a membership
@@ -150,6 +154,7 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def consent
+    @cart.consent_updated = false
     # the purpose of the consent view is to let the user view their
     # health history then they can go on to the payment view
     # testing
@@ -286,42 +291,23 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def save_order
-    #@include_javascript = true
+    # this creates an order out of a cart
     usr_id = current_user.id
-    # clear the referrer
-    session[:referrer] = nil # remove
-    if params[:commit] == "Proceed to Payment" # they submitted the consent form
+    #if params[:commit] == "Proceed to Payment" # they submitted the consent form
       unless params[:agree_to_terms] == "yes" # then we add a membership
-        session[:must_check_yes_on_terms] = true
-        flash[:notice] = "Before proceeding, you must agree to the
-                          FitWit Terms of Participation
-                          by clicking on the form below."
+        # session[:must_check_yes_on_terms] = true
+        flash[:notice] = "Before proceeding, you must agree to the FitWit Terms of Participation by clicking on the form below."
         redirect_to :action => :terms_of_participation
       else
-        session[:must_check_yes_on_terms] = nil
-        #amount = @cart.total_price*100 # convert to cents
-        @membership = @cart.new_membership
-        #logger.info(build_desc(params[:health_approval]))
-        if @membership
-          # we will use desc to get their participation in the total
-          @order = Order.new(:user_id => usr_id,
-            :amount => 50*100,
-            :description => build_desc(session[:health_approval]))
-        else
-          @order = Order.new(:user_id => usr_id,
-            :amount => @cart.total_price*100,
-            :coupon_code => @cart.coupon_code,
-            :description => build_desc(session[:health_approval]))
-        end # membership check
-        #session[:health_approval] = params[:health_approval]
-        if @order.save!
+        o = current_user.create_from_cart(@cart)
+        if o.save!
           redirect_to :action => :payment, :id => @order.id
         else # something went wrong
-          flash[:notice] = "error saving order"
-          redirect_to_index(@order.errors,1)
+          flash[:notice] = "Error saving order"
+          redirect_to :action => :terms_of_participation
         end # save error check
       end # agree to term check
-    end # commit check
+    #end # commit check
   end # def
 
   def empty_cart

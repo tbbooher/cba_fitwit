@@ -6,7 +6,7 @@
   %p Does your physician approve of your participation in this exercise program?
   .field
     = label_tag :has_physician_approval, " "
-    = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], user.has_physician_approval), class: 'approval_field_yes_is_good'
+    = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], false), class: 'approval_field_yes_is_good'
   #has_physician_approval_explanation.field
     = label_tag "has_physician_approval_explanation", "Please provide an explanation"
     = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: "required", id: "has_physician_approval_explanation_ta"

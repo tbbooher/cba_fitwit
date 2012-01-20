@@ -1,12 +1,12 @@
   <% title "Registration step 5 of 6: Terms of Participation" %>
-  <p class="notice">
+  <blockquote>
     Please read the Terms of Participation (ToP)
     carefully then <b>check the box at the bottom of the
     page</b> to continue.  You will be asked to sign a a hard copy
     of the ToP upon the start of your
     first camp each calendar year.
-  </p>
-<ol style="width:85%">
+  </blockquote>
+<ol>
   <li class="terms">
     I agree to follow the instructions of the Lead Trainer and
     Assistant Trainers to the best of my ability at all times.   
@@ -72,11 +72,11 @@
 
 <%= form_tag "save_order" do -%>
 <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
-  <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this
-  box I acknowledge that I have read, understand, and will agree to the
-  terms and conditions in the Terms of of Participation.
+  <%= label_tag "agree_to_terms", "By clicking this box I acknowledge that I have read, understand, and will agree to the terms and conditions in the Terms of of Participation.", style: "width:500px;" %>
+  <%= check_box_tag 'agree_to_terms', 'yes', false, style: "margin-left:20px;" %>
 </div>
-<div>
-  <%= submit_tag "Proceed to Payment", :class => "button" %>
+<div class="clear"></div>
+<div class="submit_box">
+  <%= submit_tag "Proceed to Payment", :class => "btn-small" %>
 </div>
 <% end -%>
