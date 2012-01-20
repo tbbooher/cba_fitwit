@@ -126,6 +126,7 @@ Cba::Application.routes.draw do
   # TODO -- change these to post
   match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
   match 'fitness_camp_registration/release_and_waiver_of_liability'
+  match 'fitness_camp_registration/medical_conditions'
   match 'fitness_camp_registration/terms_of_participation'
   match 'cart_item/add_friend' => "cart_item#add_friend", as: :add_friend
   match "cart_item/remove_friend/:friend_name/:unique_id" => "cart_item#remove_friend", as: :remove_friend

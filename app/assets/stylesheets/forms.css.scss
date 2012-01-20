@@ -13,6 +13,18 @@ $hud-background: lighten($color-base,50%);
 $color-action-delete: #99363C;
 $color-action-delete-text: white;
 
+#consent_form {
+  .explanation {
+    width:100px;
+    float:left;
+    color: black;
+  }
+  .explanation_input {
+    width:220px;
+    float:right;
+  }
+}
+
 #discount_forms {
   padding:30px;
 }
@@ -21,7 +33,11 @@ label.error {
   color: red;
   font-style: italic;
   clear: both;
-  margin-left:200px;
+  margin-left:0px;
+}
+
+textarea.error {
+  border:2px solid red;
 }
 
 .clearfix:before {
@@ -32,8 +48,12 @@ label.error {
   visibility: hidden;
 }
 
-#verify_health_history {
-  width:350px;
+.submit_box {
+  margin:10px;
+}
+
+#verify_health_history label {
+  width: 300px !important;
 }
 
 #session_options{

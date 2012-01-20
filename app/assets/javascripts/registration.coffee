@@ -34,8 +34,7 @@ $(document).ready ->
       text_area.addClass("required")
 
   $(".med_checkbox").click ->
-    $('#' + this.id + "_explanation").toggle()
-    # and add required
+    $("#explanation_div_" + this.id).toggle()
 
   $("#consent_form").validate();
-  $("#conditions_form").validate();
+  $("#health_status").validate();
