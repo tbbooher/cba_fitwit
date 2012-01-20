@@ -1,2 +1,27 @@
-= render "index", attributes: resource_class.fields.keys - %w(_id _type created_at updated_at encrypted_password)
-= render "index", attributes: resource_class.fields.keys - %w(_id _type created_at updated_at encrypted_password)
+- content_for :header do
+  %h1 User Management
+
+%ul.tabs
+  %li.active= link_to "Index", "#"
+  %li= link_to "New", new_resource_path
+
+%p
+  We need to have this under location or at least select by location. On this page we want to edit role
+  we want to change membership status, to add them to cybersource and see how much they have paid fitwit
+  A user has many orders
+
+%table
+  %tr
+    %th Name
+    %th Membership Status
+    %th
+
+  - @users.each do |resource|
+    %tr
+      %td
+        = link_to resource.full_name, resource_path(resource)
+
+      %td.row-actions
+        = link_to 'edit', edit_resource_path(resource)
+        |
+        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
