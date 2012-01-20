@@ -145,4 +145,16 @@ module FitWitCustomUserMethods
     i.explanation if i
   end
 
+  def create_from_cart(cart)
+    # creates a pending order
+    o = Order.new(user_id: self.id)
+    o.amount =
+    o.description =
+    o.registrations =
+  has_many :registrations, :dependent => :destroy
+  has_many :order_transactions,  :class_name => 'OrderTransaction', :dependent => :destroy
+  belongs_to :user
+  belongs_to :coupon_code # , :counter_cache => :uses, why?
+  end
+
 end

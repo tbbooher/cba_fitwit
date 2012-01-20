@@ -4,10 +4,12 @@ class Cart
   attr_reader :items
   attr_accessor :new_membership
   attr_accessor :coupon_code
+  attr_accessor :consent_updated
 
   def initialize
     @items = []
     @new_membership = false
+    @consent_updated = false
   end
 
   def add_timeslot(time_slot_id)
