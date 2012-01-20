@@ -24,6 +24,7 @@
 
 //= require jquery_ujs
 //= require jquery-ui.min
+//= require jquery.validate.min
 //= require jsort_sortable
 //= require progress_upload_field
 //= require autocomplete
