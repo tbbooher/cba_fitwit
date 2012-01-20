@@ -7,7 +7,7 @@
       = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], user.has_physician_approval)
     #has_physician_approval_explanation.field
       = label_tag "has_physician_approval_explanation", "Please provide an explanation"
-      = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation
+      = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: 'required'
   #medications
     %p Are you taking any medications that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance?
     .field
