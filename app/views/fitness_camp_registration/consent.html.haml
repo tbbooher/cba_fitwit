@@ -46,14 +46,13 @@
     #verify_health_history
       %h4 Medical Conditions
       %p If you have any of the following, please update:
-      = form_tag update_health_items_path, id: 'health_items' do
-        = hidden_field_tag "user[medical_condition_ids][]", nil
-        - MedicalCondition.all.each do |c|
-          - user_has_it = @user.has_condition?(c.id)
-          .field{id: c.name.parameterize}
-            = label_tag dom_id(c), c.name.titlecase, style: ""
-            = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c), class: 'med_checkbox'
-            = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
-        .content_box
-          = submit_tag "Update Conditions", class: "small-btn"
+      = hidden_field_tag "user[medical_condition_ids][]", nil
+      - MedicalCondition.all.each do |c|
+        - user_has_it = @user.has_condition?(c.id)
+        .field{id: c.name.parameterize}
+          = label_tag dom_id(c), c.name.titlecase, style: ""
+          = check_box_tag "user[medical_condition_ids][]", c.id, user_has_it, id: dom_id(c), class: 'med_checkbox'
+          = text_area_tag "user[explanation_#{c.id}]", @user.explanation_for(c.id), style: "#{user_has_it ? "display:block;" : "display:none;"}", id: dom_id(c) + "_explanation"
+      .content_box
+        = submit_tag "Update Conditions", class: "small-btn"
     = submit_tag "Proceed to Release and Waiver of Liability", class: "small-btn"
