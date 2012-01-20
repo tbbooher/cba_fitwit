@@ -1,0 +1,10 @@
+- user_has_it = @user.has_condition?(medical_condition.id)
+.field{id: medical_condition.name.parameterize}
+  = label_tag dom_id(medical_condition), medical_condition.name.titlecase, style: ""
+  = check_box_tag "user[medical_condition_ids][]", medical_condition.id, user_has_it, id: dom_id(medical_condition), class: 'med_checkbox'
+  %div{id: "explanation_div_medical_condition_#{medical_condition.id}", style: "#{user_has_it ? "display:block;" : "display:none;"}"}
+    .explanation
+      Please Explain:
+    .explanation_input
+      = text_area_tag "user[explanation_#{medical_condition.id}]", @user.explanation_for(medical_condition.id), id: dom_id(medical_condition) + "_explanation", class: 'required'
+.clear

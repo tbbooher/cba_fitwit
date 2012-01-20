@@ -19,6 +19,10 @@ class CartPresenter < BasePresenter
     end
   end
 
+  def show_medical_conditions(user)
+    render partial: 'fitness_camp_registration/consent_forms/medical_condition', :collection => MedicalCondition.all
+  end
+
   def show_camps(cart_items)
     render :partial => "fitness_camp_registration/cart/cart_includes/cart_item", :collection => cart_items
   end

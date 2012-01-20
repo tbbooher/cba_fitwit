@@ -16,7 +16,6 @@ class FitnessCampRegistrationController < ApplicationController
     @pagetitle = "Registrations for #{@location.name}"
     @fitnesscamps = FitnessCamp.future # can work in location
     @locations = Location.where(_id: @location_id)
-#    @include_javascript = true
   end
 
   def all_fitness_camps
@@ -44,6 +43,23 @@ class FitnessCampRegistrationController < ApplicationController
     @cart_view =  true
   end
 
+  def medical_conditions
+    u = current_user
+    u.health_issues = []
+    params[:user][:medical_condition_ids].each do |id|
+      unless id.empty?
+        h = HealthIssue.new
+        m = MedicalCondition.find(id)
+        h.medical_condition = m
+        h.explanation = params[:user]["explanation_#{m.id}"]
+        u.health_issues << h
+      end
+    end
+    u.save!
+    flash[:notice] = "Health History Updated"
+    redirect_to fitness_camp_registration_consent_path
+  end
+
   def add_to_cart
     # this processes the form when we add a camp to a cart
     begin
@@ -65,26 +81,45 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def release_and_waiver_of_liability
-    int_gender = current_user.gender
-    unless session[:must_check] == true # this just ensures that we
-      # are not rejected by the next page
-      if not_assigned?(int_gender, params[:health_approval]) # then they
-        # need to check some boxes
-        #flash[:from_save_order] = "true" # TODO is this still needed
-        flash[:notice] = 'You must answer all consent questions to proceed'
-        flash[:checked_values] = params[:health_approval]
-        redirect_to :action => 'consent'
-      else # they need to make sure they have fully entered the data
-        if button_hash = user_has_issues?(params[:health_approval]) # !issue_array.map{|title,value,content| value}.all? # only let 'em by if all required fields are non-empty
-          flash[:notice] = "Please provide clarification for the questions marked below."
-          flash[:checked_values] = params[:health_approval]
-          flash[:button_hash] = button_hash
-          redirect_to :action => 'consent'
-        else # we can go forward, save the user information in the session
-          session[:health_approval] = params[:health_approval]
-        end # issue check
-      end # big if
-    end # check referral
+    # some check to make sure we have the right data
+    # save the user data
+    pa = params[:has_physician_approval]
+    pa_exp = params[:has_physician_approval_explanation]
+    ma = params[:meds_affect_vital_signs]
+    ma_exp = params[:meds_affect_vital_signs_explanation]
+    if ((pa_exp.empty? && !pa) || (ma_exp.empty? && ma))
+      flash[:notice] = 'You must explain'
+      flash[:checked_values] = params[:health_approval]
+      redirect_to :action => 'consent'
+    else
+      u = current_user
+      u.fitness_level = params[:fitness_level]
+      u.has_physician_approval = pa
+      u.has_physician_approval_explanation = pa_exp
+      u.meds_affect_vital_signs = ma
+      u.meds_affect_vital_signs_explanation = ma_exp
+      u.save!
+
+      # we need to think about how we save this . . .
+    end
+
+    ## load the next page
+    ##int_gender = current_user.gender
+    #unless session[:must_check] == true # this just ensures that we are not rejected by the next page
+    #  if not_assigned?(int_gender, params[:health_approval]) # then they
+    #    # need to check some boxes
+    #    #flash[:from_save_order] = "true" # TODO is this still needed
+    #  else # they need to make sure they have fully entered the data
+    #    if button_hash = user_has_issues?(params[:health_approval]) # !issue_array.map{|title,value,content| value}.all? # only let 'em by if all required fields are non-empty
+    #      flash[:notice] = "Please provide clarification for the questions marked below."
+    #      flash[:checked_values] = params[:health_approval]
+    #      flash[:button_hash] = button_hash
+    #      redirect_to :action => 'consent'
+    #    else # we can go forward, save the user information in the session
+    #      session[:health_approval] = params[:health_approval]
+    #    end # issue check
+    #  end # big if
+    #end # check referral
   end
 
   def terms_of_participation
@@ -147,37 +182,37 @@ class FitnessCampRegistrationController < ApplicationController
     redirect_to fitness_camp_registration_consent_path
   end
 
-  def health_history
-    unless request.put?
-      # needed still? maybe a raise here
-    else
-      # zero out all unchecked explanations
-      user_params = zero_out_all_unchecked_explanations(params[:user])
-      if current_user.update_attributes(user_params)
-        if names_of_titles_that_require_more_information = \
-            user_has_not_explained_themself(params[:user]) #names_of_titles_that_require_more_information.empty?
-          flash[:notice] = <<-END_OF_STRING
-          You need to provide clarification for all
-          health history items
-          END_OF_STRING
-          flash[:names_of_titles_that_require_more_information] = \
-            names_of_titles_that_require_more_information
-          redirect_to '/registration/consent'
-        else
-          flash[:notice] = 'Health History Updated.'
-          # TODO NEED TO GET THIS WORKING FROM REGISTRATION
-          my_referrer = !session[:referrer].nil? ? \
-            session[:referrer] : {:controller => 'my_fit_wit', :action => 'index'}
-          redirect_to '/registration/consent'
-#          redirect_to(my_referrer)
-        end # check for adequate information entered
-      else # error
-        flash[:notice] = 'FitWit history update error'
-        redirect_to '/registration/consent'
-        #raise RuntimeError, "fit_wit_history update error"
-      end #user attribute update check
-    end # form submission check
-  end
+#  def health_history
+#    unless request.put?
+#      # needed still? maybe a raise here
+#    else
+#      # zero out all unchecked explanations
+#      user_params = zero_out_all_unchecked_explanations(params[:user])
+#      if current_user.update_attributes(user_params)
+#        if names_of_titles_that_require_more_information = \
+#            user_has_not_explained_themself(params[:user]) #names_of_titles_that_require_more_information.empty?
+#          flash[:notice] = <<-END_OF_STRING
+#          You need to provide clarification for all
+#          health history items
+#          END_OF_STRING
+#          flash[:names_of_titles_that_require_more_information] = \
+#            names_of_titles_that_require_more_information
+#          redirect_to '/registration/consent'
+#        else
+#          flash[:notice] = 'Health History Updated.'
+#          # TODO NEED TO GET THIS WORKING FROM REGISTRATION
+#          my_referrer = !session[:referrer].nil? ? \
+#            session[:referrer] : {:controller => 'my_fit_wit', :action => 'index'}
+#          redirect_to '/registration/consent'
+##          redirect_to(my_referrer)
+#        end # check for adequate information entered
+#      else # error
+#        flash[:notice] = 'FitWit history update error'
+#        redirect_to '/registration/consent'
+#        #raise RuntimeError, "fit_wit_history update error"
+#      end #user attribute update check
+#    end # form submission check
+#  end
 
 
   def payment
@@ -312,84 +347,84 @@ class FitnessCampRegistrationController < ApplicationController
 
   private
 
-  def zero_out_all_unchecked_explanations(user_params)
-    condition_params = user_params.reject {|key, value| \
-        key =~ /_explanation$/ || \
-        value == "true" || \
-        key == "fitness_level" }
-    condition_params.each do |key, value|  # for each false condition set the params equal to ""
-      explanation_name = "#{key}_explanation".to_sym
-      user_params[explanation_name] = "" if user_params[explanation_name]
-    end
-    return user_params
-  end
+  #def zero_out_all_unchecked_explanations(user_params)
+  #  condition_params = user_params.reject {|key, value| \
+  #      key =~ /_explanation$/ || \
+  #      value == "true" || \
+  #      key == "fitness_level" }
+  #  condition_params.each do |key, value|  # for each false condition set the params equal to ""
+  #    explanation_name = "#{key}_explanation".to_sym
+  #    user_params[explanation_name] = "" if user_params[explanation_name]
+  #  end
+  #  return user_params
+  #end
+  #
+  #def user_has_not_explained_themself(user_params)
+  #  #condition_params = params.keys.map{|k| k.to_s}.grep(/[^(_explanation)]$/)
+  #  condition_params = user_params.reject {|key, value| key =~ /_explanation$/ || \
+  #      value == "false" || key == 'fitness_level'}
+  #  names_of_titles_that_require_more_information = [] # initialize
+  #
+  #  condition_params.each do |key, value|
+  #    field_content = user_params["#{key}_explanation".to_sym]
+  #    if field_content =~ /^\s*$/ || field_content == "Please enter an explanation"
+  #      names_of_titles_that_require_more_information << key
+  #    end
+  #  end
+  #
+  #  if names_of_titles_that_require_more_information.empty?
+  #    return nil
+  #  else
+  #    return names_of_titles_that_require_more_information
+  #  end
+  #
+  #end
 
-  def user_has_not_explained_themself(user_params)
-    #condition_params = params.keys.map{|k| k.to_s}.grep(/[^(_explanation)]$/)
-    condition_params = user_params.reject {|key, value| key =~ /_explanation$/ || \
-        value == "false" || key == 'fitness_level'}
-    names_of_titles_that_require_more_information = [] # initialize
-
-    condition_params.each do |key, value|
-      field_content = user_params["#{key}_explanation".to_sym]
-      if field_content =~ /^\s*$/ || field_content == "Please enter an explanation"
-        names_of_titles_that_require_more_information << key
-      end
-    end
-
-    if names_of_titles_that_require_more_information.empty?
-      return nil
-    else
-      return names_of_titles_that_require_more_information
-    end
-
-  end
-
-  def build_desc(health_approval_hash)
-    # this builds the description for the user's order
-    out = ""
-    health_approval_hash.each do |method, value|
-      if method =~ /_explanation$/
-        out += "#{method.humanize} is \"#{value}\"\n"
-      end
-    end
-    unless out.empty?
-      return out
-    else
-      return "No participation issues noted"
-    end
-  end
-
-  def user_has_issues?(health_hash)
-    # assume no issue
-    # 1 => matters for both (gender 1 or 2)
-    # 2 => matters just for women (gender = 2)
-#     issues = [['participation_approved','No',0],
-#               ['taking_medications','Yes',0],
-#               ['post_menopausal_female','N/A',1],
-#               ['taking_estrogen','N/A',1]]
-    field_info = {:participation_approved => 'No',
-                  :taking_medications => 'Yes'}
-    button_hash = {}
-    more_info_needed = false
-    field_info.each do |title, yes_value|
-      button_hash.merge!(title => {})
-      if (health_hash[title] == yes_value)
-        explanation_content = health_hash["#{title}_explanation"] || "Please explain"
-        unless explanation_content.empty? ||
-            explanation_content =~ /^\s*$/ ||
-            explanation_content == "Please explain"
-           button_hash[title].merge!(:explanation_sufficient => true)
-        else
-          more_info_needed = true
-        end
-        button_hash[title].merge!(:tag_content => explanation_content)
-      end
-    end # each
-    # if button_hash[title] is not empty, then put button hash
-    # forward, otherwise return nil (false)
-    return more_info_needed && button_hash
-  end
+#  def build_desc(health_approval_hash)
+#    # this builds the description for the user's order
+#    out = ""
+#    health_approval_hash.each do |method, value|
+#      if method =~ /_explanation$/
+#        out += "#{method.humanize} is \"#{value}\"\n"
+#      end
+#    end
+#    unless out.empty?
+#      return out
+#    else
+#      return "No participation issues noted"
+#    end
+#  end
+#
+#  def user_has_issues?(health_hash)
+#    # assume no issue
+#    # 1 => matters for both (gender 1 or 2)
+#    # 2 => matters just for women (gender = 2)
+##     issues = [['participation_approved','No',0],
+##               ['taking_medications','Yes',0],
+##               ['post_menopausal_female','N/A',1],
+##               ['taking_estrogen','N/A',1]]
+#    field_info = {:participation_approved => 'No',
+#                  :taking_medications => 'Yes'}
+#    button_hash = {}
+#    more_info_needed = false
+#    field_info.each do |title, yes_value|
+#      button_hash.merge!(title => {})
+#      if (health_hash[title] == yes_value)
+#        explanation_content = health_hash["#{title}_explanation"] || "Please explain"
+#        unless explanation_content.empty? ||
+#            explanation_content =~ /^\s*$/ ||
+#            explanation_content == "Please explain"
+#           button_hash[title].merge!(:explanation_sufficient => true)
+#        else
+#          more_info_needed = true
+#        end
+#        button_hash[title].merge!(:tag_content => explanation_content)
+#      end
+#    end # each
+#    # if button_hash[title] is not empty, then put button hash
+#    # forward, otherwise return nil (false)
+#    return more_info_needed && button_hash
+#  end
 
   def send_emails(is_membership, user, order,cart)
     unless is_membership
@@ -454,20 +489,20 @@ class FitnessCampRegistrationController < ApplicationController
     end
   end
 
-  def not_assigned?(int_gender, health_hash)
-    out = false
-    if health_hash.nil?
-      out = true
-    else
-      out = health_hash[:participation_approved].nil? || out
-      out = health_hash[:taking_medications].nil? || out
-      if int_gender == :female
-        out = health_hash[:post_menopausal_female].nil? || out
-        out = health_hash[:taking_estrogen].nil? || out
-      end
-    end
-    out
-  end
+  #def not_assigned?(int_gender, health_hash)
+  #  out = false
+  #  if health_hash.nil?
+  #    out = true
+  #  else
+  #    out = health_hash[:participation_approved].nil? || out
+  #    out = health_hash[:taking_medications].nil? || out
+  #    if int_gender == :female
+  #      out = health_hash[:post_menopausal_female].nil? || out
+  #      out = health_hash[:taking_estrogen].nil? || out
+  #    end
+  #  end
+  #  out
+  #end
 
   def build_options(u, state = nil, zip = nil, city = nil, address1 = nil, address2 = nil)
     # this is my attempt at populating the options hash for the credit card
