@@ -18,7 +18,7 @@ class CartItem
     @time_slot_id = time_slot_id
     @camp_price = 0.to_f
     @friends = []
-    @payment_arrangement= nil
+    @payment_arrangement = :traditional
     @coupon_discount = 0
     @coupon_code = 'no coupon'
     @number_of_sessions = 0

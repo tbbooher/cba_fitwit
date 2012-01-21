@@ -1,7 +1,8 @@
 - title "Register for a Fitness Camp"
-- content_for :right_column do
-  .widgets
-    = render(:partial => "fitness_camp_registration/cart/cart", :object => @cart)
+- if @cart_view
+  - content_for :right_column do
+    .widgets
+      = render(:partial => "fitness_camp_registration/cart/cart", :object => @cart)
 
 %p
   To register for a camp,

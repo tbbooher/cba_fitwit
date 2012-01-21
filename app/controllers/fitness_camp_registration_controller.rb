@@ -10,16 +10,16 @@ class FitnessCampRegistrationController < ApplicationController
   before_filter :ensure_items_in_cart, :only => [:view_cart, :consent, :payment]
 
   def index
-    @fit_wit_form = true
-    @location_id = params[:id]
-    @location = Location.find(@location_id)
-    @pagetitle = "Registrations for #{@location.name}"
+    #@location_id = params[:id]
+    #@location = Location.find(@location_id)
     @fitnesscamps = FitnessCamp.future # can work in location
-    @locations = Location.where(_id: @location_id)
+    #@locations = Location.where(_id: @location_id)
   end
 
   def all_fitness_camps
     @fitness_camps = FitnessCamp.upcoming_and_current
+    # if session cart is nil or session cart.items.empty?
+    @cart_view = !(session[:cart].nil? || session[:cart].items.empty?)
   end
 
   def cart
@@ -40,7 +40,8 @@ class FitnessCampRegistrationController < ApplicationController
     @existing_time_slots = @user.time_slots
     @vet_status = current_user.veteran_status
     delete_existing_camps_from_cart(@cart)
-    @cart_view =  true
+    # @cart_view = !session[:cart].nil?
+    render layout: "canvas"
   end
 
   def medical_conditions
@@ -143,17 +144,6 @@ class FitnessCampRegistrationController < ApplicationController
     render layout: "canvas"
   end
 
-  def process_fit_wit_history
-    if current_user.update_attributes(params[:user])
-      flash[:notice] = 'FitWit History Updated.'
-      redirect_to :action => :view_cart
-    else
-      flash[:notice] = 'error'
-      raise RuntimeError, "fit_wit_history update error"
-      redirect_to :action => :view_cart
-    end
-  end
-
   def consent
     @cart.consent_updated = false
     # the purpose of the consent view is to let the user view their
@@ -188,39 +178,6 @@ class FitnessCampRegistrationController < ApplicationController
     redirect_to fitness_camp_registration_consent_path
   end
 
-#  def health_history
-#    unless request.put?
-#      # needed still? maybe a raise here
-#    else
-#      # zero out all unchecked explanations
-#      user_params = zero_out_all_unchecked_explanations(params[:user])
-#      if current_user.update_attributes(user_params)
-#        if names_of_titles_that_require_more_information = \
-#            user_has_not_explained_themself(params[:user]) #names_of_titles_that_require_more_information.empty?
-#          flash[:notice] = <<-END_OF_STRING
-#          You need to provide clarification for all
-#          health history items
-#          END_OF_STRING
-#          flash[:names_of_titles_that_require_more_information] = \
-#            names_of_titles_that_require_more_information
-#          redirect_to '/registration/consent'
-#        else
-#          flash[:notice] = 'Health History Updated.'
-#          # TODO NEED TO GET THIS WORKING FROM REGISTRATION
-#          my_referrer = !session[:referrer].nil? ? \
-#            session[:referrer] : {:controller => 'my_fit_wit', :action => 'index'}
-#          redirect_to '/registration/consent'
-##          redirect_to(my_referrer)
-#        end # check for adequate information entered
-#      else # error
-#        flash[:notice] = 'FitWit history update error'
-#        redirect_to '/registration/consent'
-#        #raise RuntimeError, "fit_wit_history update error"
-#      end #user attribute update check
-#    end # form submission check
-#  end
-
-
   def payment
     # here the user enters credit card information
     # after data are entered, the user calls the method 'pay'
@@ -229,7 +186,18 @@ class FitnessCampRegistrationController < ApplicationController
     @user = current_user
     @order_amount = @cart.total_price(@user)
     @cc_errors = flash[:cc_errors] if flash[:cc_errors]
+    render layout: 'canvas'
     #@membership = @cart.new_membership
+  end
+
+  def really_pay
+    @order = Order.find(params[:id])
+    # check to make sure credit card is valid
+    if @order.complete_purchase(params[:credit_card], current_user)
+      render action: "success"
+    else
+      render action: "failure"
+    end
   end
 
   def pay
@@ -311,15 +279,15 @@ class FitnessCampRegistrationController < ApplicationController
 
   def empty_cart
     #@include_javascript = true
-    @location_id = params[:id]
+    #@location_id = params[:id]
     session[:cart] = nil
     #redirect_to_index(nil,params[:id])
     flash[:notice] = "Your cart is now empty. You may start again by adding any of the camps below."
-    unless @location_id
+    #unless @location_id
       redirect_to :action => "all_fitness_camps"
-    else
-      redirect_to :action => "index", :id => @location_id
-    end
+    #else
+    #  redirect_to :action => "index", :id => @location_id
+    #end
   end
 
   def registration_success
@@ -411,33 +379,7 @@ class FitnessCampRegistrationController < ApplicationController
 #    return more_info_needed && button_hash
 #  end
 
-  def send_emails(is_membership, user, order,cart)
-    unless is_membership
-      inform_management = Postman.create_new_order(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-      inform_customer = Postman.create_inform_customer(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-    else
-      inform_management = Postman.create_inform_ben_membership(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-      inform_customer = Postman.create_inform_user_membership(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-    end
-    Postman.deliver(inform_management)
-    Postman.deliver(inform_customer)
-  end
+
 
   def update_user_information(user, params)
     info_hash = { }
@@ -489,43 +431,28 @@ class FitnessCampRegistrationController < ApplicationController
   #  out
   #end
 
-  def build_options(u, state = nil, zip = nil, city = nil, address1 = nil, address2 = nil)
-    # this is my attempt at populating the options hash for the credit card
-    options = {
-      :email => u.email,
-      :billing_address => {
-        :name => u.full_name,
-        :address1 => address1 || u.street_address1,
-        :address2 => address2 || u.street_address2,
-        :city => city || u.city,
-        :state => state || u.us_state,
-        :country => 'US',
-        :zip => zip || u.zip,
-        :phone => u.primary_phone}
-    }
-    return options
-  end
 
-  def delete_existing_camps_from_cart(cart)
-    # this should be completely deprecated
-    deleted = nil  # bool to let us know if we had to delete a class
-    del_items = '' # since the user had already registered for it
-    # should really make a subroutine for this -- just check to see if
-    # there is a class in the cart that the user is already registered for
-    # TODO tbb 0812 -- this really needs refactored
-    cart.items.each do |ci|
-      if @existing_time_slots.include?(ci.time_slot)
-        del_items += "#{ci.timeslot.short_title}<br />"
-        cart.items.delete(ci)
-        deleted = true
-      end
-    end
-    if deleted
-      flash[:notice] = "You have previously registered for:<br />#{del_items}" +
-        " We have removed any existing registrations from your cart." +
-        " Please continue."
-      redirect_to :back
-    end
-  end
+  #
+  #def delete_existing_camps_from_cart(cart)
+  #  # this should be completely deprecated
+  #  deleted = nil  # bool to let us know if we had to delete a class
+  #  del_items = '' # since the user had already registered for it
+  #  # should really make a subroutine for this -- just check to see if
+  #  # there is a class in the cart that the user is already registered for
+  #  # TODO tbb 0812 -- this really needs refactored
+  #  cart.items.each do |ci|
+  #    if @existing_time_slots.include?(ci.time_slot)
+  #      del_items += "#{ci.timeslot.short_title}<br />"
+  #      cart.items.delete(ci)
+  #      deleted = true
+  #    end
+  #  end
+  #  if deleted
+  #    flash[:notice] = "You have previously registered for:<br />#{del_items}" +
+  #      " We have removed any existing registrations from your cart." +
+  #      " Please continue."
+  #    redirect_to :back
+  #  end
+  #end
 
 end

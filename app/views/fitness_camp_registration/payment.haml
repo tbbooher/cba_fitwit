@@ -1,0 +1,24 @@
+- title "Payment: Registration step 6 of 6"
+
+#page-content.two_third
+  %h3 Billing Information
+  = render :partial => 'fitness_camp_registration/payment/registration_form'
+
+#sidebar.one_third.last
+  #right-column-bottom
+    %h3 Order Details
+    - @cart.items.each do |cart_item|
+      #cart_item.info_box.info_box3.rounded
+        .title_box{style: 'background-color: gray'}= cart_item.time_slot.short_title
+        .content_box
+          %p
+            - present cart_item do |cart_item_presenter|
+              = cart_item_presenter.show_summary_table(@user)
+    %hr
+    .info_box.info_box2.rounded
+      .content_box
+        %p{style: "font-size:18px;"}
+          Final Price:
+          = number_to_currency(@cart.total_price(@user)/100)
+
+%br.clear

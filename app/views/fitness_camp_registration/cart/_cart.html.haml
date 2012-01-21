@@ -1,12 +1,17 @@
 %h3 Your Registrations
-%table
-  = render(:partial => "fitness_camp_registration/cart/simple_cart_item", :collection => cart.items)
-  %tr
-    %td{:colspan => "2"} Total fitness camps
-    %td.total-cell= cart.total_items
-- unless @cart_view
-  .one_half
-    = button_to "Checkout", fitness_camp_registration_cart_path, class: 'small-btn glass-btn'
-  .one_half
-    = button_to "Empty cart", fitness_camp_registration_empty_cart_path(@location), class: 'small-btn glass-btn'
-  %br.clear
+-# also need to be able to show a membership . . .
+%ul#cart_items
+  - cart.items.each do |cart_item|
+    %li{class: "page_item " + ((cart_item == @current_item) ? "current_page_item" : "")}= cart_item.title
+
+#total{style: "padding:15px 0;"}
+  %p
+    You are registering for
+    = pluralize(cart.total_items, 'camp') + "."
+
+#buttons
+  %div{style: "width:100px;float:left;"}
+    = button_to "Checkout", fitness_camp_registration_cart_path, class: 'small-btn'
+  %div{style: "width:100px;float:right;"}
+    = button_to "Empty cart", fitness_camp_registration_empty_cart_path, class: 'small-btn light-btn'
+%br.clear

@@ -115,11 +115,6 @@
     </div><!-- end page content -->
 
     <div id="sidebar" class="one_third last">
-      <% if content_for?(:right_column) || content_for?(:right_column_top) %>
-          <div class="widgets subpages-widget">
-            <%= render 'home/menu/application' %>
-          </div>
-      <% end %>
       <% if content_for?(:right_column_top) %>
         <div id='right-column-top'>
           <%= yield(:right_column_top) %>
