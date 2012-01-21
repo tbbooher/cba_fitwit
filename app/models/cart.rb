@@ -3,18 +3,20 @@ class Cart
 
   attr_reader :items
   attr_accessor :new_membership
-  attr_accessor :coupon_code
   attr_accessor :consent_updated
 
   def initialize
     @items = []
     @new_membership = false
     @consent_updated = false
+    @membership_price = 0 # in cents
+    @membership_setup = 0
   end
 
+  # maybe delete
   def add_timeslot(time_slot_id)
     item = @items.select {|i| i.time_slot_id == time_slot_id}
-    if item.empty? # @items.map(&:time_slot_id).include?(time_slot_id)
+    if item.empty?
       item = CartItem.new(time_slot_id)
       @items << item
     end
@@ -35,12 +37,11 @@ class Cart
     #@items.sum {|item| item.quantity}
   end
 
-  def total_price
-#    self.total_items*myprice
-    if self.coupon_code
-      self.coupon_code.price
+  def total_price(user)
+    if self.new_membership
+       @membership_price +  @membership_setup
     else
-      @items.sum {|item| item.price}
+      @items.sum { |item| item.camp_price(user) }
     end
   end
 

@@ -76,12 +76,11 @@ class FitnessCampRegistrationController < ApplicationController
     end
   end
 
-  def no_need_to_register
-    @pagetitle = "You are a member, there is no need to register"
-  end
+  #def no_need_to_register
+  #  @pagetitle = "You are a member, there is no need to register"
+  #end
 
   def release_and_waiver_of_liability
-    #layout "canvas"
     # some check to make sure we have the right data
     # save the user data
     unless @cart.consent_updated
@@ -104,6 +103,7 @@ class FitnessCampRegistrationController < ApplicationController
         @cart.consent_updated = true
         # we need to think about how we save this . . .
       end
+      render layout: "canvas"
     end
 
     ## load the next page
@@ -140,6 +140,7 @@ class FitnessCampRegistrationController < ApplicationController
         end
       end # commit check
     end # check to see if we need another chance
+    render layout: "canvas"
   end
 
   def process_fit_wit_history
@@ -223,14 +224,12 @@ class FitnessCampRegistrationController < ApplicationController
   def payment
     # here the user enters credit card information
     # after data are entered, the user calls the method 'pay'
-    @fit_wit_form = true
-    @pagetitle = "Complete Payment"
-    @health_approval = session[:health_approval]
-    @health_approval.delete_if {|key, value| key =~ /_explanation$/ && value == "Please explain"}
-    @order_amount = @cart.total_price
-    @myuser = current_user
+    #@health_approval = session[:health_approval]
+    #@health_approval.delete_if {|key, value| key =~ /_explanation$/ && value == "Please explain"}
+    @user = current_user
+    @order_amount = @cart.total_price(@user)
     @cc_errors = flash[:cc_errors] if flash[:cc_errors]
-    @membership = @cart.new_membership
+    #@membership = @cart.new_membership
   end
 
   def pay
@@ -301,7 +300,7 @@ class FitnessCampRegistrationController < ApplicationController
       else
         o = current_user.create_from_cart(@cart)
         if o.save!
-          redirect_to :action => :payment, :id => @order.id
+          redirect_to :action => :payment, :id => o.id
         else # something went wrong
           flash[:notice] = "Error saving order"
           redirect_to :action => :terms_of_participation
