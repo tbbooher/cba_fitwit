@@ -2595,10 +2595,7 @@ li.current-cat ul li.current-page_item ul a {
     background: none;
 }
 
-#sidebar li.current_page_item a,
-li.current-cat a,
-#sidebar li.current_page_item ul li.current-page_item a,
-li.current-cat ul li.current-page_item a {
+ul#cart_items li {
     font-weight: bold;
     padding: 5px 5px 4px 20px;
     background: #fff image-url("/images/cold/bullets/arrow.png") 5px 9px no-repeat;
@@ -2606,7 +2603,9 @@ li.current-cat ul li.current-page_item a {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     display: block;
+    margin:1.2em 0;
 }
+
 #sidebar li.current_page_item ul,
 li.current-cat ul {
     margin: 6px 0 -6px;

@@ -14,6 +14,10 @@ $color-action-delete: #99363C;
 $color-action-delete-text: white;
 
 #consent_form {
+  .explain_master {
+    padding-bottom: 4em;
+    padding-top: 1em;
+  }
   .explanation {
     width:100px;
     float:left;
@@ -94,7 +98,11 @@ textarea.error {
   }
   
   form {
-    
+
+    hint {
+
+    }
+
     margin-bottom: 10px;
     
     input[type="text"].number-field {
