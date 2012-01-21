@@ -218,70 +218,77 @@ class Order
   def register_user_to_time_slot(time_slot_id)
     Registration.create(:time_slot_id => time_slot_id,
                         :order_id => self.id)
-    #        :name_of_friend => '',
-    #        :discount_category => 0)
   end
 
-  def complete_purchase(cart, params, user)
+  def complete_camp_purchase(params, user, cart)
     credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])
     if credit_card.valid?
-      if authorize(cart) == "success"
-
+      options = build_options(@user, params[:billing_address][:us_state],params[:billing_address][:zip],params[:billing_address][:city],params[:billing_address][:address1],params[:billing_address][:address2])
+      result_msg = authorize(credit_card, options)
+      if result_msg == "success"
+        # send relevant emails
+        send_emails(user, cart)
+        # update user information based on what they submitted
+        update_user_information(user, params)
+        # actually put them in a camp
+        self.register_timeslots_from_cart(cart)
+        # empty the card
+        session[:cart] = nil
+        # try to capture the payment
+        if @order.capture_payment
+          redirect_to fitness_camp_registration_registration_success_path(self.id)
+        else
+          "Capture Failed"
+        end
       else
-        # handle credit card errors flash notice
+        @credit_card.errors.full_messages
       end
     end
   end
 
   private
 
-  def authorize(cart)
-    if cart.new_membership
-      if @order.create_subscription(@credit_card, options).success?
-        "success"
-      else
-        "subscription error"
-      end
+  def authorize(credit_card, options)
+    if self.authorize_payment(credit_card, options).success?
+      "success"
     else
-      if self.authorize_payment(@credit_card, options).success?
-        "success"
-      else
-        purchase.message + "<br>" + purchase.params['missingField'].to_s
-      end
+      purchase.message + "<br>" + purchase.params['missingField'].to_s
     end
   end
 
-  def send_emails(is_membership, user, order,cart)
-    unless is_membership
-      inform_management = Postman.create_new_order(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-      inform_customer = Postman.create_inform_customer(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-    else
-      inform_management = Postman.create_inform_ben_membership(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-      inform_customer = Postman.create_inform_user_membership(user,
-        order,
-        params[:credit_card],
-        session[:health_approval],
-        cart)
-    end
+  def send_emails(user, cart)
+    inform_management = Postman.create_new_order(user,
+      self,
+      params[:credit_card],
+      session[:health_approval],
+      cart)
+    inform_customer = Postman.create_inform_customer(user,
+      self,
+      params[:credit_card],
+      session[:health_approval],
+      cart)
+    Postman.deliver(inform_management)
+    Postman.deliver(inform_customer)
+  end
+
+  def send_membership_emails(user, cart)
+    inform_management = Postman.create_inform_ben_membership(user,
+      self,
+      params[:credit_card],
+      session[:health_approval],
+      cart)
+    inform_customer = Postman.create_inform_user_membership(user,
+      self,
+      params[:credit_card],
+      session[:health_approval],
+      cart)
     Postman.deliver(inform_management)
     Postman.deliver(inform_customer)
   end
 
   def build_options(u, state = nil, zip = nil, city = nil, address1 = nil, address2 = nil)
     # this is my attempt at populating the options hash for the credit card
-    options = {
+    {
       :email => u.email,
       :billing_address => {
         :name => u.full_name,
@@ -293,6 +300,18 @@ class Order
         :zip => zip || u.zip,
         :phone => u.primary_phone}
     }
+  end
+
+  def update_user_information(user, params)
+    user.first_name = params[:billing_address][:first_name] unless params[:billing_address][:first_name].blank?
+    user.last_name =  params[:billing_address][:last_name] unless params[:billing_address][:last_name].blank?
+    user.email_address = params[:billing_address][:email_address] unless params[:billing_address][:email_address].blank?
+    user.street_address1 =  params[:billing_address][:street_address1] unless params[:billing_address][:street_address1].blank?
+    user.street_address2 =  params[:billing_address][:street_address2] unless params[:billing_address][:street_address2].blank?
+    user.city =  params[:billing_address][:city] unless params[:billing_address][:city].blank?
+    user.us_state = params[:billing_address][:us_state] unless params[:billing_address][:us_state].blank?
+    user.zip = params[:billing_address][:zip] unless params[:billing_address][:zip].blank?
+    user.save!
   end
 
 end
