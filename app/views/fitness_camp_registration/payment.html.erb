@@ -1,63 +1,52 @@
 <% if @cc_errors %>
 
-<div id="notice">
-  <%= display_cc_errors(@cc_errors) %>
-</div>
+    <div id="notice">
+      <%= display_cc_errors(@cc_errors) %>
+    </div>
 
 <% end %>
 
-<h1><%= @pagetitle %>: Registration step 6 of 6</h1>
+<% title "Payment: Registration step 6 of 6" %>
 
-  <div id="rightpad">
-      <h3>Health History Reported</h3>
-  <% unless @health_approval.nil? %>
-  <ul>
-    <% @health_approval.each do |h| %>
-    <li><%= "#{h[0].humanize} : #{h[1]}" %></li>
-    <% end %>
-  </ul>
-  <% else %>
-    <p>No reported health history concerns.</p>
-  <% end %>
-  </div>
+<!-- SHOW HEALTH HISTORY HERE  IN CONTENT FOR RIGHTBAR-->
 
-  <div class="notice" style="width:400px;">
+<div class="notice" style="width:400px;">
   <table style="width:300px;">
     <% @cart.items.each do |ci| %>
-       <tr class="<%= cycle('light','dark')%>">
-	 <td><%= ci.timeslot.short_title %></td>
-	 <%= @membership == true ?
-	 "<td>$0.00</td>" :
-	 "<td>#{number_to_currency(ci.price)}</td>"
-	 %>
-       </tr>
-    <% end # iterate cart items %>
+        <tr class="<%= cycle('light', 'dark') %>">
+          <td><%= ci.time_slot.short_title %></td>
+          <%= @membership == true ?
+                      "<td>$0.00</td>" :
+                      "<td>#{number_to_currency(ci.camp_price(@user))}</td>"
+          %>
+        </tr>
+    <% end # iterate cart items  %>
     <% if @membership == true -%>
-    <tr class="<%= @cart.items.length.odd? ? 'dark' : 'light' %>">
-      <td>
-	FitWit Membership Activation
-      </td>
-      <td>
-	$50.00
-      </td>
-    </tr>
+        <tr class="<%= @cart.items.length.odd? ? 'dark' : 'light' %>">
+          <td>
+            FitWit Membership Activation
+          </td>
+          <td>
+            $50.00
+          </td>
+        </tr>
     <% end -%>
     <tr>
-      <td><b>Total Price:  </b></td>
+      <td><b>Total Price: </b></td>
       <% unless @membership == true -%>
-        <td><%= number_to_currency(@order_amount) %></td>
+          <td><%= number_to_currency(@order_amount) %></td>
       <% else -%>
-        <td>$50.00</td>
-      <% end # membership check -%>
+          <td>$50.00</td>
+      <% end # membership check  -%>
     </tr>
   </table>
   <% if @membership -%>
-  <div style="margin:6px; border:1px solid gray; padding: 5px;">
-    Note: Your credit card will be charged <b>$115.00</b> at the end of this
-    month and every month thereafter until you change your membership
-    status.
-  </div>
+      <div style="margin:6px; border:1px solid gray; padding: 5px;">
+        Note: Your credit card will be charged <b>$115.00</b> at the end of this
+        month and every month thereafter until you change your membership
+        status.
+      </div>
   <% end -%>
-  </div>
+</div>
 
-  <%= render :partial => 'registration_form' %>
+<%= render :partial => 'fitness_camp_registration/payment/registration_form' %>

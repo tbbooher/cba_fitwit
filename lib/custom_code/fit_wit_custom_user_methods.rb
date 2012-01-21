@@ -145,16 +145,36 @@ module FitWitCustomUserMethods
     i.explanation if i
   end
 
+  def health_state
+    (self.health_issues.map{|h| "#{h.medical_condition.name}: #{h.explanation}"}.join(",")) + " " +
+    (self.has_physician_approval ? "has doctor's approval" : "does not have doctor approval") + " | " +
+    (self.meds_affect_vital_signs ? "meds affect vitals" : "meds don't affect vitals") + " | " +
+    (self.gender == :female ? "estrogen: #{u.taking_estrogen}, post-menopausal: #{u.post_menopausal_female}" : "")
+  end
+
   def create_from_cart(cart)
     # creates a pending order
     o = Order.new(user_id: self.id)
-    o.amount =
-    o.description =
-    o.registrations =
-  has_many :registrations, :dependent => :destroy
-  has_many :order_transactions,  :class_name => 'OrderTransaction', :dependent => :destroy
-  belongs_to :user
-  belongs_to :coupon_code # , :counter_cache => :uses, why?
+    o.amount = cart.total_price(self)
+    o.description = self.health_state
+    o
+
+    # Cart
+    # attr_reader :items
+    # attr_accessor :new_membership
+    # attr_accessor :coupon_code
+    # attr_accessor :consent_updated
+
+    # Cart_item
+    #@time_slot_id = time_slot_id
+    #@camp_price = 0.to_f
+    #@friends = []
+    #@payment_arrangement= nil
+    # @coupon_discount = 0
+    #@coupon_code = 'no coupon'
+    #@number_of_sessions = 0
+    #@unique_id = Digest::SHA1.hexdigest Time.now.to_s
+
   end
 
 end
