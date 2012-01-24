@@ -14,7 +14,7 @@
       retweets: true,                           // [boolean]  whether to fetch (official) retweets (not supported in all display modes)
       intro_text: null,                         // [string]   do you want text BEFORE your your tweets?
       outro_text: null,                         // [string]   do you want text AFTER your tweets?
-      join_text:  null,                         // [string]   optional text in between date and tweet, try setting to "auto"
+      join_text:  "",                         // [string]   optional text in between date and tweet, try setting to "auto"
       auto_join_text_default: "i said,",        // [string]   auto text for non verb: "i said" bullocks
       auto_join_text_ed: "i",                   // [string]   auto text for past tense: "i" surfed
       auto_join_text_ing: "i am",               // [string]   auto tense for present tense: "i was" surfing
@@ -25,7 +25,7 @@
       twitter_url: "twitter.com",               // [string]   custom twitter url, if any (apigee, etc.)
       twitter_api_url: "api.twitter.com",       // [string]   custom twitter api url, if any (apigee, etc.)
       twitter_search_url: "search.twitter.com", // [string]   custom twitter search url, if any (apigee, etc.)
-      template: "{avatar}{time}{join}{text}",   // [string or function] template used to construct each tweet <li> - see code for available vars
+      template: "{avatar}{text}{time}",   // [string or function] template used to construct each tweet <li> - see code for available vars
       comparator: function(tweet1, tweet2) {    // [function] comparator used to sort tweets (see Array.sort)
         return tweet2["tweet_time"] - tweet1["tweet_time"];
       },
@@ -188,7 +188,7 @@
       o.tweet_raw_text = o.retweet ? ('RT @'+o.retweeted_screen_name+' '+item.retweeted_status.text) : item.text; // avoid '...' in long retweets
       o.tweet_text = $([linkURLs(o.tweet_raw_text, o.entities)]).linkUser().linkHash()[0];
       o.tweet_text_fancy = $([o.tweet_text]).makeHeart().capAwesome().capEpic()[0];
-
+		
       // Default spans, and pre-formatted blocks for common layouts
       o.user = t('<a class="tweet_user" href="{user_url}">{screen_name}</a>', o);
       o.join = s.join_text ? t(' <span class="tweet_join">{join_text}</span> ', o) : ' ';
