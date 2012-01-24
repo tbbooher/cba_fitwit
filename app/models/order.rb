@@ -121,10 +121,6 @@ class Order
                                 #      :zip => 'K3P5N5',
                                 #      :phone => '999-999-9999'}
 
-                                #transaction do
-
-                                # amount is a property of the order
-
     authorization = OrderTransaction.authorize(amount, credit_card, options)
     self.save!
     self.order_transactions << authorization
@@ -135,9 +131,6 @@ class Order
       self.transaction_declined!
     end
 
-    # testing
-
-    #self.order_transactions.reload
 
     authorization
     #end
