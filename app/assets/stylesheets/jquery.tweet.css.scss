@@ -1,7 +1,8 @@
 .tweet,
 .query {
 	font: 120% Georgia, serif;
-	color: #666;
+	color: #fff;
+	/* color: #666; */
 }
 
 	.tweet_list {
@@ -26,11 +27,12 @@
 			padding: 0.5em;
 			list-style-type: none;
 			margin-bottom: 1.1em;
-			background: url(/images/icons/twitter.small.png) 0 6px no-repeat;
+			background: url("/images/icons/twitter.small.png") 0 6px no-repeat;
 		}
 		
 			.tweet_list li a {
-				color: #888;
+				color: #fff;
+				/* color: #888; */
 			}
 		
 		.tweet_list .tweet_even {
