@@ -4,6 +4,7 @@
 
 //= require backend/jquery-ui.multidatespicker
 //= require backend/jquery.timePicker.min
+//= require backend/jquery-ui-timepicker-addon
 //= require backend/location
 
 $(document).ready(function() {

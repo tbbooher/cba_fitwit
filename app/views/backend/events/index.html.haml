@@ -1,0 +1,25 @@
+- content_for :header do
+  %h1= "Events for location??"
+
+%ul.tabs
+  %li.active= link_to "Index", "#"
+  %li= link_to "New", new_resource_path
+
+%table.zebra-striped
+  %thead
+    %tr
+      %th Title
+      %th Starts
+      %th Ends
+  %tbody#meeting_list
+  - @events.each do |resource|
+    %tr[resource]{odd_or_even}
+      %td= link_to resource.title, resource_path(resource)
+      %td= link_to resource.starts_at.stamp("Wed, July 23, 2011")
+      %td= link_to resource.ends_at.stamp("Wed, July 23, 2011")
+      %td.row-actions
+        = link_to 'edit', edit_resource_path(resource)
+        |
+        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?", class: "del_button"
+
+
