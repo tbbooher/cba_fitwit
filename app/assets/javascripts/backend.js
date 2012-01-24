@@ -1,6 +1,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.rest
+//= require backend/fullcalendar
+//= require backend/calendar
+
+// should we add gcal ?
 
 $(function (){
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });

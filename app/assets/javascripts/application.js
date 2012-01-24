@@ -30,12 +30,6 @@
 //= require autocomplete
 //= require jquery.Jcrop
 
-// calendar files
-//= require jquery.rest
-//= require fullcalendar
-//= require calendar
-//= require gcal
-
 //= require cba
 //= require cba_string
 //= require flashes
