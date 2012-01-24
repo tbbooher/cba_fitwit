@@ -11,8 +11,12 @@ class Event
 
   validate :dates_correlation
 
-  scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
-  scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
+  #scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
+  #scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
+  # re-written in Mongoid
+  scope :before, ->(end_time) { where(:ends_at.lt => Event.format_date(end_time)) }
+  scope :after, ->(start_time) { where(:starts_at.gt => Event.format_date(start_time)) }
+
 
   # need to override the json view to return what full_calendar is expecting.
   # http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
@@ -25,7 +29,7 @@ class Event
       :end => ends_at.rfc822,
       :allDay => self.all_day,
       :recurring => false,
-      :url => Rails.application.routes.url_helpers.event_path(id)
+      :url => "test" # Rails.application.routes.url_helpers.event_path(id)
     }
 
   end
