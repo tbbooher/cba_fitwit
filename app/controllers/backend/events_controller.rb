@@ -16,29 +16,6 @@ class Backend::EventsController < Backend::ResourceController
       format.xml { render :xml => @events }
       format.js { render :json => @events }
     end
-  end  
-
-  # PUT /events/1
-  # PUT /events/1.xml
-  # PUT /events/1.js
-  # when we drag an event on the calendar (from day to day on the month view, or stretching
-  # it on the week or day view), this method will be called to update the values.
-  # viv la REST!
-  def update
-    @event = Event.find(params[:id])
-
-
-    respond_to do |format|
-      if @event.update_attributes(params[:event])
-        format.html { redirect_to(@event, :notice => 'Event was successfully updated.') }
-        format.xml { head :ok }
-        format.js { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml { render :xml => @event.errors, :status => :unprocessable_entity }
-        format.js { render :js => @event.errors, :status => :unprocessable_entity }
-      end
-    end
   end
 
 end
