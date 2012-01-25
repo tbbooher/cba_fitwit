@@ -5,7 +5,10 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
     %meta{:content => "NONE,NOARCHIVE", :name => "robots"}
     = stylesheet_link_tag "backend/backend"
-    = javascript_include_tag "backend"
+    - if @calendar
+      = javascript_include_tag "calendar_scripts"
+    - else
+      = javascript_include_tag "backend"
     = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false"
     = csrf_meta_tag
   %body.rails_admin{:style => "padding-top: 60px;"}

@@ -7,6 +7,7 @@ class Backend::LocationsController < Backend::ResourceController
    end
 
    def calendar
+     @calendar = true
      @location = Location.find(params[:location_id])
    end
 end
