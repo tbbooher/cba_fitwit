@@ -18,6 +18,7 @@ Cba::Application.routes.draw do
     root to: "locations#index"
     get "remove_user/:time_slot_id/user/:user_id" => "time_slots#delete_user", as: :remove_user
     resources :locations do
+      resources :events
       resources :fitness_camps do
         resources :time_slots do
           post "register_user"
@@ -52,8 +53,6 @@ Cba::Application.routes.draw do
     resources :coupon_codes
     resources :news_items
     resources :medical_conditions
-
-    resources :events
   end
 
   match "my_fit_wit/input_custom_workout"
@@ -86,8 +85,6 @@ Cba::Application.routes.draw do
   get "my_fit_wit/user_has_not_explained_themself"
   get "my_fit_wit/get_inches_height"
   get "my_fit_wit/get_months_and_years"
-
-  get "calendar/index"
 
   # FitWit Routes
 

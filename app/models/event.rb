@@ -9,6 +9,8 @@ class Event
   field :all_day, :type => Boolean
   field :description, :type => String
 
+  belongs_to :location
+
   validate :dates_correlation
 
   #scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
