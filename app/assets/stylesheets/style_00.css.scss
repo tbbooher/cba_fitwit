@@ -44,12 +44,12 @@ a:hover {
 
 /* social icons */
 #social_icons a img {
-	filter: alpha(opacity=15);
-	opacity: 0.15;
+	filter: alpha(opacity=75);
+	opacity: 0.75;
 }
 #social_icons a:hover img {
-	filter: alpha(opacity=25);
-	opacity: 0.25;
+	filter: alpha(opacity=85);
+	opacity: 0.85;
 }
 
 /* navigation */
