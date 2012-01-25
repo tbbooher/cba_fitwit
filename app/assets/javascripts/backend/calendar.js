@@ -56,7 +56,7 @@ $(document).ready(function() {
 
 function updateEvent(the_event) {
     $.update(
-        "/events/" + the_event.id,
+        '/backend/locations/' + location_id + '/events' + the_event.id,
         { event: { title: the_event.title,
             starts_at: "" + the_event.start,
             ends_at: "" + the_event.end,
