@@ -1,0 +1,9 @@
+%h2
+  Events for
+  = @location.name
+
+%p
+  Back to
+  = link_to "events", backend_location_events_path(@location.id)
+
+#calendar
