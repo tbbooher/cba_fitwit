@@ -38,3 +38,6 @@
 %h3 Map
 %span10
   %div{:id => 'location-map', style: 'margin: auto;'}
+
+%h3 Events
+= link_to "Events for #{@location.name}", backend_location_events_path(@location.id)

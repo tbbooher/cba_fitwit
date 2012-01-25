@@ -1,9 +1,10 @@
 - content_for :header do
-  %h1= "Events for location??"
+  %h1= "Events for #{"name"}"
 
 %ul.tabs
   %li.active= link_to "Index", "#"
   %li= link_to "New", new_resource_path
+  %li= link_to "Calendar"
 
 %table.zebra-striped
   %thead

@@ -3,6 +3,7 @@ class Location
   include Mongoid::Timestamps
 
   has_many :fitness_camps
+  has_many :events
   has_and_belongs_to_many :sponsors
 
   field :name, :type => String

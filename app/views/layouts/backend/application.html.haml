@@ -7,7 +7,6 @@
     = stylesheet_link_tag "backend/backend"
     = javascript_include_tag "backend"
     = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false"
-    = javascript_include_tag "backend/application"
     = csrf_meta_tag
   %body.rails_admin{:style => "padding-top: 60px;"}
     .topbar-wrapper{:style => "z-index: 5;"}
@@ -26,7 +25,6 @@
               %li= link_to "Offers", backend_offers_path
               %li= link_to "Coupons", backend_coupon_codes_path
               %li= link_to "Workouts", backend_fit_wit_workouts_path
-              %li= link_to "Events", backend_events_path
     .container-fluid
       .sidebar
         .well
@@ -40,6 +38,11 @@
                   %ul
                     - fc.time_slots.all.each do |ts|
                       %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
+          .block.notice
+            %h4 Manage Events
+            %ul
+              - Location.all.each do |loc|
+                %li= link_to loc.name, backend_location_events_path(loc.id)
       .content
         .page-header
           = yield :header
