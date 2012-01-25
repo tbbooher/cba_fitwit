@@ -18,6 +18,7 @@ Cba::Application.routes.draw do
     root to: "locations#index"
     get "remove_user/:time_slot_id/user/:user_id" => "time_slots#delete_user", as: :remove_user
     resources :locations do
+      get "calendar"
       resources :events
       resources :fitness_camps do
         resources :time_slots do

@@ -1,5 +1,5 @@
 $(document).ready ->
-  if $("#location-map")
+  if $("#location-map").length > 0
     $("#location-map").html('<img src="/images/spinner.gif" alt="Loading ...">')
     $.getJSON window.location.pathname + ".json", (data) ->
       loadUserMap parseFloat(data.lat), parseFloat(data.lon)

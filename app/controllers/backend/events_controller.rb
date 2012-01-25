@@ -9,6 +9,7 @@ class Backend::EventsController < Backend::ResourceController
     @events = Event.scoped.all.to_a
     @events = Event.after(params['start']) if (params['start'])
     @events = Event.before(params['end']) if (params['end'])
+    @location = Location.find(params[:location_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +26,7 @@ class Backend::EventsController < Backend::ResourceController
   # viv la REST!
   def update
     @event = Event.find(params[:id])
+
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
