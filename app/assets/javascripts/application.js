@@ -46,6 +46,8 @@
 //= require user_list
 //= require user_notifications
 
+//= require blog_calendar
+
 //= require flickr/jQuery.flickr
 
 //= require twitter/jquery.tweet
