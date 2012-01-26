@@ -49,12 +49,13 @@ $(document).ready(function() {
 
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view) {
-            // would like a lightbox here.
+            alert('test');
         }
     });
 });
 
 function updateEvent(the_event) {
+    alert('updating!');
     $.update(
         '/backend/locations/' + location_id + '/events' + the_event.id,
         { event: { title: the_event.title,
@@ -63,7 +64,7 @@ function updateEvent(the_event) {
             description: the_event.description
         }
         },
-        function (reponse) {
+        function (response) {
             alert('successfully updated task.');
         }
     );
