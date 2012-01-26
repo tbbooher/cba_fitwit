@@ -34,9 +34,11 @@ class CommentPresenter < BasePresenter
     I18n.translate(:posted_from_ip, :ip => (comment.from_ip || "n/a") )
   end
   
-  def render_comment
+  def render_comment(_concat=false)
     ContentItem::markdown(comment.comment||'').html_safe
   end
+  alias_method :body, :render_comment
+
   
   def comment_class
     comment.created_at||Time::now > current_user_field(:last_sign_in_at,Time::now()-1.hour) ? "new_comment" : "old_comment"
