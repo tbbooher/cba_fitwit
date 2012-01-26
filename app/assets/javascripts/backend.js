@@ -1,17 +1,11 @@
 //= require jquery
-// require backend/jquery-1.5.2.min
 //= require jquery_ujs
 //= require jquery-ui
-// require backend/jquery-ui-1.8.11.custom.min
-//= require backend/jquery.rest
 //= require backend/jquery.timePicker.min
 //= require backend/jquery-ui-timepicker-addon
 //= require backend/jquery-ui.multidatespicker
 
 //= require backend/location
-
-//= require backend/fullcalendar
-//= require backend/calendar
 
 // should we add gcal ?
 
