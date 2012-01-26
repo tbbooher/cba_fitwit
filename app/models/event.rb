@@ -18,7 +18,7 @@ class Event
   # re-written in Mongoid
   scope :before, ->(end_time) { where(:ends_at.lt => Event.format_date(end_time)) }
   scope :after, ->(start_time) { where(:starts_at.gt => Event.format_date(start_time)) }
-
+  scope :in_the_next_four_weeks, ->(location_id) { where(location_id: location_id).and(:starts_at.gt => 4.weeks.from_now )}
 
   # need to override the json view to return what full_calendar is expecting.
   # http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
