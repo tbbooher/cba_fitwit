@@ -52,7 +52,9 @@ class BaseController < ApplicationController
   end
 
   def camp_blog
-    @location = Location.find(:location_id)
+    @calendar = true
+    @location = Location.find(:location_id).first
+    render layout: "camp_blog_page"
   end
 
   def camp_details
