@@ -20,7 +20,9 @@ class Backend::EventsController < Backend::ResourceController
 
   def all_camp_events
     # need to display this as json
-
+    # for each time_slot, generate an event for each meeting
+    location = Location.find(params[:location_id])
+    location.fitness_camps
   end
 
 end
