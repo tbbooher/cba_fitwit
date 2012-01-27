@@ -51,6 +51,10 @@ class BaseController < ApplicationController
     @pagetitle = "Not Authorized"
   end
 
+  def camp_blog
+    @location = Location.find(:location_id)
+  end
+
   def camp_details
 
   end

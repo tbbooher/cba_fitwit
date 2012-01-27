@@ -15,7 +15,7 @@
 - @locations.each do |loc|
   .one_third{class: loc == @locations.last ? "last" : ""}
     %h2 Contact
-    %p= loc.contact_info
+    %p= loc.contact_info.html_safe
     %h2
     %p
       = loc.street_address
