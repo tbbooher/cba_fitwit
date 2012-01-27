@@ -44,6 +44,7 @@ class BaseController < ApplicationController
 
   def locations
     @locations = Location.all.to_a
+    @google_maps = true
   end
 
   def not_authorized
