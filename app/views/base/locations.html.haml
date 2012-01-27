@@ -1,0 +1,24 @@
+- title "Locations"
+
+.full_page
+  %h2 How to find us
+  MAP IMAGE3
+
+- @locations.each do |loc|
+  .one_third{class: loc == @locations.last ? "last" : ""}
+    .shadow.shadow_medium
+    %a{:href => "whats_included"}
+      MAP IMAGE
+    %h2= loc.name
+    %p= loc.description
+%br.clear/
+- @locations.each do |loc|
+  .one_third{class: loc == @locations.last ? "last" : ""}
+    %h2 Contact
+    %p= loc.contact_info
+    %h2
+    %p
+      = loc.street_address
+      %br
+      ="#{loc.city}, #{loc.us_state} #{loc.zip}"
+%br.clear/
