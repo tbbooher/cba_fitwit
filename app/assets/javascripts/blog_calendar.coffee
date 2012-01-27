@@ -1,11 +1,10 @@
 $(document).ready ->
-  tig = $(".blog_calendar")
-  i = 0
-  while i < tig.length
+  if $(".blog_calendar").length > 0
+    e = $(".blog_calendar")
     $.ajax
-      url: "/calendar/events/" + tig[i].id
+      url: "/calendar/events/" + e.attr('id')
       success: (events)->
-        $(".blog_calendar").datepicker
+        e.datepicker
           beforeShowDay: (date) ->
             result = [ true, "", null ]
             matching = $.grep(events, (event) ->
@@ -25,4 +24,3 @@ $(document).ready ->
               event = events[i]  if selectedDate.valueOf() is date.valueOf()
               i++
             $("#description_" + this.id).html(event.Title)  if event
-      i++
