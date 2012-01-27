@@ -9,12 +9,15 @@ $(document).ready ->
       l.html('<img src="/images/spinner.gif" alt="Loading ...">')
       lat = l.data('lat')
       lng = l.data('lng')
-      console.log l.attr('id')
-      loadUserMap(the_id,parseFloat(lng),parseFloat(lat))
+      loadLocationMap(the_id,parseFloat(lng),parseFloat(lat))
       i++
 
-loadUserMap = (the_id, lng,lat) ->
-  latlng = new google.maps.LatLng(lng,lat)
+loadLocationMap = (the_id, lng,lat) ->
+  console.log "lon="
+  console.log lng
+  console.log "lat="
+  console.log lat
+  latlng = new google.maps.LatLng(lat,lng)
   myOptions = {
     zoom: 13,
     center: latlng,
@@ -28,4 +31,4 @@ loadUserMap = (the_id, lng,lat) ->
     position: latlng,
     map: map
   }
-  userMarker = new google.maps.Marker(marker)
+  locationMarker = new google.maps.Marker(marker)
