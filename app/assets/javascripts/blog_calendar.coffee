@@ -4,6 +4,7 @@ $(document).ready ->
     $.ajax
       url: "/calendar/events/" + e.attr('id')
       success: (events)->
+        alert events.length
         e.datepicker
           beforeShowDay: (date) ->
             result = [ true, "", null ]

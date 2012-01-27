@@ -2,11 +2,6 @@ class BaseController < ApplicationController
   caches_page :home, :community, :about_us, :not_authorized, :logoff_success, :all_sponsors
   layout "canvas"
 
-  # TODO REMOVE THIS
-  def error
-    raise RuntimeError, "Generating an error"
-  end
-
   def posts
     @blog = Blog.where(:title => t(:news)).first
     if @blog
@@ -45,6 +40,10 @@ class BaseController < ApplicationController
         end
       end
     end
+  end
+
+  def locations
+    @locations = Location.all.to_a
   end
 
   def not_authorized
@@ -95,15 +94,19 @@ class BaseController < ApplicationController
   def amanda
 
   end
+
   def arthur_and_anna
 
   end
+
   def brandi
 
   end
+
   def catherine
 
   end
+
   def christina
 
   end
