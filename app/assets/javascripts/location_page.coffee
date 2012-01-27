@@ -13,10 +13,6 @@ $(document).ready ->
       i++
 
 loadLocationMap = (the_id, lng,lat) ->
-  console.log "lon="
-  console.log lng
-  console.log "lat="
-  console.log lat
   latlng = new google.maps.LatLng(lat,lng)
   myOptions = {
     zoom: 13,

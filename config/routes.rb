@@ -106,6 +106,8 @@ Cba::Application.routes.draw do
   get 'base/error'
   get 'base/posts'
 
+  get 'base/camp_blog/:location_id' => 'base#camp_blog', as: "camp_blog"
+
   # stories
   get "base/stories/amanda" => "base#amanda"
   get "base/stories/arthur_and_anna" => "base#arthur_and_anna"

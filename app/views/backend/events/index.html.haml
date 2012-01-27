@@ -19,8 +19,8 @@
       %td= resource.starts_at.stamp("Wed, 1-Jan 4:00 PM")
       %td= resource.ends_at.stamp("Wed, 1-Jan 4:00 PM")
       %td.row-actions
-        = link_to 'edit', edit_resource_path(resource.id)
+        = link_to 'edit', edit_backend_location_event_path(@location.id, resource.id)
         |
-        = link_to 'destroy', resource_path(resource.id), method: :delete, confirm: "Are you sure?", class: "del_button"
+        = link_to 'destroy', backend_location_event_path(@location.id, resource.id), method: :delete, confirm: "Are you sure?", class: "del_button"
 
 
