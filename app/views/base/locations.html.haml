@@ -8,9 +8,9 @@
   .one_third{class: loc == @locations.last ? "last" : ""}
     .shadow.shadow_medium
       %a{:href => "whats_included"}
-      .location_map{id: "location_#{loc.id}", data: {lat: loc.lat, lon: loc.lon}}
+      .location_map{id: "location_#{loc.id}", data: {lat: loc.lat, lng: loc.lon}}
     %h2= loc.name
-    %p= loc.description
+    %p= loc.description.html_safe
 %br.clear/
 - @locations.each do |loc|
   .one_third{class: loc == @locations.last ? "last" : ""}
