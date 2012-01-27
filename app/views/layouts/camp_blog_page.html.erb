@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<% if content_for? :resource_actions %>
+    <% content_for :right_column_top do %>
+        <div id='resource-actions'>
+          <%= yield(:resource_actions) %>
+        </div>
+    <% end %>
+<% end %>
+
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang='<%= I18n.locale.to_s -%>'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title><%=
+      raw(strip_tags((ENV['APPLICATION_CONFIG_title_prefix']+
+              " "+
+              yield(:title))))
+  -%></title>
+  <%= insert_extra_headers %>
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "backend/fullcalendar" %>
+  <!-- eieio -->
+  <%= javascript_include_tag "camp_blog_scripts" %>
+  <!-- prototype-lib will be loaded only when needed (if ever?) -->
+  <%= javascript_tag do %>
+      <%= "var google_api_key = '#{ENV['GOOGLE_PLACE_API_KEY']}';" -%>
+  <% end %>
+  <%= yield :head %>
+  <%= auto_discovery_link_tag(:atom, "/feed") %>
+  <%= insert_google_analytics_script if  (Rails.env == 'production') %>
+  <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
+      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
+  <% end %>
+  <% if ENV['APPLICATION_CONFIG_google_profile'] %>
+      <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_google_profile'] -%>"/>
+  <% end %>
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  <%= csrf_meta_tag %>
+  <link rel='stylesheet' id='Lato-css' href='http://fonts.googleapis.com/css?family=Lato&#038;ver=3.2.1' type='text/css' media='all'/>
+
+  <link rel="shortcut icon" href="/images/favicon.ico"/>
+
+  <script type="text/javascript">
+      jQuery(document).ready(function() {
+          jQuery(".stylespanel-toggle").click(function(e) {
+              e.preventDefault();
+              jQuery(".stylespanel-content").slideToggle();
+          });
+          jQuery(".stylespanel-content").hide();
+      });
+  </script>
+<script type='text/javascript'>
+    jQuery(function($){
+        $(".tweet").tweet({
+            username: "FitWitNation",
+            join_text: "auto",
+            avatar_size: 32,
+            count: 3,
+            auto_join_text_default: "we said,",
+            auto_join_text_ed: "we",
+            auto_join_text_ing: "we were",
+            auto_join_text_reply: "we replied to",
+            auto_join_text_url: "we were checking out",
+            loading_text: "loading tweets..."
+        });
+    });
+</script>
+</head>
+
+<body>
+
+<% setup_action_buttons %>
+<% if content_for? :action_buttons %>
+    <div id='action_buttons'>
+      <%= yield(:action_buttons) %>
+    </div>
+<% end %>
+
+<%= render :partial => "layouts/header" %>
+
+<%= render :partial => "layouts/nav" %>
+
+<div id="wrapper">
+
+  <div id="main_wrapper">
+    <div id="breadcrumb">
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'devise/menu/login_items' %>
+    </div>
+
+    <div id='overlay' class="ui-widget-content"></div>
+
+    <% if show_title? %>
+    <div id="intro" class="text-intro">
+        <%= content_tag(:h1,:id => 'title') do yield(:title) end %>
+    </div>
+    <% end %>
+
+    <div id='page-content' class="two_third">
+      <div id='flashes'>
+        <% flash.each do |name, msg| %>
+            <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
+        <% end %>
+
+        <% if user_signed_in? && current_user.user_notifications.displayed.any? %>
+            <% unless params[:controller] == 'user_notifications' || session[:hide_notifications] == true -%>
+                <%= content_tag :div, :id => 'user_notifications' do %>
+                    <%= render :partial => 'users/notifications', :locals => {:user_notifications => current_user.user_notifications.displayed} %>
+                <% end %>
+            <% end %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div><!-- end page content -->
+
+    <div id="sidebar" class="one_third last">
+      <% if content_for?(:right_column_top) %>
+        <div id='right-column-top'>
+          <%= yield(:right_column_top) %>
+        </div>
+      <% end %>
+      <div id='right-column-bottom'>
+        <%= yield(:right_column) if content_for?(:right_column) %>
+      </div>
+      <% if sidebar_partial_exists? %>
+          <%= content_tag :div, class: 'submenu_box' do %>
+              <%= render current_view_sidebar_left_path %>
+          <% end %>
+      <% elsif current_root(self) %>
+          <br class='clear'> <!-- TODO -- REMOVE !!? -->
+      <% end %>
+      <br class="clear">
+    </div><!-- end sidebar -->
+    <br class="clear">
+
+  </div>
+</div>
+
+<%= render :partial => 'layouts/footer' %>
+
+</body>
+</html>

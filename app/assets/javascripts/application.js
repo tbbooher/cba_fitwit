@@ -48,7 +48,7 @@
 
 //= require location_page
 
-//= require blog_calendar
+//= require backend/blog_calendar
 
 //= require flickr/jQuery.flickr
 

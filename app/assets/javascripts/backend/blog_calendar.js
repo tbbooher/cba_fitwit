@@ -24,12 +24,18 @@ $(document).ready(function() {
                 $('#loading').hide();
         },
 
-        // a future calendar might have many sources.        
+        // a future calendar might have many sources.
         eventSources: [
             {
                 url: '/backend/locations/' + location_id + '/events',
-                color: '#efefef;',
-                textColor: 'black',
+                color: 'red',
+                textColor: 'white',
+                ignoreTimezone: false
+            },
+            {
+                url: '/backend/locations/' + location_id + '/events',
+                color: 'green',
+                textColor: 'white',
                 ignoreTimezone: false
             }
         ],
