@@ -11,6 +11,7 @@ $(document).ready ->
       lng = l.data('lng')
       console.log l.attr('id')
       loadUserMap(the_id,parseFloat(lng),parseFloat(lat))
+      i++
 
 loadUserMap = (the_id, lng,lat) ->
   latlng = new google.maps.LatLng(lng,lat)
