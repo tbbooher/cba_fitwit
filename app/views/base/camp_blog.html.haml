@@ -5,6 +5,9 @@
 = @location.contact_info
 
 %p= @location.id
+%h2 Events
+%p= link_to "/calendar/all_camp_events/#{@location.id}"
+
 
 %h2
   Calendar for

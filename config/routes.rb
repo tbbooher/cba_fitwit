@@ -195,6 +195,7 @@ Cba::Application.routes.draw do
   end
 
   get "calendar/events/:id" => "calendar#events"
+  get "calendar/all_camp_events/:id" => "calendar#all_camp_events"
 
   match 'feed' => "home#rss_feed", :as => 'feed'
 

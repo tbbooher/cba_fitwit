@@ -33,7 +33,7 @@ $(document).ready(function() {
                 ignoreTimezone: false
             },
             {
-                url: '/backend/locations/' + location_id + '/events',
+                url: '/calendar/all_camp_events/' + location_id,
                 color: 'green',
                 textColor: 'white',
                 ignoreTimezone: false
