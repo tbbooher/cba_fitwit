@@ -54,7 +54,7 @@ class PagesController < ApplicationController
     end
   end
 
-  # GET /p/titel_of_the_page
+  # GET /p/title_of_the_page
   def permalinked
     permalink = params[:permalink].url_to_txt.escape_regex
     unless params[:permalink][-1] == '$'

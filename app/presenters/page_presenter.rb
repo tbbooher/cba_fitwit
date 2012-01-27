@@ -15,7 +15,8 @@ class PagePresenter < BasePresenter
   end
   
   def body(_concat=true)
-    _txt = self.interpreter.render( page.t(I18n.locale,:body) )
+    #_txt = self.interpreter.render( page.t(I18n.locale,:body) )
+    _txt = page.body.html_safe
     concat_or_string(_concat,_txt)
   end
   

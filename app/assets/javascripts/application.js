@@ -46,6 +46,8 @@
 //= require user_list
 //= require user_notifications
 
+//= require location_page
+
 //= require blog_calendar
 
 //= require flickr/jQuery.flickr
