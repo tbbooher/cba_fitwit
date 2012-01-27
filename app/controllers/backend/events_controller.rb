@@ -18,9 +18,4 @@ class Backend::EventsController < Backend::ResourceController
     end
   end
 
-  def all_camp_events
-    # need to display this as json
-
-  end
-
 end

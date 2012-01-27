@@ -19,5 +19,15 @@ class CalendarController < ApplicationController
 
     render json: out.to_json
   end
-  
+
+  def all_camp_events
+    # need to display this as json
+    l = Location.find(params[:id])
+    #l = Location.first
+    events = l.all_meetings
+    render json: events
+  end
+
+
+
 end

@@ -18,6 +18,10 @@ class Location
   field :lon, :type => Float
 
   validates_presence_of :name, :lat, :lon, :description
+
+  def all_meetings
+    self.fitness_camps.map{|fc| fc.time_slots.map{|ts| ts.meetings.map{ |m| m } } }.flatten
+  end
   
   # named scopes
 
@@ -139,4 +143,5 @@ class Location
   def name_in_context
     "#{self.name} in #{self.city}, #{self.us_state}"
   end
+
 end
