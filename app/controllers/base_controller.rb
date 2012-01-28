@@ -82,7 +82,7 @@ class BaseController < ApplicationController
   end
 
   def camp_details
-
+    @offer = Offer.where(active: true).desc(:updated_at).first
   end
 
   def whats_included

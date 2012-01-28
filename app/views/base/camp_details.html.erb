@@ -1,91 +1,87 @@
-<div class="main-frame">
-	<div id="container">
-		<!-- <div
-class='google-search'> %= insert_google_site_search % </div> -->
-		<div id="container_main">
-			<!-- google_search div id="cse"
-style="display: hidden; background: #fee;"></div -->
-			<div class="text-intro" id="intro">
-				<h1 id="title">
-					Camp Details
-				</h1>
-			</div>
-			<div style="clear:both;"></div>
-			<div class="full_page">
-				<p>
-					FitWit is a personalized group-training program that has transformed thousands of lives since 2006. We're NOT your typical boot camp that runs around the park every day. Instead, we offer unique and measurable workouts instructed by expert coaches who care about <em>your</em> progress.Think measurable workouts with loads of variety – kettlebells, sandbags, medicine balls and think certified trainers coaching you to <em>your</em> personal greatness!
-				</p>
-				<p>
-					AND, not only will you GET FIT, you'll also GIVE FIT, <a href="non_profit">so our next generation can LIVE FIT</a>.
-				</p>
-			</div>
-			<div class="full_page">
-				<%= image_tag "ropes.jpg" %>
-			</div>
-			<div class="full_page">
-				<p>
-					We add up everything cool about teams — camaraderie, support, fun — and then we subtract everything you hate abour sports — ultra-egos, smelly teammates, 3-hour practice — and we mash it up into what we call FitWit. Serious fitness for people who don't take themselves too seriously.
-				</p>
-				<p>
-					Think measurable workouts with cool stuff — kettlebells, sandbags, medicine balls — and think certified trainers coaching you to personal greatness! And guess what? There's a cherry on top...
-				</p>
-			</div>
-			<div class="one_third">
-				<div class="shadow shadow_medium">
-					<a href="whats_included"><%= image_tag("whatsincluded.jpg", :class =>"border-img") %></a>
-				</div>
-				<h2>
-					What's Included
-				</h2>
-				<p>
-					We run a 7-week program, year-round — a 6-week fitness camp (24 workouts) with 1 recovery week in between.
-				</p><a href="whats_included"><%= image_tag "FitWit_MoreDetails_But.png" %></a>
-			</div>
-			<div class="one_third">
-				<div class="shadow shadow_medium">
-					<a href="whats_included"><%= image_tag("price_schedule.jpg", :class =>"border-img") %></a>
-				</div>
-				<h2>
-					Price &amp; Schedule
-				</h2>
-				<p>
-					With 3 Atlanta-area locations and 12 classes/day, FitWit offers a variety of options to get started.
-				</p>
-				<ul>
-					<li>
-						<a href="#">Grant Park</a>
-					</li>
-					<li>
-						<a href="#">Midtown</a>
-					</li>
-					<li>
-						<a href="#">Decatur</a>
-					</li>
-				</ul>
-			</div>
-			<div class="one_third last">
-				<div class="shadow shadow_medium">
-					<a href="whats_included"><%= image_tag("faq.jpg", :class =>"border-img") %></a>
-				</div>
-				<h2>
-					FAQ
-				</h2>
-				<p>
-					Get answers to your burning questions!
-				</p>
-				<ul>
-					<li>Do I need to be a runner?
-					</li>
-					<li>Are there indoor options?
-					</li>
-					<li>Is this a cult?
-					</li>
-					<li>Can I join anytime?
-					</li>
-				</ul><a href="faq"><%= image_tag "FitWit_MoreDetails_But.png" %></a>
-			</div>
-		</div>
-	</div>
+<% title "Camp Details" %>
+<div class="three_fifth">
+    <p>
+        FitWit is a personalized group-training program that has transformed thousands of lives since 2006. We're NOT your typical boot camp that runs around the park every day. Instead, we offer unique and measurable workouts instructed by expert coaches who care about <em>your</em> progress.Think measurable workouts with loads of variety – kettlebells, sandbags, medicine balls and think certified trainers coaching you to <em>your</em> personal greatness!
+    </p>
+    <p>
+        AND, not only will you GET FIT, you'll also GIVE FIT, <%= link_to "so our next generation can LIVE FIT", non_profit_path %>.
+    </p>
 </div>
-<br class="clear"/>
-
+<div class="two_fifth last">
+     <div id="offer" class="info_box info_box1 rounded">
+       <div class="title_box" style="background-color: #58ab58;">Current Offer</div>
+       <div class="content_box">
+         <%= @offer.content %>
+       </div>
+     </div>
+</div>
+<br class="clear">
+<div class="full_page">
+    <%= image_tag "ropes.jpg" %>
+</div>
+<div class="full_page">
+    <p>
+        We add up everything cool about teams — camaraderie, support, fun — and then we subtract everything you hate abour sports — ultra-egos, smelly teammates, 3-hour practice — and we mash it up into what we call FitWit. Serious fitness for people who don't take themselves too seriously.
+    </p>
+    <p>
+        Think measurable workouts with cool stuff — kettlebells, sandbags, medicine balls — and think certified trainers coaching you to personal greatness! And guess what? There's a cherry on top...
+    </p>
+</div>
+<div class="one_third">
+    <div class="shadow shadow_medium">
+       <%= link_to image_tag("whatsincluded.jpg", :class =>"border-img"), whats_included_path %>
+    </div>
+    <h2>
+        What's Included
+    </h2>
+    <p>
+        We run a 7-week program, year-round — a 6-week fitness camp (24 workouts) with 1 recovery week in between.
+    </p>
+  <%= link_to image_tag("FitWit_MoreDetails_But.png"), whats_included_path %>
+  <a href="whats_included"></a>
+</div>
+<div class="one_third">
+    <div class="shadow shadow_medium">
+        <%= link_to image_tag("price_schedule.jpg", :class =>"border-img"), price_path %>
+    </div>
+    <h2>
+        Price &amp; Schedule
+    </h2>
+    <p>
+        With 3 Atlanta-area locations and 12 classes/day, FitWit offers a variety of options to get started.
+    </p>
+    <ul>
+        <li>
+            <a href="#">Grant Park</a>
+        </li>
+        <li>
+            <a href="#">Midtown</a>
+        </li>
+        <li>
+            <a href="#">Decatur</a>
+        </li>
+    </ul>
+</div>
+<div class="one_third last">
+    <div class="shadow shadow_medium">
+      <%= link_to image_tag("faq.jpg", :class =>"border-img"), faq_path %>
+    </div>
+    <h2>
+        FAQ
+    </h2>
+    <p>
+        Get answers to your burning questions!
+    </p>
+    <ul>
+        <li>Do I need to be a runner?
+        </li>
+        <li>Are there indoor options?
+        </li>
+        <li>Is this a cult?
+        </li>
+        <li>Can I join anytime?
+        </li>
+    </ul>
+    <%= link_to image_tag("FitWit_MoreDetails_But.png"), faq_path %>
+</div>
+<br class="clear">
