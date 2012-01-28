@@ -18,8 +18,8 @@
     #postings{ style: 'clear: right;'}
       - @postings.each do |posting|
         = posting.title
-        =# render :partial => 'postings/posting', :locals => { :posting => posting, :blog => @blog }
-      =# render :partial => 'home/load_more', :locals => { :resources => @postings, :path => blog_path(@blog) }
+        = render :partial => 'postings/posting', :locals => { :posting => posting, :blog => @blog }
+      = render :partial => 'home/load_more', :locals => { :resources => @postings, :path => blog_path(@blog) }
 
     - render_pagination_box @postings
 
