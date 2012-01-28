@@ -24,6 +24,7 @@ test/unit/coverage/**/*
 config/application.yml
 config/mailserver_setting.rb
 config/omniauth_settings.yml
+config/s3.yml
 config/google_analytics.head
 config/google_site_search.html
 config/twitter.*.html

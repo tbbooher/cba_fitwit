@@ -52,6 +52,8 @@ class BaseController < ApplicationController
   end
 
   def camp_blog
+    # probably delete, just here if we want to show calendar, etc
+    # TODO -- we are not html safe rendering sidebar content!!
     @calendar = true
     @location = Location.find(:location_id).first
 
@@ -67,7 +69,6 @@ class BaseController < ApplicationController
       format.html {render layout: "camp_blog_page"}
       format.xml  { render :xml => @blog }
     end
-
 
   end
 
