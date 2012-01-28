@@ -25,9 +25,7 @@ class CalendarController < ApplicationController
     l = Location.find(params[:id])
     #l = Location.first
     events = l.all_meetings
-    render json: events
+    render json: events.to_json
   end
-
-
 
 end

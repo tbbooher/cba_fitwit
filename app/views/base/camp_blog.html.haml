@@ -2,11 +2,31 @@
 
 %h2 Blog Entries
 
-= @location.contact_info
+%div
+  - if @blog.pages.any?
+    - content_for :right_column do
+      %div{class: 'widgets subpages-widget'}
+        - for page in @blog.pages.where(is_draft: draft_mode)
+          = render :partial => 'pages/page_intro', :locals => { :page => page }
+          %p.content_seperator
+  -
 
-%p= @location.id
-%h2 Events
-%p= link_to "/calendar/all_camp_events/#{@location.id}"
+  .left_column
+    = render :partial => 'blogs/blog', :locals => { :blog => @blog}
+
+    - render_pagination_box @postings
+
+    #postings{ style: 'clear: right;'}
+      - @postings.each do |posting|
+        = posting.title
+        =# render :partial => 'postings/posting', :locals => { :posting => posting, :blog => @blog }
+      =# render :partial => 'home/load_more', :locals => { :resources => @postings, :path => blog_path(@blog) }
+
+    - render_pagination_box @postings
+
+    .clear
+  .clear
+
 
 
 %h2
@@ -14,4 +34,8 @@
   = @location.name
 
 #calendar
+
+%p Data From
+%p= link_to "/calendar/all_camp_events/#{@location.id}"
+
 
