@@ -21,7 +21,7 @@ form {
 }
 
 * {
-    margin: 0; 
+    margin: 0;
     padding: 0;
     border: 0;
     outline: 0;
@@ -47,8 +47,8 @@ a:hover {
 /* elements */
 div {
     border: 0;
-    position: relative;
-    text-align: left;
+    /* position: relative;
+    text-align: left; */
     overflow: visible;
     background-color: transparent;
 }
@@ -1246,7 +1246,7 @@ code {
 }
 
 /* pagination */
-.wp-pagenavi {  
+.wp-pagenavi {
     font-size: 11px;
     margin-bottom: 20px;
 }
