@@ -74,6 +74,11 @@ class BaseController < ApplicationController
 
   end
 
+  def fit_wit_calendar
+    # here we load the common calendar
+
+  end
+
   def camp_details
 
   end

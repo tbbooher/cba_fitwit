@@ -1,8 +1,14 @@
-- title "Blog for #{@location.name}"
+%ul.tabs
+  %li.current
+    %a#the_camp_blog.tab{href: "#"}
+      = @location.name
+      Blog
+  %li
+    %a#the_camp_calendar.tab{href: "#"}
+      = @location.name
+      Event Calendar
 
-%h2 Blog Entries
-
-%div
+#the_camp_blog.tab_content
   - if @blog.pages.any?
     - content_for :right_column do
       %div{class: 'widgets subpages-widget'}
@@ -25,16 +31,13 @@
 
     .clear
   .clear
+#the_camp_calendar.tab_content
+  %h2
+    Calendar for
+    = @location.name
 
+  #calendar
 
-
-%h2
-  Calendar for
-  = @location.name
-
-#calendar
-
-%p Data From
-%p= link_to "/calendar/all_camp_events/#{@location.id}"
-
-
+  %p Data From
+  %p= link_to "/calendar/all_camp_events/#{@location.id}"
+%br.clear/
