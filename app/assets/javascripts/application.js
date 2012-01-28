@@ -11,7 +11,7 @@
 
 
 // require at_top/l10n
-//= require jquery-1.7.min
+// require jquery-1.7.min # we have this from the cdn (is the speed difference worth the non-amalgamation?)
 
 //= require at_top/preloader
 // require at_top/hoverIntent
@@ -47,8 +47,6 @@
 //= require user_notifications
 
 //= require location_page
-
-//= require backend/blog_calendar
 
 //= require flickr/jQuery.flickr
 
