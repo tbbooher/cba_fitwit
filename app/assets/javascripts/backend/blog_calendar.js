@@ -7,7 +7,7 @@ $(document).ready(function() {
     var location_id = window.location.pathname.split("/")[3];
 
     $('#calendar').fullCalendar({
-        editable: true,
+        editable: false,
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -15,7 +15,7 @@ $(document).ready(function() {
         },
         defaultView: 'month',
         height: 500,
-        slotMinutes: 15,
+        slotMinutes: 60,
 
         loading: function(bool) {
             if (bool)
@@ -42,36 +42,9 @@ $(document).ready(function() {
 
         timeFormat: 'h:mm t{ - h:mm t} ',
         dragOpacity: "0.5",
-
-        //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
-        eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-           updateEvent(event, location_id);
-        },
-
-        // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
-        eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-            updateEvent(event, location_id);
-        },
-
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view) {
             alert('test');
         }
     });
 });
-
-function updateEvent(the_event, loc_id) {
-    $.update(
-        '/backend/locations/' + loc_id + '/events/' + the_event.id,
-        { event: { title: the_event.title,
-            starts_at: "" + the_event.start,
-            ends_at: "" + the_event.end,
-            description: the_event.description
-        }
-        },
-        function (response) {
-            alert('successfully updated task.');
-        }
-    );
-}
-;
