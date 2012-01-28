@@ -10,6 +10,7 @@
  *= require token-input-mac
  *= require jquery-ui
  *= require jquery.Jcrop.css
+ *= require flashes
 */
 
 /* later, we can require cba, which gets everything we need */

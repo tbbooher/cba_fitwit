@@ -6,16 +6,36 @@
 .alert-label {
 }
 
+@mixin flash {
+    padding: 15px 15px 15px 40px;
+    margin: 20px 0;
+    background-position: 15px 18px;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    a {
+        text-decoration: underline;
+        &:hover {text-decoration: none;}
+    }
+}
+
 #flashes {
-  margin-left:  20px;
-  margin-right: 20px;
   #flash_notice {
-    margin-top: 20px;
-    padding-left: 20px;
+    @include flash;
+    border: 2px solid #ffd400;
+    background-color: #fffdcc;
+    background-image: image-url("/images/cold/note.png");
+    color: #e3ac00;
+    a {color: #5897b6;}
   }
   #flash_error,
   #flash_alert {
-    margin-top: 20px;
-    padding-left: 20px;
+    @include flash;
+    border: 2px solid #ff7d98;
+    background-color: #fbe3e8;
+    background-image: image-url("/images/cold/error.png");
+    color: #ee5674;
+    a {color: #ee5674};
   }
 }

@@ -9,7 +9,6 @@
         - for page in @blog.pages.where(is_draft: draft_mode)
           = render :partial => 'pages/page_intro', :locals => { :page => page }
           %p.content_seperator
-  -
 
   .left_column
     = render :partial => 'blogs/blog', :locals => { :blog => @blog}
