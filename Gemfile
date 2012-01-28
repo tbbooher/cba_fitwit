@@ -39,6 +39,7 @@ gem 'omniauth-google-oauth2'
 # Bundle gem needed for paperclip and attachments
 # gem "paperclip" dependency of mongoid-paperclip
 gem "mongoid-paperclip", :require => 'mongoid_paperclip'
+gem "aws-s3",            :require => "aws/s3"
 
 # MongoID Extensions and extras
 gem 'mongoid-tree', :require => 'mongoid/tree'
