@@ -69,7 +69,7 @@ $(document).ready(function() {
         // a future calendar might have many sources.
         eventSources: [
             {
-                url: '/calendar/all_events/' + location_id,
+                url: '/calendar/all_events/',
                 color: 'blue',
                 textColor: 'white',
                 ignoreTimezone: false
