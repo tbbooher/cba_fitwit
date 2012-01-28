@@ -95,7 +95,7 @@
     </div>
     <% end %>
 
-    <div id='page-content' class="two_third">
+    <div id='page-content' class="full_page">
       <div id='flashes'>
         <% flash.each do |name, msg| %>
             <%= content_tag :div, raw(msg), :id => "flash_#{name}" %>
@@ -112,22 +112,7 @@
       <%= yield %>
     </div><!-- end page content -->
 
-    <div id="sidebar" class="one_third last">
-      <% if content_for?(:right_column_top) %>
-        <div id='right-column-top'>
-          <%= yield(:right_column_top) %>
-        </div>
-      <% end %>
-      <div id='right-column-bottom'>
-        <%= yield(:right_column) if content_for?(:right_column) %>
-      </div>
-      <% if sidebar_partial_exists? %>
-          <%= content_tag :div, class: 'submenu_box' do %>
-              <%= render current_view_sidebar_left_path %>
-          <% end %>
-      <% elsif current_root(self) %>
-          <br class='clear'> <!-- TODO -- REMOVE !!? -->
-      <% end %>
+
       <br class="clear">
     </div><!-- end sidebar -->
     <br class="clear">

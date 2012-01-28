@@ -8,3 +8,4 @@
 
 //= require twitter/jquery.tweet
 //= require flickr/jQuery.flickr
+//= require at_bottom/cold_custom
