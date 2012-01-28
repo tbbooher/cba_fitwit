@@ -1,15 +1,23 @@
-- title "Blog for #{@location.name}"
+%ul.tabs
+  %li.current
+    %a#the_camp_blog.tab{href: "#"}
+      = @location.name
+      Blog
+  %li
+    %a#the_camp_calendar.tab{href: "#"}
+      = @location.name
+      Event Calendar
+  %li
+    %a#everything_calendar_page.tab{href: "#"}
+      FitWit Calendar
 
-%h2 Blog Entries
-
-%div
+#the_camp_blog.tab_content
   - if @blog.pages.any?
     - content_for :right_column do
       %div{class: 'widgets subpages-widget'}
         - for page in @blog.pages.where(is_draft: draft_mode)
           = render :partial => 'pages/page_intro', :locals => { :page => page }
           %p.content_seperator
-  -
 
   .left_column
     = render :partial => 'blogs/blog', :locals => { :blog => @blog}
@@ -19,23 +27,25 @@
     #postings{ style: 'clear: right;'}
       - @postings.each do |posting|
         = posting.title
-        =# render :partial => 'postings/posting', :locals => { :posting => posting, :blog => @blog }
-      =# render :partial => 'home/load_more', :locals => { :resources => @postings, :path => blog_path(@blog) }
+        = render :partial => 'postings/posting', :locals => { :posting => posting, :blog => @blog }
+      = render :partial => 'home/load_more', :locals => { :resources => @postings, :path => blog_path(@blog) }
 
     - render_pagination_box @postings
 
     .clear
   .clear
+#the_camp_calendar.tab_content
+  %h2
+    Calendar for
+    = @location.name
 
+  #calendar
 
+#everything_calendar_page.tab_content
+  %h2
+    Calendar for
+    = @location.name
 
-%h2
-  Calendar for
-  = @location.name
+  #everything_calendar
 
-#calendar
-
-%p Data From
-%p= link_to "/calendar/all_camp_events/#{@location.id}"
-
-
+%br.clear/
