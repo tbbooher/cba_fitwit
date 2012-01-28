@@ -45,6 +45,9 @@ jQuery(document).ready(function(){
 			jQuery('div.tab_content').eq(index).css('left', '0');
 			jQuery('div.tab_content').eq(index).css('position', 'relative');
 			jQuery('div.tab_content').eq(index).show();
+        }
+        else {
+            jQuery('div.tab_content').eq(index).hide();
 		}
 	});
 	jQuery("a.tab").click(
@@ -58,8 +61,4 @@ jQuery(document).ready(function(){
 			jQuery('div#' + jQuery(this).attr('id')).show();
 		}
 	);
-});
-
-jQuery(function() {
-//	jQuery('ul.sf-menu').superfish({ delay: 300, animation: { height:'show' }, speed: 'normal' });
 });
