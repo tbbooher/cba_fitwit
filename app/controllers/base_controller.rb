@@ -52,6 +52,8 @@ class BaseController < ApplicationController
   end
 
   def camp_blog
+    # probably delete, just here if we want to show calendar, etc
+    # TODO -- we are not html safe rendering sidebar content!!
     @calendar = true
     @location = Location.find(params[:location_id])
 

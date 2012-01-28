@@ -24,6 +24,9 @@ class Attachment
   include Mongoid::Paperclip
   
   has_mongoid_attached_file :file,
+                            :storage => :s3,
+                            :s3_credentials => File.join(Rails.root, 'config', 's3.yml'),
+                            :path => ":attachment/:id/:style.:extension",
                             :styles => lambda { |attachment|
                               if attachment.instance_read(:content_type) =~ /image/
                                 {
