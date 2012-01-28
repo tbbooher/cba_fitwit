@@ -1,90 +1,77 @@
-<div id="container">
-	<!--
-		<div class='google-search'>
-		   %= insert_google_site_search %
-		</div>
-		-->
-	<div id="container_main">
-		<!-- google_search div id="cse" style="display: hidden; background: #fee;"></div -->
-		<div class="text-intro" id="intro">
-			<h1 id="title">
-				What’s included in my 6-week camp?
-			</h1>
-		</div>
-		<div class="full_page">
-			<%= image_tag "jumpropes.jpg" %>
-		</div>
-		<div class="one_third">
-			<div class="shadow shadow_medium">
-				<a href="whats_included"><%= image_tag("left.jpg", :class =>"border-img") %></a>
-			</div>
-		</div>
-		<div class="one_third">
-			<div class="shadow shadow_medium">
-				<a href="whats_included"><%= image_tag("center.jpg", :class =>"border-img") %></a>
-			</div>
-		</div>
-		<div class="one_third last">
-			<div class="shadow shadow_medium">
-				<a href="whats_included"><%= image_tag("right.jpg", :class =>"border-img") %></a>
-			</div>
-		</div>
-		<div class="two_third">
-			<p>
-				We run a 7-week program, year-round — a 6-week fitness camp (24 workouts) with 1 recovery week in between, but new campers can sign up at any time. <a href="getting_started">Click here for detailed "Getting Started" information</a>.
-			</p>
-			<p>
-				<strong>6-week Fitness Camp:</strong> 24 fat-burning, muscle-toning workouts with constant variety (from sandbag runs and kettle bell circuits to banana relays). Workouts mostly occur in the great outdoors, <em>but unlike most boot camps, we do go indoors in the winter months</em>. Workouts last one hour each Monday, Tuesday, Thursday and Friday. See our location blogs for a taste of the workouts.
-			</p>
-			<p>
-				<strong>Fitness Camp Manual:</strong> Includes training tips, homework workouts, inspiration and more.
-			</p>
-			<p>
-				<strong>Access to the FitWit Workout Tracker:</strong> An online resource that catalogs each campers' individual progress by tracking workout performance, reps, times, or rounds. <a href="#">See more here</a>.
-			</p>
-			<p>
-				<strong>Giving Back:</strong> <em>Each FitWit camp fee</em> pays for one free week of FitWit for one local under-served youth through FitTeens (see <a href="non_profit">The FitWit Foundation</a>).
-			</p>
-			<p>
-				<strong>Nutrition Coaching:</strong> includes a seminar, nutrition counseling, and meal-logging system.
-			</p>
-			<p>
-				<strong>Access to the FitWit online community:</strong> Read articles, watch videos, and get advice on everything fitness-/nutrition-related or simply connect with other campers.
-			</p>
-			<p>
-				<strong>Peace of Mind:</strong> No personal trainer can match the value of our camps which start as low as $8/session. And you have nothing to lose, because we will refund your money if you're not completely satisfied with the FitWit program.
-			</p>
-			<p>
-				<strong>Additional bonus just for joining FitWit:</strong>
-			</p>
-			<ul>
-				<li>FREE Workshops: develop better running skills, hone your jump rope, learn to do a pull-up and much more. These workshops are offered frequently and are free to FitWitters.
-				</li>
-				<li>FREE FitWit Shirt
-				</li>
-				<li>FREE Clubs: We've got several camper-led clubs for a variety of fun things to do!
-				</li>
-			</ul>
-		</div>
-		<div class="one_third last">
-			<div class="info_box info_box1 big_text rounded">
-				<div class="title_box">
-					<p>
-						FitWit Camps
-					</p>
-				</div>
-				<div class="content_box">
-					<p>
-						As low as <strong>$8 per session</strong>
-					</p>
-				</div>
-				<div class="content_box">
-					<p>
-						Next camp October 31st - December 9th
-					</p><a class="big-btn gradient-btn stroke-btn" href="#"><span>Register</span></a>
-				</div>
-			</div>
-		</div>
-		<div style="clear:both;"></div>
-	</div>
+<% title "What’s included in my 6-week camp?" %>
+
+<div class="full_page">
+    <%= image_tag "jumpropes.jpg" %>
 </div>
+<div class="one_third">
+    <div class="shadow shadow_medium">
+        <%= link_to image_tag("left.jpg", :class =>"border-img"), whats_included_path %>
+    </div>
+</div>
+<div class="one_third">
+    <div class="shadow shadow_medium">
+        <%= link_to image_tag("center.jpg", :class =>"border-img"), whats_included_path %>
+    </div>
+</div>
+<div class="one_third last">
+    <div class="shadow shadow_medium">
+        <%= link_to image_tag("right.jpg", :class =>"border-img"), whats_included_path %>
+    </div>
+</div>
+<div class="two_third">
+    <p>
+        We run a 7-week program, year-round — a 6-week fitness camp (24 workouts) with 1 recovery week in between, but new campers can sign up at any time. <a href="getting_started">Click here for detailed "Getting Started" information</a>.
+    </p>
+    <p>
+        <strong>6-week Fitness Camp:</strong> 24 fat-burning, muscle-toning workouts with constant variety (from sandbag runs and kettle bell circuits to banana relays). Workouts mostly occur in the great outdoors, <em>but unlike most boot camps, we do go indoors in the winter months</em>. Workouts last one hour each Monday, Tuesday, Thursday and Friday. See our location blogs for a taste of the workouts.
+    </p>
+    <p>
+        <strong>Fitness Camp Manual:</strong> Includes training tips, homework workouts, inspiration and more.
+    </p>
+    <p>
+        <strong>Access to the FitWit Workout Tracker:</strong> An online resource that catalogs each campers' individual progress by tracking workout performance, reps, times, or rounds. <a href="#">See more here</a>.
+    </p>
+    <p>
+        <strong>Giving Back:</strong> <em>Each FitWit camp fee</em> pays for one free week of FitWit for one local under-served youth through FitTeens (see <a href="non_profit">The FitWit Foundation</a>).
+    </p>
+    <p>
+        <strong>Nutrition Coaching:</strong> includes a seminar, nutrition counseling, and meal-logging system.
+    </p>
+    <p>
+        <strong>Access to the FitWit online community:</strong> Read articles, watch videos, and get advice on everything fitness-/nutrition-related or simply connect with other campers.
+    </p>
+    <p>
+        <strong>Peace of Mind:</strong> No personal trainer can match the value of our camps which start as low as $8/session. And you have nothing to lose, because we will refund your money if you're not completely satisfied with the FitWit program.
+    </p>
+    <p>
+        <strong>Additional bonus just for joining FitWit:</strong>
+    </p>
+    <ul>
+        <li>FREE Workshops: develop better running skills, hone your jump rope, learn to do a pull-up and much more. These workshops are offered frequently and are free to FitWitters.
+        </li>
+        <li>FREE FitWit Shirt
+        </li>
+        <li>FREE Clubs: We've got several camper-led clubs for a variety of fun things to do!
+        </li>
+    </ul>
+</div>
+<div class="one_third last">
+    <div class="info_box info_box1 big_text rounded">
+        <div class="title_box">
+            <p>
+                FitWit Camps
+            </p>
+        </div>
+        <div class="content_box">
+            <p>
+                As low as <strong>$8 per session</strong>
+            </p>
+        </div>
+        <div class="content_box">
+            <p>
+                Next camp October 31st - December 9th
+            </p><a class="big-btn gradient-btn stroke-btn" href="#"><span>Register</span></a>
+        </div>
+    </div>
+</div>
+
