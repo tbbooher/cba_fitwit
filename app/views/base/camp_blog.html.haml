@@ -7,6 +7,9 @@
     %a#the_camp_calendar.tab{href: "#"}
       = @location.name
       Event Calendar
+  %li
+    %a#everything_calendar_page.tab{href: "#"}
+      FitWit Calendar
 
 #the_camp_blog.tab_content
   - if @blog.pages.any?
@@ -40,4 +43,12 @@
 
   %p Data From
   %p= link_to "/calendar/all_camp_events/#{@location.id}"
+
+#everything_calendar_page.tab_content
+  %h2
+    Calendar for
+    = @location.name
+
+  #everything_calendar
+
 %br.clear/
