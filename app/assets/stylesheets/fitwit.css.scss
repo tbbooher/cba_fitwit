@@ -139,6 +139,19 @@ table.ui-datepicker-calendar tbody td.highlight > a {
     border: 1px solid #FFDE2E;
 }
 
+.bio-padding {
+	margin-right: 5px;
+}
+
+.hmenu{
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.space-list li{
+	margin-bottom: 6px;
+}
+
 @import "cold.css.scss";
 @import "menu.css.scss";
 @import "nivo-slider.css.scss";
