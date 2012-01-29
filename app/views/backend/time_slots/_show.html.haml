@@ -32,3 +32,8 @@
         = link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
       %span.divider /
 %p= link_to "Edit Meetings", backend_location_fitness_camp_time_slot_meetings_path(@location.id, @fitness_camp.id, @time_slot.id) 
+
+%h4 Reports
+%ul
+  %li= link_to "Attendance Report", backend_location_fitness_camp_time_slot_attendance_sheet_path(@location.id, @fitness_camp.id, @time_slot.id) 
+  %li= link_to "Emergency Contact List", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id)

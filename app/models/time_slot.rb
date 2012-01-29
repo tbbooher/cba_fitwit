@@ -31,6 +31,14 @@ class TimeSlot
     Workout.where(user_id: user_id).and(:meeting_id.in => meeting_ids).to_a
   end
 
+  def all_campers
+    unless self.registrations.size == 0
+      self.registrations.map{|r| r.order.user}
+    else
+      ""
+    end
+  end
+
   def campers
     self.registrations.map{|r| r.order.user.full_name}
   end
