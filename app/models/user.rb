@@ -143,7 +143,7 @@ class User
 
   has_mongoid_attached_file :avatar,
                             :storage => :s3,
-                            :s3_credentials => File.join(Rails.root, 'config', 's3.yml'),
+                            :s3_credentials => S3_CREDENTIALS,
                             :path => ":attachment/:id/:style.:extension",
                             :styles => {
                               :popup  => "800x600=",
