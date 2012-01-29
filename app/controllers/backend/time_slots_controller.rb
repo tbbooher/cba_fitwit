@@ -40,4 +40,14 @@ class Backend::TimeSlotsController < Backend::ResourceController
     end
   end
 
+  def  attendance_sheet
+    # here we need a list of all users in a time slot
+    ts = TimeSlot.find(params[:time_slot_id])
+    @campers = ts.all_campers
+  end
+ 
+  def emergency_contact
+    ts = TimeSlot.find(params[:time_slot_id])
+    @campers = ts.all_campers
+  end
 end

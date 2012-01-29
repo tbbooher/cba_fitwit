@@ -40,6 +40,7 @@ gem 'omniauth-google-oauth2'
 # gem "paperclip" dependency of mongoid-paperclip
 gem "mongoid-paperclip", :require => 'mongoid_paperclip'
 gem "aws-sdk"
+gem 'prawn'
 
 # MongoID Extensions and extras
 gem 'mongoid-tree', :require => 'mongoid/tree'
