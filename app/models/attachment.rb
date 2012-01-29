@@ -25,7 +25,7 @@ class Attachment
   
   has_mongoid_attached_file :file,
                             :storage => :s3,
-                            :s3_credentials => File.join(Rails.root, 'config', 's3.yml'),
+                            :s3_credentials => S3_CREDENTIALS,
                             :path => ":attachment/:id/:style.:extension",
                             :styles => lambda { |attachment|
                               if attachment.instance_read(:content_type) =~ /image/
