@@ -46,12 +46,11 @@ class Backend::TimeSlotsController < Backend::ResourceController
       format.csv { render :csv => @campers}
       format.pdf do
         pdf = AttendanceReportPdf.new(ts, @campers, view_context)
-        send_data pdf.render, filename: "Attendance_Report_For_#{ts.short_title.parameterize}.pdf",
+        send_data pdf.render, filename: "Attendance_Report_For_#{ts.longer_title.parameterize}.pdf",
                   type: "application/pdf",
                   disposition: "inline"
       end
     end
-
   end
  
   def emergency_contact
