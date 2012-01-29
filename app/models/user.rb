@@ -86,7 +86,7 @@ class User
   ]
 
   def as_csv
-    {foo: 'bar'}
+    {name: self.full_name}
   end
 
   # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

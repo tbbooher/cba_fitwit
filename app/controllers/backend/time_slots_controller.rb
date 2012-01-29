@@ -39,15 +39,24 @@ class Backend::TimeSlotsController < Backend::ResourceController
     # here we need a list of all users in a time slot
     ts = TimeSlot.find(params[:time_slot_id])
     @campers = ts.all_campers
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @campers}
       format.csv { render :csv => @campers}
+      format.pdf do
+        pdf = AttendanceReportPdf.new(ts, @campers, view_context)
+        send_data pdf.render, filename: "Attendance_Report_For_#{ts.short_title.parameterize}.pdf",
+                  type: "application/pdf",
+                  disposition: "inline"
+      end
     end
+
   end
  
   def emergency_contact
     ts = TimeSlot.find(params[:time_slot_id])
     @campers = ts.all_campers
   end
+
 end
