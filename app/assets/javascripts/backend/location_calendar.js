@@ -6,7 +6,7 @@ $(document).ready(function() {
     var y = date.getFullYear();
     var location_id = window.location.pathname.split("/")[3];
 
-    $('#fit_wit_calendar').fullCalendar({
+    $('#location_calendar').fullCalendar({
         editable: false,
         header: {
             left: 'prev,next today',
