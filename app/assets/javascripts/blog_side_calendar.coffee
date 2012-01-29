@@ -4,7 +4,6 @@ $(document).ready ->
     $.ajax
       url: "/calendar/events/" + e.attr('id')
       success: (events)->
-        alert events.length
         e.datepicker
           beforeShowDay: (date) ->
             result = [ true, "", null ]
@@ -24,4 +23,7 @@ $(document).ready ->
               date = new Date(events[i].Date)
               event = events[i]  if selectedDate.valueOf() is date.valueOf()
               i++
-            $("#description_" + this.id).html(event.Title)  if event
+            if event
+              $("#describer_of_event").show()
+              $("#event_title").html(event.Date)
+              $("#description_" + this.id).html(event.Title)

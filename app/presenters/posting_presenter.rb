@@ -24,11 +24,8 @@ class PostingPresenter < BasePresenter
     concat_or_string _concat, render( :partial => 'postings/cover_picture.html.erb', :locals => { :posting => posting, :style => style, :format => format })
   end
   
-  def title(_concat=true)
-    concat_or_string(_concat,content_tag( :h1, :onmouseover=> "showSideTab($('#posting_#{posting.id.to_s}'));", 
-                     :onmouseout=>"hideWithDelay('posting_#{posting.id.to_s}',2000);") do
-      link_to(posting.title, blog_posting_path(posting.blog,posting))
-    end)
+  def title
+    link_to(posting.title, blog_posting_path(posting.blog,posting), title: posting.title, :onmouseover=> "showSideTab($('#posting_#{posting.id.to_s}'));", :onmouseout=>"hideWithDelay('posting_#{posting.id.to_s}',2000);")
   end
   
   def title_and_blog(_concat=true)
@@ -48,6 +45,14 @@ class PostingPresenter < BasePresenter
       posting.body
     end
     concat_or_string(_concat, _rc)
+  end
+
+  def simple_intro
+    if interpreter
+      interpreter.render(posting.intro)
+    else
+      posting.intro(false)
+    end
   end
   
   def intro(_concat=true)
@@ -110,6 +115,17 @@ class PostingPresenter < BasePresenter
     end
     concat_or_string(_concat,_rc)
   end
+
+  def tags_info
+    #tbb code
+    txt = posting.tags_array.map { |tag|
+      link_to( tag, tags_path(tag)) unless tag.blank?
+    }.compact.join(", ").html_safe
+    unless posting.public?
+      txt += I18n.translate(:limited_posting)
+    end
+    txt.html_safe
+  end
   
   def tags_and_limited_information(_concat=true)
     _rc = content_tag( :div, :class => 'tags') do
@@ -122,6 +138,14 @@ class PostingPresenter < BasePresenter
       txt.html_safe
     end
     concat_or_string(_concat,_rc)
+  end
+
+  def simple_read_more
+    if posting.body.paragraphs.count > 1
+      content_tag :p, class: "more" do
+        link_to "Read more", posting
+      end
+    end
   end
   
   def read_more(_concat=true)

@@ -54,7 +54,7 @@ class Meeting
   def as_json(options={})
     {
       :id => 'blank',
-      :title => self.time_slot.short_title,
+      :title => self.time_slot.fitness_camp.location.name,
       :description => self.time_slot.short_title || "",
       :start => self.meeting_date.rfc822,
       :end => 1.hour.from_now(self.meeting_date).rfc822,

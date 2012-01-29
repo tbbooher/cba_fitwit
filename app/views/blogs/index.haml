@@ -4,14 +4,13 @@
   - content_for :resource_actions do
     %p= ui_button( 'add', t(:create_new_blog), new_blog_path, :add_class => '')
 
-
 %div
   -if @blogs.total_pages > 1
     .pagination_box= will_paginate @blogs
 
   - @blogs.each do |blog|
     = render :partial => 'blog_intro', :locals => { :blog => blog }
-    %p.content_seperator
+    %p.content_separator
   
   -if @blogs.total_pages > 1
     .pagination_box= will_paginate @blogs
