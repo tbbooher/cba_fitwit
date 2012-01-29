@@ -2,7 +2,7 @@
 
 .full_page
   %h2 How to find us
-  andrew, put pic here
+  = image_tag("CampDetails_Locations.png") 
 
 - @locations.each do |loc|
   .one_third{class: loc == @locations.last ? "last" : ""}
