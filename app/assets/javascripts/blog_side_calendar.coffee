@@ -25,5 +25,5 @@ $(document).ready ->
               i++
             if event
               $("#describer_of_event").show()
-              $("#event_title").html(event.Date)
+              $("#event_title").html("Events for " + event.Date)
               $("#description_" + this.id).html(event.Title)

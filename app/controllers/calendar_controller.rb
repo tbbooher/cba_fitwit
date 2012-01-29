@@ -1,5 +1,6 @@
 class CalendarController < ApplicationController
-  
+  layout "camp_blog_page"
+
   def events
     # this is for the sidebar calendar
     @events = Event.where(location_id: params[:id]).all.to_a
@@ -31,6 +32,18 @@ class CalendarController < ApplicationController
               end
 
     render json: events.to_json
+  end
+
+  def location_calendar
+    @location = Location.find(params[:location_id])
+  end
+
+  def fit_wit_calendar
+
+  end
+
+  def display_event
+    # this will give the details on an event
   end
 
 end

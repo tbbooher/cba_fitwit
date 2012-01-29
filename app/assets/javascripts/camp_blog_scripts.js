@@ -5,8 +5,8 @@
 //= require backend/jquery.rest
 
 //= require backend/fullcalendar
-//= require backend/blog_calendar
 //= require side_tab
+//= require backend/all_fit_wit_calendar
 //= require blog_side_calendar
 
 //= require twitter/jquery.tweet

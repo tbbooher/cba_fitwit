@@ -120,7 +120,7 @@ class PostingPresenter < BasePresenter
     #tbb code
     txt = posting.tags_array.map { |tag|
       link_to( tag, tags_path(tag)) unless tag.blank?
-    }.compact.join(", ").html_safe
+    }.compact.join(" ").html_safe
     unless posting.public?
       txt += I18n.translate(:limited_posting)
     end
