@@ -1,4 +1,4 @@
-class AttendanceReportPdf < Prawn::Document
+class CampRosterPdf < Prawn::Document
 
   def initialize(time_slot,campers,view)
     super(page_layout: :landscape, margin: 14)
@@ -27,8 +27,8 @@ class AttendanceReportPdf < Prawn::Document
   end
 
   def camper_lines
-    [["Date/Weekday:", "", "", "", ""]] +
-    @campers.map{|c| [c.full_name, "","","",""]}
+    [["Camper:", "Contact Name", "Relationship", "Phone", "Health Report"]] +
+    @campers.map{|c| [c.full_name, c,"","",""]}
   end
 
 end
