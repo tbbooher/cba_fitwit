@@ -33,7 +33,7 @@ class TimeSlot
 
   def all_campers
     unless self.registrations.size == 0
-      self.registrations.map{|r| r.order.user}
+      self.registrations.map{|r| r.user}.sort_by{|u| u.last_name}
     else
       ""
     end
