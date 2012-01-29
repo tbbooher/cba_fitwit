@@ -1,17 +1,30 @@
 -# - TODO: Duplication - Posting Header and Links
 - interpret posting do |presenter|
-  %div{:style=>'clear: right;',:id => 'posting', :class => posting.css_class}
+  %div{:style=>'clear: right;',:id => 'posting', :class => "#{posting.css_class} post"}
     - if can? :edit, posting
       = presenter.edit_buttons
-    .side-tab-content
+    .meta-date
+      %span.meta-month= posting.created_at.strftime('%b')
+      %span.meta-day= posting.created_at.strftime('%d')
+      %span.meta-year= posting.created_at.strftime('%Y')
+      .meta-comments
+        %a
+          %span= posting.comments.count
+    %h2.blog-header
       = presenter.title
-      = presenter.tags_and_limited_information
-      = presenter.cover_picture('margin-right: 10px;',:thumb)
+    .meta.posted-meta
+      by
+      = posting.user.name
+    .meta.tags-meta
+      = presenter.tags_info
+    %br.clear
+      .shadow.shadow_huge.aligncenter.shadow_center
+        = presenter.cover_picture('margin-right: 10px;',:thumb)
       - unless params[:controller] == 'postings' && params[:action] == 'show'
-        = presenter.user_and_time
-        = presenter.intro
-        = presenter.comment_links
-        = presenter.read_more
+        %p
+          = presenter.simple_intro
+        %p.more
+          = presenter.simple_read_more
       - else
         = presenter.user_time_and_blog
         - if can? :edit, posting
@@ -20,4 +33,22 @@
           = ui_button 'delete', t(:delete), blog_posting_path(posting.blog, posting), method: :delete, confirm: t(:are_you_sure)
         = presenter.body
         = presenter.comments
+
+    -#.side-tab-content
+    -#  = presenter.title
+    -#  = presenter.tags_and_limited_information
+    -#  = presenter.cover_picture('margin-right: 10px;',:thumb)
+    -#  - unless params[:controller] == 'postings' && params[:action] == 'show'
+    -#    = presenter.user_and_time
+    -#    = presenter.intro
+    -#    = presenter.comment_links
+    -#    = presenter.read_more
+    -#  - else
+    -#    = presenter.user_time_and_blog
+    -#    - if can? :edit, posting
+    -#      = ui_button 'edit', t(:edit), edit_blog_posting_path(posting.blog, posting)
+    -#    - if can? :manage, posting
+    -#      = ui_button 'delete', t(:delete), blog_posting_path(posting.blog, posting), method: :delete, confirm: t(:are_you_sure)
+    -#    = presenter.body
+    -#    = presenter.comments
 = javascript_tag "$('#posting_#{posting.id.to_s}').hide()"

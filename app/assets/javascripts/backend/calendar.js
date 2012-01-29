@@ -67,5 +67,4 @@ function updateEvent(the_event, loc_id) {
             alert('successfully updated task.');
         }
     );
-}
-;
+};

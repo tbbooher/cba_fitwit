@@ -6,9 +6,8 @@
   form {
     margin-left: 15px;
     input { 
-      width: 140px;
-      background: white image-url('images/magnify.png') center right no-repeat;
-      @include input-border;
+      width: 140px !important;
+      background: white image-url('/images/magnify.png') center right no-repeat;
       padding: 2px;
     }
   }

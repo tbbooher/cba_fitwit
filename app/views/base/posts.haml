@@ -11,7 +11,7 @@
         - content_for :right_column do
             - for page in p
                 = render :partial => 'pages/page_intro', :locals => { :page => page }
-                %p.content_seperator
+                %p.content_separator
             = insert_twitter_box
     - unless @blog.nil?
         %p{:style=>'clear: left;'}

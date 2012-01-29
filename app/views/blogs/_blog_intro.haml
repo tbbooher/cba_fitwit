@@ -1,5 +1,5 @@
+- title link_to(blog.title, blog)
 %div{ :class=>:blog_intro, :id=>blog.id.to_s  }
-%h1= link_to blog.title, blog
 - if blog.is_draft
     %p= t(:is_draft_label)
   

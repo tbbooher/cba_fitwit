@@ -1,13 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<% if content_for? :resource_actions %>
-    <% content_for :right_column_top do %>
-        <div id='resource-actions'>
-          <%= yield(:resource_actions) %>
-        </div>
-    <% end %>
-<% end %>
-
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang='<%= I18n.locale.to_s -%>'>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -90,6 +82,12 @@
 
     <div id='overlay' class="ui-widget-content"></div>
 
+    <% if show_title? %>
+    <div id="intro" class="text-intro">
+        <%= content_tag(:h1,:id => 'title') do yield(:title) end %>
+    </div>
+    <% end %>
+
     <div class='page-content'>
       <div id='flashes'>
         <% flash.each do |name, msg| %>
@@ -106,9 +104,7 @@
       </div>
     </div>
 
-      <%= content_tag(:h1, :id => 'title') do
-          yield(:title)
-      end if show_title? %>
+    <!-- begin canvas content -->
       <%= yield %>
       <br class="clear">
   </div>

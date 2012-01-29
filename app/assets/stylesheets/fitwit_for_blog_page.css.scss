@@ -129,6 +129,14 @@ tr.dark {
 	font-size:120%;
 }
 
+#postings {
+
+}
+
+#describer_of_event {
+  display:none;
+}
+
 .asSeenOn {
 	padding: 0px 5px 5px 5px;
 }
@@ -152,6 +160,7 @@ table.ui-datepicker-calendar tbody td.highlight > a {
 @import "flickr.css.scss";
 @import "jquery.tweet.css.scss";
 @import "simple_form.sass";
+@import "search.css.scss";
 // @import "user.css.scss";
 // @import "jquery-ui-1.8.2.custom.css.scss"
 // @import "fit_wit_forms.css.scss";

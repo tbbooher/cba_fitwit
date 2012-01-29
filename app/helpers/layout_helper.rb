@@ -80,7 +80,7 @@ module LayoutHelper
       unless tag.blank?
         if accessible_postings(tag,current_role).any?
           content_tag :span, :class => "tag-weight-#{weight.to_s.gsub('.','-')}" do
-            link_to( "#{tag}", tags_path(tag))
+            link_to(tag, tags_path(tag), title: tag)
           end
         end
       end
