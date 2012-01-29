@@ -187,7 +187,7 @@ Cba::Application.routes.draw do
   get "calendar/events/:id" => "calendar#events"
   get "calendar/all_camp_events/:id" => "calendar#all_camp_events"
   get "calendar/all_events/" => "calendar#all_events"
-  get "calendar/location_calendar/:location_id" => "calendar#location_calendar"
+  get "calendar/location_calendar/:location_id" => "calendar#location_calendar", :as => 'location_calendar'
   get "calendar/fit_wit_calendar" => "calendar#fit_wit_calendar"
   get "calendar/display_event/:event_id" => "calendar#display_event"
 
