@@ -22,13 +22,8 @@ class Backend::TimeSlotsController < Backend::ResourceController
     @registration = Registration.new
     @user = User.find(params[:user_id])
     @time_slot = TimeSlot.find(params[:time_slot_id])
-    o = Order.new
-    o.user = @user
-    o.description = "FitWit Administratively Generated Order"
-    o.save
-    @registration.user = @user
-    @registration.order = o
-    @registration.time_slot = @time_slot
+    @registration.user_id = @user.id
+    @registration.time_slot_id = @time_slot.id
     respond_to do |format|
       if @registration.save
         format.html { redirect_to(:back, :notice => "Successfully added user to fitness camp.") }
@@ -44,6 +39,11 @@ class Backend::TimeSlotsController < Backend::ResourceController
     # here we need a list of all users in a time slot
     ts = TimeSlot.find(params[:time_slot_id])
     @campers = ts.all_campers
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @campers}
+      format.csv { render :csv => @campers}
+    end
   end
  
   def emergency_contact

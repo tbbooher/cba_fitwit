@@ -54,7 +54,6 @@ class User
   field :post_menopausal_female, type: Boolean, default: false
   field :taking_estrogen, type: Boolean, default: false
 
-
   # fitwit
   # validates_numericality_of :weight, :height_feet, :height_inches
   # validates_format_of :primary_phone, :with => /[0-9\-\.]+/i
@@ -63,7 +62,6 @@ class User
   #validates_multiparameter_assignments :message => " is not entered correctly."
 
   #validates_uniqueness_of :user_name
-
 
   GENDER = [
   #  Displayed        stored in db
@@ -86,6 +84,10 @@ class User
   ["Large", :l],
   ["Extra Large", :xl]
   ]
+
+  def as_csv
+    {foo: 'bar'}
+  end
 
   # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

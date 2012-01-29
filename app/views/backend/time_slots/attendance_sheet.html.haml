@@ -1,21 +1,49 @@
 - title 'Attendance Taker'
 
-%p This is the attendance form
 %p
   You have
-  = @campers.size
-   campers.
+  = @campers.size 
+  campers.
 
 #camp_info
-  %table
-    %tr
-      %th Name
-      %th Day1
-      %th Day2
-      %th Day3
-      %th Day4
+  %table.zebra_striped
+    %thead
+      %tr
+        %th Name
+        %th Day1
+        %th Day2
+        %th Day3
+        %th Day4
+    %tbody
+      %tr
+        %th Week #
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+      %tr
+        %th Day of the Week
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+      %tr
+        %th Date
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+      %tr
+        %th Workout
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;     
     - @campers.each do |camper|
       %tr
-        %td = camper.name
-          
+        %td= camper.full_name
+        %td &nbsp;
+        %td &nbsp;
+        %td &nbsp;
+        %td &nbsp;
       
