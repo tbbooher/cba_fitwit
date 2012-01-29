@@ -27,9 +27,15 @@ $(document).ready(function() {
         // a future calendar might have many sources.
         eventSources: [
             {
-                url: '/calendar/all_events/',
-                color: '#dfdfdf',
-                textColor: 'black',
+                url: '/backend/locations/' + location_id + '/events',
+                color: 'blue',
+                textColor: 'white',
+                ignoreTimezone: false
+            },
+            {
+                url: '/calendar/all_camp_events/' + location_id,
+                color: 'green',
+                textColor: 'white',
                 ignoreTimezone: false
             }
         ],
