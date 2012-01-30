@@ -152,6 +152,14 @@ module FitWitCustomUserMethods
     (self.gender == :female ? "estrogen: #{u.taking_estrogen}, post-menopausal: #{u.post_menopausal_female}" : "")
   end
 
+  def short_health_state
+    (self.health_issues.map{|h| h.medical_condition.name }.join(", ")) + " " +
+    (self.has_physician_approval ? "" : "| No doc approval!") +
+    (self.meds_affect_vital_signs ? "| Meds affect vitals" : "")
+    #+
+    #(self.gender == :female ? "#{u.taking_estrogen == true ? "| taking estrogen" : ""} #{u.post_menopausal_female == true ? "| post menopausal" : ""}" : "")
+  end
+
   def create_from_cart(cart)
     # creates a pending order
     o = Order.new(user_id: self.id)

@@ -33,7 +33,8 @@ class User
   field :primary_phone, type: String
   field :secondary_phone, type: String
   field :t_shirt_size, type: String
-  field :emergency_contact_information
+  field :emergency_contact_name, type: String
+  field :emergency_contact_relationship, type: String
   field :weight, :type => Integer
   field :how_did_you_hear_about_us
   field :fitness_level, :type => Integer
@@ -86,7 +87,11 @@ class User
   ]
 
   def as_csv
-    {name: self.full_name}
+      {"Camper" => self.full_name,
+       "Contact Name" => self.emergency_contact_name,
+       "Relationship" => self.emergency_contact_relationship,
+       "Phone" => self.primary_phone,
+       "Health Report" => self.short_health_state}
   end
 
   # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

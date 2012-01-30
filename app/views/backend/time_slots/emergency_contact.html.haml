@@ -1,2 +1,24 @@
-- title "Emergency Contact Form"
+%h1 Emergency Contact Information
 
+%p
+  You have
+  = @campers.size
+  campers.
+
+#camp_info
+  %table.zebra-striped
+    %thead
+      %tr
+        %th Camper
+        %th Contact Name
+        %th Relationship
+        %th Phone
+        %th Health Report
+    %tbody
+      - @campers.each do |camper|
+        %tr
+          %td= camper.full_name
+          %td= camper.emergency_contact_name
+          %td= camper.emergency_contact_relationship
+          %td= camper.primary_phone
+          %td= camper.short_health_state
