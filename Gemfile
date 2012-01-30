@@ -70,11 +70,9 @@ gem "nokogiri", "1.4.6"
 
 gem 'heroku'
 
-# remove
-gem 'factory_girl_rails', "1.3.0"
 
 # Testing
-group :development, :test do
+#group :development, :test do
   #gem 'linecache', git: 'git://github.com/mark-moseley/linecache.git'
   gem 'jasmine' #, '1.0.2.1'
   gem 'headless', '0.1.0'  
@@ -114,7 +112,7 @@ group :development, :test do
   gem 'faker'
   gem 'ruby-prof', :git => 'git://github.com/wycats/ruby-prof.git'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
-end
+#end
 
 # custom FitWit gems
 gem 'activemerchant', :git => 'git://github.com/tbbooher/active_merchant.git'
