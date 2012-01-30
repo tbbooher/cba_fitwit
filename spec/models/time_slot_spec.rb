@@ -75,5 +75,5 @@ describe TimeSlot do
   it "should show who is going" do
     @six_am.users_going.count.should eq(10) 
   end
-  
+
 end

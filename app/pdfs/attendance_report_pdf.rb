@@ -5,30 +5,29 @@ class AttendanceReportPdf < Prawn::Document
     @campers = campers
     @view = view
     @time_slot = time_slot
-    draw_head
-    draw_rows
-  end
+    if @campers.empty?
+      text "No campers registered for this camp"
+    else
+      text @time_slot.longer_title, size: 20, style: :bold
+      text "Workout:                                                                Week #: "
+      move_down 5
+      draw_rows
+      number_pages "#{time_slot.short_title} <page> of <total>", {start_count_at: 1, page_filter: :all, at: [bounds.right-250,0], align: :right, size: 14}
+    end
 
-  def draw_head
-    text @time_slot.short_title, size: 20, style: :bold
   end
 
   def draw_rows
-    table camper_lines, width: 765 do
-      style(row(1), background_color: 'ff00ff')
+    table camper_lines, width: 765, header: true do
+      row(0).font_style = :bold
       column(0).width = 144
       column(1..4).width = 155.25
-      self.row_colors = ["DDDDDD", "FFFFFF"]
-      self.header = true
+      self.row_colors = ["FFFFFF", "DDDDDD"]
     end
   end
 
   def camper_lines
-    [["Name", "", "", "", ""]] +
-    [["Week #", "", "", "", ""]] +
-    [["Day of the Week", "", "", "", ""]] +
-    [["Date", "", "", "", ""]] +
-    [["Workout", "", "", "", ""]] +
+    [["Date/Weekday:", "", "", "", ""]] +
     @campers.map{|c| [c.full_name, "","","",""]}
   end
 

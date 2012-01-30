@@ -17,7 +17,17 @@ class TimeSlot
   has_many :registrations
   has_many :meetings
   embeds_many :prizes
-  
+
+  # what is the most recent timeslot at the same time?
+  #scope :previous_camp, ->(fitness_camp_id, start_time) { where(fitness_camp_id: fitness_camp_id).and(start_time:)}  
+
+  def register_user(user_id)
+    r = Registration.new
+    r.user_id = user_id
+    r.time_slot_id = self.id
+    r.save
+  end
+
   def start_time_f
     self.start_time.strftime(" %I:%M%p").gsub(/ 0(\d\D)/, '\1')
   end
@@ -42,14 +52,6 @@ class TimeSlot
   def campers
     self.registrations.map{|r| r.order.user.full_name}
   end
-  
-  #  def find_registered
-    # TODO -- we must know everyone registered for this time slot
-    # {:time_slots => {:registrations => {:order => :user}}}
-    #User.find :all, :select => 'distinct users.*',
-    #  :joins => {:orders => {:registrations => {:time_slot => :fitness_camp}}},
-    #  :conditions => ['fitness_camp_id = ?', self.id]
-#  end
 
   def show_meeting_txt
     "<span class=\"time\">#{self.start_time_f}</span>\n" +
@@ -113,16 +115,4 @@ class TimeSlot
     end
   end
 
-  # really not needed this is just a property of the association
-  #def all_prizes
-  #  self.prizes
-  #  Prize.find(:all, :conditions => ["time_slot_id = ?", self.id])
-  # end
-  
-  # private
-  
-  # def strip_zeros_from_date(marked_date_string)
-  #   cleaned_string = marked_date_string.gsub('*0', '').gsub('*', '')
-  #   return cleaned_string
-  # end
 end

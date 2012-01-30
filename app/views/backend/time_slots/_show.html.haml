@@ -3,12 +3,22 @@
     This time slot is
     %strong Sold Out
 
+%h4 Reports
+%ul
+  %li= link_to "Attendance Sheet (PDF)", backend_location_fitness_camp_time_slot_attendance_sheet_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
+  %li
+    = link_to "Emergency Contact List", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id)
+    |
+    = link_to "(PDF)", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
+    |
+    = link_to "(CSV)", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id, format: "csv")
+
 %h4
   There are
   %span#registration_number
     = @time_slot.registrations.size
   users registered
-  %table#registrants
+  %table.zebra-striped#registrants
     - @time_slot.users_going.each do |user|
       - @user = user
       = render "table_row"
@@ -33,7 +43,3 @@
       %span.divider /
 %p= link_to "Edit Meetings", backend_location_fitness_camp_time_slot_meetings_path(@location.id, @fitness_camp.id, @time_slot.id) 
 
-%h4 Reports
-%ul
-  %li= link_to "Attendance Report", backend_location_fitness_camp_time_slot_attendance_sheet_path(@location.id, @fitness_camp.id, @time_slot.id) 
-  %li= link_to "Emergency Contact List", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id)

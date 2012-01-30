@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :location do
-      name Faker::Name.name
+      name {Faker::Name.name}
       description "Down by the river"
       contact_info "270282-8228"
       city "Atlanta"
