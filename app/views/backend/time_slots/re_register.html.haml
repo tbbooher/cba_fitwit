@@ -1,0 +1,7 @@
+%h1 Register Previous Members
+
+%p Here we will register previous members
+
+= simple_form_for backend_location_fitness_camp_time_slot_process_repeat_registrations do |form|
+- @all_previous_members_in_ts.each do |m|
+  = m.full_name
