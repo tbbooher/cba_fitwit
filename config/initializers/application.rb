@@ -5,8 +5,6 @@
 
 require "redcloth"
 
-require 'csv'
-
 require "string_extensions"
 include StringExtensions
 
