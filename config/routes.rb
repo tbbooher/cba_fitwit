@@ -12,6 +12,8 @@ Cba::Application.routes.draw do
       resources :events
       resources :fitness_camps do
         resources :time_slots do
+          get "re_register" => "time_slots#re_register", as: :re_register
+          post "process_repeat_registrations" => "time_slots#process_repeat_registrations", as: :process_repeat_registrations
           get "attendance_sheet/:time_slot_id" => "time_slots#attendance_sheet", as: :attendance_sheet
           get "emergency_contact/:time_slot_id" => "time_slots#emergency_contact", as: :emergency_contact
           post "register_user"

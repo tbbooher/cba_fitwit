@@ -90,22 +90,11 @@ class Location
     self.find(:all).collect { |my_l| ["#{my_l.name} by #{my_l.franchise.name}", my_l.id] }
   end
 
-  # I think this is a junk method
-  # def all_users_registered_for_upcoming_camp
-  #   User.
-  #   User.find(:all,
-  #             :joins => {:registrations => {:time_slot => {:fitness_camp => :location}}},
-  #             :conditions => ['location_id = ? and session_start_date >= ?',
-  #                             self.id, "2006-07-18"]) # Date.today.to_s(:db)
-  # end
-
-#  def all_emails_for_upcoming_camp
-#    User.find(:all,
-#      :select => 'user.email_address',
-#      :joins => {:registrations => {:time_slot => {:fitness_camp => :location}}},
-#      :conditions => ['location_id = ? and session_start_date >= ?',
-#        self.id,"2006-07-18"]) # Date.today.to_s(:db)
-#  end
+  def find_previous_camp(start_time, current_camp)
+    (self.fitness_camps-current_camp.to_a).map{|fc| fc.time_slots}.flatten.
+      select{|t| t.start_time.hour == start_time.hour && t.start_time.min == start_time.min}.
+      sort_by{|ts| ts.fitness_camp.session_start_date}.reverse.first
+  end
 
   def future_fitness_camps
     self.fitness_camps.future.all.to_a

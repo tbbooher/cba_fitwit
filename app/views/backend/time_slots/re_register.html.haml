@@ -1,0 +1,29 @@
+%h1 Register Previous Members
+
+%p
+  The last time slot found in
+  = @location.name
+  at
+  = @start_time.stamp("6am")
+  was
+  %strong
+    = @previous_time_slot.longer_title
+  \.
+
+%p The following members were registered:
+
+- unless @all_previous_members.empty?
+  = form_tag backend_location_fitness_camp_time_slot_process_repeat_registrations_path(@location.id, @fitness_camp.id, @time_slot.id), id: "repeat_attendance_form" do
+    %fieldset
+      = render partial: "previous_member", collection: @all_previous_members
+    .actions
+      = submit_tag "Register Members", class: "btn primary"
+- else
+  %p
+    = @time_slot.short_title
+    had no previous members.
+
+%p
+  These folks were in the camp, but didn't have a membership:
+  = @previous_non_members.map(&:full_name).to_sentence
+  \.

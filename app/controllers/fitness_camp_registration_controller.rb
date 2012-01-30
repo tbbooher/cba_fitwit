@@ -24,7 +24,7 @@ class FitnessCampRegistrationController < ApplicationController
 
   def cart
     @user = current_user
-    if @user.has_active_subscription # they need to be blocked from registration
+    if @user.member # they need to be blocked from registration
       redirect_to(:action => 'no_need_to_register')
     end
     # now we check to see if they are adding a subscription

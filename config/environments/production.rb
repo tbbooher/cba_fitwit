@@ -1,8 +1,8 @@
 Cba::Application.configure do
   # TODO -- remove when we go to production
-#  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Beta Site") do |u, p|
-#    [u, p] == ['fitwit', 'happy']
-#  end
+  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Beta Site") do |u, p|
+    [u, p] == ['fitwit', 'happy']
+  end
 
 
   # Settings specified here will take precedence over those in config/application.rb
