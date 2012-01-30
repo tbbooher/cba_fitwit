@@ -1,5 +1,6 @@
 class Backend::ResourceController < Backend::ApplicationController
   inherit_resources
+  #before_filter :authenticate_user!
   respond_to :html
   has_scope :page, default: 1
 
