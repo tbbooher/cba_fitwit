@@ -70,11 +70,17 @@ class Backend::TimeSlotsController < Backend::ResourceController
   end
 
   def re_register
-
+    @location = Location.find(params[:location_id])
+    @fitness_camp_id = params[:fitness_camp_id]
+    @time_slot = TimeSlot.find(params[:time_slot_id])
+    @all_previous_members = @location.
+      find_previous_camp(@time_slot.start_time.hour).
+      registrations.map{|r| r.user}.
+      select{|u| u.member}
   end
 
   def process_repeat_registrations
-
+    # here we re-register the members
   end
 
 end
