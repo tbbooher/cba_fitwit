@@ -70,6 +70,9 @@ gem "nokogiri", "1.4.6"
 
 gem 'heroku'
 
+# remove
+gem 'factory_girl_rails', "1.3.0"
+
 # Testing
 group :development, :test do
   #gem 'linecache', git: 'git://github.com/mark-moseley/linecache.git'
