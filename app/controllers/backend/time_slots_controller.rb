@@ -71,16 +71,28 @@ class Backend::TimeSlotsController < Backend::ResourceController
 
   def re_register
     @location = Location.find(params[:location_id])
-    @fitness_camp_id = params[:fitness_camp_id]
+    @fitness_camp = FitnessCamp.find(params[:fitness_camp_id])
     @time_slot = TimeSlot.find(params[:time_slot_id])
-    @all_previous_members = @location.
-      find_previous_camp(@time_slot.start_time.hour).
-      registrations.map{|r| r.user}.
-      select{|u| u.member}
+    @start_time = @time_slot.start_time
+    @previous_time_slot = @location.
+      find_previous_camp(@time_slot.start_time, @fitness_camp)
+    all_previous_campers = @previous_time_slot.
+      registrations.map{|r| r.user}.flatten
+    @all_previous_members = all_previous_campers.select{|u| u.member}
+    @previous_non_members = all_previous_campers - @all_previous_members
   end
 
   def process_repeat_registrations
+    # only html request
     # here we re-register the members
+    # I think we need some error checking here . . .
+    time_slot = TimeSlot.find(params[:time_slot_id])
+    params[:user_ids].each do |member_id|
+      time_slot.register_user(member_id)
+    end
+    flash[:notice] = "Successfully added #{params[:user_ids].size} members to #{time_slot.short_title}."
+    fc= time_slot.fitness_camp
+    redirect_to backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, time_slot.id)
   end
 
 end

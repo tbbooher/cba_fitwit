@@ -90,8 +90,9 @@ class Location
     self.find(:all).collect { |my_l| ["#{my_l.name} by #{my_l.franchise.name}", my_l.id] }
   end
 
-  def find_previous_camp(start_hour)
-    self.fitness_camps.map{|fc| fc.time_slots}.flatten.select{|t| t.start_time.hour == start_hour}.
+  def find_previous_camp(start_time, current_camp)
+    (self.fitness_camps-current_camp.to_a).map{|fc| fc.time_slots}.flatten.
+      select{|t| t.start_time.hour == start_time.hour && t.start_time.min == start_time.min}.
       sort_by{|ts| ts.fitness_camp.session_start_date}.reverse.first
   end
 
