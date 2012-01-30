@@ -43,7 +43,7 @@ class User
   field :height_feet, :type => Integer
   field :veteran_status, type: Symbol, default: :newbie # [:veteran, :supervet, :newbie, :staff]
   field :number_of_logins, :type => Integer
-  field :has_active_subscription, :type => Boolean
+  field :member, :type => Boolean
 
   # approvals
   field :has_physician_approval, type: Boolean, default: false

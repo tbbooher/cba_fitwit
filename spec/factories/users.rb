@@ -27,7 +27,8 @@ FactoryGirl.define do
     primary_phone "973-238-3333"
     secondary_phone "382-282-2828"
     t_shirt_size "large"
-    emergency_contact_information "mom 3222"
+    emergency_contact_name {Faker::Name.first_name + " " + Faker::Name.last_name}
+    emergency_contact_relationship {rand > 0.4 ? "spouse" : "dad"}
     weight 176.22
     how_did_you_hear_about_us "church"
     fitness_level 1
@@ -36,7 +37,7 @@ FactoryGirl.define do
     height_feet 7
     veteran_status :newbie
     number_of_logins 4
-    has_active_subscription false
+    member false
     password "secret"
     password_confirmation "secret"
     goals {[FactoryGirl.build(:goal)]}

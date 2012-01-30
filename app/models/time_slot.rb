@@ -17,6 +17,9 @@ class TimeSlot
   has_many :registrations
   has_many :meetings
   embeds_many :prizes
+
+  # what is the most recent timeslot at the same time?
+  #scope :previous_camp, ->(fitness_camp_id, start_time) { where(fitness_camp_id: fitness_camp_id).and(start_time:)}  
   
   def start_time_f
     self.start_time.strftime(" %I:%M%p").gsub(/ 0(\d\D)/, '\1')
