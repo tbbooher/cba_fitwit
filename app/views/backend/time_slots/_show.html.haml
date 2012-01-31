@@ -24,7 +24,7 @@
       = render "table_row"
 
 %h4
-  - @unregistered_users =  (User.all.to_a - @time_slot.users_going.to_a).map{|u| [u.full_name, u.id]}
+  - @unregistered_users =  (User.all.to_a - @time_slot.users_going.to_a).map{|u| [u.certain_name, u.id]}
   = form_tag backend_location_fitness_camp_time_slot_register_user_path(@location.id, @fitness_camp.id, @time_slot.id), remote: true do
     %fieldset
     .clearfix

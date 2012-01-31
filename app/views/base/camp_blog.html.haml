@@ -3,8 +3,7 @@
 - content_for :resource_actions do
   = ui_button 'back', t(:blog_index), blogs_path
   = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
-  = link_to @blog.title + " events", location_calendar_path(@location.id)
-  = link_to "FitWitCalendar", calendar_fit_wit_calendar_path
+
 
 %div
   - content_for :right_column do

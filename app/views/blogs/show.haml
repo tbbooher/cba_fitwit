@@ -1,14 +1,26 @@
-- content_for :resource_actions do
-  = ui_button 'back', t(:blog_index), blogs_path
-  = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
-  
 %div
-  - if @blog.pages.any?
-    - content_for :right_column do
-      %div{class: 'widgets subpages-widget'}
+  - content_for :right_column do
+    - if @blog.pages.any?
+      #blog_pages
         - for page in @blog.pages.where(is_draft: draft_mode)
-          = render :partial => 'pages/page_intro', :locals => { :page => page }
-          %p.content_separator
+          .widgets.subpages-widget
+            = render :partial => 'pages/page_intro', :locals => { :page => page }
+            /%p.content_separator
+    #defined_links_area.widgets.subpages-widget
+      %h3 Links
+      %ul= render 'home/menu/application'
+    #tagcloud.widgets.widget_tags
+      %h3 Tags
+      .tags-meta
+        = tag_cloud
+      %br.clear
+    #action_links_area
+      = ui_button 'back', t(:blog_index), blogs_path unless @blog.location
+      = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
+    #blog_description.widgets
+      = render :partial => "blog_synopsis", :locals => { :blog => @blog}
+    - if @blog.location
+      = render partial: 'blogs/location_blog_box'
 
   .left_column
     = render :partial => 'blogs/blog', :locals => { :blog => @blog}
