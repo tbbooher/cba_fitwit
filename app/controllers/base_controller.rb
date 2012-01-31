@@ -119,7 +119,19 @@ class BaseController < ApplicationController
   end
 
   def contact
+    @message = Message.new
+  end
 
+  def create_contact_message
+    @message = Message.new(params[:message])
+
+    if @message.valid?
+      Notifications.send_contact_message(@message).deliver
+      redirect_to(root_path, :notice => "Thank you, your message was successfully sent.")
+    else
+      flash.now.alert = "Please fill all required fields."
+      render :contact
+    end
   end
 
   def amanda

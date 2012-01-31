@@ -97,6 +97,7 @@ Cba::Application.routes.draw do
   get "base/camper_stories", as: "camper_stories"
   get "base/team_story", as: "team_story"
   get "base/contact", as: "contact"
+  post "base/create_contact_message"
   get 'base/error'
   get 'base/posts'
 

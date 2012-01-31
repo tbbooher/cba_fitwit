@@ -27,7 +27,8 @@ class Ability
     user ||= User.new # guest user
 
     if user.role? :admin
-      can :manage, :all  # Admin is god
+      can :manage, :all
+      can :manage, :backend
     else
       
       # Not Admin?, let's see ...
