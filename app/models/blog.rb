@@ -20,6 +20,8 @@ class Blog
   validates_associated :postings
 
   has_and_belongs_to_many :pages, :dependent => :nullify # This pages will be displayed in blog:show
+
+  belongs_to :location
   
   scope :for_role, ->(role) { any_of( 
                                 {:user_role.lte => role},
@@ -30,8 +32,7 @@ class Blog
                    {:user_role => 0},
                    {:user_role => nil} 
                  )
-  
-  
+    
   # page_tokens are page::object_ids of the pages which should be
   # displayed on the sidebar of this blog.
   def page_tokens=(tokens)

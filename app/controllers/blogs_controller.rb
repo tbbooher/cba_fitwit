@@ -5,7 +5,8 @@ class BlogsController < ApplicationController
   before_filter :ensure_page_tokens, :only => [:update,:create]
 
   def index
-    @blogs = scoped_blogs.all.paginate(
+    # this only finds blogs without a location
+    @blogs = scoped_blogs.where(location_id: nil).paginate(
        :page => params[:page],
        :per_page => ENV["APPLICATION_CONFIG_pages_per_page"] || 5
      )
@@ -50,7 +51,7 @@ class BlogsController < ApplicationController
     @blog = scoped_find(params[:id])
   end
 
-  def update
+  def update    
     @blog = scoped_find(params[:id])
     respond_to do |format|
       if @blog.update_attributes(params[:blog])
