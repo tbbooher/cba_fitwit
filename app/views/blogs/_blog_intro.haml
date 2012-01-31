@@ -1,5 +1,8 @@
 %div{ :class=>:blog_intro, :id=>blog.id.to_s  }
-%h1= link_to(blog.title, blog)
+- if params[:action] == 'index'
+  %h1= link_to(blog.title, blog)
+- else
+  - title "blog.title"
 - if blog.is_draft
     %p= t(:is_draft_label)
   
