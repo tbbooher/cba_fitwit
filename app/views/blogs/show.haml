@@ -1,14 +1,14 @@
 %div
   - content_for :right_column do
     #vitals
-@- if blog.is_draft
-  %p= t(:is_draft_label)
-  
-- if blog.cover_picture_exists?
-  = render :partial => '/blogs/cover_picture',          |
-           :locals => { :blog => blog,                  |
-           :format => :thumb,                           |
-           :style => 'float:right;margin-left: 10px'}   |    
+      - if @blog.is_draft
+        %p= t(:is_draft_label)
+
+      - if @blog.cover_picture_exists?
+        = render :partial => '/blogs/cover_picture',          |
+                 :locals => { :blog => blog,                  |
+                 :format => :thumb,                           |
+                 :style => 'float:right;margin-left: 10px'}   |
     - if @blog.pages.any?
       #blog_pages
         - for page in @blog.pages.where(is_draft: draft_mode)
@@ -26,16 +26,16 @@
     #action_links_area
       = ui_button 'back', t(:blog_index), blogs_path unless @blog.location
       = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
-@    - if can? :manage, blog
-      = ui_button 'edit',  t(:edit), edit_blog_path(blog)
-      = ui_button 'destroy', t(:destroy), blog,:confirm => t(:are_you_sure),:method => :delete
+      - if can? :manage, @blog
+        = ui_button 'edit',  t(:edit), edit_blog_path(@blog)
+        = ui_button 'destroy', t(:destroy), @blog, :confirm => t(:are_you_sure),:method => :delete
     #blog_description.widgets
       = render :partial => "blog_synopsis", :locals => { :blog => @blog}
     - if @blog.location
       = render partial: 'blogs/location_blog_box', locals: {blog: @blog, location_id: @blog.location.id}
 
   .left_column
-    = render :partial => 'blogs/blog', :locals => { :blog => @blog}
+    - title @blog.title
     
     - render_pagination_box @postings
     
