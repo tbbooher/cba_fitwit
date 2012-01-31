@@ -9,7 +9,7 @@
     .pagination_box= will_paginate @blogs
 
   - @blogs.each do |blog|
-    = render :partial => 'blog_intro', :locals => { :blog => blog }
+    = render :partial => 'blog_preview', :locals => { :blog => blog }
     %p.content_separator
   
   -if @blogs.total_pages > 1
