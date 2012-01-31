@@ -152,6 +152,18 @@ table.ui-datepicker-calendar tbody td.highlight > a {
 	margin-bottom: 6px;
 }
 
+/* for blogs */
+/* I want to fix this !! */
+.blog_calendar .ui-datepicker-inline {
+    width: auto !important;
+}
+
+#describer_of_event {
+  display:none;
+}
+
+@import "search.css.scss";
+
 @import "cold.css.scss";
 @import "menu.css.scss";
 @import "nivo-slider.css.scss";

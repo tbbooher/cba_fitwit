@@ -1,5 +1,4 @@
 class CalendarController < ApplicationController
-  layout "camp_blog_page"
 
   def events
     # this is for the sidebar calendar
