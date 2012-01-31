@@ -3,30 +3,30 @@
   %h1= link_to(blog.title, blog)
 - else
   - title "blog.title"
+
 - if blog.is_draft
-    %p= t(:is_draft_label)
+  %p= t(:is_draft_label)
   
 - if blog.cover_picture_exists?
-    = render :partial => '/blogs/cover_picture',          |
-             :locals => { :blog => blog,                  |
-             :format => :thumb,                           |
-             :style => 'float:right;margin-left: 10px'}   |
+  = render :partial => '/blogs/cover_picture',          |
+           :locals => { :blog => blog,                  |
+           :format => :thumb,                           |
+           :style => 'float:right;margin-left: 10px'}   |
 
 %address{ :style=>'width: 400px; font-style: normal;' }
-    %span.item_link_buttons{:id => blog.title.underscore.downcase }
-        - if can? :manage, blog
-            = ui_button 'edit',  t(:edit), edit_blog_path(blog)
-            = ui_button 'destroy', t(:destroy), blog,:confirm => t(:are_you_sure),:method => :delete
+  %span.item_link_buttons{:id => blog.title.underscore.downcase }
+    - if can? :manage, blog
+      = ui_button 'edit',  t(:edit), edit_blog_path(blog)
+      = ui_button 'destroy', t(:destroy), blog,:confirm => t(:are_you_sure),:method => :delete
 
 = ContentItem::markdown(blog.synopsis) if blog.synopsis
 
 - if params[:action] == 'index'
-    %div{ :style => 'float: left; margin-left: 30px; width: 300px; padding: 5px; font-size: 0.8em;' }
-        = t(:comments_allowed, :yes_or_no => blog.allow_comments ? t(:allowed) : t(:forbidden) )
-        %br
-        = t(:public_comments_allowed, :yes_or_no => blog.allow_public_comments ? t(:allowed) : t(:forbidden) )
-        %br
-        = t(:num_comments, :count => blog.postings.count)
-
+  %div{ :style => 'float: left; margin-left: 30px; width: 300px; padding: 5px; font-size: 0.8em;' }
+    = t(:comments_allowed, :yes_or_no => blog.allow_comments ? t(:allowed) : t(:forbidden) )
+    %br
+    = t(:public_comments_allowed, :yes_or_no => blog.allow_public_comments ? t(:allowed) : t(:forbidden) )
+    %br
+    = t(:num_comments, :count => blog.postings.count)
 
 %p{ :style => 'clear: both'}
