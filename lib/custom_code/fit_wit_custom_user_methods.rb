@@ -5,6 +5,10 @@ module FitWitCustomUserMethods
     self.orders.sort_by { |o| o.created_at }.first.created_at
   end
 
+  def certain_name
+    self.last_name.blank? ? self.name : self.full_name
+  end
+
   def find_prs
     self.user_prs
   end
