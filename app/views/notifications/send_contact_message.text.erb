@@ -8,6 +8,8 @@ Phone:  <%= @message.phone %>
 
 How they heard: <%= @message.how_they_heard %>
 
+<%= "Other: #{@message.other}" unless @message.other.blank? %>
+
 Body:
 <%= @message.question %>
 
