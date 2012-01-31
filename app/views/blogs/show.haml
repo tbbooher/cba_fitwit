@@ -20,7 +20,7 @@
     #blog_description.widgets
       = render :partial => "blog_synopsis", :locals => { :blog => @blog}
     - if @blog.location
-      = render partial: 'blogs/location_blog_box'
+      = render partial: 'blogs/location_blog_box', locals: {blog: @blog, location_id: @blog.location.id}
 
   .left_column
     = render :partial => 'blogs/blog', :locals => { :blog => @blog}

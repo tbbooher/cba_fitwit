@@ -1,10 +1,10 @@
 #location_blog_box
   #event_links
     %ul
-      %li= link_to @blog.title + " events", location_calendar_path(@location.id)
+      %li= link_to blog.title + " events", location_calendar_path(location_id)
       %li= link_to "FitWitCalendar", calendar_fit_wit_calendar_path
   #blog_events
-    .blog_calendar{id: @location.id}
+    .blog_calendar{id: location_id}
     #describer_of_event.info_box.info_box_1.rounded{style: "width:100%; background: #eee;"}
       #event_title.title_box{style: "background-color: #ccc; font-size:17px; margin-top:10px; height:25px;"}
-      .content_box{id: "description_#{@location.id}"}
+      .content_box{id: "description_#{location_id}"}
