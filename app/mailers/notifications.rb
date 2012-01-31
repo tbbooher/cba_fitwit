@@ -97,4 +97,11 @@ class Notifications < ActionMailer::Base
           :subject => subject )
   end
 
+  def send_contact_message(message)
+    @message = message
+    mail( from: message.email,
+          subject: "[FitWit: Contact Form Inquiry]",
+          to: "messenger@fitwit.com")
+  end
+
 end

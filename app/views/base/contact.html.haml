@@ -1,0 +1,14 @@
+- title "Contact"
+
+.two_third We are excited to meet you and to introduce you to our fitness community. Please let us know if we can answer any question and discuss how we can be part of your fitness journey.
+
+%br.clear
+
+.three_forth
+  = simple_form_for @message, :url => base_create_contact_message_path do |form|
+    = form.input :name
+    = form.input :email
+    = form.input :phone
+    = form.input :how_they_heard, label: "How did you hear about us?"
+    = form.input :question, required: false, as: :text
+    = form.button :submit
