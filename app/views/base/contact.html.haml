@@ -9,6 +9,7 @@
     = form.input :name
     = form.input :email
     = form.input :phone
-    = form.input :how_they_heard, label: "How did you hear about us?"
+    = form.input :how_they_heard, label: "How did you hear about us?", collection: ["Flyer", "Internet Ad", "Yard Sign", "Friend (list)", "Advertisement (where?)", "Internet Search", "Other (list)"], prompt: "Please select one"
+    = form.input :other
     = form.input :question, required: false, as: :text
     = form.button :submit
