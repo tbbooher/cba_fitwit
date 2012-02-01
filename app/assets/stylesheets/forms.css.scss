@@ -89,7 +89,10 @@ textarea.error {
     display: inline;
   }
   
-  input[type="text"] {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] {
       width: $field-width;
   }
   
