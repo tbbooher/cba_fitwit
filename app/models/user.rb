@@ -127,7 +127,12 @@ class User
   has_many :workouts
   #has_many :registrations  # TODO -- this is really normalized, need to consider
   has_many :orders
+  has_many :registrations
+
   has_and_belongs_to_many :attendances, class_name: "Meeting", inverse_of: :attendees
+
+  belongs_to :location
+
   embeds_many :user_prs
   embeds_many :custom_workouts
   embeds_many :goals

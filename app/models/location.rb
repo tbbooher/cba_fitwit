@@ -5,6 +5,7 @@ class Location
   has_many :fitness_camps
   has_many :events
   has_and_belongs_to_many :sponsors
+  has_many :users
 
   field :name, :type => String
   field :description, :type => String
