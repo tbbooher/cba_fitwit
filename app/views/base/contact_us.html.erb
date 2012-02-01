@@ -34,7 +34,7 @@
 <div id='contact_form'>
   <% form_for :message, @message do |f| %>
       <li>
-        <%= desc_label(f,:name,'Name:') %>
+        <%= desc_label(f,:name,'Name:') %></br>
         <%= f.text_field :name %>
       </li>
       <li>
