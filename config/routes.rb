@@ -195,7 +195,6 @@ Cba::Application.routes.draw do
   get "calendar/fit_wit_calendar" => "calendar#fit_wit_calendar"
   get "calendar/display_event/:event_id" => "calendar#display_event"
 
-
   match 'feed' => "home#rss_feed", :as => 'feed'
 
   # PAGES

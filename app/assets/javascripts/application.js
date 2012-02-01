@@ -58,4 +58,5 @@
 //= require backend/jquery.rest
 //= require backend/fullcalendar
 //= require backend/all_fit_wit_calendar
+//= require backend/location_calendar
 //= require blog_side_calendar

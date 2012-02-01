@@ -149,7 +149,9 @@ class User
                   :remember_me, :authentication_token, :confirmation_token,
                   :avatar, :clear_avatar, :crop_x, :crop_y, :crop_w, :crop_h,
                   :time_zone, :language, :use_gravatar, :invitation_id,
-                  :location_token
+                  :location_token, :secondary_phone, :emergency_contact_name,
+                  :emergency_contact_relationship, :primary_phone, :gender,
+                  :occupation, :company, :t_shirt_size, :date_of_birth
 
   attr_accessor :clear_avatar
 

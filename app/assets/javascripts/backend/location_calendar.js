@@ -44,7 +44,16 @@ $(document).ready(function() {
         dragOpacity: "0.5",
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view) {
-            alert('test');
+            if (event.id.length > 0 && event.id != 'blank') {
+                $.getJSON('/calendar/display_event/' + event.id, function(data) {
+                    $('#events').fadeIn();
+                    $('#event_title').html(data.title);
+                    $('#event_start').html(data.start);
+                    $('#event_end').html(data.end);
+                    $('#event_description').html(data.description);
+                })
+            }
+            return false;
         }
     });
 });

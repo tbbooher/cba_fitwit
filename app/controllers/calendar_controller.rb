@@ -42,7 +42,8 @@ class CalendarController < ApplicationController
   end
 
   def display_event
-    # this will give the details on an event
+    event = Event.find(params[:event_id])
+    render json: event.to_json
   end
 
 end

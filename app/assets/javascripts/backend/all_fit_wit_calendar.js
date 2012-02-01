@@ -16,15 +16,12 @@ $(document).ready(function() {
         defaultView: 'month',
         height: 500,
         slotMinutes: 60,
-
         loading: function(bool) {
             if (bool)
                 $('#loading').show();
             else
                 $('#loading').hide();
         },
-
-        // a future calendar might have many sources.
         eventSources: [
             {
                 url: '/calendar/all_events/',
@@ -33,12 +30,19 @@ $(document).ready(function() {
                 ignoreTimezone: false
             }
         ],
-
         timeFormat: 'h:mmt',
-        dragOpacity: "0.5",
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view) {
-            alert('test');
+            if (event.id.length > 0 && event.id != 'blank') {
+                $.getJSON('/calendar/display_event/' + event.id, function(data) {
+                    $('#events').fadeIn();
+                    $('#event_title').html(data.title);
+                    $('#event_start').html(data.start);
+                    $('#event_end').html(data.end);
+                    $('#event_description').html(data.description);
+                })
+            }
+            return false;
         }
     });
 });
