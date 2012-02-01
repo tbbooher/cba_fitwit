@@ -38,3 +38,4 @@ $(document).ready ->
 
   $("#consent_form").validate();
   $("#health_status").validate();
+  $("#update_personal_information_form").validate();

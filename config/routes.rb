@@ -122,6 +122,7 @@ Cba::Application.routes.draw do
   match 'fitness_camp_registration/release_and_waiver_of_liability'
   match 'fitness_camp_registration/medical_conditions'
   match 'fitness_camp_registration/terms_of_participation'
+  get 'fitness_camp_registration/update_profile'
   match 'cart_item/add_friend' => "cart_item#add_friend", as: :add_friend
   match "cart_item/remove_friend/:friend_name/:unique_id" => "cart_item#remove_friend", as: :remove_friend
   match 'cart_item/add_coupon' => "cart_item#add_coupon", as: :add_coupon
@@ -137,7 +138,7 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/no_need_to_register'
   get 'fitness_camp_registration/process_fit_wit_history'
   get 'fitness_camp_registration/membership_info'
-  get 'fitness_camp_registration/consent'
+  match 'fitness_camp_registration/consent'
   get 'fitness_camp_registration/health_history'
   get 'fitness_camp_registration/payment'
   post 'fitness_camp_registration/pay'

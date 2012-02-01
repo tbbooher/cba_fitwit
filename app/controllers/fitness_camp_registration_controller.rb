@@ -120,17 +120,18 @@ class FitnessCampRegistrationController < ApplicationController
     render layout: "canvas"
   end
 
-  def consent
-    @cart.consent_updated = false
-    # the purpose of the consent view is to let the user view their
-    # health history then they can go on to the payment view
-    # testing
-    # if form element agree_to_terms is not 'yes' then we must
-    # redirect back to membership_info
+  def update_profile
     @user = current_user
-    # which path do we want to go down, membership or payment
-    @membership = @cart.new_membership # this need to be here ??
-                                       # for health consent form
+  end
+
+  def consent
+    @user = current_user
+    unless @user.update_attributes(params[:user])
+      redirect_to :back, notice: "Error updating your user account"
+    else
+      flash[:notice] = 'User information updated'
+      @cart.consent_updated = false
+    end
   end
 
   def update_health_items

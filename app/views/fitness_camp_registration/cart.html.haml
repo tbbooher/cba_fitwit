@@ -1,4 +1,4 @@
-- title "View Cart: Registration Step 2 of 6"
+- title "View Cart: Registration Step 2 of 7"
 
 - present @cart do |cart_presenter|
 
@@ -10,5 +10,4 @@
 
   #cart_contents_region
     = cart_presenter.show_camps(@cart.items)
-    = button_to 'Proceed to health consent', fitness_camp_registration_consent_path, class: "medium-btn", method: :get
-
+    = button_to 'Proceed to health consent', fitness_camp_registration_update_profile_path, class: "medium-btn", method: :get

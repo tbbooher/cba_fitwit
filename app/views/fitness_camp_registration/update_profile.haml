@@ -1,13 +1,17 @@
-= simple_form_for :user, url: registration_update_url do |f|
-  # emergency contact group
-  = f.input :primary_phone
-  = f.input :secondary_phone
-  = f.input :emergency_contact_information
-  = f.input :emergency_contact_relationship
-  # personal information group
-  = f.input :gender
-  = f.input :occupation
-  = f.input :company
-  = f.input :t_shirt_size, collection: ["Small","Medium","Large"], prompt: "Please select a t-shirt size"
-  = f.input :date_of_birth
-  = f.button :submit, class: "big-btn"
+- title "Registration step 3 of 7: Update Personal Information"
+= simple_form_for :user, url: fitness_camp_registration_consent_url,
+ html:  {id: 'update_personal_information_form'} do |f|
+  %fieldset
+    %legend Emergency Contact Information
+    = f.input :secondary_phone, required: false
+    = f.input :emergency_contact_name, class: 'required'
+    = f.input :emergency_contact_relationship, class: 'required'
+    = f.input :primary_phone, label: 'Phone:', class: 'required'
+  %fieldset
+    %legend Personal Information
+    = f.input :gender, collection: [:male, :female]
+    = f.input :occupation, required: false
+    = f.input :company, required: false
+    = f.input :t_shirt_size, collection: ["Small","Medium","Large"], prompt: "Please select a t-shirt size"
+    = f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12
+  = f.button :submit, "Continue to health consent"
