@@ -1,0 +1,13 @@
+= simple_form_for :user, url: registration_update_url do |f|
+  # emergency contact group
+  = f.input :primary_phone
+  = f.input :secondary_phone
+  = f.input :emergency_contact_information
+  = f.input :emergency_contact_relationship
+  # personal information group
+  = f.input :gender
+  = f.input :occupation
+  = f.input :company
+  = f.input :t_shirt_size, collection: ["Small","Medium","Large"], prompt: "Please select a t-shirt size"
+  = f.input :date_of_birth
+  = f.button :submit, class: "big-btn"
