@@ -9,6 +9,9 @@ module CoverPicture
       class_eval <<-EOV
         include Mongoid::Paperclip
         has_mongoid_attached_file :cover_picture,
+                                  :storage => :s3,
+                                  :s3_credentials => S3_CREDENTIALS,
+                                  :path => ":attachment/:id/:style.:extension",
                                   :styles => {
                                     :popup  => "800x600=",
                                     :medium => "300x500>",
