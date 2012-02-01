@@ -39,26 +39,9 @@ class FitnessCampRegistrationController < ApplicationController
     end
     @existing_time_slots = @user.time_slots
     @vet_status = current_user.veteran_status
-    delete_existing_camps_from_cart(@cart)
+    #delete_existing_camps_from_cart(@cart)
     # @cart_view = !session[:cart].nil?
     render layout: "canvas"
-  end
-
-  def medical_conditions
-    u = current_user
-    u.health_issues = []
-    params[:user][:medical_condition_ids].each do |id|
-      unless id.empty?
-        h = HealthIssue.new
-        m = MedicalCondition.find(id)
-        h.medical_condition = m
-        h.explanation = params[:user]["explanation_#{m.id}"]
-        u.health_issues << h
-      end
-    end
-    u.save!
-    flash[:notice] = "Health History Updated"
-    redirect_to fitness_camp_registration_consent_path
   end
 
   def add_to_cart
@@ -79,8 +62,22 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def release_and_waiver_of_liability
+    u = current_user
+    u.health_issues = []
+    params[:user][:medical_condition_ids].each do |id|
+      unless id.empty?
+        h = HealthIssue.new
+        m = MedicalCondition.find(id)
+        h.medical_condition = m
+        h.explanation = params[:user]["explanation_#{m.id}"]
+        u.health_issues << h
+      end
+    end
+    #u.save!
+    #flash[:notice] = "Health History Updated"
     # some check to make sure we have the right data
     # save the user data
+    # should we update the user with a notice that they have updated health history 
     unless @cart.consent_updated
       pa = params[:has_physician_approval]
       pa_exp = params[:has_physician_approval_explanation]
@@ -101,7 +98,7 @@ class FitnessCampRegistrationController < ApplicationController
         @cart.consent_updated = true
         # we need to think about how we save this . . .
       end
-      render layout: "canvas"
+      render layout: "canvas" # do we really want a diff
     end
   end
 
