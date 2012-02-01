@@ -47,8 +47,8 @@ a:hover {
 /* elements */
 div {
     border: 0;
-    /* position: relative;
-    text-align: left; */
+    position: relative;
+    text-align: left; 
     overflow: visible;
     background-color: transparent;
 }
@@ -564,11 +564,17 @@ div.last,
 
 /* ---------------------------------------- */
 /* forms */
+form div{
+	line-height: 2em;
+}
+
 form input[type="text"],
 form input[type="password"],
+form input[type="email"],
+form input[type="tel"],
 textarea,
 select {
-    background: #fff;
+	background: white url("images/form-bg.png") repeat;
     /* test */
     line-height: 15px;
     padding: 6px 8px;
