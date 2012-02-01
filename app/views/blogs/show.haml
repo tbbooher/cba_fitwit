@@ -5,10 +5,13 @@
         %p= t(:is_draft_label)
 
       - if @blog.cover_picture_exists?
-        = render :partial => '/blogs/cover_picture',          |
-                 :locals => { :blog => blog,                  |
-                 :format => :thumb,                           |
-                 :style => 'float:right;margin-left: 10px'}   |
+        #blog_picture{style: "margin-bottom:10px;"}
+          = render :partial => '/blogs/cover_picture',          |
+                   :locals => { :blog => @blog,                 |
+                   :format => :medium,                          |
+                   :style => 'float:right;margin-left: 10px'}   |
+        %br.clear
+        %p &nbsp;
     - if @blog.pages.any?
       #blog_pages
         - for page in @blog.pages.where(is_draft: draft_mode)

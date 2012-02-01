@@ -1,4 +1,16 @@
--# right content to discuss calendar and highlight event options
 - title "Fit Wit Calendar"
+
+- content_for :right_column_top do
+  #events.widgets.subpages-widget{style: 'display:none;'}
+    %h3
+      %span#event_title
+    %p
+      %strong Start:
+      %span#event_start
+    %p
+      %strong End:
+      %span#event_end
+    %p
+      #event_description
 
 #fit_wit_calendar

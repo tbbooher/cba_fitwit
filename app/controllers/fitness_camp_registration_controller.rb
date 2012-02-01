@@ -126,7 +126,7 @@ class FitnessCampRegistrationController < ApplicationController
 
   def consent
     @user = current_user
-    unless @user.update_attributes(params[:user])
+    unless @user.update_attributes!(params[:user])
       redirect_to :back, notice: "Error updating your user account"
     else
       flash[:notice] = 'User information updated'

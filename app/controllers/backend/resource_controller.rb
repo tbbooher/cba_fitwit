@@ -12,8 +12,10 @@ class Backend::ResourceController < Backend::ApplicationController
   private
 
   def verify_admin
-    flash[:notice] = "Only administrators can access the FitWit Admin Interface"
-    redirect_to root_url unless (current_user && current_user.admin?)
+    unless (current_user && current_user.admin?)
+      flash[:notice] = "Only administrators can access the FitWit Admin Interface"
+      redirect_to root_url
+    end
   end
 
 end
