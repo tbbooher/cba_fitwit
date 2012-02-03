@@ -1,40 +1,40 @@
 #navigation
   %ul#menu-top-menu.sf-menu
-    %li#menu-item-427.menu-item.menu-item-type-post_type.menu-item-object-page.current-menu-item.page_item.page-item-5.current_page_item.menu-item-427
+    %li.menu-item{class: params[:action] == 'start_page' ? "current-menu-item" : "" }
       = link_to "Home", root_url
-    %li#menu-item-428.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-431
+    %li.menu-item{class: params[:action] == 'locations' ? "current-menu-item" : "" }
       = link_to "Locations", locations_url
-      %ul.sub-menu
-        %li#menu-item-433.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-433
+      %ul
+        %li.menu-item
           = link_to "Grant Park", blog_url('4eeec1144647ec0001000003')
-        %li#menu-item-434.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-433
+        %li.menu-item
           = link_to "Decatur", blog_url('4f032fa4191a200001001c4b')
-        %li#menu-item-434.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-433
+        %li.menu-item
           = link_to "Midtown", blog_url('4f22eb0247f12f0001001919')
-    %li#menu-item-435.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-430
+    %li.menu-item{class: @camp_details ? "current-menu-item" : "" }
       = link_to "Camp Details", camp_details_url
-      %ul.sub-menu
-        %li#menu-item-436.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-439
+      %ul
+        %li.menu-item
           = link_to "Getting Started", getting_started_url
-        %li#menu-item-436.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-439
+        %li.menu-item
           = link_to "What's Included", whats_included_url
-        %li#menu-item-437.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-439
+        %li.menu-item
           = link_to "FAQ", faq_url
-        %li#menu-item-438.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-439
+        %li.menu-item
           = link_to "Price & Schedule", price_url
-    %li#menu-item-440.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-426
+    %li.menu-item{class: params[:action] == 'blogs' ? "current-menu-item" : "" }
       = link_to "Blogs", blogs_path
-    %li#menu-item-4.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-428
+    %li.menu-item{class: params[:action] == 'non_profit' ? "current-menu-item" : "" }
       = link_to "Non-profit", non_profit_url
-    %li#menu-item-441.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-429
+    %li.menu-item{class: @stories ? "current-menu-item" : "" }
       = link_to "Stories", camper_stories_url
-      %ul.sub-menu
-        %li#menu-item-443.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-423
+      %ul
+        %li.menu-item
           = link_to "Camper Stories", camper_stories_url
-        %li#menu-item-442.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-423
+        %li.menu-item
           = link_to "Company Story", company_story_url
-        %li#menu-item-442.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-423
+        %li.menu-item
           = link_to "Team", team_story_url
-    %li#menu-item-444.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-459
+    %li.menu-item{class: params[:action] == 'contact' ? "current-menu-item" : "" }
       = link_to "Contact", contact_url
   %br.clear/

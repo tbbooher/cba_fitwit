@@ -7,6 +7,9 @@ class Registration
   belongs_to :time_slot  # , :null => false
   belongs_to :order
   has_many :friends
+  belongs_to :fitness_camp
+
+  validates :user, presence: true, uniqueness: {scope: :fitness_camp}, of_fitness_camp_location: true
 
   # does this do anything? is this deprecated?
   

@@ -19,6 +19,10 @@ class BaseController < ApplicationController
     end
   end
 
+  def getting_started
+    @camp_details = true
+  end
+
   def contact_us
     @pagetitle = "Contact Us"
     @fit_wit_form = true
@@ -58,18 +62,19 @@ class BaseController < ApplicationController
 
   def camp_details
     @offer = Offer.where(active: true).desc(:updated_at).first
+    @camp_details = true
   end
 
   def whats_included
-
+    @camp_details = true
   end
 
   def faq
-
+    @camp_details = true
   end
 
   def price
-
+    @camp_details = true
   end
 
   def referrals
@@ -81,16 +86,16 @@ class BaseController < ApplicationController
   end
 
   # stories
-  def stories
-
+  def team_story
+    @stories = true
   end
 
   def company_story
-
+    @stories = true
   end
 
   def camper_stories
-
+    @stories = true
   end
 
   def contact

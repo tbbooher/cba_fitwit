@@ -1,100 +1,100 @@
 <div class='clear'></div>
-<%= form_for([blog,posting], :html => { :multipart => true } ) do |f| %>
+<%= form_for([blog, posting], :html => {:multipart => true}) do |f| %>
 
-  <%= errors_for(posting) %>
+    <%= errors_for(posting) %>
 
-  <!-- FIELDS ===================================== -->
+    <!-- FIELDS ===================================== -->
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, :size => 80 %>
-  </div>
-
-
-  <%= content_for :right_column do %>
-      <div class='posting_cover_picture_box' style="">
-        <div class="field">
-          <strong><%= f.label :cover_picture %></strong><br /><br />
-          <%= f.file_field :cover_picture %>
-        </div>
-        <%= render(
-                :partial => 'cover_picture',
-                :locals => { :posting => posting, :format => :thumb }
-              )
-        -%><br />
-          <%= ui_button('delete', t(:delete_picture), delete_cover_picture_blog_posting_path(posting.blog,posting),
-                :remote => true,
-                :confirm => t(:are_you_sure), :id => 'delete_cover_picture_link') unless posting.new_record? %>
-      </div>
-  <% end %>
-  
-  <div class="field">
-    <%= f.label :tags %>
-    <%= f.text_field :tags, :size => 80, "data-pre" => posting.tags_array.map{ |t| {id: t, name: t} }.to_json %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :new_tag %>
-    <%= f.text_field :new_tag, :size => 80, :placeholder => t(:enter_new_tag) %>
-  </div>
-
-  <% if current_user %>
     <div class="field">
-      <%= f.label :recipient_tokens, t(:recipients) %>
-      <%= f.text_field :recipient_tokens, :size => 80,  
-          "data-pre" => current_user.user_groups.any_in( _id: posting.recipient_group_ids).map{ |t| {id: t.id, name: t.name} }.to_json,
-          :placeholder => t(:leave_empty_to_make_the_posting_public) %>
+      <%= f.label :title %>
+      <%= f.text_field :title, :size => 80 %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :interpreter %>
-    <%= f.select :interpreter, [['Markdown',:markdown], ['Textile', :textile], [t(:none),:none]] %>
-    <%= render :partial => '/home/interpreter_help' %>
-  </div>
+    <div class='posting_cover_picture_box' style="">
+      <div class="field">
+        <strong><%= f.label :cover_picture %></strong>
+        <%= f.file_field :cover_picture %>
 
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_area :body, :rows => 10, :cols => 60 %>
-  </div>
-
-  <!-- ATTACHMENTS ================================ -->
-  <div class="field" style='clear: right;'>
-    <label for="attachments">Attachments</label>
-    <div class="widgets old_block">
-      <%= f.fields_for :attachments do |builder| %>
-        <%= render '/attachments/attachment_fields', :f => builder %>
-      <% end %>
-      <div id='new_asset'></div>
-      <p>
-        <%= link_to_add_fields(t(:new_attachment).html_safe, f, :attachments)%>
-      </p>
+        <%= render(
+                    :partial => 'cover_picture',
+                    :locals => {:posting => posting, :format => :thumb}
+            )
+        -%>
+        <br>
+        <%= ui_button('delete', t(:delete_picture), delete_cover_picture_blog_posting_path(posting.blog, posting),
+                      :remote => true,
+                      :confirm => t(:are_you_sure), :id => 'delete_cover_picture_link') unless posting.new_record? %>
+      </div>
     </div>
-  </div>
 
-  <div class='before_save_button'></div>
-  <div class='clear'></div>
+    <div class="field">
+      <%= f.label :tags %>
+      <%= f.text_field :tags, :size => 80, "data-pre" => posting.tags_array.map { |t| {id: t, name: t} }.to_json %>
+    </div>
 
-  <div class='field'>
-    <%= f.label :is_draft, t(:save_as_draft) %>
-    <%= f.check_box :is_draft %> <%= t(:will_be_shown_to_authors_only)%>
-  </div>
+    <div class="field">
+      <%= f.label :new_tag %>
+      <%= f.text_field :new_tag, :size => 80, :placeholder => t(:enter_new_tag) %>
+    </div>
 
-  <div class='field'>
-    <%= f.label :publish_at -%>
-    <%= f.text_field :publish_at_date, :size => 10, style: 'width: 100px', :placeholder => 'yy-mm-dd' -%>
-    <%= f.text_field :publish_at_time, :size => 5,  style: 'width: 100px', :placeholder => 'hh.mm' -%>
-  </div>
-    
-  <div class='field'>
-    <%= f.label :expire_at -%>
-    <%= f.text_field :expire_at_date, :size => 10, style: 'width: 100px', :placeholder => 'yy-mm-dd' -%>
-    <%= f.text_field :expire_at_time, :size => 5,  style: 'width: 100px', :placeholder => 'hh.mm' -%>
-  </div>
-  
+    <% if current_user %>
+        <div class="field">
+          <%= f.label :recipient_tokens, t(:recipients) %>
+          <%= f.text_field :recipient_tokens, :size => 80,
+                           "data-pre" => current_user.user_groups.any_in(_id: posting.recipient_group_ids).map { |t| {id: t.id, name: t.name} }.to_json,
+                           :placeholder => t(:leave_empty_to_make_the_posting_public) %>
+        </div>
+    <% end %>
 
-  <div class="actions">
-    <%= f.label :submit, t(:save_changes) %>
-    <%= f.submit :class => "medium-btn glass-btn" %>
-  </div>
+    <div class="field">
+      <%= f.label :interpreter %>
+      <%= f.select :interpreter, [['Markdown', :markdown], ['Textile', :textile], [t(:none), :none]] %>
+      <%= render :partial => '/home/interpreter_help' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :body %>
+      <%= f.text_area :body, :rows => 10, :cols => 60 %>
+    </div>
+
+    <!-- ATTACHMENTS ================================ -->
+    <div class="field" style='clear: right;'>
+      <label for="attachments">Attachments</label>
+
+      <div class="widgets old_block">
+        <%= f.fields_for :attachments do |builder| %>
+            <%= render '/attachments/attachment_fields', :f => builder %>
+        <% end %>
+        <div id='new_asset'></div>
+        <p>
+          <%= link_to_add_fields(t(:new_attachment).html_safe, f, :attachments) %>
+        </p>
+      </div>
+    </div>
+
+    <div class='before_save_button'></div>
+    <div class='clear'></div>
+
+    <div class='field'>
+      <%= f.label :is_draft, t(:save_as_draft) %>
+      <%= f.check_box :is_draft %> <%= t(:will_be_shown_to_authors_only) %>
+    </div>
+
+    <div class='field'>
+      <%= f.label :publish_at -%>
+      <%= f.text_field :publish_at_date, :size => 10, style: 'width: 100px', :placeholder => 'yy-mm-dd' -%>
+      <%= f.text_field :publish_at_time, :size => 5, style: 'width: 100px', :placeholder => 'hh.mm' -%>
+    </div>
+
+    <div class='field'>
+      <%= f.label :expire_at -%>
+      <%= f.text_field :expire_at_date, :size => 10, style: 'width: 100px', :placeholder => 'yy-mm-dd' -%>
+      <%= f.text_field :expire_at_time, :size => 5, style: 'width: 100px', :placeholder => 'hh.mm' -%>
+    </div>
+
+
+    <div class="actions">
+      <%= f.label :submit, t(:save_changes) %>
+      <%= f.submit :class => "medium-btn glass-btn" %>
+    </div>
 <% end %>
