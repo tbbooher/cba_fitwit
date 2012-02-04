@@ -15,9 +15,8 @@
   - @users.each do |resource|
     %tr
       %td= link_to resource.certain_name, resource_path(resource)
-      %td= link_to resource.membership
-      %td= link_to resource.location.name
-
+      %td= resource.member
+      %td= resource.location.nil? ? 'none' : resource.location.name
 
       %td.row-actions
         = link_to 'edit', edit_resource_path(resource)
