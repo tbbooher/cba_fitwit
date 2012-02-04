@@ -21,6 +21,8 @@
             )
         -%>
         <br>
+      </div>
+      <div class="field" style="padding-left: 200px;">
         <%= ui_button('delete', t(:delete_picture), delete_cover_picture_blog_posting_path(posting.blog, posting),
                       :remote => true,
                       :confirm => t(:are_you_sure), :id => 'delete_cover_picture_link') unless posting.new_record? %>

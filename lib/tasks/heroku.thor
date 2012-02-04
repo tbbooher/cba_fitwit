@@ -8,7 +8,7 @@ module PrepHeroku
     private
 
     def heroku(command)
-      command "heroku #{command} --app fitwit"
+      command "heroku #{command} --app timshel"
     end
 
     def command(command)

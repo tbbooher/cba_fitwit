@@ -16,6 +16,7 @@ module CoverPicture
                                     :popup  => "800x600=",
                                     :medium => "300x500>",
                                     :thumb  => "100x150>",
+                                    :post_style => "610",
                                     :icon   => "64x90"
                                   },
                                   :default_url => "/images/avatars/:style/missing.png"
