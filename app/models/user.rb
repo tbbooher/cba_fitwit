@@ -156,7 +156,7 @@ class User
                   :weight, :how_did_you_hear_about_us, :fitness_level, :height_inches,
                   :height_feet, :veteran_status, :member, :has_physician_approval,
                   :has_physician_approval_explanation, :post_menopausal_female,
-                  :taking_estrogen
+                  :taking_estrogen, :location_id
 
   attr_accessor :clear_avatar
 

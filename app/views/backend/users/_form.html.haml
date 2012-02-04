@@ -1,10 +1,10 @@
 = simple_form_for [:backend,@user], :wrapper => :inline do |f|
   %fieldset
-    = f.input :name
-    = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index{|i,r| [i, r]}, include_blank: false
-    = f.input :location_id, collection: Location.all.map{|l| [l.id, l.name]}.push([nil, 'none']), include_blank: false
     = f.input :first_name
     = f.input :last_name
+    = f.input :email
+    = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index{|i,r| [i, r]}, include_blank: false
+    = f.input :location_id, collection: Location.all.map{|l| [l.name, l.id]}.push(['none',nil]), include_blank: false
     = f.input :gender, collection: [:male, :female], include_blank: false
     = f.input :occupation
     = f.input :company
@@ -15,17 +15,16 @@
     = f.input :zip
     = f.input :primary_phone
     = f.input :secondary_phone
-    = f.input :t_shirt_size, collection: ["Small","Medium","Large"], include_blank: false
     = f.input :emergency_contact_name
     = f.input :emergency_contact_relationship
+    = f.input :t_shirt_size, collection: ["Small","Medium","Large"], include_blank: false
     = f.input :weight
-    = f.input :how_did_you_hear_about_us
-    = f.input :fitness_level, collection: 1..10
-    = f.input :date_of_birth, input_html: { class: 'datetimepicker' }
     = f.input :height_inches
     = f.input :height_feet, as: :integer
-    = f.input :veteran_status, collection: [:veteran, :supervet, :newbie, :staff], include_blank: false #.map{|vs| [vs, vs.to_s]}
-    = f.input :number_of_logins
+    = f.input :date_of_birth, input_html: { class: 'datetimepicker' }
+    = f.input :fitness_level, collection: 1..10
+    = f.input :how_did_you_hear_about_us
+    = f.input :veteran_status, collection: [:veteran, :supervet, :newbie, :staff], include_blank: false
     = f.input :member, as: :boolean
 
     - # approvals
