@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
 
   # custom for calendar
   before_filter :correct_safari_and_ie_accept_headers
+  before_filter :get_site_blogs
   after_filter :set_xhr_flash
 
   # Use a layout-file defined in application.yml
@@ -72,6 +73,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_role?
   helper_method :current_role
 
+
+  def get_site_blogs
+    @site_blogs = Blog.where(:location_id.ne => nil)
+  end
 
   # @param [User] usr - Is this user the current_user?
   # @return Boolean true if current_user is usr

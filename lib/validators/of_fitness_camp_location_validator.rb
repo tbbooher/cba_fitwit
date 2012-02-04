@@ -1,6 +1,10 @@
 class OfFitnessCampLocationValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    record.errors[attribute] << (options[:message] || I18n.translate(:is_not_an_email)) unless
-      value =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    unless record.time_slot.fitness_camp.location_id.to_s == record.user.location_id.to_s
+      record.errors[attribute] << (options[:message] || "A user and time slot must share the same location")
+    end
+    if record.time_slot.fitness_camp.time_slots.map{|ts| ts.registrations}.flatten.map(&:user_id).include?(record.user.id)
+      record.errors[attribute] <<  "A user can only register for one time_slot in a camp"
+    end
   end
 end

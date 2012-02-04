@@ -5,12 +5,9 @@
     %li.menu-item{class: params[:action] == 'locations' ? "current-menu-item" : "" }
       = link_to "Locations", locations_url
       %ul
-        %li.menu-item
-          = link_to "Grant Park", blog_url('4eeec1144647ec0001000003')
-        %li.menu-item
-          = link_to "Decatur", blog_url('4f032fa4191a200001001c4b')
-        %li.menu-item
-          = link_to "Midtown", blog_url('4f22eb0247f12f0001001919')
+        - @site_blogs.each do |sb|
+          %li.menu_item
+            = link_to sb.title, blog_url(sb.id)
     %li.menu-item{class: @camp_details ? "current-menu-item" : "" }
       = link_to "Camp Details", camp_details_url
       %ul

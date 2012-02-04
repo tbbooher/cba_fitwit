@@ -2,6 +2,7 @@ class Registration
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ActiveModel::Validations
 
   belongs_to :user
   belongs_to :time_slot  # , :null => false
