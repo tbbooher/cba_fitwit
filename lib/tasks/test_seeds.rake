@@ -37,7 +37,7 @@ namespace :data do
              "28:33",
              "30:43",
              "21:63"]
-    FactoryGirl.create_list(:user, 10).each_with_index do |usr, i|
+    FactoryGirl.create_list(:user, 30).each_with_index do |usr, i|
        FactoryGirl.create(:workout, fit_wit_workout: cindy,
                           score: rounds[i], user: usr)
        FactoryGirl.create(:workout, fit_wit_workout: fiveK,

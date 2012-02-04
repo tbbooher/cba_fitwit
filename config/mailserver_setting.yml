@@ -6,7 +6,7 @@ MAILSERVER_DOMAIN: 'fitwit.com'
 # not used in initial setup      |
 #                                v
 ADMIN_EMAIL_ADDRESS: 'messenger@fitwit.com'
-DEFAULT_URL: 'fitwit.herokuapp.com'
+DEFAULT_URL: 'timshel.herokuapp.com'
 # http://http//fitwit.herokuapp.com//users/confirmation?confirmation_token=6fU1DMyerBmb5gYxyHRD
 DEFAULT_MAIL_FROM: 'messenger@fitwit.com'
 DEVELOPMENT_MAIL_RECIPIENT: 'developer@fitwit.com'
