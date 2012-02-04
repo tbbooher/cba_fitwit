@@ -4,7 +4,7 @@ class OfFitnessCampLocationValidator < ActiveModel::EachValidator
       record.errors[attribute] << (options[:message] || "A user and time slot must share the same location")
     end
     if record.time_slot.fitness_camp.time_slots.map{|ts| ts.registrations}.flatten.map(&:user_id).include?(record.user.id)
-      record.errors[attribute] <<  "A user can only register for one time_slot in a camp"
+      record.errors[attribute] <<  (options[:message] || "A user can only register for one time_slot in a camp")
     end
   end
 end
