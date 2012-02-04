@@ -3,7 +3,7 @@
 <% invited? %>
 
 <% content_for :right_column do %>
-    <h3>cool quote about taking some steps . . .</h3>
+    <h3>Ben . . . .cool quote about taking some steps . . .</h3>
 
     <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
       Duis autem vel eum iriure dolor in hendrerit.</p>
@@ -30,9 +30,16 @@
         <% end %>
 
         <p>
-          <%= f.label :name %>
+          <%= f.label :first_name %>
           <span class='wpcf7-form-control-wrap'>
-            <%= f.text_field :name, class: 'wpcf7-text' %>
+            <%= f.text_field :first_name, class: 'wpcf7-text' %>
+          </span>
+        </p>
+
+        <p>
+          <%= f.label :last_name %>
+          <span class='wpcf7-form-control-wrap'>
+            <%= f.text_field :last_name, class: 'wpcf7-text' %>
           </span>
         </p>
 

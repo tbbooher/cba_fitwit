@@ -174,6 +174,8 @@ class User
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update  :reprocess_avatar, :if => :cropping?
 
+  before_save :load_user_name
+
   # Notifications
   after_create   :async_notify_on_creation
   before_destroy :async_notify_on_cancellation
@@ -299,6 +301,11 @@ class User
 
   
 private
+
+  def load_user_name
+    self.name = "#{self.first_name} #{self.last_name}"
+  end
+
   def reprocess_avatar
     avatar.reprocess!
   end
