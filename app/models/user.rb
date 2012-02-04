@@ -125,7 +125,6 @@ class User
 
   # FitWit Specifics
   has_many :workouts
-  #has_many :registrations  # TODO -- this is really normalized, need to consider
   has_many :orders
   has_many :registrations
 
@@ -139,19 +138,25 @@ class User
   embeds_many :measurements
   embeds_many :health_issues
 
-  validates_presence_of   :name
-  validates_uniqueness_of :name, :case_sensitive => false
-  validates               :email, :presence => true, :email => true
-  validates_uniqueness_of :email, :case_sensitive => false
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, uniqueness: {case_sensitive: false}, :email => true
 
+  validates :gender, :inclusion => { :in => [:male, :female], :message => "%{value} is not a gender type" }
+  validates :veteran_status, :inclusion => { :in => [:veteran, :supervet, :newbie, :staff], :message => "%{value} is not a valid veteran status" }
 
-  attr_accessible :name, :email, :password, :password_confirmation, :roles_mask,
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :roles_mask,
                   :remember_me, :authentication_token, :confirmation_token,
                   :avatar, :clear_avatar, :crop_x, :crop_y, :crop_w, :crop_h,
                   :time_zone, :language, :use_gravatar, :invitation_id,
                   :location_token, :secondary_phone, :emergency_contact_name,
                   :emergency_contact_relationship, :primary_phone, :gender,
-                  :occupation, :company, :t_shirt_size, :date_of_birth
+                  :occupation, :company, :t_shirt_size, :date_of_birth, :street_address1,
+                  :street_address2, :city, :us_state, :roles_mask, :zip, :secondary_phone,
+                  :weight, :how_did_you_hear_about_us, :fitness_level, :height_inches,
+                  :height_feet, :veteran_status, :member, :has_physician_approval,
+                  :has_physician_approval_explanation, :post_menopausal_female,
+                  :taking_estrogen
 
   attr_accessor :clear_avatar
 

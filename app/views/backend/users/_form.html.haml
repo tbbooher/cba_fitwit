@@ -14,7 +14,7 @@
     = f.input :zip
     = f.input :primary_phone
     = f.input :secondary_phone
-    = f.input :t_shirt_size
+    = f.input :t_shirt_size, collection: ["Small","Medium","Large"], include_blank: false
     = f.input :emergency_contact_name
     = f.input :emergency_contact_relationship
     = f.input :weight
