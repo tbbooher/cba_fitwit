@@ -2,6 +2,7 @@
   %fieldset
     = f.input :name
     = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index{|i,r| [i, r]}, include_blank: false
+    = f.input :location_id, collection: Location.all.map{|l| [l.id, l.name]}.push([nil, 'none']), include_blank: false
     = f.input :first_name
     = f.input :last_name
     = f.input :gender, collection: [:male, :female], include_blank: false
