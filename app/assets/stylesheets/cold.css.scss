@@ -2561,16 +2561,16 @@ ul.small-list li {
     text-decoration: none;
 }
 
-#sidebar li.current_page_item ul a,
+#sidebar li ul a.current_page_item,
 li.current-cat ul a,
-#sidebar li.current_page_item ul li.current-page_item ul a,
-li.current-cat ul li.current-page_item ul a {
+#sidebar li.current_page_item ul li ul a.current_page_item,
+li.current-cat ul li ul a.current_page_item {
     font-weight: normal;
     padding: 0;
     background: none;
 }
 
-ul#cart_items li {
+ul#cart_items li, #sidebar a.current_page_item {
     font-weight: bold;
     padding: 5px 5px 4px 20px;
     background: #fff image-url("/images/cold/bullets/arrow.png") 5px 9px no-repeat;
@@ -2586,6 +2586,7 @@ li.current-cat ul {
     margin: 6px 0 -6px;
     padding: 0 0 6px 20px;
 }
+
 #sidebar li.current_page_item li,
 li.current-cat li {
     padding-bottom: 6px;

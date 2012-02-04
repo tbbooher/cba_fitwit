@@ -51,8 +51,8 @@ module SiteMenusHelper # :nodoc:
   # if the link is a link to the current-page display it with a different
   # css-class to inform the user about 'here you are'.
   def menu_link_to(name,path,options={})
-    style = "hmenu"
-    style = "hmenu_current" if current_page?(path)
+    style = "page_item"
+    style = "current_page_item" if current_page?(path)
     options.merge!( { :class => style } )
     link_to( name, path, options )
   end
