@@ -4,12 +4,16 @@
 //= require backend/jquery.timePicker.min
 //= require backend/jquery-ui-timepicker-addon
 //= require backend/jquery-ui.multidatespicker
+//= require backend/bootstrap-alert
+//= require backend/bootstrap-tab
 
 //= require backend/location
 
 // should we add gcal ?
 
 $(function (){
+//    $(".alert-message").alert();
+    $("#user_edit_tabs").tab('show');
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
     $(".datetimepicker").datetimepicker({ dateFormat: 'D, dd M yy' });
     $(".input_time").timePicker({ startTime: "5:00", endTime: "19:00", step: 60});
