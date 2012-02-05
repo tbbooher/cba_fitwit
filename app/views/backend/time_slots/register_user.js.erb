@@ -1,4 +1,8 @@
 // now change the select box
+<% if @registration.errors.size == 0 %>
 $("#user_id option[value='<%= @user.id %>']").remove();
 $("#registration_number").html("<%= @time_slot.registrations.size %>");
 $("#registrants").append("<%= escape_javascript(render("table_row")) %>");
+<% else %>
+alert('<%= @registration.errors.messages.first.last.last %>');
+<% end %>

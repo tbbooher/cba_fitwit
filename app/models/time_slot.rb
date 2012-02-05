@@ -21,11 +21,12 @@ class TimeSlot
   # what is the most recent timeslot at the same time?
   #scope :previous_camp, ->(fitness_camp_id, start_time) { where(fitness_camp_id: fitness_camp_id).and(start_time:)}  
 
-  def register_user(user_id)
+  def create_user_registration(user_id)
     r = Registration.new
     r.user_id = user_id
     r.time_slot_id = self.id
-    r.save
+    r.fitness_camp_id = self.fitness_camp.id
+    r
   end
 
   def start_time_f

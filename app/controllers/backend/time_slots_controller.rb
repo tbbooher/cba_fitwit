@@ -20,9 +20,9 @@ class Backend::TimeSlotsController < Backend::ResourceController
 
   def register_user
     time_slot = TimeSlot.find(params[:time_slot_id])
-    registration = time_slot.register_user(params[:user_id])
+    @registration = time_slot.create_user_registration(params[:user_id])
     respond_to do |format|
-      if registration.save
+      if @registration.save
         format.html { redirect_to(:back, :notice => "Successfully added user to fitness camp.") }
         format.js
       else
