@@ -1,24 +1,29 @@
 - content_for :header do
   %h1 User Management
 
+= form_tag backend_users_path, method: :get, class: "well form-search" do
+  = text_field_tag :search, nil, class: "input-small", placeholder: "Name"
+  = select_tag :location, options_from_collection_for_select(@locations.push, 'id', 'name', @location_id)  + "<option>None</option>".html_safe
+  = submit_tag "Go", class: "btn"
+
 %ul.tabs
   %li.active= link_to "Index", "#"
   %li= link_to "New", new_resource_path
 
 %table
   %tr
-    %th Name
-    %th Membership Status
-    %th Location
+    %th= sortable :first_name, "First Name"
+    %th= sortable :last_name, "Last Name"
+    %th= sortable :membership, "Membership"
     %th
 
   - @users.each do |resource|
     %tr
-      %td= link_to resource.certain_name, resource_path(resource)
-      %td= resource.member
+      %td= link_to resource.first_name, edit_resource_path(resource), style: resource.member ? "font-weight: bold;" : ""
+      %td= link_to resource.last_name, edit_resource_path(resource), style: resource.member ? "font-weight: bold;" : ""
       %td= resource.location.nil? ? 'none' : resource.location.name
 
       %td.row-actions
-        = link_to 'edit', edit_resource_path(resource)
-        |
         = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+
+= paginate collection
