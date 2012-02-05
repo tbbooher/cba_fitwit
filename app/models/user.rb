@@ -144,6 +144,8 @@ class User
 
   validates :gender, :inclusion => { :in => [:male, :female], :message => "%{value} is not a gender type" }
   validates :veteran_status, :inclusion => { :in => [:veteran, :supervet, :newbie, :staff], :message => "%{value} is not a valid veteran status" }
+  validates :height_inches, :numericality => {:less_than_or_equal_to => 12}
+  validates :height_feet, :numericality => {:less_than => 9}
 
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :roles_mask,
                   :remember_me, :authentication_token, :confirmation_token,

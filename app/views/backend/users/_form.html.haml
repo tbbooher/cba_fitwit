@@ -4,7 +4,7 @@
       %li.active
         %a{"data-toggle" => "tab", :href => "#basic_info"} Personal
       %li
-        %a{"data-toggle" => "tab", :href => "#Contact_info"} Contact
+        %a{"data-toggle" => "tab", :href => "#contact_info"} Contact
       %li
         %a{"data-toggle" => "tab", :href => "#fitwit_info"} FitWit
       %li
@@ -31,9 +31,9 @@
         = f.input :emergency_contact_name
         = f.input :emergency_contact_relationship
       #fitwit_info.tab-pane
-        = f.input :location_id, collection: Location.all.map{|l| [l.name, l.id]}.push(['none',nil]), include_blank: false
+        = f.input :location_id, collection: Location.all.map{|l| [l.name, l.id]}.push(['none',nil]), include_blank: false, prompt: "Choose a location"
         = f.input :t_shirt_size, collection: ["Small","Medium","Large"], include_blank: false
-        = f.input :fitness_level, collection: 1..10
+        = f.input :fitness_level, collection: 1..10, prompt: "10 is the best", include_blank: false
         = f.input :weight
         = f.input :height_inches
         = f.input :height_feet, as: :integer
