@@ -55,9 +55,9 @@ describe "Interpreter should render keywords" do
     assert interpreter.render("Render an PLUSONE here") =~ /g:plusone size/i, "Should display G+ button"
   end
   
-  it "should replace LOCATION" do
+  it "should replace gis_location" do
     interpreter = Interpreter.new(@testobject)
-    assert interpreter.render("Render an [LOCATION:1,2]") =~ /open-location/, "Should have a link to open map"
+    assert interpreter.render("Render an [GIS_LOCATION:1,2]") =~ /open-gis_location/, "Should have a link to open map"
   end
 
   it "should replace PLACE" do

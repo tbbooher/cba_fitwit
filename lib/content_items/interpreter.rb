@@ -88,8 +88,8 @@ class Interpreter
         "OBJECT HAS NO ATTACHMENTS!"
       end
     }.gsub(/PLUSONE/, '<g:plusone size="small"></g:plusone>')
-    .gsub( /\[LOCATION:([\d\., \-]+)\]/) { |location|
-      render_location_link(location.gsub('LOCATION','').gsub('[','').gsub(']','').gsub(':',''))
+    .gsub( /\[GIS_LOCATION:([\d\., \-]+)\]/) { |gis_location|
+      render_gis_location_link(gis_location.gsub('GIS_LOCATION','').gsub('[','').gsub(']','').gsub(':',''))
     }.html_safe
   end
 
@@ -154,8 +154,8 @@ private
       "' frameborder='0' allowfullscreen=''></iframe>"
   end
 
-  def render_location_link(location)
-    "<a href='#' class='open-location'>"+location+"</a>"
+  def render_gis_location_link(gis_location)
+    "<a href='#' class='open-gis_location'>"+gis_location+"</a>"
   end
 
   def render_place_link(place)

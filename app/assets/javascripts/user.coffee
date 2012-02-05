@@ -1,7 +1,7 @@
 $(document).ready ->
-  if $("#users-location-map")
-    $("#users-location-map").html('<img src="/images/spinner.gif" alt="Loading ..." style="box-shadow: none">')
-    lnglat = $('#user-location-token').html()
+  if $("#users-gis_location-map")
+    $("#users-gis_location-map").html('<img src="/images/spinner.gif" alt="Loading ..." style="box-shadow: none">')
+    lnglat = $('#user-gis_location_token').html()
     if lnglat
       lng = lnglat.split(",")[0]
       lat = lnglat.split(",")[1]
@@ -16,15 +16,15 @@ loadUserMap = (lng,lat) ->
     height: 300,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
-  map = new google.maps.Map(document.getElementById("users-location-map"),myOptions)
-  $('#users-location-map').height("300px").width("300px")
+  map = new google.maps.Map(document.getElementById("users-gis_location-map"),myOptions)
+  $('#users-gis_location-map').height("300px").width("300px")
   marker = {
     position: latlng,
     map: map
   }
   userMarker = new google.maps.Marker(marker)  
 
-this.loadUserLocation = (target,lnglat) ->
+this.loadGISLocation = (target,lnglat) ->
   lng = lnglat.split(",")[0]
   lat = lnglat.split(",")[1]
   userPosition = new google.maps.LatLng(parseFloat(lng),parseFloat(lat))

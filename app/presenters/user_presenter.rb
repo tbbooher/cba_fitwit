@@ -2,11 +2,11 @@ class UserPresenter < BasePresenter
   
   presents :user
 
-  def location
-    unless user.location_token.blank?
-      content_tag :div, :class => 'user-location', :id => user.id.to_s do
-        user.location_token
-        javascript_tag "loadUserLocation('#{user.id.to_s}','#{user.location_token}');"
+  def gis_location
+    unless user.gis_location_token.blank?
+      content_tag :div, :class => 'user-gis_location', :id => user.id.to_s do
+        user.gis_location_token
+        javascript_tag "loadGISLocation('#{user.id.to_s}','#{user.gis_location_token}');"
       end
     end
   end  

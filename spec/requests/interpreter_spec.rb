@@ -54,8 +54,8 @@ describe "Interpreter" do
     page.should have_link "wonderful body"
   end  
   
-  it "should interpret LOCATION and PLACES tags with google-maps" do
-    @page.body = "A [LOCATION:48.2165,14.2618] and a [PLACE:Technisches Museum, Wien]"
+  it "should interpret gis_location and PLACES tags with google-maps" do
+    @page.body = "A [GIS_LOCATION:48.2165,14.2618] and a [PLACE:Technisches Museum, Wien]"
     @page.save!
     visit page_path(@page)
     page.should have_link "48.2165,14.2618"
@@ -63,7 +63,7 @@ describe "Interpreter" do
   end
   
   it "should open a google-map in overlay", :js => true do 
-    @page.body = "A [LOCATION:48.2165,14.2618] and a [PLACE:Technisches Museum, Wien]"
+    @page.body = "A [GIS_LOCATION:48.2165,14.2618] and a [PLACE:Technisches Museum, Wien]"
     @page.save!
     visit page_path(@page)
     click_link "48.2165,14.2618"
@@ -75,7 +75,7 @@ describe "Interpreter" do
   end
   
   it "map in overlay should provide a link to google-maps", :js => true do
-    @page.body = "A [LOCATION:48.2165,14.2618] and a [PLACE:Technisches Museum, Wien]"
+    @page.body = "A [GIS_LOCATION:48.2165,14.2618] and a [PLACE:Technisches Museum, Wien]"
     @page.save!
     visit page_path(@page)
     click_link "Technisches Museum, Wien"
@@ -84,7 +84,7 @@ describe "Interpreter" do
   end
   
   it "should render PLACE with Umlaute", :js => true do
-    @page.body = "A [LOCATION:48.2165,14.2618] and a [PLACE:Gärtnerstraße 1, 4053 Haid, Austria]"
+    @page.body = "A [GIS_LOCATION:48.2165,14.2618] and a [PLACE:Gärtnerstraße 1, 4053 Haid, Austria]"
     @page.save!
     visit page_path(@page)
     page.all('a', :text => /Austria/).last.click()

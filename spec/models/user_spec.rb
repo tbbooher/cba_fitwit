@@ -9,13 +9,13 @@ describe "user" do
 
   it "should store geo-location" do
     user = User.first
-    user.location_token = "48.2073, 14.2542"
+    user.gis_location_token = "48.2073, 14.2542"
     user.save!
     user.reload
-    assert user.location[:lat] == 48.2073,
-      "User's latitude should be 48.2073 but is #{user.location.inspect}"
-    assert user.location[:lng] == 14.2542
-      "User's longitude should be 14.2542 but is #{user.location.inspect}"
+    assert user.gis_location[:lat] == 48.2073,
+      "User's latitude should be 48.2073 but is #{user.gis_location.inspect}"
+    assert user.gis_location[:lng] == 14.2542
+      "User's longitude should be 14.2542 but is #{user.gis_location.inspect}"
   end
 
   it "should have a number of time slots" do

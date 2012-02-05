@@ -107,7 +107,7 @@ Feature: User Roles
 
   Scenario: User should store a geo-location
     Given I am on the edit user page
-    And I fill in "user_location_token" with "48.2073, 14.2542"
+    And I fill in "user_gis_location_token" with "48.2073, 14.2542"
     And I fill in "user_current_password" with "thisisnotsecret"
     And I click on "Update"
     Then I should see "Your location"

@@ -1,6 +1,6 @@
 - title t("userlist.user_profile", :name => @user.name )
--# TODO -- UPDATE!!
 %p
+    This is how a user modifies their own profile.
     We need to add ability to edit health information, update FitWit history, and get stuff in like editing t-shirt size
     , weight, height and etc see
     = link_to "http://www.fitwit.com/my_fit_wit/profile"
@@ -13,14 +13,12 @@
         = ui_button( 'groups', t(:your_groups), user_user_groups_path(@user))
         
 - if @user.avatar
-    %div=  link_to_function(     |
-       image_tag( w3c_url(@user.avatar_url(:thumb)), :class => "img-with-shadow" ),        |
-       "image_popup('#{w3c_url(@user.avatar_url(:popup))}')") |
+    %div=  link_to_function(image_tag( w3c_url(@user.avatar_url(:thumb)), :class => "img-with-shadow" ), "image_popup('#{w3c_url(@user.avatar_url(:popup))}')")
 
 
 %div{:style => 'clear: right; margin-top: 10px;'}
 
-    %div{:id => 'users-location-map'}
+    %div{:id => 'users-gis_location-map'}
 
     %p 
         User: 
@@ -30,18 +28,18 @@
         %b= @user.email
 
 - if user_signed_in? && @user == current_user
-    - if current_user && current_user.location[:lat].present? && current_user.location[:lng].present?
+    - if current_user && current_user.gis_location[:lat].present? && current_user.gis_location[:lng].present?
         %p
-            = t(:your_location)+": "
-            %span{:id => 'user-location-token'}= current_user.location_token        
+            = t(:your_gis_location)+": "
+            %span{:id => 'user-gis_location_token'}= current_user.gis_location_token
                 
     - content_for :resource_actions do
         = ui_button 'mail', t(:send_invitaiton), new_user_invitation_path(current_user), :id => 'invitation_link'
       
 - else
-    - if @user.location[:lat].present? && @user.location[:lng].present?
-        = t(:location)+": "
-        %span{:id => 'user-location-token'}= @user.location_token
+    - if @user.gis_location[:lat].present? && @user.gis_location[:lng].present?
+        = t(:gis_location)+": "
+        %span{:id => 'user-gis_location_token'}= @user.gis_location_token
         %br
         
 - if current_user.role?(:maintainer)

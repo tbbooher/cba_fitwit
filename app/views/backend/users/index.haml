@@ -2,8 +2,7 @@
   %h1 User Management
 
 = form_tag backend_users_path, method: :get, class: "well form-search" do
-  = text_field_tag :search, nil, class: "input-small", placeholder: "Name"
-  = select_tag :location, options_from_collection_for_select(@locations.push, 'id', 'name', @location_id)  + "<option>None</option>".html_safe
+  = select_tag :location, options_from_collection_for_select(@locations.push, 'id', 'name', @location_id)  + "<option>None</option>".html_safe + "<option>All</option>".html_safe, :prompt => "Filter by location"
   = submit_tag "Go", class: "btn"
 
 %ul.tabs
@@ -12,18 +11,25 @@
 
 %table
   %tr
-    %th= sortable :first_name, "First Name"
-    %th= sortable :last_name, "Last Name"
-    %th= sortable :membership, "Membership"
+    %th= sort_link_to :first_name
+    %th= sort_link_to :last_name
+    %th= sort_link_to :location
+    %th= sort_link_to :member
     %th
 
   - @users.each do |resource|
-    %tr
-      %td= link_to resource.first_name, edit_resource_path(resource), style: resource.member ? "font-weight: bold;" : ""
-      %td= link_to resource.last_name, edit_resource_path(resource), style: resource.member ? "font-weight: bold;" : ""
-      %td= resource.location.nil? ? 'none' : resource.location.name
+    - unless resource == current_user
+      %tr
+        %td= link_to resource.first_name, edit_resource_path(resource)
+        %td
+          = link_to resource.last_name, edit_resource_path(resource)
 
-      %td.row-actions
-        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+        %td= resource.location.nil? ? 'none' : resource.location.name
+        %td
+          - if resource.member
+            %span.label.label-success member
+
+        %td.row-actions
+          = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
 
 = paginate collection

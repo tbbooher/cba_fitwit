@@ -109,7 +109,7 @@ class User
     self.invitation_id = inv.id
   end
 
-  field :location, type: Array, spacial: true
+  field :gis_location, type: Array, spacial: true
 
   def articles
     []
@@ -144,14 +144,14 @@ class User
 
   validates :gender, :inclusion => { :in => [:male, :female], :message => "%{value} is not a gender type" }
   validates :veteran_status, :inclusion => { :in => [:veteran, :supervet, :newbie, :staff], :message => "%{value} is not a valid veteran status" }
-  validates :height_inches, :numericality => {:less_than_or_equal_to => 12}
-  validates :height_feet, :numericality => {:less_than => 9}
+  validates :height_inches, :numericality => {:less_than_or_equal_to => 12}, allow_blank: true
+  validates :height_feet, :numericality => {:less_than => 9}, allow_blank: true
 
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :roles_mask,
                   :remember_me, :authentication_token, :confirmation_token,
                   :avatar, :clear_avatar, :crop_x, :crop_y, :crop_w, :crop_h,
                   :time_zone, :language, :use_gravatar, :invitation_id,
-                  :location_token, :secondary_phone, :emergency_contact_name,
+                  :gis_location_token, :secondary_phone, :emergency_contact_name,
                   :emergency_contact_relationship, :primary_phone, :gender,
                   :occupation, :company, :t_shirt_size, :date_of_birth, :street_address1,
                   :street_address2, :city, :us_state, :roles_mask, :zip, :secondary_phone,
@@ -287,15 +287,15 @@ class User
     end
   end
 
-  def location_token
-    if self.location[:lat].present? && self.location[:lng].present?
-      "%3.4f,%3.4f" % [self.location[:lat], self.location[:lng]]
+  def gis_location_token
+    if self.gis_location[:lat].present? && self.gis_location[:lng].present?
+      "%3.4f,%3.4f" % [self.gis_location[:lat], self.gis_location[:lng]]
     end
   end
 
-  def location_token=(str)
+  def gis_location_token=(str)
     coordinates = str.split(",").map! { |a| a.strip.gsub(/\(|\)/,'') }
-    self.location = {
+    self.gis_location = {
       lat: coordinates[0].to_f,
       lng: coordinates[1].to_f
     }

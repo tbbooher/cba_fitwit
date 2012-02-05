@@ -1,15 +1,24 @@
 class Backend::UsersController < Backend::ResourceController
   def index
+    params[:direction] ||= "asc"
+    params[:order] ||= "last_name"
     @locations = Location.all
     @location_id = params[:location]
-    if @location_id
+    if @location_id && (@location_id != "All")
       if @location_id == 'None'
-        @users = User.where(location_id: nil).page params[:page]
+        users_at_location = User.where(location_id: nil)
       else
-        @users = User.where(location_id: @location_id).page params[:page]
+        users_at_location = User.where(location_id: @location_id)
       end
     else
-      @user = User.all.page params[:page]
+      users_at_location = User.all
+    end
+
+    @users = users_at_location.order_by([params[:order].to_sym,params[:direction].to_sym]).page params[:page]
+
+    respond_to do |format|
+       format.js
+       format.html
     end
   end
 end
