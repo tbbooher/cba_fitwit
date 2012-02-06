@@ -1,7 +1,7 @@
 $(document).ready ->
   if $("#users-gis_location-map")
     $("#users-gis_location-map").html('<img src="/images/spinner.gif" alt="Loading ..." style="box-shadow: none">')
-    lnglat = $('#user-gis_location_token').html()
+    lnglat = $('#user_gis_location_token').html()
     if lnglat
       lng = lnglat.split(",")[0]
       lat = lnglat.split(",")[1]
@@ -51,9 +51,9 @@ jQuery ->
 geocoder = null
 map = null
 $(document).ready ->
-  if $('#location-preview').html()
+  if $('#gis_location-preview').html()
     geocoder = new google.maps.Geocoder();
-    pos = $("#user_location_token").val()
+    pos = $("#user_gis_location_token").val()
     unless pos == ""
       lat = parseFloat(pos.split(",")[0])
       lng = parseFloat(pos.split(",")[1])
@@ -68,8 +68,8 @@ $(document).ready ->
       center: userPosition
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    map = new google.maps.Map(document.getElementById("location-preview"), myOptions)
-    $("#location-preview").height(200).width(200)
+    map = new google.maps.Map(document.getElementById("gis_location-preview"), myOptions)
+    $("#gis_location-preview").height(200).width(200)
     unless pos == ""
       marker = new google.maps.Marker({
           map: map,
@@ -81,7 +81,7 @@ searchLocation = ->
   if search_term.length < 3
     # don't start searching if term is short
   else
-    $('#user_location_token').val(search_term)
+    $('#user_gis_location_token').val(search_term)
     results = geocoder.geocode { address: search_term }, (results, status) ->
       if status == google.maps.GeocoderStatus.OK
         if results.length > 0
@@ -93,4 +93,4 @@ searchLocation = ->
               map: map,
               position: results[0].geometry.location
           })
-          $('#user_location_token').val(results[0].geometry.location)
+          $('#user_gis_location_token').val(results[0].geometry.location)

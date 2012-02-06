@@ -7,6 +7,11 @@ class RegistrationsController < Devise::RegistrationsController
     session[:omniauth] = nil unless resource.new_record?
   end
 
+  def edit
+    @google_maps = true
+    super
+  end
+
   def update
     if password_needed?
       set_flash_message :notice, :updated

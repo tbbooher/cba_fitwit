@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @google_maps = true
   end
 
   def edit_role

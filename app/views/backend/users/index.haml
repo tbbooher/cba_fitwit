@@ -18,18 +18,17 @@
     %th
 
   - @users.each do |resource|
-    - unless resource == current_user
-      %tr
-        %td= link_to resource.first_name, edit_resource_path(resource)
-        %td
-          = link_to resource.last_name, edit_resource_path(resource)
+    %tr
+      %td= link_to resource.first_name, edit_resource_path(resource)
+      %td
+        = link_to resource.last_name, edit_resource_path(resource)
 
-        %td= resource.location.nil? ? 'none' : resource.location.name
-        %td
-          - if resource.member
-            %span.label.label-success member
+      %td= resource.location.nil? ? 'none' : resource.location.name
+      %td
+        - if resource.member
+          %span.label.label-success member
 
-        %td.row-actions
-          = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+      %td.row-actions
+        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
 
 = paginate collection
