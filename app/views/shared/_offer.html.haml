@@ -1,0 +1,5 @@
+- if @offer
+  #offer.info_box.info_box1.rounded{style: "margin-top:10px; width: #{width}"}
+    .title_box{:style => "background-color: #323232;"} Current Offer
+    .content_box
+      = @offer.content.html_safe

@@ -21,6 +21,7 @@ class BaseController < ApplicationController
 
   def getting_started
     @camp_details = true
+    @offer = Offer.where(active: true).desc(:updated_at).first
   end
 
   def contact_us
@@ -61,11 +62,11 @@ class BaseController < ApplicationController
   end
 
   def camp_details
-    @offer = Offer.where(active: true).desc(:updated_at).first
     @camp_details = true
   end
 
   def whats_included
+    @offer = Offer.where(active: true).desc(:updated_at).first
     @camp_details = true
   end
 
