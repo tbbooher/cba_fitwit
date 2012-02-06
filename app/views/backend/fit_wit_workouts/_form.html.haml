@@ -1,8 +1,8 @@
-= simple_form_for @fit_wit_workout do |f|
+= simple_form_for [:backend, @fit_wit_workout] do |f|
   %fieldset
-    = f.text_field :name
-    = f.text_field :description, :as => :text
-    = f.text_field :units
-    = f.text_field :score_method
+    = f.input :name
+    = f.input :description, :as => :text
+    = f.input :units, collection: FitWitWorkout::EXERCISE_UNITS
+    = f.input :score_method, collection: FitWitWorkout::SCORE_METHODS
   .actions
     = f.submit :class => "btn primary"

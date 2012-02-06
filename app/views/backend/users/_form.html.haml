@@ -1,3 +1,7 @@
+/ link_to :registrations, backend_user_registrations_path
+/ link_to :orders, backend_user_orders_path
+/ link_to :workouts, backend_user_workouts_path
+
 = simple_form_for [:backend, @user], :wrapper => :inline do |f|
   %fieldset
     %ul.tabs
@@ -51,3 +55,16 @@
         = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index.map{|r,i| [r,i]}, include_blank: false
   .actions
     = f.submit class: "btn primary"
+
+%div.well
+  = link_to "PRs", backend_user_user_prs_path(@user.id)
+  |
+  = link_to "Custom Workouts", backend_user_custom_workouts_path(@user.id)
+  |
+  = link_to "Goals", backend_user_goals_path(@user.id)
+  |
+  = link_to "Measurements", backend_user_measurements_path(@user.id)
+  |
+  = link_to "Custom Workouts", backend_user_custom_workouts_path(@user.id)
+  |
+  = link_to "Health Issues", backend_user_health_issues_path(@user.id)

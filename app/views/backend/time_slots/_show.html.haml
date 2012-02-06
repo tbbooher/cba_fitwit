@@ -3,15 +3,16 @@
     This time slot is
     %strong Sold Out
 
-%h4 Reports
-%ul
-  %li= link_to "Attendance Sheet (PDF)", backend_location_fitness_camp_time_slot_attendance_sheet_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
-  %li
-    = link_to "Emergency Contact List", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id)
-    |
-    = link_to "(PDF)", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
-    |
-    = link_to "(CSV)", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id, format: "csv")
+#reports{style: @time_slot.users_going.size > 0 ? "" : "display:none;"}
+  %h4 Reports
+  %ul
+    %li= link_to "Attendance Sheet (PDF)", backend_location_fitness_camp_time_slot_attendance_sheet_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
+    %li
+      = link_to "Emergency Contact List", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id)
+      |
+      = link_to "(PDF)", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
+      |
+      = link_to "(CSV)", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id, format: "csv")
 
 %h4
   There are
@@ -24,7 +25,7 @@
       = render "table_row"
 
 %h4
-  - @unregistered_users =  (User.all.to_a - @time_slot.users_going.to_a).map{|u| [u.certain_name, u.id]}
+  - @unregistered_users =  (@location.users - @time_slot.users_going.to_a).map{|u| [u.certain_name, u.id]}
   = form_tag backend_location_fitness_camp_time_slot_register_user_path(@location.id, @fitness_camp.id, @time_slot.id), remote: true do
     %fieldset
     .clearfix

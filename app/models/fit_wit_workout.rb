@@ -4,7 +4,7 @@ class FitWitWorkout
   include Mongoid::Document
   field :name, :type => String
   field :description, :type => String
-  field :units, :type => String
+  field :units, :type => String, default: "repetitions"
   field :score_method, :type => String, default: "simple-rounds"
 
   # relations
@@ -14,14 +14,14 @@ class FitWitWorkout
   # methods
 
   EXERCISE_UNITS = [
-          #  Displayed        stored in db
+  #  Displayed        stored in db
   ["Repetitions", "repetitions"],
   ["Rounds", "rounds"],
   ["Time", "seconds"]
   ]
 
   SCORE_METHODS = [
-          #  Displayed        stored in db
+  #  Displayed        stored in db
   ["Sum Slashes", "sum-slashes"],
   ["Sum Commas", "sum-commas"],
   ["Rounds", "simple-rounds"],
@@ -29,6 +29,9 @@ class FitWitWorkout
   ["Parse Time", "parse-time"],
   ["Slash-separated Time", "slash-separated-time"],
   ]
+
+  validates :score_method, presence: true, inclusion: {in:  SCORE_METHODS.map{|e,s| s} } 
+  validates :units, presence: true, inclusion: {in:  EXERCISE_UNITS.map{|e,s| s} }   
 
   def pr_for(user)
     self.prs.where(user_id: user.id).first

@@ -19,8 +19,9 @@ class Backend::TimeSlotsController < Backend::ResourceController
   end
 
   def register_user
-    time_slot = TimeSlot.find(params[:time_slot_id])
-    @registration = time_slot.create_user_registration(params[:user_id])
+    @time_slot = TimeSlot.find(params[:time_slot_id])
+    @user = User.find(params[:user_id])
+    @registration = @time_slot.create_user_registration(@user.id)
     respond_to do |format|
       if @registration.save
         format.html { redirect_to(:back, :notice => "Successfully added user to fitness camp.") }
@@ -50,16 +51,16 @@ class Backend::TimeSlotsController < Backend::ResourceController
   end
  
   def emergency_contact
-    ts = TimeSlot.find(params[:time_slot_id])
-    @campers = ts.all_campers
+    @ts = TimeSlot.find(params[:time_slot_id])
+    @campers = @ts.all_campers
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @campers}
-      format.csv { render :csv => @campers}
+      format.csv { render :csv => @campers }
       format.pdf do
-        pdf = CampRosterPdf.new(ts, @campers, view_context)
-        send_data pdf.render, filename: "Emergency_Contact_List_For_#{ts.short_title.parameterize}.pdf",
+        pdf = CampRosterPdf.new(@ts, @campers, view_context)
+        send_data pdf.render, filename: "Emergency_Contact_List_For_#{@ts.short_title.parameterize}.pdf",
                   type: "application/pdf",
                   disposition: "inline"
       end

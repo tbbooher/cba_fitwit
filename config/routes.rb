@@ -35,10 +35,11 @@ Cba::Application.routes.draw do
     post "update_workouts_for_camp" => "workout_tracker#update_workouts_for_camp", as: :update_workouts_for_camp
 
     resources :users do
-      resources :prs
+      resources :user_prs
       resources :measurements
       resources :goals
       resources :custom_workouts
+      resources :health_issues
     end
 
     resources :friends
