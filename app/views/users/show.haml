@@ -12,14 +12,26 @@
 
 %div{:style => 'clear: right; margin-top: 10px;'}
 
-    %div{:id => 'users-gis_location-map'}
+    - if current_user.gis_location_token
+        %div{:id => 'users-gis_location-map'}
 
     %p 
         User: 
-        %b= @user.name
-    %p 
-        Mail: 
-        %b= @user.email
+        %b= @user.name + ", " + @user.email
+
+    - unless @user.why_i_fitwit.blank?
+        %h3 Why I FitWit:
+        %p
+            = @user.why_i_fitwit
+
+    %h3
+        Camps
+        - unless @user.all_fitness_camps.empty?
+            %ul
+            - @user.all_fitness_camps.each do |fc|
+                %li
+                    = fc.full_title
+
 
 - if user_signed_in? && @user == current_user
     - if current_user && current_user.gis_location[:lat].present? && current_user.gis_location[:lng].present?

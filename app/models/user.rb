@@ -44,6 +44,7 @@ class User
   field :veteran_status, type: Symbol, default: :newbie # [:veteran, :supervet, :newbie, :staff]
   field :number_of_logins, :type => Integer
   field :member, :type => Boolean
+  field :why_i_fitwit, type: String
 
   # approvals
   field :has_physician_approval, type: Boolean, default: false

@@ -21,4 +21,11 @@ class Backend::UsersController < Backend::ResourceController
        format.html
     end
   end
+
+  def create
+    # untested
+    params[:password] = "iluvfitwit"
+    params[:password_confirmation] = "iluvfitwit"
+    super
+  end
 end

@@ -17,13 +17,19 @@ module FitWitCustomUserMethods
     self.user_prs.where(fit_wit_workout_id: fit_wit_workout.id).first
   end
 
-  def past_fitness_camps
-    self.user_time_slots.map{|ts| ts.fitness_camp}.uniq
+  def all_fitness_camps
+    unless self.registrations.size == 0
+      self.registrations.map &:fitness_camp
+    end
+    #self.user_time_slots.map{|ts| ts.fitness_camp}.uniq
   end
 
   def user_time_slots
-    order_ids = Order.where(user_id: self.id).all.map(&:id)
-    Registration.where(:order_id.in => order_ids).map{|r| r.time_slot} 
+    unless self.registrations.size == 0
+      self.registrations.map &:time_slot
+    end
+    #order_ids = Order.where(user_id: self.id).all.map(&:id)
+    #Registration.where(:order_id.in => order_ids).map{|r| r.time_slot}
   end
 
   def time_slots
