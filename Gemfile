@@ -6,7 +6,7 @@ gem "rails" #, "3.1.2" #, "~> 3.1.0" # prev was rc8
 
 # Rails 3.1 - Asset Pipeline
 group :assets do
-  gem 'sass-rails', "~> 3.1.0.rc"
+  gem 'sass-rails', "~> 3.1"
   gem 'coffee-script'
   gem 'uglifier'
   gem 'json'
@@ -139,9 +139,9 @@ gem 'wkhtmltopdf-binary'
 gem "stamp"
 gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 #gem "jquery-rest"
-gem 'has_scope', git: 'git://github.com/plataformatec/has_scope.git'
+gem 'has_scope', '~> 0.5.1'
 gem 'kaminari'
 gem "responders"
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'simple_form', '~> 2.0.0.rc'
 #gem 'client_side_validations'
-gem 'bootstrap-sass', '1.4.1'
+gem 'bootstrap-sass', '~> 2.0.0'

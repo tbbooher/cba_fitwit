@@ -5,7 +5,8 @@ SimpleForm.setup do |config|
   # wrapper, change the order or even add your own to the
   # stack. The options given below are used to wrap the
   # whole input.
-  config.wrappers :class => :input, :hint_class => :field_with_hint, :error_class => :field_with_errors do |b|
+  config.wrappers :default, :class => :input,
+    :hint_class => :field_with_hint, :error_class => :field_with_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -44,6 +45,55 @@ SimpleForm.setup do |config|
     b.use :error, :tag => :span, :class => :error
   end
 
+  config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :tag => 'div', :class => 'controls' do |ba|
+      ba.use :input
+      ba.use :error, :tag => 'span', :class => 'help-inline'
+      ba.use :hint,  :tag => 'p', :class => 'help-block'
+    end
+  end
+
+  config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :hint,  :tag => 'span', :class => 'help-block'
+    b.use :tag => 'div', :class => 'controls' do |input|
+      input.use :tag => 'div', :class => 'input-prepend' do |prepend|
+        prepend.use :input
+      end
+      input.use :error, :tag => 'span', :class => 'help-inline'
+    end
+  end
+
+  config.wrappers :append, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :hint,  :tag => 'span', :class => 'help-block'
+    b.use :tag => 'div', :class => 'controls' do |input|
+      input.use :tag => 'div', :class => 'input-append' do |append|
+        append.use :input
+      end
+      input.use :error, :tag => 'span', :class => 'help-inline'
+    end
+  end
+
+  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
+  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
+  # to learn about the different styles for forms and inputs,
+  # buttons and other elements.
+  config.default_wrapper = :bootstrap
+
+  # Define the way to render check boxes / radio buttons with labels.
+  # Defaults to :nested for bootstrap config.
+  #   :inline => input + label
+  #   :nested => label > input
+  config.boolean_style = :nested
+
+  # Default class for buttons
+  config.button_class = 'btn'
+
   # Method used to tidy up errors.
   # config.error_method = :first
 
@@ -68,8 +118,13 @@ SimpleForm.setup do |config|
   # You can define the class to use on all collection wrappers. Defaulting to none.
   # config.collection_wrapper_class = nil
 
-  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to span.
+  # You can wrap each item in a collection of radio/check boxes with a tag,
+  # defaulting to :span. Please note that when using :boolean_style = :nested,
+  # SimpleForm will force this option to be a label.
   # config.item_wrapper_tag = :span
+
+  # You can define a class to use in all item wrappers. Defaulting to none.
+  # config.item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
@@ -112,7 +167,4 @@ SimpleForm.setup do |config|
 
   # Cache simple form inputs discovery
   # config.cache_discovery = !Rails.env.development?
-
-  # Default class for buttons
-  # config.button_class = 'button'
 end

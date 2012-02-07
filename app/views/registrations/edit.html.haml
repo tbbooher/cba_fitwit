@@ -1,48 +1,44 @@
 / REVIEW: Should this view be splitted up in partials?
-- title t("edit_resource_named", :resource => resource_name.to_s.humanize,:name => @user.name||'new')
-.clear
+- title "Edit your FitWit Profile"
 
 - content_for :resource_actions do
   = ui_button 'expand', t(:list_registrations), registrations_path
   - if current_user && @user == current_user # It's you
     = ui_button( 'zoom', t(:show_profile), user_path(@user))
+  = ui_button( 'back', t(:back), :back)
+  #map_well{style: "padding:20px;"}
+    #gis_location-preview &nbsp;
 
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true, :class => 'form-horizontal' }) do |f|
   = devise_error_messages!
   %ul.tabs#user_basics
     %li.current
       %a.tab{href: '#'} Basics
-    %li.current
+    %li
       %a.tab{href: '#'} Avatar
-    %li.current
+    %li
       %a.tab{href: '#'} Authentication
-    %li.current
+    %li
       %a.tab{href: '#'} Location
   .tab_content
     = f.input :first_name
     = f.input :last_name
-    = f.input :email
-    = f.input :location_id
+    = f.input :email, as: :email, :placeholder => 'user@domain.com'
     = f.input :occupation
     = f.input :company
-    = f.input :date_of_birth
+    = f.input :date_of_birth, as: :date, :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, hint: "Year is not made public"
     = f.input :gender
+    = f.input :why_i_fitwit, as: :text, :input_html => { rows: 3 }
   .tab_content{style: "position: absolute; left: -10000px;"}
-    .form_content{style: "padding-left:200px;"}
-      - if @user.avatar
-        = image_tag @user.avatar_url(:thumb)
-    .clear
+    - if @user.avatar
+      = image_tag @user.avatar_url(:thumb)
     = f.input :avatar, as: :file
     = f.input :clear_avatar, as: :boolean
-    = f.input :use_gravatar, as: :boolean
-    = link_button 'Gravatar?', "button link tiny", "http://gravatar.com", :target => :blank
-    %small= @user.email.downcase
+    = f.input :use_gravatar, label: "User Gravatar for #{@user.email.downcase}", as: :boolean, hint: link_button("&nbsp; What is Gravatar?".html_safe, "button link tiny", "http://gravatar.com", :target => :blank)
   .tab_content{style: "position: absolute; left: -10000px;"}
     - if @user.authentications.empty?
       %h2 Password
-      = f.input :password, as: :password
-      %address
-        %i (leave blank if you don't want to change it)
+      = f.input :password, as: :password, hint: "leave blank if you don't want to change it"
       = f.input :password_confirmation, as: :password
     %h2= t(:or_user_omni_auth)
     = render '/authentications/authentications'
@@ -55,21 +51,17 @@
       .clear
         = link_button( t(:edit_authentication_providers),"button edit small", authentications_path(@user) )
     .clear
-  .tab_content{style: "position: absolute; left: -10000px;"}
-    #gis_location-preview
-    = f.input :gis_location_token
-    = text_field_tag "address"
+  .tab_content
+    = f.input :gis_location_token, label: "Your GPS coordinates"
+    .control-group
+      %label.control-label{:for => "address"} Address
+      .controls
+        .input-prepend
+          = text_field_tag "address", "", placeholder: "Start typing your address"
+        %p.help-block Just get close if you don't want your exact location to show
 
-
-  / ----------------- FINAL SUBMIT
-  - if @user.authentications.empty?
-    = f.input :current_password, as: :password
-    %address
-      %i (we need your current password to confirm your changes)
-  = f.submit "Update"
-
-.field
-  = label_tag :unhappy?
-  = link_to t(:cancel_my_account), registration_path(resource_name), :confirm => t(:sure?), :method => :delete, :class => "button delete small"
-- content_for :resource_actions do
-  = ui_button( 'back', t(:back), :back)
+  .well
+    - if @user.authentications.empty?
+      = f.input :current_password, as: :password, hint: "We need your current password to confirm your changes", label: false, placeholder: "Your current password"
+  .form-actions
+    = f.button :submit, class: 'btn-primary'

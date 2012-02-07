@@ -1,0 +1,19 @@
+- title "FitWit User Admin"
+
+%p display location
+%p display veteran status
+%p display if member
+
+%p show orders
+%p show camps attended
+
+= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
+  %fieldset
+    = f.input :t_shirt_size, collection: User::TSHIRT_SIZES
+    = f.input :height_inches, collection: 0..12
+    = f.input :height_feet, collection: 4..7
+    = f.input :fitness_level, collection: 1..10, hint: "10 is best", include_blank: true
+  .form-actions
+    f.button :submit, class: 'btn-primary'
+
+= link_to t(:cancel_my_account), registration_path(resource_name), :confirm => t(:sure?), :method => :delete, :class => "btn btn-danger"

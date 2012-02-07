@@ -13,18 +13,9 @@ html,
 	background-repeat: repeat;
 }
 html,
-body,
-form {
+body
+{
 	color: #666;
-}
-
-/* forms */
-input,
-textarea,
-button,
-select,
-option {
-	color: #888;
 }
 
 /* links */
@@ -143,11 +134,7 @@ h6 a:hover {
 
 /* ---------------------------------------- */
 /* forms */
-form input[type="submit"] {
-	background-color: #e52c1f;
-	color: #fff;
-	background-image: url('../images/gradient-btn.png');
-}
+
 #search form input[type="submit"] {
 	background-color: #666;
 	background-image: none;

@@ -52,7 +52,7 @@ geocoder = null
 map = null
 $(document).ready ->
   if $('#gis_location-preview').html()
-    geocoder = new google.maps.Geocoder();
+    geocoder = new google.maps.Geocoder()
     pos = $("#user_gis_location_token").val()
     unless pos == ""
       lat = parseFloat(pos.split(",")[0])
