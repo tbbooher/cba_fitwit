@@ -18,15 +18,6 @@ form {
 	color: #666;
 }
 
-/* forms */
-input,
-textarea,
-button,
-select,
-option {
-	color: #888;
-}
-
 /* links */
 a {
 	color: #00ac73;
@@ -140,18 +131,6 @@ h6 a:hover {
 }
 #intro a {
 	color: #9a9da0;
-}
-
-/* ---------------------------------------- */
-/* forms */
-form input[type="submit"] {
-	background-color: #00ac73;
-	color: #fff;
-	background-image: image-url('/images/cold/gradient-btn.png');
-}
-#search form input[type="submit"] {
-	background-color: #989b9f;
-	color: #fff;
 }
 
 /* ---------------------------------------- */

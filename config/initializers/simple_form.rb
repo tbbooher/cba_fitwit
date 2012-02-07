@@ -1,51 +1,47 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  # Wrappers are used by the form builder to generate a complete input.
-  # You can remove any component from the wrapper, change the order or even
-  # add your own to the stack. The options given to the wrappers method
-  # are used to wrap the whole input (if any exists).
-  config.wrappers :inline, :class => 'clearfix', :error_class => :error do |b|
-    b.use :placeholder
-    b.use :label
-    b.use :tag => 'div', :class => 'input' do |ba|
-      ba.use :input
-      ba.use :error, :tag => :span, :class => :'help-inline'
-      ba.use :hint,  :tag => :span, :class => :'help-block'
-    end
-  end
+  # Wrappers are used by the form builder to generate a
+  # complete input. You can remove any component from the
+  # wrapper, change the order or even add your own to the
+  # stack. The options given below are used to wrap the
+  # whole input.
+  config.wrappers :class => :input, :hint_class => :field_with_hint, :error_class => :field_with_errors do |b|
+    ## Extensions enabled by default
+    # Any of these extensions can be disabled for a
+    # given input by passing: `f.input EXTENSION_NAME => false`.
+    # You can make any of these extensions optional by
+    # renaming `b.use` to `b.optional`.
 
-  config.wrappers :stacked, :class => "clearfix", :error_class => :error do |b|
-    b.use :placeholder
-    b.use :label
-    b.use :hint,  :tag => :span, :class => :'help-block'
-    b.use :tag => 'div', :class => 'input' do |input|
-      input.use :input
-      input.use :error, :tag => :span, :class => :'help-inline'
-    end
-  end
+    # Determines whether to use HTML5 (:email, :url, ...)
+    # and required attributes
+    b.use :html5
 
-  config.wrappers :prepend, :class => "clearfix", :error_class => :error do |b|
+    # Calculates placeholders automatically from I18n
+    # You can also pass a string as f.input :placeholder => "Placeholder"
     b.use :placeholder
-    b.use :label
-    b.use :hint,  :tag => :span, :class => :'help-block'
-    b.use :tag => 'div', :class => 'input' do |input|
-      input.use :tag => 'div', :class => 'input-prepend' do |prepend|
-        prepend.use :input
-      end
-      input.use :error, :tag => :span, :class => :'help-inline'
-    end
-  end
 
-  config.wrappers :append, :class => "clearfix", :error_class => :error do |b|
-    b.use :placeholder
-    b.use :label
-    b.use :hint,  :tag => :span, :class => :'help-block'
-    b.use :tag => 'div', :class => 'input' do |input|
-      input.use :tag => 'div', :class => 'input-append' do |append|
-        append.use :input
-      end
-      input.use :error, :tag => :span, :class => :'help-inline'
-    end
+    ## Optional extensions
+    # They are disabled unless you pass `f.input EXTENSION_NAME => :lookup`
+    # to the input. If so, they will retrieve the values from the model
+    # if any exists. If you want to enable the lookup for any of those
+    # extensions by default, you can change `b.optional` to `b.use`.
+
+    # Calculates maxlength from length validations for string inputs
+    b.optional :maxlength
+
+    # Calculates pattern from format validations for string inputs
+    b.optional :pattern
+
+    # Calculates min and max from length validations for numeric inputs
+    b.optional :min_max
+
+    # Calculates readonly automatically from readonly attributes
+    b.optional :readonly
+
+    ## Inputs
+    b.use :label_input
+    b.use :hint,  :tag => :span, :class => :hint
+    b.use :error, :tag => :span, :class => :error
   end
 
   # Method used to tidy up errors.
@@ -91,12 +87,6 @@ SimpleForm.setup do |config|
   # Default is enabled.
   config.browser_validations = false
 
-  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes
-  # (e.g. required) are used or not. True by default.
-  # Having this on in non-HTML5 compliant sites can cause odd behavior in
-  # HTML5-aware browsers such as Chrome.
-  # config.html5 = true
-
   # Collection of methods to detect if a file type was given.
   # config.file_methods = [ :mounted_as, :file?, :public_filename ]
 
@@ -114,8 +104,8 @@ SimpleForm.setup do |config|
   # Default size for text inputs.
   # config.default_input_size = 50
 
-  # When false, do not use translations for labels, hints or placeholders.
-  # config.translate = true
+  # When false, do not use translations for labels.
+  # config.translate_labels = true
 
   # Automatically discover new inputs in Rails' autoload path.
   # config.inputs_discovery = true
@@ -124,5 +114,5 @@ SimpleForm.setup do |config|
   # config.cache_discovery = !Rails.env.development?
 
   # Default class for buttons
-  config.button_class = 'btn'
+  # config.button_class = 'button'
 end

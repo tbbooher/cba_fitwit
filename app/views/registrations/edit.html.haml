@@ -7,8 +7,7 @@
   - if current_user && @user == current_user # It's you
     = ui_button( 'zoom', t(:show_profile), user_path(@user))
 
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f|
-
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true, :class => 'form-horizontal' }) do |f|
   = devise_error_messages!
   %ul.tabs#user_basics
     %li.current
@@ -67,7 +66,7 @@
     = f.input :current_password, as: :password
     %address
       %i (we need your current password to confirm your changes)
-  = f.submit "Update", :class => "medium-btn glass-btn"
+  = f.submit "Update"
 
 .field
   = label_tag :unhappy?
