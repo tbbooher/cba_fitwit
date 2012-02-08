@@ -3,20 +3,36 @@
 - content_for :resource_actions do
   = render "shared/user_update_nav"
 
-%p display location
-%p display veteran status
-%p display if member
+%p
+  %strong
+    Location:
+  = @user.location.name
+%p
+  %strong
+    Veteran Status:
+  = @user.veteran_status.to_s.humanize
+%p
+  %strong
+    Membership:
+  = @user.member? ? "FitWit Member" : "Not a member"
+%p
+  %strong
+    FitWitter Since:
+  = @user.created_at.stamp("January 10th, 2010")
 
-%p show orders
-%p show camps attended
+%p &nbsp;
 
-= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
-  %fieldset
-    = f.input :t_shirt_size, collection: User::TSHIRT_SIZES
-    = f.input :height_inches, collection: 0..12
-    = f.input :height_feet, collection: 4..7
-    = f.input :fitness_level, collection: 1..10, hint: "10 is best", include_blank: true
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
+.well
+  = simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
+    %fieldset
+      = f.input :t_shirt_size, collection: User::TSHIRT_SIZES
+      = f.input :height_inches, collection: 0..12
+      = f.input :height_feet, collection: 4..7
+      = f.input :weight, as: :integer, hint: "lbs"
+    .form-actions
+      = f.button :submit, class: 'btn-primary'
 
-= link_to t(:cancel_my_account), registration_path(@user), :confirm => t(:sure?), :method => :delete, :class => "btn btn-danger"
+%p
+  If you decide to cancel your account. All your workouts, measurements, goals will be deleted. This can not be undone.
+%p
+  = link_to t(:cancel_my_account), registration_path(@user), :confirm => t(:sure?), :method => :delete, :class => "btn btn-danger"

@@ -5,11 +5,14 @@
 %br.clear
 
 .three_forth
-  = simple_form_for @message, :url => base_create_contact_message_path do |form|
-    = form.input :name
-    = form.input :email
-    = form.input :phone
-    = form.input :how_they_heard, label: "How did you hear about us?", collection: ["Flyer", "Internet Ad", "Yard Sign", "Friend (list)", "Advertisement (where?)", "Internet Search", "Other (list)"], prompt: "Please select one"
-    = form.input :other
-    = form.input :question, required: false, as: :text
-    = form.button :submit
+  .well
+    = simple_form_for @message, :url => base_create_contact_message_path, :html => { :class => 'form-horizontal' } do |form|
+      %fieldset
+        = form.input :name
+        = form.input :email
+        = form.input :phone
+        = form.input :how_they_heard, label: "How did you hear about us?", collection: ["Flyer", "Internet Ad", "Yard Sign", "Friend (list)", "Advertisement (where?)", "Internet Search", "Other (list)"], prompt: "Please select one"
+        = form.input :other
+        = form.input :question, required: false, as: :text, :input_html => { :rows => 5 }
+      .form-actions
+        = form.button :submit, class: 'btn-primary'

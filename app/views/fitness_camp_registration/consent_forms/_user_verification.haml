@@ -1,28 +1,41 @@
 #fitness_level
-  = label_tag :fitness_level, "Current fitness level (10=best)"
-  = select_tag :fitness_level, options_for_select((1..10))
+  .control-group.required
+    = label_tag :fitness_level, "Current fitness level:", class: "control-label"
+    .controls
+      = select_tag :fitness_level, options_for_select((1..10)), class: "span6"
+      %p.help-block 10 = highest fitness possible
 
-#physician_approval.clearfix
-  %p Does your physician approve of your participation in this exercise program?
-  .field
-    = label_tag :has_physician_approval, " "
-    = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], false), class: 'approval_field_yes_is_good'
+#physician_approval
+  .control-group.required
+    = label_tag :has_physician_approval, "Physician Approval:", class: "string required"
+    .controls
+      = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], false), class: 'approval_field_yes_is_good'
+      %p.help-block Does your physician approve of your participation in this exercise program?
   #has_physician_approval_explanation.field
-    = label_tag "has_physician_approval_explanation", "Please provide an explanation"
-    = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: "required", id: "has_physician_approval_explanation_ta"
-#medications.clearfix
-  %p Are you taking any medications that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance?
-  .field
-    = label_tag "meds_affect_vital_signs", ""
-    = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], true),  class: 'approval_field_yes_is_bad'
+    .control-group.required
+      = label_tag "has_physician_approval_explanation", "Please explain"
+      .controls
+        = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: "required", id: "has_physician_approval_explanation_ta"
+#medications
+  .control-group
+    = label_tag "meds_affect_vital_signs", "Taking meds?"
+    .controls
+      = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], true),  class: 'approval_field_yes_is_bad'
+      %p.help-block List all that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance
   #meds_affect_vital_signs_explanation.field
-    = label_tag "meds_affect_vital_signs_explanation", "Please provide an explanation"
-    = text_area_tag :meds_affect_vital_signs_explanation, user.meds_affect_vital_signs_explanation, class: "required", id: "meds_affect_vital_signs_explanation_ta"
+    .control-group
+      = label_tag "meds_affect_vital_signs_explanation", "Please explain"
+      .controls
+        = text_area_tag :meds_affect_vital_signs_explanation, user.meds_affect_vital_signs_explanation, class: "required", id: "meds_affect_vital_signs_explanation_ta"
 - if user.gender == :female
-  #girl_stuff.clearfix
+  #girl_stuff
     #post_menopausal_female.field
-      = label_tag "post_menopausal_female", "Post-menopausal female?"
-      = select_tag :post_menopausal_female, options_for_select([["Yes",true],["No",false]], user.post_menopausal_female)
+      .control-group
+        = label_tag "post_menopausal_female", "Post-menopausal female?"
+        .controls
+          = select_tag :post_menopausal_female, options_for_select([["Yes",true],["No",false]], user.post_menopausal_female)
     #taking_estrogen.field
-      = label_tag "taking_estrogen", "If yes, are you taking estrogen?"
-      = select_tag :taking_estrogen, options_for_select([["Yes",true],["No",false]], user.taking_estrogen)
+      .control-group
+        = label_tag "taking_estrogen", "If yes, are you taking estrogen?"
+        .controls
+          = select_tag :taking_estrogen, options_for_select([["Yes",true],["No",false]], user.taking_estrogen)
