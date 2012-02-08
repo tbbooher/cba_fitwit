@@ -2,10 +2,13 @@
 - title "Edit your FitWit Profile"
 
 - content_for :resource_actions do
+  = render "shared/user_update_nav"
   = ui_button 'expand', t(:list_registrations), registrations_path
   - if current_user && @user == current_user # It's you
     = ui_button( 'zoom', t(:show_profile), user_path(@user))
   = ui_button( 'back', t(:back), :back)
+
+- content_for :right_column do
   #map_well{style: "padding:20px;"}
     #gis_location-preview &nbsp;
 

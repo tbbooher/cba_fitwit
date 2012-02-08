@@ -137,6 +137,19 @@ class UsersController < ApplicationController
      end
   end
 
+  # FitWit User Management
+  def fitwit_admin
+    @user = current_user
+  end
+
+  def contact_info
+    @user = current_user
+  end
+
+  def health_profile
+    @user = current_user
+  end
+
 private
   def is_in_crop_mode?
     params[:user] &&

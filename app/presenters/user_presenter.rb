@@ -2,6 +2,8 @@ class UserPresenter < BasePresenter
   
   presents :user
 
+  include ConsentFormCode
+
   def gis_location
     unless user.gis_location_token.blank?
       content_tag :div, :class => 'user-gis_location', :id => user.id.to_s do

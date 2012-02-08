@@ -227,6 +227,10 @@ Cba::Application.routes.draw do
   match 'profile/:id'   => 'users#show', :as => 'profile'
   match 'my_group_ids'  => 'users#my_group_ids'
 
+  get "users/fitwit_admin"
+  get "users/contact_info"
+  get "users/health_profile"
+
   devise_for :users, :controllers => { :registrations => 'registrations' }
   
   resources :users, :only => [:show,:destroy] do
