@@ -1,12 +1,12 @@
 - content_for :header do
   %h1= "Events for #{@location.name}"
 
-%ul.tabs
+%ul.nav.nav-tabs
   %li.active= link_to "Index", "#"
   %li= link_to "New", new_resource_path
   %li= link_to "Calendar",  backend_location_calendar_path(@location)
 
-%table.zebra-striped
+%table.table.table-striped
   %thead
     %tr
       %th Title

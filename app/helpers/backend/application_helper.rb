@@ -9,7 +9,7 @@ module Backend::ApplicationHelper
     params[:location]  ||= "All"
 
     b, _b = params[:order].to_s == field.to_s ? ["<b>", "</b>"] : ["",""]
-    link_to( (b+t("by_#{field.to_s}".to_sym)+_b+direction_arrow(field)).html_safe,
+    link_to( (b+"By #{field.to_s.titleize}"+_b+direction_arrow(field)).html_safe,
       backend_users_path(page: params[:page],
         order: field,
         direction: params[:direction] == "asc" ? "desc" : "asc",

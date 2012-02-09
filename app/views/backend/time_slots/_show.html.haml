@@ -19,7 +19,7 @@
   %span#registration_number
     = @time_slot.registrations.size
   users registered
-  %table.zebra-striped#registrants
+  %table.table.table-striped#registrants
     - @time_slot.users_going.each do |user|
       - @user = user
       = render "table_row"

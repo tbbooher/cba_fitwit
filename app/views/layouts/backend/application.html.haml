@@ -4,6 +4,7 @@
     %title FitWit Admin
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
     %meta{:content => "NONE,NOARCHIVE", :name => "robots"}
+    = csrf_meta_tag
     = stylesheet_link_tag "backend/backend"
     - if @calendar
       = javascript_include_tag "calendar_scripts"
@@ -11,14 +12,13 @@
       = javascript_include_tag "backend"
     = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false"
     = csrf_meta_tag
-  %body.rails_admin{:style => "padding-top: 60px;"}
-    .topbar-wrapper{:style => "z-index: 5;"}
-      .topbar{:'data-dropdown' => 'dropdown'}
-        .topbar-inner
-          .container-fluid
-            %h3
-              = link_to "FitWit Admin Site", backend_root_path, :class => "brand"
-            %ul.nav
+  %body.rails_admin{style: 'padding-top: 60px;'}
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          = link_to "FitWit Admin Site", backend_root_path, :class => "brand"
+          .nav-collapse
+            %ul.nav.pull-right
               %li= link_to "Locations", backend_locations_path
               %li= link_to "Friends", backend_friends_path
               %li= link_to "News", backend_news_items_path
@@ -29,37 +29,34 @@
               %li= link_to "Coupons", backend_coupon_codes_path
               %li= link_to "Users", backend_users_path
     .container-fluid
-      .sidebar
-        .well
-          = yield :sidebar
-          .block.notice
-            %h4 Manage Camps
-            %ul
-              - FitnessCamp.all.each do |fc|
-                %li
-                  = link_to fc.title, backend_location_fitness_camp_path(fc.location.id, fc.id)
-                  %ul
-                    - fc.time_slots.all.each do |ts|
-                      %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
-          .block.notice
-            %h4 Manage Events
-            %ul
-              - Location.all.each do |loc|
-                %li= link_to loc.name, backend_location_events_path(loc.id)
-      .content
-        .page-header
-          = yield :header
-        - flash && flash.each do |key, value|
-          .alert-message.fade.in{:class => key}
-            %a.close{:href => '#', "data-dismiss" => "alert"}×
-            %p= value
-        /= breadcrumbs_for params[:action].to_sym, @abstract_model, @object
-        /- if @abstract_model
-        /  - if @object && !@object.new_record?
-        /    %ul.tabs= render :partial => 'rails_admin/main/object_links', :locals => { :add_active_class => true, :model_name => params[:model_name], :object => @object }
-        /  - else
-        /    %ul.tabs= render :partial => 'rails_admin/main/models_links', :locals => { :abstract_model => @abstract_model }
-        %span.row
-        = yield
-        %footer
-          %p &copy; FitWit 2011
+      .row-fluid
+        .span3
+          .well.sidebar-nav
+            = yield :sidebar
+            .block.notice
+              %h4 Manage Camps
+              %ul
+                - FitnessCamp.all.each do |fc|
+                  %li
+                    = link_to fc.title, backend_location_fitness_camp_path(fc.location.id, fc.id)
+                    %ul
+                      - fc.time_slots.all.each do |ts|
+                        %li= link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, ts.id)
+            .block.notice
+              %h4 Manage Events
+              %ul
+                - Location.all.each do |loc|
+                  %li= link_to loc.name, backend_location_events_path(loc.id)
+        .span9
+          .row-fluid
+            .content
+              .page-header{style: "margin-top:0;"}
+                = yield :header
+              - flash && flash.each do |key, value|
+                .alert-message.fade.in{:class => key}
+                  %a.close{:href => '#', "data-dismiss" => "alert"}×
+                  %p= value
+              %span.row
+              = yield
+              %footer
+                %p &copy; FitWit 2011

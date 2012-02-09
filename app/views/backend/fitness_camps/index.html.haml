@@ -1,11 +1,11 @@
 - content_for :header do
   %h1= "Fitness Camps for #{@location.name}"
 
-%ul.tabs
+%ul.nav.nav-tabs
   %li.active= link_to "Index", "#"
   %li= link_to "New", new_resource_path
 
-%table
+%table.table.table-striped
   %tr
     %th Title
     %th Session start date

@@ -6,7 +6,7 @@
     %h2
       = fww.name
       Results
-    %table{:style => "width:400px;"}
+    %table.table.table-striped{:style => "width:400px;"}
       - @meeting.workouts.select {|w| w.exercise_id == fww.id}.each do |workout|
         %tr{:class => cycle('light','dark')}
           %td

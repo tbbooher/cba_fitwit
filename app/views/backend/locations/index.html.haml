@@ -1,11 +1,11 @@
 - content_for :header do
   %h1= resource_class.model_name.human(count: 2)
 
-%ul.tabs
+%ul.nav.nav-tabs
   %li.active= link_to "Index", "#"
   %li= link_to "New", new_resource_path
 
-%table.zebra-striped
+%table.table.table-striped
   %tr
     %th Name
     %th Fitness Camps

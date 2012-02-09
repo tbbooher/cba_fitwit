@@ -5,11 +5,11 @@
   = select_tag :location, options_from_collection_for_select(@locations.push, 'id', 'name', @location_id)  + "<option>None</option>".html_safe + "<option>All</option>".html_safe, :prompt => "Filter by location"
   = submit_tag "Go", class: "btn"
 
-%ul.tabs
+%ul.nav.nav-tabs
   %li.active= link_to "Index", "#"
   %li= link_to "New", new_resource_path
 
-%table
+%table.table.table-striped
   %tr
     %th= sort_link_to :first_name
     %th= sort_link_to :last_name
@@ -29,6 +29,6 @@
           %span.label.label-success member
 
       %td.row-actions
-        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?"
+        = link_to 'destroy', resource_path(resource), method: :delete, confirm: "Are you sure?", class: "btn btn-danger"
 
 = paginate collection

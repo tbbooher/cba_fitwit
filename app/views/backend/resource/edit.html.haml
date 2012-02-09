@@ -1,7 +1,7 @@
 - content_for :header do
   %h1 Edit #{resource_class.model_name.human}
 
-%ul.tabs
+%ul.nav.nav-tabs
   %li= link_to "Index", collection_path
   %li= link_to "New", new_resource_path
   %li= link_to "Show", resource_path
