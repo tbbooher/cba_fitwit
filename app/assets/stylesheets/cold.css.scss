@@ -148,50 +148,6 @@ img {
     z-index: 2;
 }
 
-/* search box */
-#search {
-    margin: 0 0 0 40px;
-    background: #fff;
-    padding: 3px;
-    border-radius: 20px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-}
-#search form input[type="text"] {
-    width: 150px;
-    padding: 4px 8px 5px;
-    border: none;
-    font-size: 11px;
-    line-height: 14px;
-    border-radius: 20px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-}
-.content-search form input[type="text"] {
-    width: 200px;
-}
-#search form input[type="text"] {
-    padding: 4px 8px 6px;
-    vertical-align: middle;
-    background: #fff;
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-}
-#search form input[type="submit"] {
-    padding: 4px 8px 5px;
-    height: 24px;
-    vertical-align: middle;
-    border-radius: 0 20px 20px 0;
-    -moz-border-radius: 0 20px 20px 0;
-    -webkit-border-radius: 0 20px 20px 0;
-}
-
-/* content search */
-.content-search {
-    margin: 15px 30px 20px 0;
-}
-
 /* ---------------------------------------- */
 /* main wrapper */
 #main_wrapper {
@@ -1364,32 +1320,6 @@ code {
 }
 
 /* ---------------------------------------- */
-/* portfolio */
-.portfolio-list .portfolio-item {
-    margin-bottom: 40px;
-    padding-bottom: 4px;
-    background: image-url("/images/cold/hr1.png") 0 100% repeat-x;
-}
-.portfolio-columns .portfolio-item {
-    margin-bottom: 40px;
-    padding-bottom: 44px;
-    background: image-url("/images/cold/hr1.png") 0 100% repeat-x;
-}
-.portfolio-page .aligncenter {
-    margin-top: 0;
-}
-.portfolio-meta {
-    font-size: 11px;
-    margin-bottom: 10px;
-}
-.portfolio-page .portfolio-meta {
-    font-size: 12px;
-}
-.portfolio-list .shadow {
-    margin-bottom: -20px;
-}
-
-/* ---------------------------------------- */
 /* gallery */
 #gallery-1 img {
     border: 1px solid #e5e5e5 !important;
@@ -2169,41 +2099,6 @@ li.current-cat li {
 }
 
 /* ---------------------------------------- */
-/* widgets - calendar */
-#wp-calendar {
-    width: 100%;
-    border: none;
-    margin-bottom: 0;
-}
-#wp-calendar th {
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    font-weight: bold;
-    background: transparent image-url("/images/cold/gradient-navi.png") 0 0 repeat-x;
-    border: 1px solid 1px solid rgba(0, 0, 0, 0.1);
-}
-#wp-calendar tbody a {
-    background: #666;
-    color: #fff;
-    padding: 3px;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    margin-top: -3px;
-    border-radius: 12px;
-    -moz-border-radius: 12px;
-    -webkit-border-radius: 12px;
-}
-#wp-calendar tbody a:hover {
-    background: #999;
-    color: #eee;
-}
-#wp-calendar caption {
-    margin-bottom: 5px;
-}
-
-/* ---------------------------------------- */
 /* widgets - posts */
 #main_wrapper .widgets ul.recent-posts,
 #main_wrapper .widgets  ul.popular-posts {
@@ -2243,16 +2138,6 @@ li.current-cat li {
 .recent-posts div,
 .popular-posts div {
     float: left;
-}
-
-/* ---------------------------------------- */
-/* widgets - searchform */
-#searchform {
-    margin-bottom: 10px;
-}
-#searchform input[type="text"] {
-    display: block;
-    margin-bottom: 10px;
 }
 
 /* ---------------------------------------- */

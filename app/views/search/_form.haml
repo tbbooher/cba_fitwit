@@ -1,5 +1,5 @@
-= form_for @search_model do |f|
-  = f.text_field :search, :placeholder => t(:search), :id => 'searchfield'
+= simple_form_for @search_model, :html => { :class => 'form-search' } do |f|
+  = f.input :search, :placeholder => t(:search), input_html: {id: 'searchfield', class: "input-medium search-query"}, label: false
   = f.submit "Search" if Rails.env == "test"
   
 
