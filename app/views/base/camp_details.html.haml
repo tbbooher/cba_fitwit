@@ -1,0 +1,50 @@
+- title "Camp Details"
+.full_page
+  = image_tag "headerLarge/ropes.jpg"
+  %br.clear{style: "height:20px;"}
+  %p
+    FitWit is a personalized group-training program that has transformed thousands of lives since 2006. We're NOT your
+    typical boot camp that runs around the park every day. Instead, we offer unique and measurable workouts instructed
+    by expert coaches who care about your progress.Think measurable workouts with loads of variety – kettlebells,
+    sandbags, medicine balls and think certified trainers coaching you to your personal greatness!
+  %p AND, not only will you GET FIT, you'll also GIVE FIT, so our next generation can LIVE FIT.
+.one_third
+  .shadow.shadow_medium
+    = link_to image_tag("whatsincluded.jpg", :class =>"border-img"), whats_included_path
+  %h2
+    What's Included
+  %p
+    We run a 7-week program, year-round — a 6-week fitness camp (24 workouts) with 1 recovery week in between.
+  = link_to image_tag("FitWit_MoreDetails_But.png"), whats_included_path
+  %a{:href => "whats_included"}
+.one_third
+  .shadow.shadow_medium
+    = link_to image_tag("price_schedule.jpg", :class =>"border-img"), price_path
+  %h2
+    Price & Schedule
+  %p
+    With 3 Atlanta-area locations and 12 classes/day, FitWit offers a variety of options to get started.
+  %ul
+    %li
+      %a{:href => "#"} Grant Park
+    %li
+      %a{:href => "#"} Midtown
+    %li
+      %a{:href => "#"} Decatur
+.one_third.last
+  .shadow.shadow_medium
+    = link_to image_tag("faq.jpg", :class =>"border-img"), faq_path
+  %h2
+    FAQ
+  %p
+    Get answers to your burning questions!
+  %ul
+    %li
+      Do I need to be a runner?
+    %li
+      Are there indoor options?
+    %li
+      Is this a cult?
+    %li
+      Can I join anytime?
+  = link_to image_tag("FitWit_MoreDetails_But.png"), faq_path
