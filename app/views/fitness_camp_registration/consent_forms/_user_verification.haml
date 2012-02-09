@@ -9,9 +9,9 @@
   .control-group.required
     = label_tag :has_physician_approval, "Physician Approval:", class: "string required"
     .controls
-      = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], false), class: 'approval_field_yes_is_good'
+      = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], user.has_physician_approval), class: 'approval_field_yes_is_good'
       %p.help-block Does your physician approve of your participation in this exercise program?
-  #has_physician_approval_explanation.field
+  #has_physician_approval_explanation{style: user.has_physician_approval ? "display:none;" : ""}
     .control-group.required
       = label_tag "has_physician_approval_explanation", "Please explain"
       .controls
@@ -20,9 +20,9 @@
   .control-group
     = label_tag "meds_affect_vital_signs", "Taking meds?"
     .controls
-      = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], true),  class: 'approval_field_yes_is_bad'
+      = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], user.meds_affect_vital_signs),  class: 'approval_field_yes_is_bad'
       %p.help-block List all that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance
-  #meds_affect_vital_signs_explanation.field
+  #meds_affect_vital_signs_explanation{style: user.meds_affect_vital_signs ? "" : "display:none;"}
     .control-group
       = label_tag "meds_affect_vital_signs_explanation", "Please explain"
       .controls

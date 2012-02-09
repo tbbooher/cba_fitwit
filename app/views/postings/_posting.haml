@@ -18,7 +18,7 @@
       = presenter.tags_info
     %br.clear
       - if posting.cover_picture_exists?
-        %div.shadow.shadow_huge.aligncenter.shadow_center{id: "posting_cover_picture_#{posting.id}"}
+        %div.shadow.shadow_large.aligncenter.shadow_center{id: "posting_cover_picture_#{posting.id}"}
           = link_to_function( image_tag( w3c_url(posting.cover_picture.url(:post_style) ), :class => "border-img"), "image_popup('#{w3c_url(posting.cover_picture.url(:popup))}')")
 
       =# presenter.cover_picture('shadow shadow_huge aligncenter shadow_center',:post_style)
