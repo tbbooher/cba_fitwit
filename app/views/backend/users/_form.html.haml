@@ -2,7 +2,7 @@
 / link_to :orders, backend_user_orders_path
 / link_to :workouts, backend_user_workouts_path
 
-= simple_form_for [:backend, @user], :wrapper => :inline do |f|
+= simple_form_for [:backend, @user] do |f|
   %fieldset
     %ul.nav.nav-tabs
       %li.active
