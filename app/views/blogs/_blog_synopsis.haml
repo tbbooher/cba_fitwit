@@ -11,7 +11,7 @@
 
 = ContentItem::markdown(blog.synopsis) if blog.synopsis
 
-- if current_user.admin?
+- if can? :manage, blog
   %div{ :style => 'float: left; margin-left: 30px; width: 300px; padding: 5px; font-size: 0.8em;' }
     = t(:comments_allowed, :yes_or_no => blog.allow_comments ? t(:allowed) : t(:forbidden) )
     %br
