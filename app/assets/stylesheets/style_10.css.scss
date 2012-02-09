@@ -20,10 +20,19 @@ body
 
 /* links */
 a {
-	color: #ef3024;
+    color: #08C;
+    text-decoration: none;
 }
 a:hover {
-	color: #444;
+    color: #005580;
+    text-decoration: underline;
+}
+
+#breadcrumb {
+	margin-bottom: 5px;
+	margin-top: -15px;
+	font-size: 11px;
+	text-align: right;
 }
 
 #sidebar a {
@@ -57,6 +66,7 @@ a:hover {
 .sf-menu li.current-page-ancestor a  {
 	color: #fff;
 	border-bottom-color: #999;
+    text-decoration: none;
 }
 
 .sf-menu li ul {

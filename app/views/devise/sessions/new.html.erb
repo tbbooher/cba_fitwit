@@ -8,41 +8,23 @@
 
 <% end %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'wpcf7-form') do |f| %>
-    <p>
-      <%= f.label :email %>
-      <span class='wpcf7-form-control-wrap'>
-        <%= f.text_field :email, class: 'wpcf7-text' %>
-      </span>
-    </p>
-
-    <p>
-      <%= f.label :password %>
-      <span class='wpcf7-form-control-wrap'>
-        <%= f.password_field :password, class: 'wpcf7-text' %>
-      </span>
-    </p>
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
+    <%=  f.input :email %>
+    <%=  f.input :password, as: :password %>
 
     <% if devise_mapping.rememberable? -%>
-        <p>
-          <%= f.label :remember_me %>
-          <span class='wpcf7-form-control-wrap'>
-              <%= f.check_box :remember_me %>
-              <%= t(:stay_logged_in) %>
-          </span>
-        </p>
+        <%= f.input :remember_me, as: :boolean%>
     <% end -%>
 
-    <p>
-      <%= f.label :sign_in, sc(:nbsp).html_safe %>
-      <%= f.submit t(:sign_in), class: "medium-btn glass-btn wpcf7-submit" %>
-    </p>
+    <div class="form-actions">
+      <%= f.button :submit, "Sign in", class: "btn-primary" %>
+    </div>
+
 <% end %>
 <!-- omniauth now -->
 
 <h3><%= t(:or_user_omni_auth) -%></h3>
 
 <%= render '/authentications/authentications' %>
-
 
 <%= render :partial => "devise/shared/links" %>

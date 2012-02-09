@@ -10,9 +10,7 @@
 
 <% end %>
 
-
-  <div class="wpcf7">
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
         <%= devise_error_messages! %>
 
         <% if resource.invitation %>
@@ -26,49 +24,20 @@
                  <li><%= resource.invitation.user.name %> &lt;<%= resource.invitation.user.email -%>&gt;</li>
                </ul>
             </p>
-            <%= f.hidden_field :invitation_id %>
+            <%= f.input :invitation_id, as: :hidden %>
         <% end %>
 
-        <p>
-          <%= f.label :first_name %>
-          <span class='wpcf7-form-control-wrap'>
-            <%= f.text_field :first_name, class: 'wpcf7-text' %>
-          </span>
-        </p>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email %>
+        <%= f.input :password, as: :password %>
+        <%= f.input :password_confirmation, as: :password %>
 
-        <p>
-          <%= f.label :last_name %>
-          <span class='wpcf7-form-control-wrap'>
-            <%= f.text_field :last_name, class: 'wpcf7-text' %>
-          </span>
-        </p>
 
-        <p>
-          <%= f.label :email %>
-          <span class='wpcf7-form-control-wrap'>
-            <%= f.text_field :email, class: 'wpcf7-text' %>
-          </span>
-        </p>
-
-        <p>
-          <%= f.label :password %>
-          <span class='wpcf7-form-control-wrap'>
-            <%= f.password_field :password, class: 'wpcf7-text' %>
-          </span>
-        </p>
-
-        <p>
-          <%= f.label :password_confirmation %>
-          <span class='wpcf7-form-control-wrap'>
-            <%= f.password_field :password_confirmation, class: 'wpcf7-text' %>
-          </span>
-        </p>
-
-        <p>
-          <%= f.submit t(:sign_up), :class => "medium-btn glass-btn wpcf7-submit" %>
-        </p>
+        <div class="form-actions">
+          <%= f.button :submit, t(:sign_up), :class => "btn-primary" %>
+        </div>
     <% end %>
-  </div>
 
   <h3><%= t(:or_user_omni_auth) -%></h3>
 
