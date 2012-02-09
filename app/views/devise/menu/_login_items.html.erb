@@ -1,9 +1,13 @@
-<% if user_signed_in? %>
-    <%= menu_link_to "(i)", notifications_path, :title => t(:user_notifications) %>
-    |
-    <%= menu_link_to(t(:logout), destroy_user_session_path) %>
-    |
-    <%= menu_link_to('My FitWit', my_fit_wit_index_path) %>
-<% else %>
-    <%= menu_link_to(t(:login), new_user_session_path) %>
-<% end %>
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <% if user_signed_in? %>
+        <%= link_to current_user.name.titleize, profile_path(current_user), class: "btn" %>
+        <%= link_to "(i)", notifications_path, :title => t(:user_notifications), class: "btn" %>
+        <%= link_to "Logout", destroy_user_session_path, class: "btn" %>
+        <%= link_to "My FitWit", my_fit_wit_index_path, class: "btn" %>
+    <% else %>
+        <%= link_to "Sign Up", new_user_registration_path %>
+        <%= link_to "Login", new_user_session_path %>
+    <% end %>
+  </div>
+</div>

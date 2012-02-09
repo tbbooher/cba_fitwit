@@ -53,7 +53,7 @@ module SiteMenusHelper # :nodoc:
   def menu_link_to(name,path,options={})
     style = "page_item"
     style = "current_page_item" if current_page?(path)
-    options.merge!( { :class => style } )
+    options.merge!( { :class => "#{style} btn btn-small" } )
     link_to( name, path, options )
   end
 
