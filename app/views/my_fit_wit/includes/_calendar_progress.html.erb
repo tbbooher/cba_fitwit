@@ -19,7 +19,7 @@
     <%= submit_tag "Go", {:id => 'my_submit', :class=>"button"} %>
 <% end %>
 <!-- articles/index.html.erb -->
-<div id="calendar">
+<div id="my_fit_wit_calendar">
   <h2 id="month">
     <%= link_to "<", :month => (@calendar_date.beginning_of_month-1).strftime("%b-%Y") %>
     <%= h @calendar_date.strftime("%B %Y") %>
