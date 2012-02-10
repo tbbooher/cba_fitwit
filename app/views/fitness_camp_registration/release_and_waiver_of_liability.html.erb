@@ -1,5 +1,5 @@
 <% title "Registration step 5 of 7: Release and Waiver of Liability" %>
-
+<div class="well">
 <blockquote>
   Please read the Release and Waiver of Liability (RWL)
   carefully then <b>check the box at the bottom of the page</b> to continue.
@@ -7,6 +7,7 @@
   of the RWL upon the start of your first
   camp each calendar year.
 </blockquote>
+</div>
 
 <p>
   This Release and Waiver of Liability (the “Release”) sets forth
@@ -105,13 +106,14 @@
   Release.</b>
 </p>
 -->
-
-<%= form_tag "terms_of_participation" do -%>
-    <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
-      <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this box I acknowledge that I have read,
-      understand, and will agree to the terms and conditions in the Release and Waiver of Liability.
-    </div>
-    <div class="submit_box">
-      <%= submit_tag "Continue to Terms of Participation", :class => "small-btn" %>
-    </div>
-<% end -%>
+<div class="well">
+    <%= form_tag "terms_of_participation" do -%>
+        <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
+          <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this box I acknowledge that I have read,
+          understand, and will agree to the terms and conditions in the Release and Waiver of Liability.
+        </div>
+        <div class="form-actions">
+          <%= submit_tag "Continue to Terms of Participation", :class => "btn" %>
+        </div>
+    <% end -%>
+</div>

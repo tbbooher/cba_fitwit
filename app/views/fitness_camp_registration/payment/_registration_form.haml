@@ -11,4 +11,4 @@
   = f.input :month, as: :date,  discard_day: true, discard_year: true
   = f.input :year, as: :date, discard_month: true, discard_day: true, start_year: Date.today.year
   = f.input :type, collection: Order::card_types
-  = f.button :submit, "Submit Order", class: "big-btn"
+  = f.button :submit, "Submit Order", class: "btn"

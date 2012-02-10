@@ -70,12 +70,15 @@
   </li>
 </ol>
 
+<div class="well">
 <%= form_tag "save_order" do -%>
+<fieldset>
 <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
   <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this box I acknowledge that I have read, understand, and will agree to the terms and conditions in the Terms of of Participation.
 </div>
-<div class="clear"></div>
-<div class="submit_box">
-  <%= submit_tag "Proceed to Payment", :class => "btn-small" %>
+<div class="form-actions">
+  <%= submit_tag "Proceed to Payment", :class => "btn" %>
 </div>
+</fieldset>
 <% end -%>
+</div>

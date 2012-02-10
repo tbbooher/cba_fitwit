@@ -64,13 +64,15 @@ class FitnessCampRegistrationController < ApplicationController
   def release_and_waiver_of_liability
     u = current_user
     u.health_issues = []
-    params[:user][:medical_condition_ids].each do |id|
-      unless id.empty?
-        h = HealthIssue.new
-        m = MedicalCondition.find(id)
-        h.medical_condition = m
-        h.explanation = params[:user]["explanation_#{m.id}"]
-        u.health_issues << h
+    if params[:commit]
+      params[:user][:medical_condition_ids].each do |id|
+        unless id.empty?
+          h = HealthIssue.new
+          m = MedicalCondition.find(id)
+          h.medical_condition = m
+          h.explanation = params[:user]["explanation_#{m.id}"]
+          u.health_issues << h
+        end
       end
     end
     #u.save!
@@ -79,9 +81,9 @@ class FitnessCampRegistrationController < ApplicationController
     # save the user data
     # should we update the user with a notice that they have updated health history 
     unless @cart.consent_updated
-      pa = params[:has_physician_approval]
+      pa = params[:has_physician_approval] == "true"
       pa_exp = params[:has_physician_approval_explanation]
-      ma = params[:meds_affect_vital_signs]
+      ma = params[:meds_affect_vital_signs] == "true"
       ma_exp = params[:meds_affect_vital_signs_explanation]
       if ((pa_exp.empty? && !pa) || (ma_exp.empty? && ma))
         flash[:notice] = 'You must explain'
@@ -97,8 +99,8 @@ class FitnessCampRegistrationController < ApplicationController
         u.save!
         @cart.consent_updated = true
         # we need to think about how we save this . . .
+        render layout: "canvas" # do we really want a diff
       end
-      render layout: "canvas" # do we really want a diff
     end
   end
 
@@ -114,10 +116,10 @@ class FitnessCampRegistrationController < ApplicationController
           redirect_to :action => :release_and_waiver_of_liability
         else
           session[:must_check] = nil
+          render layout: "canvas"
         end
       end # commit check
     end # check to see if we need another chance
-    render layout: "canvas"
   end
 
   def update_profile
