@@ -18,7 +18,7 @@
         = text_area_tag :has_physician_approval_explanation, user.has_physician_approval_explanation, class: "required", id: "has_physician_approval_explanation_ta"
 #medications
   .control-group
-    = label_tag "meds_affect_vital_signs", "Taking meds?"
+    = label_tag "meds_affect_vital_signs", "Do any medications affect your vital signs?"
     .controls
       = select_tag :meds_affect_vital_signs, options_for_select([["Yes",true],["No",false]], user.meds_affect_vital_signs),  class: 'approval_field_yes_is_bad'
       %p.help-block List all that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance

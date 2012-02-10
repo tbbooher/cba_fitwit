@@ -1514,7 +1514,7 @@ li.current-cat ul li ul a.current_page_item {
     background: none;
 }
 
-ul#cart_items li, #sidebar a.current_page_item {
+ul#cart_items li, #sidebar li.current_page_item a {
     font-weight: bold;
     padding: 5px 5px 4px 20px;
     background: #fff image-url("/images/cold/bullets/arrow.png") 5px 9px no-repeat;
@@ -1522,7 +1522,7 @@ ul#cart_items li, #sidebar a.current_page_item {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     display: block;
-    margin:1.2em 0;
+    margin:0.5em 0;
 }
 
 #sidebar li.current_page_item ul,

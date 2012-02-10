@@ -25,7 +25,7 @@
   #verify_health_history
     %h4 Medical Conditions
 
-    = form_tag @user, { class: 'simple_form form-horizontal', id: 'health_status'} do |f|
+    = form_tag users_update_health_history_path, { class: 'simple_form form-horizontal', id: 'health_status' } do |f|
       %fieldset
         %p If you have any of the following, please update:
         .well

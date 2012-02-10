@@ -150,6 +150,50 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def update_profile
+    user = current_user
+    unless user.update_attributes!(params[:user])
+      redirect_to :back, notice: "Error updating your user account"
+    else
+      flash[:notice] = 'User information updated'
+      redirect_to profile_path(user)
+    end
+  end
+
+  def update_health_history
+    u = current_user
+    u.health_issues = []
+    params[:user][:medical_condition_ids].each do |id|
+      unless id.empty?
+        h = HealthIssue.new
+        m = MedicalCondition.find(id)
+        h.medical_condition = m
+        h.explanation = params[:user]["explanation_#{m.id}"]
+        u.health_issues << h
+      end
+    end
+    pa = params[:has_physician_approval] == "true"
+    pa_exp = params[:has_physician_approval_explanation]
+    ma = params[:meds_affect_vital_signs] == "true"
+    ma_exp = params[:meds_affect_vital_signs_explanation]
+    # if pa is false, then pa_exp must not be empty
+    # if ma is true, then ma_exp must not be empty
+    # so error if pa and empty exp or !ma and empty_exp
+    if ((pa_exp.empty? && !pa) || (ma_exp.empty? && ma))
+      flash[:notice] = 'You must explain'
+      redirect_to users_health_profile_path
+    else
+      u = current_user
+      u.fitness_level = params[:fitness_level]
+      u.has_physician_approval = pa
+      u.has_physician_approval_explanation = pa_exp
+      u.meds_affect_vital_signs = ma
+      u.meds_affect_vital_signs_explanation = ma_exp
+      u.save!
+      redirect_to profile_path(u)
+    end
+  end
+
 private
   def is_in_crop_mode?
     params[:user] &&

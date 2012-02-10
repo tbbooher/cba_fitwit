@@ -3,7 +3,7 @@
 - content_for :resource_actions do
   = render "shared/user_update_nav"
 
-= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
+= simple_form_for @user, :url => update_user_profile_url, :html => { :class => 'form-horizontal' } do |f|
   %fieldset
     = f.input :street_address1, type: String
     = f.input :street_address2, type: String

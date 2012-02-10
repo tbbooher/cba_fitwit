@@ -20,12 +20,12 @@
         %b= @user.name + ", " + @user.email
 
     - unless @user.why_i_fitwit.blank?
-        %h3 Why I FitWit:
+        %h4 Why I FitWit:
         %p
             = @user.why_i_fitwit
 
-    %h3
-        Camps
+    %h4
+        My Camps
         - unless @user.all_fitness_camps.empty?
             %ul
             - @user.all_fitness_camps.each do |fc|
@@ -35,7 +35,7 @@
 
 - if user_signed_in? && @user == current_user
     - if current_user && current_user.gis_location[:lat].present? && current_user.gis_location[:lng].present?
-        %p
+        %p{style: "display:none;"}
             = t(:your_gis_location)+": "
             %span{:id => 'user_gis_location_token'}= current_user.gis_location_token
                 
@@ -49,7 +49,7 @@
         %br
         
 - if current_user.role?(:maintainer)
-    %h3{:style=>'clear: both'} Details
+    %h4{:style=>'clear: both'} Details
     %ul
         = render 'user_detail', :user => @user
 

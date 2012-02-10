@@ -24,6 +24,19 @@ module FitWitCustomUserMethods
     #self.user_time_slots.map{|ts| ts.fitness_camp}.uniq
   end
 
+  def past_fitness_camps
+    self.registrations.map(&:fitness_camp).select{|c| c.session_end_date <= Date.today}
+  end
+
+  def future_fitness_camps
+    self.registrations.map(&:fitness_camp).select{|c| c.session_start_date >= Date.today}
+  end
+
+  def current_fitness_camps
+    # it started in the past and still hasn't stopped
+    self.registrations.map(&:fitness_camp).select{|c| c.session_start_date >= Date.today && c.session_end_date <= Date.today}
+  end
+
   def user_time_slots
     unless self.registrations.size == 0
       self.registrations.map &:time_slot
