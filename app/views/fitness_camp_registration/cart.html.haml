@@ -10,4 +10,5 @@
 
   #cart_contents_region
     = cart_presenter.show_camps(@cart.items)
-    = button_to 'Proceed to Update Personal Information', fitness_camp_registration_update_profile_path, method: :get
+    .form-actions
+      = button_to 'Proceed to Update Personal Information', fitness_camp_registration_update_profile_path, method: :get, class: 'btn'

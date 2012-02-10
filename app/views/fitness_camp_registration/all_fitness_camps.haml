@@ -4,10 +4,10 @@
     .widgets
       = render(:partial => "fitness_camp_registration/cart/cart", :object => @cart)
 
+.well
+  %h4 Pick a camp and time to get started.
+
 %p
-  To register for a camp,
-  click on the desired time-slot located at
-  the bottom of each camp's description.
   - @fitness_camps.each do |fc|
     %div{class: "one_third #{@fitness_camps.last == fc ? "last":""}"}
       .pricebox
@@ -17,7 +17,7 @@
         %p.price-body
           = "#{fc.description}<br />".html_safe unless fc.description.nil?
         %p.price-foot
-        %h4 Time Slots:
+        %h4 Times:
         - fc.time_slots.each do |time_slot|
           - if time_slot.sold_out
             %b
@@ -25,4 +25,5 @@
               SOLD OUT!
           - else
             = form_tag({ :action => :add_to_cart, :id => time_slot }) do
-              = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'small-btn')
+              = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'btn')
+

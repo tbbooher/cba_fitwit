@@ -2,7 +2,7 @@
   .info_box.info_box1.rounded
     .title_box{style: "background-color: white; border:1px solid #cfcfcf;"}
       %h4{style: "color:black;"}= cart_item.title_with_camp_dates
-    %ul#payment_arrangement.tabs
+    %ul#payment_arrangement.tabs{style: "margin: 0;"}
       = cart_item_presenter.show_tabs(@user)
     - unless @user.veteran_status == :newbie
       #initial_member.tab_content{style: "position: absolute; left: -10000px;"}
@@ -20,5 +20,5 @@
     #pay_by_session.tab_content{style: "position: absolute; left: -10000px;"}
       %p
         = cart_item_presenter.give_option_to_pay_by_session
-    #final_payment_table{style: "clear:both;"}
+    #final_payment_table{style: "clear:both; padding:15px;"}
       = cart_item_presenter.show_summary_table(@user)

@@ -1,17 +1,20 @@
 - title "Registration step 3 of 7: Update Personal Information"
 = simple_form_for :user, url: fitness_camp_registration_consent_url,
- html:  {id: 'update_personal_information_form'} do |f|
+ html:  {class: 'form-horizontal', id: 'update_personal_information_form'} do |f|
   %fieldset
     %legend Emergency Contact Information
-    = f.input :secondary_phone, required: false
-    = f.input :emergency_contact_name, class: 'required'
-    = f.input :emergency_contact_relationship, class: 'required'
-    = f.input :primary_phone, label: 'Phone:', class: 'required'
+    .well
+      = f.input :secondary_phone, required: false
+      = f.input :emergency_contact_name, class: 'required', label: "Name", hint: "First and last name"
+      = f.input :emergency_contact_relationship, class: 'required', label: "Relationship", hint: "Wife, Friend, Father, etc."
+      = f.input :primary_phone, label: 'Phone:', class: 'required'
   %fieldset
     %legend Personal Information
-    = f.input :gender, collection: [:male, :female]
-    = f.input :occupation, required: false
-    = f.input :company, required: false
-    = f.input :t_shirt_size, collection: ["Small","Medium","Large"], prompt: "Please select a t-shirt size"
-    = f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12
-  = f.button :submit, "Continue to health consent"
+    .well
+      = f.input :gender, collection: [:male, :female]
+      = f.input :occupation, required: false
+      = f.input :company, required: false
+      = f.input :t_shirt_size, collection: ["Small","Medium","Large"], prompt: "Please select a t-shirt size"
+      = f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12
+  .form-actions
+    = f.button :submit, "Continue to health consent"

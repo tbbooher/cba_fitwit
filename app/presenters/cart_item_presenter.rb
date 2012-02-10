@@ -6,8 +6,8 @@ class CartItemPresenter < BasePresenter
   UI_BUTTON = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 
   def show_summary_table(user)
-    content_tag(:div, "You are currently #{cart_item.show_payment_method_text}.", id: "payment_method_description") +
-        content_tag(:table, :id => "discounts_table", :class => "table-light highlight-row", style: "background: white;") {
+    content_tag(:div, "You are currently #{cart_item.show_payment_method_text}.", id: "payment_method_description", style: "margin-bottom:15px;") +
+        content_tag(:table, :id => "discounts_table", :class => "table table-striped table-bordered table-condensed", style: "width:300px;") {
           content_tag(:tbody) {
             display_standard_price(user) +
                 summary_table_content(user) +
