@@ -154,18 +154,13 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def payment
-    # here the user enters credit card information
-    # after data are entered, the user calls the method 'pay'
-    #@health_approval = session[:health_approval]
-    #@health_approval.delete_if {|key, value| key =~ /_explanation$/ && value == "Please explain"}
     @user = current_user
     @order_amount = @cart.total_price(@user)
     @cc_errors = flash[:cc_errors] if flash[:cc_errors]
     render layout: 'canvas'
-    #@membership = @cart.new_membership
   end
 
-  def really_pay
+  def pay
     @order = Order.find(params[:id])
     # check to make sure credit card is valid
     unless @cart.new_membership
