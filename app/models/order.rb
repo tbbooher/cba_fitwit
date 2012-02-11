@@ -9,7 +9,7 @@ class Order
   include Mongoid::Timestamps
   include Stateflow
 
-  field :amount, :type => Integer
+  field :amount, :type => Integer # in cents
   field :state, :type => String, default: "pending"
   field :description, :type => String
 
@@ -18,6 +18,7 @@ class Order
            :class_name => 'OrderTransaction',
            :dependent => :destroy
   belongs_to :user
+  belongs_to :cart
   # belongs_to :coupon_code # , :counter_cache => :uses
   # serialize :params TODO -- fix this
   # we don't need this

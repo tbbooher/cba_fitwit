@@ -1,4 +1,5 @@
 class OrderTransaction
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -11,10 +12,7 @@ class OrderTransaction
   field :test, :type => Boolean
 
   belongs_to :order
-  #serialize :params
   cattr_accessor :gateway
-
-  #ActiveMerchant
 
   class << self
     def authorize(amount, credit_card, options = {})
@@ -26,31 +24,6 @@ class OrderTransaction
     def capture(amount, authorization, options = {})
       process('capture', amount) do |gw|
         gw.capture(amount, authorization, options)
-      end
-    end
-
-    def generate_yearly_subscription(credit_card, options = {})
-      number_of_payments = 12
-      amount_per_payment = 115.00
-
-      @subscription_options = {
-          :order_id => options[:order_id],
-          :email => options[:email],
-          :credit_card => credit_card,
-          :billing_address => options[:address],
-          :setup_fee => 50,
-          :subscription => {
-              :frequency => "monthly",
-              :start_date => Date.today.end_of_month,
-              :occurrences => number_of_payments,
-              :auto_renew => true,
-              :amount => amount_per_payment.to_s
-          }
-      }
-
-      # do we need to send this an amount?
-      process('subscription') do |gw|
-        gw.create_subscription(credit_card, @subscription_options)
       end
     end
 

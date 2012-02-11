@@ -5,6 +5,8 @@ class Cart
   attr_accessor :new_membership
   attr_accessor :consent_updated
 
+  has_one :order
+
   def initialize
     @items = []
     @new_membership = false

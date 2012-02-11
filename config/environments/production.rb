@@ -4,14 +4,13 @@ Cba::Application.configure do
     [u, p] == ['fitwit', 'happy']
   end
 
-
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -21,7 +20,7 @@ Cba::Application.configure do
   config.assets.compress = true
 
   # Specify the default JavaScript compressor
-  config.assets.js_compressor  = :uglifier
+  config.assets.js_compressor = :uglifier
 
   # Specifies the header that your server uses for sending files
   # (comment out if your front-end server doesn't support this)
@@ -46,7 +45,7 @@ Cba::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  config.action_mailer.default_url_options = { :host => ::ENV['DEFAULT_URL'] }
+  config.action_mailer.default_url_options = {:host => ::ENV['DEFAULT_URL']}
 
   # config.action_mailer.raise_delivery_errors = false
 
@@ -57,7 +56,7 @@ Cba::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
-  config.action_mailer.default_url_options = {:host => ENV['DEFAULT_URL'] }
+  config.action_mailer.default_url_options = {:host => ENV['DEFAULT_URL']}
   ### ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
@@ -65,8 +64,25 @@ Cba::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
 
-
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :production # :test
+
+    mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
+    OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login => 'v9526006',
+                                                                :password => mypassphrase.to_s, # 'UaG7kmL/bfcn4lcGN5JFjPBJ9HVCcqS1RiNseIOTHuHue6ZCQcYsHP4rOlhdYWOpJOAQGdyvT6bb0496RuzWN05qypZiN0WzCgWCFFayp5LUoDmrx4H/5u+HUUme4vtmgUmdZKWTSSImP1cIRakwM13+jjj6YKZOOUsNdIXSiOP/89PIwNZD9Y7CVaM3kkWM8En0dUJypLVGI2x4g5Me4e57pkJBxiwc/is6WF1hY6kk4BAZ3K9PptvTj3pG7NY3TmrKlmI3RbMKBYIUVrKnktSgOavHgf/m74dRSZ7i+2aBSZ1kpZNJIiY/VwhFqTAzXf6OOPpgpk45Sw10hdKI4w==',
+                                                                :test => false,
+                                                                :vat_reg_number => 'your VAT registration number',
+                                                                # sets the states/provinces where you have a physical presense for tax purposes
+                                                                :nexus => "GA OH",
+                                                                # don‘t want to use AVS so continue processing even if AVS would have failed
+                                                                :ignore_avs => true,
+                                                                # don‘t want to use CVV so continue processing even if CVV would have failed
+                                                                :ignore_cvv => true,
+                                                                :money_format => :dollars
+    )
+  end
 end
 
