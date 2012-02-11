@@ -33,11 +33,12 @@ Cba::Application.configure do
   config.active_support.deprecation = :log
 
   config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :production # :test
+  ActiveMerchant::Billing::Base.mode = :test
   # TODO we should remove this . . .
-  ActiveMerchant::Billing::CreditCard.require_verification_value = false
+  #ActiveMerchant::Billing::CreditCard.require_verification_value = false
 
   # we need to open an external file to get the password
+  # need to update this to use ENV on heroku if we are there
   mypassphrase = File.open(File.join(Rails.root, 'passphrase.txt')).read
   OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login    => 'v9526006',
                                                     :password => mypassphrase.to_s,

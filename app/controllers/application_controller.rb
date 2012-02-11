@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   # Catch "Not-found"
   rescue_from Error404, :with => :render_404
   
+  filter_parameter_logging :card_number, :card_verification
 
   # custom for calendar
   before_filter :correct_safari_and_ie_accept_headers

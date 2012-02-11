@@ -79,7 +79,7 @@ group :development, :test do
   gem 'mongoid-rspec'
   gem 'rspec-rails', '2.6.1'
   gem 'json_pure'
-  gem 'capybara', git: 'git://github.com/jnicklas/capybara.git'
+  gem 'capybara'  # , git: 'git://github.com/jnicklas/capybara.git'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
@@ -114,7 +114,7 @@ group :development, :test do
 end
 
 # custom FitWit gems
-gem 'activemerchant' # , :git => 'git://github.com/tbbooher/active_merchant.git'
+gem 'activemerchant', :require => 'active_merchant' # , :git => 'git://github.com/tbbooher/active_merchant.git'
 #gem 'gibberish'
 gem 'ssl_requirement'
 #gem 'event-calendar', :require => 'event_calendar'
