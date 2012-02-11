@@ -114,7 +114,7 @@ group :development, :test do
 end
 
 # custom FitWit gems
-gem 'activemerchant', :git => 'git://github.com/tbbooher/active_merchant.git'
+gem 'activemerchant' # , :git => 'git://github.com/tbbooher/active_merchant.git'
 #gem 'gibberish'
 gem 'ssl_requirement'
 #gem 'event-calendar', :require => 'event_calendar'
