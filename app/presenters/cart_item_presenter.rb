@@ -7,7 +7,7 @@ class CartItemPresenter < BasePresenter
 
   def show_summary_table(user)
     content_tag(:div, "You are currently #{cart_item.show_payment_method_text}.", id: "payment_method_description", style: "margin-bottom:15px;") +
-        content_tag(:table, :id => "discounts_table", :class => "table table-striped table-bordered table-condensed", style: "width:300px;") {
+        content_tag(:table, :id => "discounts_table", :class => "table table-striped table-bordered table-condensed") {
           content_tag(:tbody) {
             display_standard_price(user) +
                 summary_table_content(user) +

@@ -1,4 +1,4 @@
-= simple_form_for :credit_card, :url => {:action => 'pay', :id => params[:id]} do |f|
+= simple_form_for :credit_card,  :html => { :class => 'form-horizontal' }, :url => {:action => 'pay', :id => params[:id]} do |f|
   = f.input :first_name, input_html: { :value => @user.first_name }
   = f.input :last_name, input_html: { :value => @user.last_name }
   = f.simple_fields_for :billing_address do |ba|

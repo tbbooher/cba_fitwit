@@ -6,14 +6,13 @@
 
 #sidebar.one_third.last
   #right-column-bottom
-    %h3 Order Details
+    %h2 Order Details
     - @cart.items.each do |cart_item|
-      #cart_item.info_box.info_box3.rounded
-        .title_box{style: 'background-color: gray'}= cart_item.time_slot.short_title
-        .content_box
-          %p
-            - present cart_item do |cart_item_presenter|
-              = cart_item_presenter.show_summary_table(@user)
+      #cart_item.well
+        %h3= cart_item.time_slot.short_title
+        %p
+          - present cart_item do |cart_item_presenter|
+            = cart_item_presenter.show_summary_table(@user)
         %br.clear
     %hr
     .info_box.info_box2.rounded
