@@ -96,16 +96,7 @@
   statements, or inducements apart from the foregoing written agreement have
   been made.
 </p>
-<!-- 
-<P  style=MARGIN-BOTTOM:0pt>
-  <b>SIGNATURE (Check one of the following)</b>
-</p>
-<P  style="MARGIN-TOP:0pt; MARGIN-BOTTOM:0pt">
-  <b>( ) I am 18 years of age or older ( ) I am Participant’s
-  parent/legal guardian, and in that capacity I have read, understood and agree to this
-  Release.</b>
-</p>
--->
+
 <div class="well">
     <%= form_tag "terms_of_participation" do -%>
         <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
@@ -113,7 +104,7 @@
           understand, and will agree to the terms and conditions in the Release and Waiver of Liability.
         </div>
         <div class="form-actions">
-          <%= submit_tag "Continue to Terms of Participation", :class => "btn" %>
+          <%= submit_tag "Continue to Terms of Participation", :class => "btn btn-primary" %>
         </div>
     <% end -%>
 </div>

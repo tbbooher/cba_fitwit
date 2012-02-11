@@ -154,41 +154,33 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def payment
-    @user = current_user
-    @order_amount = @cart.total_price(@user)
-    @cc_errors = flash[:cc_errors] if flash[:cc_errors]
-    render layout: 'canvas'
-  end
-
-  def pay
-    @order = Order.find(params[:id])
-    # check to make sure credit card is valid
-    unless @cart.new_membership
-      if @order.complete_camp_purchase(params[:credit_card], current_user)
-        render action: "success"
-      else
-        render action: "failure"
-      end
-    else
-      "We need to write up membership purchase "
-    end
-  end
-
-  def save_order
     # this creates an order out of a cart
     unless params[:agree_to_terms] == "yes" # then we add a membership
-                                            # session[:must_check_yes_on_terms] = true
       flash[:notice] = "Before proceeding, you must agree to the FitWit Terms of Participation by clicking on the form below."
       redirect_to :action => :terms_of_participation
     else
-      o = current_user.create_from_cart(@cart)
-      if o.save!
-        redirect_to :action => :payment, :id => o.id
-      else # something went wrong
-        flash[:notice] = "Error saving order"
-        redirect_to :action => :terms_of_participation
-      end # save error check
-    end # agree to term check
+      @user = current_user
+      @order_amount = @cart.total_price(@user)
+      @cc_errors = flash[:payment_errors] if flash[:payment_errors]
+      render layout: 'canvas'
+    end
+  end
+
+  def pay
+    @order = current_user.create_from_cart(@cart)
+    # check to make sure credit card is valid
+    unless @cart.new_membership
+      # payment_errors of nil will go forward
+      payment_errors = @order.complete_camp_purchase(params[:credit_card], current_user, @cart)
+      if payment_errors.empty?
+        redirect_to fitness_camp_registration_registration_success_path(self.id)
+      else
+        flash[:payment_errors] = payment_errors
+        redirect_to fitness_camp_registration_payment_path
+      end
+    else
+      "this feature is pending until they need the site to process memberships again"
+    end
   end
 
   def empty_cart
@@ -210,6 +202,7 @@ class FitnessCampRegistrationController < ApplicationController
     @cart = (session[:cart] ||= Cart.new)
   end
 
+  # used as a before filter to ensure they have a cart to see some of these pages
   def ensure_items_in_cart
     unless @cart.total_items > 0 || @cart.new_membership
       flash[:notice] = "You need a non-empty cart to view this page"

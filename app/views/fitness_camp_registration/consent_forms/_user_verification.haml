@@ -11,7 +11,7 @@
     .controls
       = select_tag :has_physician_approval, options_for_select([["Yes",true],["No",false]], user.has_physician_approval), class: 'approval_field_yes_is_good'
       %p.help-block Does your physician approve of your participation in this exercise program?
-  #has_physician_approval_explanation{style: user.has_physician_approval ? "display:none;" : ""}
+  #has_physician_approval_explanation{style: user.has_physician_approval? ? "" : "display:none;"}
     .control-group.required
       = label_tag "has_physician_approval_explanation", "Please explain"
       .controls

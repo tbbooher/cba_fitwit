@@ -76,6 +76,7 @@ class BaseController < ApplicationController
 
   def price
     @camp_details = true
+    @offer = Offer.where(active: true).desc(:updated_at).first
   end
 
   def referrals

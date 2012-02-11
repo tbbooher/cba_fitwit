@@ -17,4 +17,4 @@
       = f.input :t_shirt_size, collection: ["Small","Medium","Large"], prompt: "Please select a t-shirt size"
       = f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12
   .form-actions
-    = f.button :submit, "Continue to health consent"
+    = f.button :submit, "Continue to health consent", class: "btn-primary"

@@ -1,14 +1,16 @@
 = simple_form_for :credit_card,  :html => { :class => 'form-horizontal' }, :url => {:action => 'pay', :id => params[:id]} do |f|
-  = f.input :first_name, input_html: { :value => @user.first_name }
-  = f.input :last_name, input_html: { :value => @user.last_name }
-  = f.simple_fields_for :billing_address do |ba|
-    = ba.input :street_address1, label: 'Address', input_html: { :value => @user.street_address1 }
-    = ba.input :street_address2, required: false, label: " Address 2 "
-    = ba.input :city, input_html: { :value => @user.city }
-    = ba.input :us_state, label: "State", input_html: { :value => @user.us_state }
-    = ba.input :zip,input_html: { :value => @user.zip }
-  = f.input :number, hint: "No dashes or spaces"
-  = f.input :month, as: :date,  discard_day: true, discard_year: true
-  = f.input :year, as: :date, discard_month: true, discard_day: true, start_year: Date.today.year
-  = f.input :type, collection: Order::card_types
-  = f.button :submit, "Submit Order", class: "btn"
+  %fieldset
+    = f.input :first_name, input_html: { :value => @user.first_name }
+    = f.input :last_name, input_html: { :value => @user.last_name }
+    = f.simple_fields_for :billing_address do |ba|
+      = ba.input :street_address1, label: 'Address', input_html: { :value => @user.street_address1 }
+      = ba.input :street_address2, required: false, label: " Address 2 "
+      = ba.input :city, input_html: { :value => @user.city }
+      = ba.input :us_state, label: "State", input_html: { :value => @user.us_state }
+      = ba.input :zip,input_html: { :value => @user.zip }
+    = f.input :number, hint: "No dashes or spaces"
+    = f.input :month, as: :date,  discard_day: true, discard_year: true
+    = f.input :year, as: :date, discard_month: true, discard_day: true, start_year: Date.today.year
+    = f.input :type, collection: Order::card_types
+    .form-actions
+      = f.button :submit, "Finalize Registration", class: "btn btn-primary"

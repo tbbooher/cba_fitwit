@@ -18,7 +18,7 @@ class Order
            :class_name => 'OrderTransaction',
            :dependent => :destroy
   belongs_to :user
-  belongs_to :cart
+  # belongs_to :cart
   # belongs_to :coupon_code # , :counter_cache => :uses
   # serialize :params TODO -- fix this
   # we don't need this
@@ -132,7 +132,6 @@ class Order
       self.transaction_declined!
     end
 
-
     authorization
     #end
   end
@@ -194,18 +193,40 @@ class Order
   # END FROM PEEPCODE
   # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-  def register_timeslots_from_cart(cart)
+  def register_timeslots_from_cart(cart, user)
+    # this is the big transfer of info from the non-persistent cart
+    # to the persistent registration store
+    # orders are really just to record cash transactions -- the goal
+    # is not to use them in the daily operation of the site for workout tracking, etc
+    # Registration becomes the key record to connect items
+    registration_errors = []
     cart.items.each do |item|
-      rs = Registration.create(:time_slot_id => item.timeslot.id,
-                               :order_id => self.id)
-      #        :name_of_friend => item.name_of_friend,
-      #        :discount_category => item.discount_category)
-      # now add all friends to this registration
+      rs = Registration.new
+      rs.user_id = user.id
+      rs.fitness_camp_id = item.time_slot.fitness_camp.id
+      rs.time_slot_id = item.time_slot.id
+      rs.order_id = self.id
+      rs.payment_arrangement = item.payment_arrangement
+      case item.payment_arrangement
+        when :pay_by_session
+          rs.number_of_sessions = item.number_of_sessions
+        when :initial_member
+          # josh, doesn't need this feature right now
+        else # traditional payment for the camp
+          rs.number_of_sessions = nil
+          rs.price_paid = item.camp_price
+      end
+      unless item.coupon_discount == 0
+        rs.coupon_discount = item.coupon_discount
+        rs.coupon_code = item.coupon_code
+      end
       item.friends.each do |friend|
         rs.friends << Friend.create(:name => friend)
       end # friends
-      rs.save
-      registrations << rs
+      unless rs.save!
+        # TODO need to test!!
+        registration_errors.push(rs.errors.messages)
+      end
     end # items
   end
 
@@ -216,7 +237,9 @@ class Order
 
   def complete_camp_purchase(params, user, cart)
     credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])
+    purchase_errors = []
     if credit_card.valid?
+      # this is very lame
       options = build_options(@user, params[:billing_address][:us_state],params[:billing_address][:zip],params[:billing_address][:city],params[:billing_address][:address1],params[:billing_address][:address2])
       result_msg = authorize(credit_card, options)
       if result_msg == "success"
@@ -224,20 +247,22 @@ class Order
         send_emails(user, cart)
         # update user information based on what they submitted
         update_user_information(user, params)
-        # actually put them in a camp
-        self.register_timeslots_from_cart(cart)
-        # empty the card
-        session[:cart] = nil
-        # try to capture the payment
-        if @order.capture_payment
-          redirect_to fitness_camp_registration_registration_success_path(self.id)
-        else
-          "Capture Failed"
+        # actually put them in a camp, this should return nil if successful
+        registration_errors = self.register_timeslots_from_cart(cart, user)
+        unless registration_errors
+          # empty the cart
+          session[:cart] = nil
+          unless capture = @order.capture_payment
+            purchase_errors = [capture]
+          end
         end
       else
-        @credit_card.errors.full_messages
+        purchase_errors = [result_msg]
       end
+    else
+      purchase_errors = credit_card.errors.full_messages
     end
+    purchase_errors
   end
 
   private
