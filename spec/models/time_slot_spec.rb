@@ -5,10 +5,12 @@ describe TimeSlot do
   before(:all) do
     cleanup_database
     @six_am = FactoryGirl.create(:six_am_slot)
+    lid = @six_am.fitness_camp.location.id
     # create 10 registrations
-    FactoryGirl.create_list(:user,10).each do |the_user|
-      o = FactoryGirl.create(:order, user: the_user)
-      FactoryGirl.create(:registration, order: o, time_slot: @six_am)
+    FactoryGirl.create_list(:user,10, location_id: lid).each do |the_user|
+      #o = FactoryGirl.create(:order, user: the_user)
+      FactoryGirl.create(:registration, time_slot_id: @six_am.id, user_id: the_user.id,
+                         fitness_camp_id: @six_am.fitness_camp.id)
     end
   end
 

@@ -25,11 +25,15 @@ module FitWitCustomUserMethods
   end
 
   def past_fitness_camps
-    self.registrations.map(&:fitness_camp).select{|c| c.session_end_date <= Date.today}
+    unless self.registrations.size == 0
+      self.registrations.map(&:fitness_camp).select{|c| c.session_end_date <= Date.today}
+    end
   end
 
   def future_fitness_camps
-    self.registrations.map(&:fitness_camp).select{|c| c.session_start_date >= Date.today}
+    unless self.registrations.size == 0
+      self.registrations.map(&:fitness_camp).select{|c| c.session_start_date >= Date.today}
+    end
   end
 
   def current_fitness_camps

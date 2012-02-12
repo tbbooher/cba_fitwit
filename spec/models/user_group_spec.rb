@@ -34,8 +34,8 @@ describe "User-group" do
     friends.member_tokens = @friends.map{|id| id.to_s}.join(",")
     user.save!
     user.reload
-    assert user.user_groups.first.member_names == "testmax, maintainer", "Should return 'testmax, maintainer'"
+    assert user.user_groups.first.member_names == "Drew Bradden, Marty Materian", "Should return 'Drew Bradden, Marty Materian'"
   end
-  
+
 
 end

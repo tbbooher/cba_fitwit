@@ -15,7 +15,6 @@ class Cart
     @membership_setup = 0
   end
 
-  # maybe delete
   def add_timeslot(time_slot_id)
     item = @items.select {|i| i.time_slot_id == time_slot_id}
     if item.empty?
