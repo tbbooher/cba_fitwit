@@ -16,12 +16,13 @@ class Registration
   belongs_to :fitness_camp
 
   validates :user_id, presence: true, uniqueness: {scope: :fitness_camp_id}, of_fitness_camp_location: true
-  validates :fitness_camp_id, presence: true
   validates :payment_arrangement, inclusion: { in: [:traditional, :initial_member, :member, :staff, :pay_by_session]}
 
+  before_save :load_fitness_camp
 
-
-
+  def load_fitness_camp
+    self.fitness_camp_id = self.time_slot.fitness_camp.id
+  end
   # does this do anything? is this deprecated?
   
 #  def self.produce_registration(cart_item)

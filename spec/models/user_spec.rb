@@ -19,11 +19,11 @@ describe "user" do
   end
 
   it "should have a number of time slots" do
-    r = FactoryGirl.create(:registration) # this creates a registration
-    st_time = Time.local(2000,1,1,6)
-    r.time_slot.start_time.should eq(st_time)
-    user = r.order.user
-    user.user_time_slots.first.start_time.should eq(st_time) 
+    fc = FactoryGirl.create(:fitness_camp)
+    u = FactoryGirl.create(:user, location_id: fc.location.id)
+    ts = FactoryGirl.create(:time_slot, fitness_camp_id: fc.id)
+    FactoryGirl.create(:registration, time_slot_id: ts.id, user_id: u.id)
+    user.user_time_slots.first.start_time.should eq(ts.start_time)
   end
 
   it "should be able to recall all past fitness camps" do

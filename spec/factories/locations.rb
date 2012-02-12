@@ -14,5 +14,19 @@ FactoryGirl.define do
       lat 9.99
       lon 9.99
       #fitness_camps {|fc| [fc.association(:fitness_camp)]}
-    end
+  end
+
+  factory :location_a, class: Location do
+      name "Location A"
+      description "Just a test location"
+      contact_info "location@a.com"
+      city "Detroit"
+      created_at "2011-11-13 15:11:51"
+      updated_at "2011-11-13 15:11:51"
+      us_state "MI"
+      zip "43238"
+      street_address "248 Location A Ave"
+      lat 0.00
+      lon 0.00
+  end
 end

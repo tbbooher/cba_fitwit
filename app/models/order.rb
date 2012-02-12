@@ -230,10 +230,10 @@ class Order
     end # items
   end
 
-  def register_user_to_time_slot(time_slot_id)
-    Registration.create(:time_slot_id => time_slot_id,
-                        :order_id => self.id)
-  end
+  #def register_user_to_time_slot(time_slot_id)
+  #  Registration.create(:time_slot_id => time_slot_id,
+  #                      :order_id => self.id)
+  #end
 
   def complete_camp_purchase(params, user, cart)
     credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])

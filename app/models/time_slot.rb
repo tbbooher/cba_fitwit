@@ -25,7 +25,6 @@ class TimeSlot
     r = Registration.new
     r.user_id = user_id
     r.time_slot_id = self.id
-    r.fitness_camp_id = self.fitness_camp.id
     r
   end
 

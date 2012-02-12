@@ -189,7 +189,7 @@ GEM
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.4)
+    json (1.6.5)
     json_pure (1.6.4)
     jsort (0.0.2)
       jquery-rails
@@ -310,6 +310,7 @@ GEM
       thor (~> 0.14.6)
     raindrops (0.8.0)
     rake (0.9.2.2)
+    rb-fsevent (0.9.0)
     rdoc (3.12)
       json (~> 1.4)
     redcarpet (1.17.2)
@@ -457,6 +458,7 @@ DEPENDENCIES
   rails
   rails-erd
   rails3-generators
+  rb-fsevent
   rdoc
   redcarpet (= 1.17.2)
   responders

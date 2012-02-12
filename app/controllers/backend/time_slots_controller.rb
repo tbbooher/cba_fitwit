@@ -27,13 +27,13 @@ class Backend::TimeSlotsController < Backend::ResourceController
         format.html { redirect_to(:back, :notice => "Successfully added user to fitness camp.") }
         format.js
       else
-        format.html { redirect_to(:back, :notice => 'Error!') }
+        format.html { redirect_to(:back, :notice => "Error registering #{@user.name}") }
         format.js
       end
     end
   end
 
-  def  attendance_sheet
+  def attendance_sheet
     # here we need a list of all users in a time slot
     ts = TimeSlot.find(params[:time_slot_id])
     @campers = ts.all_campers
@@ -85,12 +85,20 @@ class Backend::TimeSlotsController < Backend::ResourceController
     # here we re-register the members
     # I think we need some error checking here . . .
     time_slot = TimeSlot.find(params[:time_slot_id])
+    errors = []
     params[:user_ids].each do |member_id|
-      time_slot.register_user(member_id)
+      r = time_slot.create_user_registration(member_id)
+      unless r.save
+        errors.push(r.errors.messages)
+      end
     end
+    if errors.empty?
     flash[:notice] = "Successfully added #{params[:user_ids].size} members to #{time_slot.short_title}."
-    fc= time_slot.fitness_camp
+    fc = time_slot.fitness_camp
     redirect_to backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, time_slot.id)
+    else
+
+    end
   end
 
 end
