@@ -1,6 +1,3 @@
-
-
-
 FactoryGirl.define do
   sequence :email do |n|
     "fitwit_user#{n}@jokerthing.com"

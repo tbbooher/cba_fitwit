@@ -9,7 +9,7 @@ FactoryGirl.define do
   factory :workout do
       score
       user_note "This was a tough one!"
-      rxd false
+      rxd {rand > 0.5 ? false : true}
       # common_value 13
       user
       meeting

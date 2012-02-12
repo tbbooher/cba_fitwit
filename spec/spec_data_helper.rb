@@ -50,6 +50,8 @@ module SpecDataHelper
       {
         :email => 'admin@iboard.cc',
         :name  => 'admin',
+        :first_name => 'Drew',
+        :last_name => 'Adminer',
         :roles_mask => 5,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
       },
@@ -57,12 +59,16 @@ module SpecDataHelper
       {
         :email => 'user@iboard.cc',
         :name  => 'testmax',
+        :first_name => 'Drew',
+        :last_name => 'Bradden',
         :roles_mask => 1,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
       },
       {
         :email => 'veteran@fitwit.com',
         :name  => 'veteran',
+        :first_name => 'Michael',
+        :last_name => 'Veteraner',
         :roles_mask => 1,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret',
         :veteran_status => :veteran
@@ -70,6 +76,8 @@ module SpecDataHelper
       {
         :email => 'supervet@fitwit.com',
         :name  => 'supervet',
+        :first_name => 'Supervetten',
+        :last_name => 'Askancer',
         :roles_mask => 1,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret',
         :veteran_status => :supervet
@@ -77,6 +85,8 @@ module SpecDataHelper
       {
         :email => 'newbie@fitwit.com',
         :name  => 'newbie',
+        :first_name => 'Count',
+        :last_name => 'Von Newsome',
         :roles_mask => 1,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret',
         :veteran_status => :newbie
@@ -84,24 +94,32 @@ module SpecDataHelper
       {
         :email => 'author@iboard.cc',
         :name  => 'Author',
+        :first_name => 'Arthur',
+        :last_name => 'Authorus',
         :roles_mask => 2,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
       },
       {
         :email => 'moderator@iboard.cc',
         :name  => 'Moderator',
+        :first_name => 'Drew',
+        :last_name => 'Brackenstein',
         :roles_mask => 3,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
       },
       {
         :email => 'maintainer@iboard.cc',
         :name  => 'maintainer',
+        :first_name => 'Marty',
+        :last_name => 'Materian',
         :roles_mask => 4,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
       },
       {
         :email => 'staff@iboard.cc',
         :name  => 'staff',
+        :first_name => 'Andre',
+        :last_name => 'Staffson',
         :roles_mask => 4,
         :password => 'thisisnotsecret', :password_confirmation => 'thisisnotsecret'
       }
