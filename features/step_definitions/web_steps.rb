@@ -201,7 +201,7 @@ Given /^the following site_menu$/ do |table|
   table.hashes.each do |hash|
 
     level = hash[:name]
-    target= hash[:target]
+    menu_target= hash[:menu_target]
     levels = level.split(/\./)
 
     search_in = SiteMenu
@@ -210,7 +210,7 @@ Given /^the following site_menu$/ do |table|
       if item
         search_in = item.children
       else
-        search_in.create(name: name, target:target)
+        search_in.create(name: name, menu_target:menu_target)
       end
     end
   end

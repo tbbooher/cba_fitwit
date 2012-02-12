@@ -131,10 +131,8 @@ Cba::Application.routes.draw do
   match "cart_item/remove_coupon/:friend_name/:unique_id" => "cart_item#remove_coupon", as: :remove_coupon
   match "cart_item/add_pay_by_session/:number_of_sessions/:unique_id" => "cart_item#add_pay_by_session", as: :add_sessions_to_cart
   match "cart_item/set_traditional/:unique_id" => "cart_item#set_traditional", as: :set_traditional
-  #match 'fitness_camp_registration/view_cart' => "fitness_camp_registration#cart"
   match 'fitness_camp_registration/cart' => "fitness_camp_registration#cart"
-  #match 'fitness_camp_registration/add_discounts' => "fitness_camp_registration#add_discounts"
-  match 'fitness_camp_registration/save_order'
+
 
   get 'fitness_camp_registration/index'
   get 'fitness_camp_registration/no_need_to_register'
@@ -142,7 +140,7 @@ Cba::Application.routes.draw do
   get 'fitness_camp_registration/membership_info'
   match 'fitness_camp_registration/consent'
   get 'fitness_camp_registration/health_history'
-  get 'fitness_camp_registration/payment'
+  match 'fitness_camp_registration/payment'
   post 'fitness_camp_registration/pay'
 
   post "update_health_items" => "fitness_camp_registration#update_health_items"

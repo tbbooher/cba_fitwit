@@ -71,7 +71,7 @@
 </ol>
 
 <div class="well">
-<%= form_tag "save_order" do -%>
+<%= form_tag fitness_camp_registration_payment_path do -%>
 <fieldset>
 <div <%= flash[:notice].nil? ? "class=\"consent_box\"" : "class = \"errorExplanation\"" %>>
   <%= check_box_tag 'agree_to_terms', 'yes', false %> &nbsp; By clicking this box I acknowledge that I have read, understand, and will agree to the terms and conditions in the Terms of of Participation.

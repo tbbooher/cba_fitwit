@@ -2,31 +2,33 @@ source 'http://rubygems.org'
 
 gem 'simplecov', :require => false, :group => :test #, '>= 0.4.0'
 
-gem "rails" #, "3.1.2" #, "~> 3.1.0" # prev was rc8
+gem "rails", "3.2.0" #, "3.1.2" #, "~> 3.1.0" # prev was rc8
 
 # Rails 3.1 - Asset Pipeline
 group :assets do
-  gem 'sass-rails', "~> 3.1"
-  gem 'coffee-script'
-  gem 'uglifier'
+  gem 'sass-rails', "~> 3.2.3"
+  # gem 'coffee-script'
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier', ">= 1.0.3"
   gem 'json'
-  gem 'jquery-rails'
+
   gem 'therubyracer'
   gem 'execjs'
-  gem 'sprockets', '~> 2.0.0.beta.12'
+  gem 'sprockets', '~> 2.1.2'
 end
 
 # Bundle gems needed for Mongoid
-gem "mongo"    
-gem "mongoid"  #, :path => "/Users/aa/Development/R31/mongoid-1"
+gem 'jquery-rails'
+gem "mongo"
+gem "mongoid", ">= 2.4.3"  #, :path => "/Users/aa/Development/R31/mongoid-1"
 gem "bson_ext" #, "1.3.1" #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
-gem "devise" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
+gem "devise", ">= 2.0.0" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
 
-gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
-gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
+gem 'omniauth-github' #, :git => 'git://github.com/intridea/omniauth-github.git'
+gem 'omniauth-openid' #, :git => 'git://github.com/intridea/omniauth-openid.git'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -75,9 +77,9 @@ group :development, :test do
   #gem 'linecache', git: 'git://github.com/mark-moseley/linecache.git'
   gem 'jasmine' #, '1.0.2.1'
   gem 'headless', '0.1.0'  
-  gem 'rspec', '2.6.0'
-  gem 'mongoid-rspec'
-  gem 'rspec-rails', '2.6.1'
+  # gem 'rspec', '2.6.0'
+  gem 'mongoid-rspec', ">= 1.4.4"
+  gem 'rspec-rails', '>= 2.8.1'
   gem 'json_pure'
   gem 'capybara'  # , git: 'git://github.com/jnicklas/capybara.git'
   gem 'database_cleaner'
@@ -91,7 +93,7 @@ group :development, :test do
   gem 'spork-testunit'
   #gem 'addressable'
   gem 'launchy', '2.0.5'
-  gem 'factory_girl_rails', "1.3.0"
+  gem 'factory_girl_rails', ">= 1.6.0"
   gem 'ZenTest', '4.5.0'
   gem 'autotest'
   gem 'autotest-rails'
@@ -109,7 +111,7 @@ group :development, :test do
   gem 'rails3-generators'
   gem "haml-rails"
   gem 'faker'
-  gem 'ruby-prof', :git => 'git://github.com/wycats/ruby-prof.git'
+  gem 'ruby-prof' # , :git => 'git://github.com/wycats/ruby-prof.git'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
