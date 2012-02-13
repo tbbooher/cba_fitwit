@@ -24,29 +24,6 @@ class BaseController < ApplicationController
     @offer = Offer.where(active: true).desc(:updated_at).first
   end
 
-  def contact_us
-    @pagetitle = "Contact Us"
-    @fit_wit_form = true
-    @message = ContactMessage.new
-    if request.post?
-      @message.attributes = params[:message]
-      if @message.valid?
-        name = @message.name
-        email = @message.email
-        subject = @message.subject ||= "no subject"
-        the_message = @message.message ||= "no message"
-        email = Postman.create_new_contact(name, email, subject, the_message)
-        if Postman.deliver(email)
-          flash[:notice] = "Thank you, #{name}, your message has been sent"
-          redirect_to :action => 'contact_us'
-        else
-          flash[:notice] = myflash ||= "error in send"
-          redirect_to :action => 'contact_us'
-        end
-      end
-    end
-  end
-
   def locations
     @locations = Location.all.to_a
     @google_maps = true

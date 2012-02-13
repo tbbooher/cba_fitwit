@@ -1,0 +1,60 @@
+FitWit administrator,
+
+We have a new order from <%= @user.full_name %> a <%= @user.demographic %>.
+
+Contact information:
+<%= @user.full_contact('normal') %>
+
+<% health_conditions = @user.find_health_problems -%>
+<%= @user.first_name  %> has a reported history of:
+<% unless health_conditions[0].empty? -%>
+    <% health_conditions[0].each do |p|  -%>
+      <%= p.humanize %>
+    <% end -%>
+<% else -%>
+      They have reported no previous conditions.
+<% end -%>
+<%= @user.first_name %> has not reported any:
+<% unless health_conditions[1].empty? -%>
+    <% health_conditions[1].each do |p|  -%>
+        <%= p.humanize %>
+    <% end -%>
+<% else -%>
+  No conditions avoided (! gasp)
+<% end -%>
+
+They have provided the following consents:
+<% @health_approval.each do |h| -%>
+        <%= "#{h[0].humanize} : #{h[1]}" %>
+<% end -%>
+
+They provided the following credit card information:
+First Name:   <%= @credit_card_info['first_name'] %>
+Last Name:    <%= @credit_card_info['last_name'] %>
+and paid with <%= @credit_card_info['type'] %>
+
+Order details:
+Total Amount: <%= number_to_currency(@order.amount/100) %>
+Description:  <%= @order.description %>
+Coupon Code:  <%= @order.coupon_code %>
+
+Camps:
+<% @cart.items.each do |c| -%>
+  ------------------------------------
+  <% unless c.friends.empty? -%>>
+  Friends:
+    <% c.friends.each do |f| -%>
+      <%= f %>
+    <% end -%>
+  <% end -%>
+  <% if c.pay_by_session -%>
+    For this camp, they paid for <%= c.number_of_sessions -%> sessions.
+  <% end -%>
+  Price Paid: <%= number_to_currency(c.price) %>
+  Title: <%= c.timeslot.short_title %>
+  ------------------------------------
+<% end -%>
+
+Thanks,
+
+The messenger

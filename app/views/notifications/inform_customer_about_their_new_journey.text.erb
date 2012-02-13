@@ -1,0 +1,58 @@
+<%= @user.first_name %>,
+
+Congratulations on committing to a new fitness challenge, and welcome to the FitWit community!
+
+In the week leading up to the camp start date, you will receive a pre-camp email that
+will include helpful camp information, a fitness camp manual, and nutrition guide.
+Please note that we'll be holding a kickoff session that includes a weigh-in and
+body measurements from 9-11AM on the Saturday immediately prior to the first day
+of camp.  The pre-camp email will indicate the specific location, but please save
+the date and time.
+
+If you have any questions, please give us a call at 1-888-5-FITWIT or reach us by email at info@fitwit.com.
+
+You have successfully registered for the following FitWit fitness camps:
+<% @cart.items.each do |c| -%>
+  ------------------------------------
+  <% unless c.friends.empty? -%>
+    Friends:
+      <% c.friends.each do |f| -%>
+        <%= f -%>
+      <% end -%>
+  <% end -%>
+  <% if c.pay_by_session -%>
+    You have paid for <%= c.number_of_sessions -%> sessions.
+  <% end -%>
+  Price Paid: <%= number_to_currency(c.price) %>
+  Title: <%= c.timeslot.short_title %>
+  ------------------------------------
+<% end -%>
+Your current contact information is listed as:
+<%= @user.full_contact('normal') -%>
+<% health_conditions = @user.find_health_problems -%>
+You have reported a history of:
+<% unless health_conditions[0].empty? -%>
+        <% health_conditions[0].each do |p|  -%>
+              <%= p.humanize %>
+        <% end -%>
+<% else -%>
+  No previous conditions.
+<% end -%>
+You have not reported any:
+<% unless health_conditions[1].empty? -%>
+        <% health_conditions[1].each do |p|  -%>
+                <%= p.humanize %>
+        <% end -%>
+<% else -%>
+  You have all possible conditions. We need to talk.
+<% end -%>
+You provided the following consents:
+<% @health_approval.each do |h| -%>
+        <%= "#{h[0].humanize} : #{h[1]}" %>
+<% end -%>
+
+Thank you very much for your order and we look forward to seeing you soon.
+
+Cheers,
+
+Josh
