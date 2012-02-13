@@ -71,6 +71,7 @@ Cba::Application.configure do
     ActiveMerchant::Billing::Base.mode = :production # :test
 
     mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
+    ActiveMerchant::Billing::CreditCard.require_verification_value = false
     OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login => 'v9526006',
                                                                 :password => mypassphrase.to_s, # 'UaG7kmL/bfcn4lcGN5JFjPBJ9HVCcqS1RiNseIOTHuHue6ZCQcYsHP4rOlhdYWOpJOAQGdyvT6bb0496RuzWN05qypZiN0WzCgWCFFayp5LUoDmrx4H/5u+HUUme4vtmgUmdZKWTSSImP1cIRakwM13+jjj6YKZOOUsNdIXSiOP/89PIwNZD9Y7CVaM3kkWM8En0dUJypLVGI2x4g5Me4e57pkJBxiwc/is6WF1hY6kk4BAZ3K9PptvTj3pG7NY3TmrKlmI3RbMKBYIUVrKnktSgOavHgf/m74dRSZ7i+2aBSZ1kpZNJIiY/VwhFqTAzXf6OOPpgpk45Sw10hdKI4w==',
                                                                 :test => false,

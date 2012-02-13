@@ -155,13 +155,13 @@ class FitnessCampRegistrationController < ApplicationController
 
   def payment
     # this creates an order out of a cart
-    unless params[:agree_to_terms] == "yes" # then we add a membership
+    # block if payment_errors is empty and agree_to_terms isn't yes
+    unless flash[:error] || params[:agree_to_terms] == "yes" # then we add a membership
       flash[:notice] = "Before proceeding, you must agree to the FitWit Terms of Participation by clicking on the form below."
       redirect_to :action => :terms_of_participation
     else
       @user = current_user
       @order_amount = @cart.total_price(@user)
-      @cc_errors = flash[:payment_errors] if flash[:payment_errors]
       render layout: 'canvas'
     end
   end
@@ -175,7 +175,7 @@ class FitnessCampRegistrationController < ApplicationController
       if payment_errors.empty?
         redirect_to fitness_camp_registration_registration_success_path(self.id)
       else
-        flash[:payment_errors] = payment_errors
+        flash[:error] = payment_errors
         redirect_to fitness_camp_registration_payment_path
       end
     else

@@ -236,17 +236,19 @@ class Order
   #end
 
   def complete_camp_purchase(params, user, cart)
-    credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])
+    credit_card_params = params.except(:billing_address)
+    billing_address = params[:billing_address]
+    update_user_information(user, billing_address)
+    credit_card = ActiveMerchant::Billing::CreditCard.new(credit_card_params)
     purchase_errors = []
     if credit_card.valid?
       # this is very lame
-      options = build_options(@user, params[:billing_address][:us_state],params[:billing_address][:zip],params[:billing_address][:city],params[:billing_address][:address1],params[:billing_address][:address2])
+      options = build_options(user, billing_address[:us_state],billing_address[:zip],billing_address[:city],billing_address[:address1],billing_address[:address2])
       result_msg = authorize(credit_card, options)
       if result_msg == "success"
         # send relevant emails
         send_emails(user, cart)
         # update user information based on what they submitted
-        update_user_information(user, params)
         # actually put them in a camp, this should return nil if successful
         registration_errors = self.register_timeslots_from_cart(cart, user)
         unless registration_errors
@@ -260,7 +262,7 @@ class Order
         purchase_errors = [result_msg]
       end
     else
-      purchase_errors = credit_card.errors.full_messages
+      purchase_errors = "Credit Card not Valid: " + credit_card.errors.full_messages.to_sentence
     end
     purchase_errors
   end
@@ -276,18 +278,14 @@ class Order
   end
 
   def send_emails(user, cart)
-    inform_management = Postman.create_new_order(user,
+    Notifications.inform_management_about_a_new_user(user,
       self,
       params[:credit_card],
-      session[:health_approval],
-      cart)
-    inform_customer = Postman.create_inform_customer(user,
+      cart).deliver
+    Notifications.inform_customer_about_their_new_journey(user,
       self,
       params[:credit_card],
-      session[:health_approval],
-      cart)
-    Postman.deliver(inform_management)
-    Postman.deliver(inform_customer)
+      cart).deliver
   end
 
   def send_membership_emails(user, cart)
@@ -321,15 +319,14 @@ class Order
     }
   end
 
-  def update_user_information(user, params)
-    user.first_name = params[:billing_address][:first_name] unless params[:billing_address][:first_name].blank?
-    user.last_name =  params[:billing_address][:last_name] unless params[:billing_address][:last_name].blank?
-    user.email_address = params[:billing_address][:email_address] unless params[:billing_address][:email_address].blank?
-    user.street_address1 =  params[:billing_address][:street_address1] unless params[:billing_address][:street_address1].blank?
-    user.street_address2 =  params[:billing_address][:street_address2] unless params[:billing_address][:street_address2].blank?
-    user.city =  params[:billing_address][:city] unless params[:billing_address][:city].blank?
-    user.us_state = params[:billing_address][:us_state] unless params[:billing_address][:us_state].blank?
-    user.zip = params[:billing_address][:zip] unless params[:billing_address][:zip].blank?
+  def update_user_information(user, billing_address)
+    user.first_name = billing_address[:first_name] unless billing_address[:first_name].blank?
+    user.last_name =  billing_address[:last_name] unless billing_address[:last_name].blank?
+    user.street_address1 =  billing_address[:street_address1] unless billing_address[:street_address1].blank?
+    user.street_address2 =  billing_address[:street_address2] unless billing_address[:street_address2].blank?
+    user.city =  billing_address[:city] unless billing_address[:city].blank?
+    user.us_state = billing_address[:us_state] unless billing_address[:us_state].blank?
+    user.zip = billing_address[:zip] unless billing_address[:zip].blank?
     user.save!
   end
 

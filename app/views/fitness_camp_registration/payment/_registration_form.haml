@@ -8,9 +8,9 @@
       = ba.input :city, input_html: { :value => @user.city }
       = ba.input :us_state, label: "State", input_html: { :value => @user.us_state }
       = ba.input :zip,input_html: { :value => @user.zip }
-    = f.input :number, hint: "No dashes or spaces"
-    = f.input :month, as: :date,  discard_day: true, discard_year: true
-    = f.input :year, as: :date, discard_month: true, discard_day: true, start_year: Date.today.year
+    = f.input :number, label: "Credit Card Number", hint: "No dashes or spaces"
+    = f.input :month, collection: 1..12, include_blank: false
+    = f.input :year, collection: Date.today.year..9.years.from_now.year, include_blank: false
     = f.input :type, collection: Order::card_types
     .form-actions
       = f.button :submit, "Finalize Registration", class: "btn btn-primary"

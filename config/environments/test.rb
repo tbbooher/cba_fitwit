@@ -36,6 +36,7 @@ Cba::Application.configure do
 
 config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :test
+  ActiveMerchant::Billing::CreditCard.require_verification_value = false
   OrderTransaction.gateway = ActiveMerchant::Billing::BogusGateway.new
 end
 
