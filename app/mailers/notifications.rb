@@ -104,4 +104,12 @@ class Notifications < ActionMailer::Base
           to: "messenger@fitwit.com")
   end
 
+  def inform_management_about_a_new_user(user, cart)
+
+  end
+
+  def inform_customer_about_their_new_journey(user,cart)
+
+  end
+
 end
