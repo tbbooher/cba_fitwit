@@ -70,10 +70,10 @@ Cba::Application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production # :test
 
-    mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
+    #mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
     ActiveMerchant::Billing::CreditCard.require_verification_value = false
     OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login => 'v9526006',
-                                                                :password => mypassphrase.to_s, # 'UaG7kmL/bfcn4lcGN5JFjPBJ9HVCcqS1RiNseIOTHuHue6ZCQcYsHP4rOlhdYWOpJOAQGdyvT6bb0496RuzWN05qypZiN0WzCgWCFFayp5LUoDmrx4H/5u+HUUme4vtmgUmdZKWTSSImP1cIRakwM13+jjj6YKZOOUsNdIXSiOP/89PIwNZD9Y7CVaM3kkWM8En0dUJypLVGI2x4g5Me4e57pkJBxiwc/is6WF1hY6kk4BAZ3K9PptvTj3pG7NY3TmrKlmI3RbMKBYIUVrKnktSgOavHgf/m74dRSZ7i+2aBSZ1kpZNJIiY/VwhFqTAzXf6OOPpgpk45Sw10hdKI4w==',
+                                                                :password => "ETkK7MmfB/7ZVF6wCtLxPsLtFwUgMkLW0AtH/kOuKpSaoME8zZuxWdYZdLnmK1+O8lgP5VEW7UYghSc4lTjgGd/GaTHFu9IcrohPSYrUH7W1+WCXpZXbGqgRobrUUToLnGTlVcUsQPb0bGh+Ud7KOb4TIQxKBfRfvVM5WUtPCbwUXuLcpsgxNHmOXrAK0vE+wu0XBSAyQtbQC0f+Q64qlJqgwTzNm7FZ1hl0ueYrX47yWA/lURbtRiCFJziVOOAZ38ZpMcW70hyuiE9JitQftbX5YJelldsaqBGhutRROgucZOVVxSxA9vRsaH5R3so5vhMhDEoF9F+9UzlZS08JvA==",
                                                                 :test => false,
                                                                 :vat_reg_number => 'your VAT registration number',
                                                                 # sets the states/provinces where you have a physical presense for tax purposes
