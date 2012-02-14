@@ -34,8 +34,6 @@ Cba::Application.configure do
 
   config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :test
-  # TODO we should remove this . . .
-  #ActiveMerchant::Billing::CreditCard.require_verification_value = false
 
   # we need to open an external file to get the password
   # need to update this to use ENV on heroku if we are there
