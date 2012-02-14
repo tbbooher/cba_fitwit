@@ -116,29 +116,26 @@ module FitWitCustomUserMethods
 
   def demographic
     if !(defined? company) || company.nil? || company.length < 1 || company.blank?
-      out = "#{self.age.to_s} year old #{sex} #{work} with an unspecified employer"
+      "#{self.age.to_s} year old #{sex} #{work} with an unspecified employer"
     else
-      out = "#{self.age.to_s} year old #{sex} #{work} at #{employer}"
+      "#{self.age.to_s} year old #{sex} #{work} at #{employer}"
     end
-    return out
   end
 
-  def full_contact(format)
-    f = format_hash(format)
-    fc = "#{f[:div_start]}#{self.mailingaddress(format)}#{f[:div_end]}"
-    fc += "#{f[:div_start]}#{self.primary_phone}#{f[:newline]}"
-    fc += "#{self.secondary_phone}#{f[:newline]}" unless secondary_phone.empty?
-    fc += self.email_address + f[:div_end]
-    fc += "#{f[:div_start]}#{self.demographic}#{f[:div_end]}"
+  def full_contact
+    fc = self.mailingaddress
+    fc += self.primary_phone + "\n"
+    fc += self.secondary_phone + "\n" unless secondary_phone.empty?
+    fc += self.email + "\n"
+    fc += self.demographic + "\n"
     fc
   end
 
-  def mailingaddress(format = 'html')
-    f = format_hash(format)
-    ma = "#{self.street_address1}#{f[:newline]}"
-    ma += "#{self.street_address2}#{f[:newline]}" unless self.street_address2.empty?
-    ma += "#{self.city}, #{self.us_state} #{self.zip}"
-    return ma
+  def mailingaddress
+    ma = self.street_address1 + "\n"
+    ma += self.street_address2 + "\n" unless self.street_address2.empty?
+    ma += "#{self.city}, #{self.us_state} #{self.zip}\n"
+    ma
   end
 
   def vet_savings

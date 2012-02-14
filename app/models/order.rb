@@ -264,7 +264,7 @@ class Order
     else
       purchase_errors = "Credit Card not Valid: " + credit_card.errors.full_messages.to_sentence
     end
-    purchase_errors
+    purchase_errors # no errors means success
   end
 
   private
@@ -288,20 +288,20 @@ class Order
       cart).deliver
   end
 
-  def send_membership_emails(user, cart)
-    inform_management = Postman.create_inform_ben_membership(user,
-      self,
-      params[:credit_card],
-      session[:health_approval],
-      cart)
-    inform_customer = Postman.create_inform_user_membership(user,
-      self,
-      params[:credit_card],
-      session[:health_approval],
-      cart)
-    Postman.deliver(inform_management)
-    Postman.deliver(inform_customer)
-  end
+  #def send_membership_emails(user, cart)
+  #  inform_management = Postman.create_inform_ben_membership(user,
+  #    self,
+  #    params[:credit_card],
+  #    session[:health_approval],
+  #    cart)
+  #  inform_customer = Postman.create_inform_user_membership(user,
+  #    self,
+  #    params[:credit_card],
+  #    session[:health_approval],
+  #    cart)
+  #  Postman.deliver(inform_management)
+  #  Postman.deliver(inform_customer)
+  #end
 
   def build_options(u, state = nil, zip = nil, city = nil, address1 = nil, address2 = nil)
     # this is my attempt at populating the options hash for the credit card
