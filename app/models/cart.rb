@@ -42,7 +42,7 @@ class Cart
     if self.new_membership
        @membership_price +  @membership_setup
     else
-      @items.sum { |item| item.camp_price(user) }
+      @items.sum { |item| item.camp_price_for_(user) }
     end
   end
 

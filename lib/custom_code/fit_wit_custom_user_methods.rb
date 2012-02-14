@@ -125,7 +125,7 @@ module FitWitCustomUserMethods
   def full_contact
     fc = self.mailingaddress
     fc += self.primary_phone + "\n"
-    fc += self.secondary_phone + "\n" unless secondary_phone.empty?
+    fc += self.secondary_phone + "\n" unless self.secondary_phone.empty?
     fc += self.email + "\n"
     fc += self.demographic + "\n"
     fc
@@ -133,7 +133,7 @@ module FitWitCustomUserMethods
 
   def mailingaddress
     ma = self.street_address1 + "\n"
-    ma += self.street_address2 + "\n" unless self.street_address2.empty?
+    ma += self.street_address2 + "\n" unless self.street_address2.nil? || self.street_address2.nil?
     ma += "#{self.city}, #{self.us_state} #{self.zip}\n"
     ma
   end

@@ -6,7 +6,7 @@ class CartItemController < ApplicationController
     @max_friends = PRICE['friend_discount']['max_vet_friends']
     unless @cart_item.friends.size > @max_friends
       @cart_item.friends << @new_friend
-      @updated_camp_price = @cart_item.camp_price(@user)/100
+      @updated_camp_price = @cart_item.camp_price_for_(@user)/100
     else
       @too_many_friends = true
     end
@@ -16,7 +16,7 @@ class CartItemController < ApplicationController
   def remove_friend
     @friend = params[:friend_name]
     @cart_item.friends.delete_if{|f| f == @friend}
-    @updated_camp_price =  @cart_item.camp_price(@user)/100
+    @updated_camp_price =  @cart_item.camp_price_for_(@user)/100
   end
 
   def set_traditional
@@ -26,7 +26,7 @@ class CartItemController < ApplicationController
     if (@cart_item.coupon_discount > 0)
       @coupon = CouponCode.find(@cart_item.coupon_code_id)
     end
-      @updated_camp_price =  @cart_item.camp_price(@user)/100
+      @updated_camp_price =  @cart_item.camp_price_for_(@user)/100
     else
       render nothing: true
     end
@@ -50,7 +50,7 @@ class CartItemController < ApplicationController
               @category = 'message msg-tip'
               @cart_item.coupon_discount = @coupon.price
               @cart_item.coupon_code_id = @coupon.id
-              @updated_camp_price = @cart_item.camp_price(@user)/100
+              @updated_camp_price = @cart_item.camp_price_for_(@user)/100
             end
           end
       else
@@ -67,7 +67,7 @@ class CartItemController < ApplicationController
     @session_price = PRICE['pay_by_session'][@session_count]
     @cart_item.payment_arrangement = :pay_by_session
     @cart_item.number_of_sessions = @session_count
-    @updated_camp_price = @cart_item.camp_price(@user)
+    @updated_camp_price = @cart_item.camp_price_for_(@user)
   end
 
   def set_payment_arrangement

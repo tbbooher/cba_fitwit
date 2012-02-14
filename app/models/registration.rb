@@ -6,6 +6,7 @@ class Registration
 
   field :payment_arrangement, type: Symbol, default: :traditional
   field :price_paid, type: Float
+  field :number_of_sessions, type: Integer
 
   # :traditional, :pay_by_session, :initial_member, :member, :staff
 

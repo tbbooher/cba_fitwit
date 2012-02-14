@@ -173,7 +173,7 @@ class FitnessCampRegistrationController < ApplicationController
       # payment_errors of nil will go forward
       payment_errors = @order.complete_camp_purchase(params[:credit_card], current_user, @cart)
       if payment_errors.empty?
-        redirect_to fitness_camp_registration_registration_success_path(self.id)
+        redirect_to successful_registration_path(@order.id)
       else
         flash[:error] = payment_errors
         redirect_to fitness_camp_registration_payment_path

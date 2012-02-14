@@ -104,11 +104,12 @@ class Notifications < ActionMailer::Base
           to: "messenger@fitwit.com")
   end
 
-  def inform_management_about_a_new_user(user, cart)
+  def inform_management_about_a_new_user(user, cart, order)
     @cart = cart
     @user = user
+    @order = order
     mail( :from => 'messenger@fitwit.com',
-          :to   => 'ben@fitwit.com',
+          :to   => 'tim@theboohers.org',
           :subject => "#{user} has just signed up for a camp" )
   end
 

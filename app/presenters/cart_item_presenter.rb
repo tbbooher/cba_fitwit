@@ -101,7 +101,7 @@ class CartItemPresenter < BasePresenter
   end
 
   def display_final_price(user)
-    content_tag(:tr, "<th class='left'>Final Price</td><td id='final_camp_price'>#{number_to_currency(cart_item.camp_price(user)/100)}</td>".html_safe,
+    content_tag(:tr, "<th class='left'>Final Price</td><td id='final_camp_price'>#{number_to_currency(cart_item.camp_price_for_(user)/100)}</td>".html_safe,
                 id: 'final_price_row')
   end
 

@@ -16,7 +16,7 @@ class CartItem
   
   def initialize(time_slot_id)
     @time_slot_id = time_slot_id
-    @camp_price = 0.to_f # this is in dollars
+    @camp_price = 0.to_f # this is in dollars # TODO -- is this ever used??
     @friends = []
     @payment_arrangement = :traditional
     @coupon_discount = 0
@@ -50,7 +50,7 @@ class CartItem
     [PRICE['friend_discount']['max_vet_friends'], self.friends.size].min
   end
 
-  def camp_price(user)
+  def camp_price_for_(user)
     case self.payment_arrangement
       when :pay_by_session # depends on the number of sessions
         session_payment(self.number_of_sessions)*100

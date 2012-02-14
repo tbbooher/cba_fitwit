@@ -202,8 +202,11 @@ class Order
     registration_errors = []
     cart.items.each do |item|
       rs = Registration.new
+      # a user is now joining this location
+      user.location_id = item.time_slot.fitness_camp.location.id
+      user.save
       rs.user_id = user.id
-      rs.fitness_camp_id = item.time_slot.fitness_camp.id
+      #rs.fitness_camp_id = item.time_slot.fitness_camp.id
       rs.time_slot_id = item.time_slot.id
       rs.order_id = self.id
       rs.payment_arrangement = item.payment_arrangement
@@ -214,7 +217,7 @@ class Order
           # josh, doesn't need this feature right now
         else # traditional payment for the camp
           rs.number_of_sessions = nil
-          rs.price_paid = item.camp_price
+          rs.price_paid = item.camp_price_for_(user)
       end
       unless item.coupon_discount == 0
         rs.coupon_discount = item.coupon_discount
@@ -279,12 +282,9 @@ class Order
 
   def send_emails(user, cart)
     Notifications.inform_management_about_a_new_user(user,
-      self,
-      params[:credit_card],
-      cart).deliver
+      cart,
+      self).deliver
     Notifications.inform_customer_about_their_new_journey(user,
-      self,
-      params[:credit_card],
       cart).deliver
   end
 

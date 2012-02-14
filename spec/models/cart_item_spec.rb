@@ -19,7 +19,7 @@ describe CartItem do
   it "should be able to charge an initial membership" do
     m = CartItem.new(@ts)
     m.payment_arrangement = :initial_member
-    m.camp_price(@u).should == (PRICE['monthly_membership_fee'] + PRICE['setup_fee'])*100
+    m.camp_price_for_(@u).should == (PRICE['monthly_membership_fee'] + PRICE['setup_fee'])*100
   end
 
   describe "charge by session" do
@@ -28,7 +28,7 @@ describe CartItem do
     s.payment_arrangement = :pay_by_session
     [12,16,20].each do |num_sessions|
       s.number_of_sessions = num_sessions
-      s.camp_price(@u).should == PRICE['pay_by_session'][num_sessions]*100
+      s.camp_price_for_(@u).should == PRICE['pay_by_session'][num_sessions]*100
     end
   end
 
@@ -65,7 +65,7 @@ describe CartItem do
         end
         @c.coupon_discount = s[:coupon]*100
         @u.veteran_status = s[:veteran_status].to_sym
-        @c.camp_price(@u).should == s[:price]*100
+        @c.camp_price_for(@u).should == s[:price]*100
       end
     end
   end

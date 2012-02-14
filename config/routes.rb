@@ -146,7 +146,7 @@ Cba::Application.routes.draw do
   post "update_health_items" => "fitness_camp_registration#update_health_items"
 
   post 'fitness_camp_registration/empty_cart'
-  get 'fitness_camp_registration/registration_success/:order_id' => "fitness_camp_registration#registration_success"
+  get 'fitness_camp_registration/registration_success/:order_id' => "fitness_camp_registration#registration_success", as: :successful_registration
   get 'fitness_camp_registration/all_fitness_camps'
 
   # Switch locales
