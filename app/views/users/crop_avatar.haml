@@ -9,11 +9,12 @@
 %h4 Preview:
 %div{:style => "width:100px; height:100px; overflow: hidden;"}= image_tag @user.avatar.url(:medium), :id => 'preview'
 
-= form_for @user, :url => {:controller => 'users',:action => 'crop_avatar'} do |f| 
-    - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] 
-        = f.hidden_field attribute, :id => attribute
-    = f.hidden_field :use_gravatar, value: "0"
-    %p= f.submit "Crop"
+= form_for @user, :url => {:controller => 'users',:action => 'crop_avatar'} do |f|
+    %fieldset
+        - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h]
+            = f.hidden_field attribute, :id => attribute
+        = f.hidden_field :use_gravatar, value: "0"
+        .form-actions= f.submit "Crop", class: "btn btn-primary"
 
 
 

@@ -20,7 +20,7 @@ class Order
   belongs_to :user
   # belongs_to :cart
   # belongs_to :coupon_code # , :counter_cache => :uses
-  # serialize :params TODO -- fix this
+  # serialize :params
   # we don't need this
   # field :hash_params, type: Hash
   # field :array_params, type: Array

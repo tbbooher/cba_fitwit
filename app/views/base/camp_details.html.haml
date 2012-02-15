@@ -26,11 +26,11 @@
     With 3 Atlanta-area locations and 12 classes/day, FitWit offers a variety of options to get started.
   %ul
     %li
-      %a{:href => "#"} Grant Park
+      = link_to "Grant Park", "/blogs/4f2fe57599256100010004a9"
     %li
-      %a{:href => "#"} Midtown
+      = link_to "Decatur", "/blogs/4f2fe5f699256100010004ad"
     %li
-      %a{:href => "#"} Decatur
+      = link_to "Midtown", "/blogs/4f3b0bf2d57fe50001000011"
 .one_third.last
   .shadow.shadow_medium
     = link_to image_tag("faq.jpg", :class =>"border-img"), faq_path
@@ -47,4 +47,6 @@
       Is this a cult?
     %li
       Can I join anytime?
+    %li
+      And more . . .
   = link_to image_tag("FitWit_MoreDetails_But.png"), faq_path

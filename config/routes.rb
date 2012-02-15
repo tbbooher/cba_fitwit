@@ -117,6 +117,7 @@ Cba::Application.routes.draw do
   get "base/stories/mary" => 'base#mary'
   get "base/stories/mike" => 'base#mike'
   get "base/stories/pam" => 'base#pam'
+  get "base/stories/carey" => 'base#carey'
 
   # fitness camp registrations
   # TODO -- change these to post
