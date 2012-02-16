@@ -37,6 +37,8 @@
 //= require jquery.tokeninput
 //= require maps
 //= require page_component_sortable
+//= require page
+//= require postings
 //= require search
 //= require side_tab
 //= require sprintf
@@ -46,6 +48,7 @@
 //= require user
 //= require user_list
 //= require user_notifications
+//= require user_crop_avatar
 
 //= require location_page
 
@@ -60,3 +63,5 @@
 //= require backend/all_fit_wit_calendar
 //= require backend/location_calendar
 //= require blog_side_calendar
+
+

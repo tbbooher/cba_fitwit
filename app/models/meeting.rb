@@ -51,13 +51,19 @@ class Meeting
     "#{self.time_slot.short_title} on #{meeting_date_f}"
   end
 
+  def start_time
+    m = self.meeting_date
+    t = self.time_slot.start_time
+    Time.local(m.year, m.month, m.day, t.hour, t.min)
+  end
+
   def as_json(options={})
     {
       :id => 'blank',
-      :title => self.time_slot.fitness_camp.location.name,
+      :title => 'Camp',
       :description => self.time_slot.short_title || "",
-      :start => self.meeting_date.rfc822,
-      :end => 1.hour.from_now(self.meeting_date).rfc822,
+      :start => self.start_time.rfc822,
+      :end => 1.hour.from_now(self.start_time).rfc822,
       :allDay => false,
       :recurring => false,
       :url => "" # Rails.application.routes.url_helpers.event_path(id)
