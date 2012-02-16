@@ -40,7 +40,7 @@ $(document).ready(function() {
             }
         ],
 
-        timeFormat: 'h:mmt',
+        timeFormat: 'h(:mm)t',
         dragOpacity: "0.5",
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view) {
