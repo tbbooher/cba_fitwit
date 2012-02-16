@@ -10,6 +10,7 @@
       = label_tag :fit_wit_workout_id, "Workout"
       .input
         = select_tag :fit_wit_workout_id, options_for_select(@possible_workouts)
+      #workout_description
     .clearfix
       %table.table.table-striped
         %thead
@@ -18,6 +19,7 @@
               User
             %th
               Score
+              %span#workout_score_method
             %th
               Note
             %th
@@ -25,7 +27,7 @@
         %tbody
         - @meeting.attendees.each do |user|
           = hidden_field_tag "workouts[][user_id]", user.id
-          %tr{odd_or_even}
+          %tr{id: user.id}
             %td= user.full_name
             %td= text_field_tag "workouts[][score]", '', :size => 15
             %td= text_field_tag "workouts[][note]", '', :size => 30

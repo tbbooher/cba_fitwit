@@ -17,6 +17,13 @@ $(function (){
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
     $(".datetimepicker").datetimepicker({ dateFormat: 'D, dd M yy' });
     $(".input_time").timePicker({ startTime: "5:00", endTime: "19:00", step: 60});
+    $("#fit_wit_workout_id").change(function () {
+        var workout_id = $('select#fit_wit_workout_id :selected').val();
+        $.getJSON('/backend/fit_wit_workouts/' + workout_id + '.json', function(data){
+            $("#workout_score_method").html(" (" + data.score_method + ")");
+            $("#workout_description").html(data.description);
+        })          
+        })
     if ($("#multiple_date_select").length > 0) {
         var current_dates = [];
         var start_date = "";
