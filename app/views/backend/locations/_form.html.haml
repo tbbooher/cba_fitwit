@@ -1,4 +1,4 @@
-= simple_form_for [:backend, @location], :wrapper => :inline do |f|
+= simple_form_for [:backend, @location] do |f|
   %fieldset
     = f.input :name
     = f.input :description, as: :text
@@ -10,5 +10,5 @@
     = f.input :active, as: :boolean
     = f.input :lat
     = f.input :lon
-  .actions
-    = f.submit :class => "btn primary"
+  .form-actions
+    = f.submit :class => "btn btn-primary"

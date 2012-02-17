@@ -1,6 +1,6 @@
-= simple_form_for [ :backend, resource ], :wrapper => :inline do |f|
+= simple_form_for [ :backend, resource ] do |f|
   %fieldset
     - attributes.each do |attr|
       = f.input attr
-  .actions
-    = f.submit :class => "btn primary"
+  .form-actions
+    = f.submit :class => "btn btn-primary"

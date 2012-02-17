@@ -53,8 +53,8 @@
         = f.input :taking_estrogen, as: :boolean, default: false
       #site_info.tab-pane
         = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index.map{|r,i| [r,i]}, include_blank: false
-  .actions
-    = f.submit class: "btn primary"
+  .form-actions
+    = f.submit class: "btn btn-primary"
 
 %div.well
   = link_to "PRs", backend_user_user_prs_path(@user.id)

@@ -32,7 +32,7 @@
       = label_tag :user_id, "User"
       .input
         = select_tag :user_id, options_for_select(@unregistered_users)
-    .actions
+    .form-actions
       = submit_tag "Add User", class: "btn btn-primary"
 
 %h4 Meetings
