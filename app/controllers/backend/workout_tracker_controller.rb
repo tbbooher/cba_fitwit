@@ -1,5 +1,8 @@
 class Backend::WorkoutTrackerController < Backend::ApplicationController
 
+  # this whole controller might be un-necessary -- we should treat 
+  # workouts as a nested attribute of meeting
+
   def add_workout_for_user
     @user = User.find(params[:user_id])
     @meeting = Meeting.find(params[:meeting_id])
@@ -30,6 +33,19 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
   end
 
   def update_workouts_for_camp
+    @meeting = Meeting.find(params[:meeting_id])
+    ts = @meeting.time_slot
+    fc = ts.fitness_camp
+    l = fc.location.id
+    if @meeting.update_attributes(params[:meeting])
+      flash[:notice] = "Successfully recorded all workouts"
+      redirect_to  backend_location_fitness_camp_time_slot_meeting(l,fc.id,ts.id,@meeting.id)
+    else
+      render action: 'coach_enters_scores'
+      # and highlight errors
+    end    
+
+
     # workouts_method
     @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
     params = params
