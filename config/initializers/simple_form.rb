@@ -79,6 +79,13 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :nested, :tag => 'span', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :input
+    b.use :error, :tag => 'span', :class => 'help-inline'
+    b.use :hint,  :tag => 'p', :class => 'help-block'
+  end
+
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
   # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
   # to learn about the different styles for forms and inputs,

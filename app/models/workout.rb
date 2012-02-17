@@ -7,10 +7,13 @@ class Workout
   field :rxd, :type => Boolean
   field :common_value, :type => Float
 
+  validates :score, presence: true
+
   # relations
   belongs_to :user
-  belongs_to :meeting
+  #belongs_to :meeting
   belongs_to :fit_wit_workout
+  belongs_to :camp_workout
 
   # after save callback
   before_create :find_common_value
@@ -30,21 +33,20 @@ class Workout
     self.common_value = self.fit_wit_workout.common_value(self.score)
   end
 
-  def self.add_whole_class()
-    # eieio
-  end 
-
   def update_prs
     # if the common_value is better than the users previous value, put this value in
     # and update the global pr table for that workout . . .
     # find user_pr
     #
+    # not happy with this -- but will it make life work?
+    if self.camp_workout
+      self.fit_wit_workout_id = self.camp_workout.fit_wit_workout.id
+    end
     # We store the pr data in two places and the pr tables grow in each place
     # if they have set a new PR, the user.user_pr table is updated _and_ the fww.prs
     # table is also updated, each fww has an embedded set of prs
     u = self.user
     user_pr = u.find_pr_for(self.fit_wit_workout)
-    #global_
     if user_pr.nil?
       puts "#We have a new PR!"
       new_user_pr = UserPr.new

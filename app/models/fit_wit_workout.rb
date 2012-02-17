@@ -9,6 +9,7 @@ class FitWitWorkout
 
   # relations
   has_many :workouts
+
   embeds_many :prs
 
   # methods

@@ -24,8 +24,8 @@ class Backend::UsersController < Backend::ResourceController
 
   def create
     # untested
-    params[:password] = "iluvfitwit"
-    params[:password_confirmation] = "iluvfitwit"
+    params[:user][:password] = "iluvfitwit"
+    params[:user][:password_confirmation] = "iluvfitwit"
     super
   end
 end

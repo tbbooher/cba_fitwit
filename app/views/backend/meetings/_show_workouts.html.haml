@@ -1,13 +1,13 @@
 %h4 Workouts
-- if @fit_wit_workouts.nil?
+- if @meeting.camp_workouts.size == 0
   There have been no workouts yet for this meeting
 - else
-  - @fit_wit_workouts.each do |fww|
+  - @meeting.camp_workouts.each do |cwo|
     %h2
-      = fww.name
+      = cwo.fit_wit_workout.name
       Results
     %table.table.table-striped{:style => "width:400px;"}
-      - @meeting.workouts.select {|w| w.exercise_id == fww.id}.each do |workout|
+      - cwo.workouts.each do |workout|
         %tr{:class => cycle('light','dark')}
           %td
             = workout.user.short_name

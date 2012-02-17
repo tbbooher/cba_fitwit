@@ -23,7 +23,7 @@
         = f.input :gender, collection: [:male, :female], include_blank: false
         = f.input :occupation
         = f.input :company
-        = f.input :date_of_birth, input_html: { class: 'datepicker' }
+        = f.input :date_of_birth, label: "Birthday", as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 5
       #contact_info.tab-pane
         = f.input :street_address1
         = f.input :street_address2
@@ -56,13 +56,14 @@
   .form-actions
     = f.submit class: "btn btn-primary"
 
-%div.well
-  = link_to "PRs", backend_user_user_prs_path(@user.id)
-  |
-  = link_to "Custom Workouts", backend_user_custom_workouts_path(@user.id)
-  |
-  = link_to "Goals", backend_user_goals_path(@user.id)
-  |
-  = link_to "Measurements", backend_user_measurements_path(@user.id)
-  |
-  = link_to "Health Issues", backend_user_health_issues_path(@user.id)
+- if @user.valid?
+  %div.well
+    = link_to "PRs", backend_user_user_prs_path(@user.id)
+    |
+    = link_to "Custom Workouts", backend_user_custom_workouts_path(@user.id)
+    |
+    = link_to "Goals", backend_user_goals_path(@user.id)
+    |
+    = link_to "Measurements", backend_user_measurements_path(@user.id)
+    |
+    = link_to "Health Issues", backend_user_health_issues_path(@user.id)

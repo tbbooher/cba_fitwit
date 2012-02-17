@@ -1,33 +1,22 @@
 - content_for :header do
-  %h3= "Add workouts for #{@meeting.full_context}"
+  %h3= "Add a workout for #{@meeting.full_context}"
+
+= simple_form_for([:backend, @location, @fitness_camp, @time_slot, @meeting], html: { :class => 'form-inline' }) do |f|
+  %fieldset
+    = f.simple_fields_for :camp_workouts do |builder|
+      = builder.input :fit_wit_workout_id, label: "FitWit Workout:", collection: FitWitWorkout.all
+      = builder.simple_fields_for :workouts do |wo_b|
+        .control-group
+          = f.label wo_b.object.user.certain_name
+          .nested-fields
+            = wo_b.input :user_id, as: :hidden
+            = wo_b.input :score, wrapper: :nested, input_html: {style: "width:100px;"}, placeholder: "Score"
+            = wo_b.input :user_note, wrapper: :nested, input_html: {style: "width:200px;"}, placeholder: "User Note"
+            Rx
+            = wo_b.input :rxd, as: :boolean, wrapper: :nested
+  .form-actions
+    = f.button :submit, "Add or Update All Workouts", class: "btn-primary"
+
 %p
   = link_to "Back to #{@meeting.full_context}", backend_location_fitness_camp_time_slot_meeting_path(@meeting.time_slot.fitness_camp.location.id, @meeting.time_slot.fitness_camp.id, @meeting.time_slot.id, @meeting.id)
 
-= simple_form_for [:backend, @location, @fitness_camp, @time_slot, @meeting], :html => { :class => 'form-horizontal' } do |f|
-  %fieldset
-    .control-group
-      = label_tag :fit_wit_workout_id, "Workout", class: 'control-label'
-      .controls
-        = select_tag :fit_wit_workout_id, options_for_select(@possible_workouts)
-      #workout_description
-    .clearfix
-      %table.table.table-striped
-        %thead
-          %tr
-            %th
-              User
-            %th
-              Score
-              %span#workout_score_method
-            %th
-              Note
-            %th
-              Rxd
-        %tbody
-          - f.simple_fields_for :workouts do |workout|
-            = workout.user.full_name
-            = workout.input :score
-            = workout.input :note
-            = workout.input :rxd, as: :boolean
-  .form-actions
-    = submit_tag "Add or Update All Workouts", class: "btn btn-primary"

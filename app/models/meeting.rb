@@ -8,9 +8,9 @@ class Meeting
 
   belongs_to :time_slot
   has_and_belongs_to_many :attendees, class_name: "User", inverse_of: :attendances
-  has_many :workouts, autosave: true
+  has_many :camp_workouts
 
-  accepts_nested_attributes_for :workouts
+  accepts_nested_attributes_for :camp_workouts # , reject_if: lambda {|a| a[:score].blank? }, allow_destroy: true
 
   # need to get workouts in here
   
