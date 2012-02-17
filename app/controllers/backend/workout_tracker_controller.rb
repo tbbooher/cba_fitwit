@@ -16,6 +16,9 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
 
   def coach_enters_scores
     @meeting = Meeting.find(params[:meeting_id])
+    @time_slot = @meeting.time_slot
+    @fitness_camp = @time_slot.fitness_camp
+    @location = @fitness_camp.location
     @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
   end
 
@@ -45,22 +48,21 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
       # and highlight errors
     end    
 
-
-    # workouts_method
-    @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
-    params = params
-    @workouts = []
-    params[:workouts].each do |s|
-      w = Workout.new
-      w.user_id    = s[:user_id]
-      w.score      = s[:score]
-      w.user_note  = s[:note]
-      w.rxd        = s[:rxd]
-      w.fit_wit_workout_id = params[:fit_wit_workout_id]
-      w.meeting_id         = params[:meeting_id]
-      w.save
-      @workouts << w
-    end
+    # # workouts_method
+    # @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
+    # params = params
+    # @workouts = []
+    # params[:workouts].each do |s|
+    #   w = Workout.new
+    #   w.user_id    = s[:user_id]
+    #   w.score      = s[:score]
+    #   w.user_note  = s[:note]
+    #   w.rxd        = s[:rxd]
+    #   w.fit_wit_workout_id = params[:fit_wit_workout_id]
+    #   w.meeting_id         = params[:meeting_id]
+    #   w.save
+    #   @workouts << w
+    # end
   end
 
   def delete_workout
