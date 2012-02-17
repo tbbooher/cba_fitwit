@@ -1,5 +1,8 @@
 class Backend::WorkoutTrackerController < Backend::ApplicationController
 
+  # this whole controller might be un-necessary -- we should treat 
+  # workouts as a nested attribute of meeting
+
   def add_workout_for_user
     @user = User.find(params[:user_id])
     @meeting = Meeting.find(params[:meeting_id])
@@ -13,6 +16,9 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
 
   def coach_enters_scores
     @meeting = Meeting.find(params[:meeting_id])
+    @time_slot = @meeting.time_slot
+    @fitness_camp = @time_slot.fitness_camp
+    @location = @fitness_camp.location
     @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
   end
 
@@ -30,21 +36,33 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
   end
 
   def update_workouts_for_camp
-    # workouts_method
-    @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
-    params = params
-    @workouts = []
-    params[:workouts].each do |s|
-      w = Workout.new
-      w.user_id    = s[:user_id]
-      w.score      = s[:score]
-      w.user_note  = s[:note]
-      w.rxd        = s[:rxd]
-      w.fit_wit_workout_id = params[:fit_wit_workout_id]
-      w.meeting_id         = params[:meeting_id]
-      w.save
-      @workouts << w
-    end
+    @meeting = Meeting.find(params[:meeting_id])
+    ts = @meeting.time_slot
+    fc = ts.fitness_camp
+    l = fc.location.id
+    if @meeting.update_attributes(params[:meeting])
+      flash[:notice] = "Successfully recorded all workouts"
+      redirect_to  backend_location_fitness_camp_time_slot_meeting(l,fc.id,ts.id,@meeting.id)
+    else
+      render action: 'coach_enters_scores'
+      # and highlight errors
+    end    
+
+    # # workouts_method
+    # @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
+    # params = params
+    # @workouts = []
+    # params[:workouts].each do |s|
+    #   w = Workout.new
+    #   w.user_id    = s[:user_id]
+    #   w.score      = s[:score]
+    #   w.user_note  = s[:note]
+    #   w.rxd        = s[:rxd]
+    #   w.fit_wit_workout_id = params[:fit_wit_workout_id]
+    #   w.meeting_id         = params[:meeting_id]
+    #   w.save
+    #   @workouts << w
+    # end
   end
 
   def delete_workout

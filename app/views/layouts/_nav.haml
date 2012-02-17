@@ -1,4 +1,6 @@
 #navigation
+  #login_tag
+    = render 'devise/menu/registration_items'
   %ul#menu-top-menu.sf-menu
     %li.menu-item{class: params[:action] == 'start_page' ? "current-menu-item" : "" }
       = link_to "Home", root_url
@@ -34,6 +36,5 @@
           = link_to "Team", team_story_url
     %li.menu-item{class: params[:action] == 'contact' ? "current-menu-item" : "" }
       = link_to "Contact", contact_url
-  .rightside
-    = render 'devise/menu/registration_items'
+
   %br.clear/

@@ -10,5 +10,5 @@
   = form_tag backend_location_fitness_camp_time_slot_meeting_take_attendance_path(@location.id, @fitness_camp.id, @time_slot.id, @meeting.id), id: "attendance_form", remote: true do
     %fieldset
       = render :partial => "attendee", :collection => @time_slot.users_going
-    .actions
-      = submit_tag "Update", class: "btn primary"
+    .form-actions
+      = submit_tag "Update", class: "btn btn-primary"

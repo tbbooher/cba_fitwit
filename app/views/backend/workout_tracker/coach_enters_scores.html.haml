@@ -1,14 +1,13 @@
 - content_for :header do
   %h3= "Add workouts for #{@meeting.full_context}"
-/ Left thumbnail column
-&lt;
-= link_to "Back to #{@meeting.full_context}", backend_location_fitness_camp_time_slot_meeting_path(@meeting.time_slot.fitness_camp.location.id, @meeting.time_slot.fitness_camp.id, @meeting.time_slot.id, @meeting.id)
-= form_tag backend_update_workouts_for_camp_path, id: "workout_form" do
-  = hidden_field_tag "meeting_id", @meeting.id
+%p
+  = link_to "Back to #{@meeting.full_context}", backend_location_fitness_camp_time_slot_meeting_path(@meeting.time_slot.fitness_camp.location.id, @meeting.time_slot.fitness_camp.id, @meeting.time_slot.id, @meeting.id)
+
+= simple_form_for [:backend, @location, @fitness_camp, @time_slot, @meeting], :html => { :class => 'form-horizontal' } do |f|
   %fieldset
-    .clearfix
-      = label_tag :fit_wit_workout_id, "Workout"
-      .input
+    .control-group
+      = label_tag :fit_wit_workout_id, "Workout", class: 'control-label'
+      .controls
         = select_tag :fit_wit_workout_id, options_for_select(@possible_workouts)
       #workout_description
     .clearfix
@@ -25,12 +24,10 @@
             %th
               Rxd
         %tbody
-        - @meeting.attendees.each do |user|
-          = hidden_field_tag "workouts[][user_id]", user.id
-          %tr{id: user.id}
-            %td= user.full_name
-            %td= text_field_tag "workouts[][score]", '', :size => 15
-            %td= text_field_tag "workouts[][note]", '', :size => 30
-            %td= check_box_tag "workouts[][rxd]"
-  .actions
-    = submit_tag "Add or Update All Workouts", class: "btn primary"
+          - f.simple_fields_for :workouts do |workout|
+            = workout.user.full_name
+            = workout.input :score
+            = workout.input :note
+            = workout.input :rxd, as: :boolean
+  .form-actions
+    = submit_tag "Add or Update All Workouts", class: "btn btn-primary"

@@ -14,15 +14,15 @@
   %tbody#meeting_list
     = render "index_table"
 
-%h4 Add Meetings
+%h3 Add Meetings
 
 = form_tag backend_add_meetings_path(@time_slot.id), remote: true do
   %fieldset
     = hidden_field_tag "meeting_dates"
     #multiple_date_select
-  .actions
-    = submit_tag "Apply to this time slot", class: "btn primary"
-    = submit_tag "Apply to all time slots", class: "btn"
+  .form-actions
+    = submit_tag "Apply to this time slot", class: "btn btn-primary"
+    = submit_tag "Apply to all time slots", class: "btn btn-success"
 
 
 

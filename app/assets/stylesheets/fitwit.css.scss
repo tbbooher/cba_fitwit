@@ -113,6 +113,12 @@ span.price {
   display: block;
 }
 
+div#login_tag {
+  float: right;
+  padding-top: 3px;
+  padding-right: 10px;
+}
+
 .floatRight {
   float: right;
 }
@@ -167,6 +173,7 @@ table.ui-datepicker-calendar tbody td.highlight > a {
 #describer_of_event {
   display:none;
 }
+
 
 @import "search.css.scss";
 

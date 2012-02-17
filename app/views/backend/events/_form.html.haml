@@ -1,9 +1,9 @@
-= simple_form_for [:backend, @location, @event], :wrapper => :inline do |f|
+= simple_form_for [:backend, @location, @event] do |f|
   %fieldset
     = f.input :title
     = f.input :starts_at, label: "Starts", :input_html => { :class => 'datetimepicker' }
     = f.input :ends_at, label: "Ends", :input_html => { :class => 'datetimepicker' }
     = f.input :description, as: :text, :input_html => { rows: 8 }
     = f.input :all_day, as: :boolean
-  .actions
-    = f.submit class: "btn primary"
+  .form-actions
+    = f.submit class: "btn btn-primary"

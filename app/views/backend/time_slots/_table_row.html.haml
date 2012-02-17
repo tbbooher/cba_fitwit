@@ -3,4 +3,4 @@
     = link_to @user.certain_name.html_safe, edit_backend_user_path(@user.id)
     - if @user.member?
       %span.label.label-success member
-  %td= link_to("Remove", backend_remove_user_path(@time_slot.id, @user.id), class: "btn small danger", remote: true)
+  %td= link_to("Remove", backend_remove_user_path(@time_slot.id, @user.id), class: "btn btn-small btn-danger", remote: true)
