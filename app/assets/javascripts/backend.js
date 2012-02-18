@@ -8,6 +8,7 @@
 //= require backend/bootstrap-tab
 
 //= require backend/location
+//= require backend/manage_workouts
 
 // should we add gcal ?
 

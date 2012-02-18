@@ -4,20 +4,25 @@
 = simple_form_for([:backend, @location, @fitness_camp, @time_slot, @meeting], html: { :class => 'form-inline' }) do |f|
   %fieldset
     = f.simple_fields_for :camp_workouts do |builder|
-      = builder.input :fit_wit_workout_id, label: "FitWit Workout:", collection: FitWitWorkout.all, input_html: {class: "fit_wit_workout"}
-      .well
-        .control-group
-          = builder.simple_fields_for :workouts do |wo_b|
-            %div{style: "float:left; width:140px; text-align:left; padding-top: 5px;"}
-              %strong
-                = wo_b.object.user.first_name
-              = wo_b.object.user.last_name
-            .nested-fields
-              = wo_b.input :user_id, as: :hidden, wrapper: :nested
-              = wo_b.input :score, wrapper: :nested, input_html: {style: "width:100px;"}, placeholder: "Score"
-              = wo_b.input :user_note, wrapper: :nested, input_html: {style: "width:200px;"}, placeholder: "User Note"
-              Rx
-              = wo_b.input :rxd, as: :boolean, wrapper: :nested
+      .user_workout
+        = builder.input :fit_wit_workout_id, label: "FitWit Workout:", collection: FitWitWorkout.all, input_html: {class: "fit_wit_workout"}
+        = link_to_remove_fields "remove", builder
+        .well
+          .control-group
+            = builder.simple_fields_for :workouts do |wo_b|
+              .user_workout{style: "width:100%; background-color:green;"}
+                %div{style: "float:left; width:140px; text-align:left; padding-top: 5px;"}
+                  %strong
+                    = wo_b.object.user.first_name
+                  = wo_b.object.user.last_name
+                .nested-fields
+                  = wo_b.input :user_id, as: :hidden, wrapper: :nested
+                  = wo_b.input :score, wrapper: :nested, input_html: {style: "width:100px;"}, placeholder: "Score"
+                  = wo_b.input :user_note, wrapper: :nested, input_html: {style: "width:100px;"}, placeholder: "User Note"
+                  Rx
+                  = wo_b.input :rxd, as: :boolean, wrapper: :nested
+                  .nested-fields-link
+                    = link_to_remove_fields "remove", wo_b
   .form-actions
     = f.button :submit, "Add or Update All Workouts", class: "btn-primary"
 
