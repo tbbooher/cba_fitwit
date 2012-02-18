@@ -1,4 +1,4 @@
-= simple_form_for [ :backend, resource ] do |f|
+= simple_form_for [ :backend, resource ], html: { class: 'form-horizontal' } do |f|
   %fieldset
     - attributes.each do |attr|
       = f.input attr

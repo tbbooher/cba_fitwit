@@ -4,6 +4,9 @@
         <%= link_to current_user.name.titleize, profile_path(current_user), class: "btn" %>
         <%= link_to "(i)", notifications_path, :title => t(:user_notifications), class: "btn" %>
         <%= link_to "My FitWit", my_fit_wit_index_path, class: "btn" %>
+        <% if current_role?(:admin) %>
+          <%= link_to "Backend", "/backend/", class: "btn btn-warning" %>
+        <% end %>
       </div>
     </div>
 <% end %>

@@ -12,6 +12,10 @@ class FitWitWorkout
 
   embeds_many :prs
 
+  validates :units, presence: true
+  validates :score_method, presence: true
+  validates :name, presence: true
+
   # methods
 
   EXERCISE_UNITS = [

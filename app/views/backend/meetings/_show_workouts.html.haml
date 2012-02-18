@@ -1,9 +1,9 @@
-%h4 Workouts
+%h2 Workouts
 - if @meeting.camp_workouts.size == 0
   There have been no workouts yet for this meeting
 - else
   - @meeting.camp_workouts.each do |cwo|
-    %h2
+    %h4
       = cwo.fit_wit_workout.name.titleize
       Results
     %table.table.table-striped{:style => "width:400px;"}
