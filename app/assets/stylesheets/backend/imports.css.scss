@@ -73,3 +73,18 @@
 .label-success {
   background-color: #468847;
 }
+
+.nested-fields {
+  @extend p;
+  margin-left: 160px
+}
+
+.nested-fields-link {
+  display: block;
+  margin-left: 160px;
+  padding-top: 6px;
+}
+
+.workout_description {
+  padding: 15px;
+}

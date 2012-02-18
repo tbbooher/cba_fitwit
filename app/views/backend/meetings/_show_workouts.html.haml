@@ -4,13 +4,12 @@
 - else
   - @meeting.camp_workouts.each do |cwo|
     %h2
-      = cwo.fit_wit_workout.name
+      = cwo.fit_wit_workout.name.titleize
       Results
     %table.table.table-striped{:style => "width:400px;"}
       - cwo.workouts.each do |workout|
-        %tr{:class => cycle('light','dark')}
+        %tr
           %td
-            = workout.user.short_name
-            \.
+            = "#{workout.user.short_name}."
           %td= workout.score
-          %td{:cellpadding => "10px"}= workout.notes
+          %td{:cellpadding => "10px"}= workout.user_note

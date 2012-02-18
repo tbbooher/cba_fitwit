@@ -30,7 +30,10 @@ class Workout
   end
 
   def find_common_value
-    self.common_value = self.fit_wit_workout.common_value(self.score)
+    if self.camp_workout
+      self.fit_wit_workout_id = self.camp_workout.fit_wit_workout.id
+      self.common_value = self.fit_wit_workout.common_value(self.score)
+    end
   end
 
   def update_prs
@@ -39,9 +42,6 @@ class Workout
     # find user_pr
     #
     # not happy with this -- but will it make life work?
-    if self.camp_workout
-      self.fit_wit_workout_id = self.camp_workout.fit_wit_workout.id
-    end
     # We store the pr data in two places and the pr tables grow in each place
     # if they have set a new PR, the user.user_pr table is updated _and_ the fww.prs
     # table is also updated, each fww has an embedded set of prs
@@ -70,19 +70,20 @@ class Workout
     gpr.user_note = self.user_note
     gpr.rxd = self.rxd
     gpr.common_value = self.common_value
-    gpr.date_accomplished = self.meeting.meeting_date
+    gpr.date_accomplished = self.camp_workout.meeting.meeting_date
     gpr.sex = self.user.sex_symbol # :male or :female
     # extra qualifiers for global queries
     gpr.user = self.user
     # all for the love of mongo, our relational database cringes inside
-    gpr.fitness_camp = self.meeting.time_slot.fitness_camp
-    gpr.time_slot = self.meeting.time_slot
-    gpr.meeting = self.meeting
+    gpr.fitness_camp = self.camp_workout.meeting.time_slot.fitness_camp
+    gpr.time_slot = self.camp_workout.meeting.time_slot
+    gpr.meeting = self.camp_workout.meeting
     # embed this in a fww !
     gpr.fit_wit_workout = self.fit_wit_workout
-    unless self.fit_wit_workout.save!
-      raise "can't save the fww"
-    end
+    # why did we want to save this?
+    #unless self.fit_wit_workout.save!
+    #  raise "can't save the fww"
+    #end
   end
 
   def update_user_pr_object(o_pr, u)
@@ -91,8 +92,8 @@ class Workout
     o_pr.rxd = self.rxd
     o_pr.common_value = self.common_value
     o_pr.fit_wit_workout = self.fit_wit_workout
-    o_pr.fitness_camp = self.meeting.time_slot.fitness_camp
-    o_pr.date_accomplished = self.meeting.meeting_date
+    o_pr.fitness_camp = self.camp_workout.meeting.time_slot.fitness_camp
+    o_pr.date_accomplished = self.camp_workout.meeting.meeting_date
     unless u.save
       raise "error with pr"
     end

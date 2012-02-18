@@ -20,7 +20,7 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
     @fitness_camp = @time_slot.fitness_camp
     @location = @fitness_camp.location
     @cwo =  @meeting.camp_workouts.new
-    @meeting.attendees.each do |user|
+    @meeting.attendees.asc(:first_name).each do |user|
       @cwo.workouts.build(user_id: user.id)
     end
     #@possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
