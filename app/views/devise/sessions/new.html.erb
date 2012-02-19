@@ -1,11 +1,12 @@
 <% title t(:sign_in) %>
 
 <% content_for :right_column do %>
-    <h3>cool quote about taking some steps . . .</h3>
-
-    <p>Cool picture here. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
-      Duis autem vel eum iriure dolor in hendrerit.</p>
-
+  <blockquote class="bq-center">
+    <p>
+      <span>We are what we repeatedly do. Excellence, then, is not a an act, but a habit.</span>
+      <cite>Aristotle</cite>
+    </p>
+  </blockquote>
 <% end %>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
