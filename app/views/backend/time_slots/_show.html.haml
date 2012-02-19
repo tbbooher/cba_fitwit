@@ -26,11 +26,11 @@
 
 %h4
   - @unregistered_users =  (@location.users - @time_slot.users_going.to_a).map{|u| [u.certain_name, u.id]}
-  = form_tag backend_location_fitness_camp_time_slot_register_user_path(@location.id, @fitness_camp.id, @time_slot.id), remote: true do
+  = form_tag backend_location_fitness_camp_time_slot_register_user_path(@location.id, @fitness_camp.id, @time_slot.id), :class => 'form-horizontal', remote: true do
     %fieldset
-    .clearfix
+    .control-group
       = label_tag :user_id, "User"
-      .input
+      .controls
         = select_tag :user_id, options_for_select(@unregistered_users)
     .form-actions
       = submit_tag "Add User", class: "btn btn-primary"
