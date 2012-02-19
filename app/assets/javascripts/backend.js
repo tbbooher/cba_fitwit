@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.validate.min
 //= require backend/jquery.timePicker.min
 //= require backend/jquery-ui-timepicker-addon
 //= require backend/jquery-ui.multidatespicker
@@ -11,16 +12,78 @@
 
 // should we add gcal ?
 
-$(function (){
+// setup defaults for $.validator outside domReady handler
+$.validator.setDefaults({
+    highlight: function (element) {
+        $(element).closest(".control-group").addClass("error");
+    },
+    unhighlight: function (element) {
+        $(element).closest(".control-group").removeClass("error");
+    }
+});
+
+$(function () {
 //    $(".alert-message").alert();
     $(".alert").alert();
     $("#user_edit_tabs").tab('show');
+    $(".event_form").validate({
+      rules: {
+        "event[starts_at]": {
+          required: true,
+          date: true
+        },
+        "event[ends_at]": {
+          required: true,
+          date: true
+        }
+      }
+    });
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
-    $(".datetimepicker").datetimepicker({ dateFormat: 'D, dd M yy' });
+    ///////////////////////////////////////////////////////////
+    $('#start_datetimepicker').datetimepicker({
+        dateFormat: 'D, dd M yy',
+        onClose: function(dateText, inst) {
+            var endDateTextBox = $('#end_datetimepicker');
+            if (endDateTextBox.val() != '') {
+                var testStartDate = new Date(dateText);
+                var testEndDate = new Date(endDateTextBox.val());
+                if (testStartDate > testEndDate)
+                    endDateTextBox.val(dateText);
+            }
+            else {
+                endDateTextBox.val(dateText);
+            }
+        },
+        onSelect: function (selectedDateTime){
+            var start = $(this).datetimepicker('getDate');
+            $('#end_datetimepicker').datetimepicker('option', 'minDate', new Date(start.getTime()));
+        }
+    });
+    $('#end_datetimepicker').datetimepicker({
+        dateFormat: 'D, dd M yy',
+        onClose: function(dateText, inst) {
+            var startDateTextBox = $('#start_datetimepicker');
+            if (startDateTextBox.val() != '') {
+                var testStartDate = new Date(startDateTextBox.val());
+                var testEndDate = new Date(dateText);
+                if (testStartDate > testEndDate)
+                    startDateTextBox.val(dateText);
+            }
+            else {
+                startDateTextBox.val(dateText);
+            }
+        },
+        onSelect: function (selectedDateTime){
+            var end = $(this).datetimepicker('getDate');
+            $('#example16_start').datetimepicker('option', 'maxDate', new Date(end.getTime()) );
+        }
+    });
+
+    //////////////////////////////////////////////////////////
     $(".input_time").timePicker({ startTime: "5:00", endTime: "19:00", step: 60});
     $("#workout_fit_wit_workout_id").change(function () {
         var workout_id = $(this).val();
-        $.getJSON('/backend/fit_wit_workouts/' + workout_id + '.json', function(data){
+        $.getJSON('/backend/fit_wit_workouts/' + workout_id + '.json', function(data) {
             $("#workout_description").html("<b>Units:</b> " + data.score_method + "<br><b>Description:</b> " + data.description + "</div>");
             $(".score_input").attr("placeholder", data.placeholder_hint);
         })
@@ -29,8 +92,8 @@ $(function (){
     })
     $("#record_workouts").click(function () {
         if ($("#fit_wit_workout_id").val() == 0) {
-        alert("You need to select a Fit Wit Workout for these folks.");
-        return false;
+            alert("You need to select a Fit Wit Workout for these folks.");
+            return false;
         }
     })
     if ($("#multiple_date_select").length > 0) {
@@ -49,15 +112,15 @@ $(function (){
             }
             $('#multiple_date_select').multiDatesPicker(options);
         });
-        $(".del_button").click( function() {
+        $(".del_button").click(function() {
             $('#multiple_date_select').datepicker('refresh');
         })
     }
 });
 
-jQuery.fn.delay = function(time,func){
-    return this.each(function(){
-        setTimeout(func,time);
+jQuery.fn.delay = function(time, func) {
+    return this.each(function() {
+        setTimeout(func, time);
     });
 };
 

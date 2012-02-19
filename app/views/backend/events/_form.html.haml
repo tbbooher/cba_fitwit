@@ -1,9 +1,10 @@
-= simple_form_for [:backend, @location, @event] do |f|
+= simple_form_for [:backend, @location, @event], html: { :class => 'event_form form-horizontal' } do |f|
   %fieldset
     = f.input :title
-    = f.input :starts_at, label: "Starts", :input_html => { :class => 'datetimepicker' }
-    = f.input :ends_at, label: "Ends", :input_html => { :class => 'datetimepicker' }
     = f.input :description, as: :text, :input_html => { rows: 8 }
     = f.input :all_day, as: :boolean
+    - # this needs to display rfc822
+    = f.input :starts_at, label: "Starts", :input_html => { :id => 'start_datetimepicker' }
+    = f.input :ends_at, label: "Ends", :input_html => { :id => 'end_datetimepicker' }
   .form-actions
-    = f.submit class: "btn btn-primary"
+    = f.submit class: "btn-primary"

@@ -1,14 +1,15 @@
-= simple_form_for [:backend, @location] do |f|
+= simple_form_for [:backend, @location], :html => { :class => 'form-horizontal' } do |f|
   %fieldset
     = f.input :name
     = f.input :description, as: :text
-    = f.input :contact_info
+    = f.input :contact_info, hint: "Just a text description"
     = f.input :street_address
     = f.input :city
     = f.input :us_state
     = f.input :zip
     = f.input :active, as: :boolean
+    -# the lat and long could really come from the address
     = f.input :lat
     = f.input :lon
   .form-actions
-    = f.submit :class => "btn btn-primary"
+    = f.submit :class => "btn-primary"

@@ -13,6 +13,10 @@ class Event
 
   validate :dates_correlation
 
+  validates :title, presence: true
+  validates :starts_at, presence: true, is_a_date: true
+  validates :ends_at, presence: true, is_a_date: true
+
   #scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
   #scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
   # re-written in Mongoid
@@ -40,7 +44,15 @@ class Event
   end
 
   def dates_correlation
-    @errors.add(:ends_at, "The event must end after it started") if starts_at > ends_at
+    if starts_at && ends_at
+      @errors.add(:ends_at, "The event must end after it started") if starts_at > ends_at
+    else
+      unless starts_at
+        @errors.add(:starts_at, "You need to add a start time")
+      else
+        @errors.add(:end_at, "You need to add a end time")
+      end
+    end
   end
 
 end
