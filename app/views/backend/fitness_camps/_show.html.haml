@@ -19,7 +19,7 @@
 
 %h3
   Time Slots
-  %ol
-    - @fitness_camp.time_slots.each do |ts|
-      %li
-        = link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(@location.id, @fitness_camp.id, ts.id)
+%ul.nav.nav-tabs.nav-stacked
+  - @fitness_camp.time_slots.each do |ts|
+    %li
+      = link_to ts.start_time_f, backend_location_fitness_camp_time_slot_path(@location.id, @fitness_camp.id, ts.id)

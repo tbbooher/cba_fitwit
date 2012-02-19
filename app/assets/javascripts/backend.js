@@ -4,8 +4,7 @@
 //= require backend/jquery.timePicker.min
 //= require backend/jquery-ui-timepicker-addon
 //= require backend/jquery-ui.multidatespicker
-//= require backend/bootstrap-alert
-//= require backend/bootstrap-tab
+//= require backend/bootstrap.min
 
 //= require backend/location
 //= require backend/manage_workouts
@@ -14,6 +13,7 @@
 
 $(function (){
 //    $(".alert-message").alert();
+    $(".alert").alert();
     $("#user_edit_tabs").tab('show');
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
     $(".datetimepicker").datetimepicker({ dateFormat: 'D, dd M yy' });

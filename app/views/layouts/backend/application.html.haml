@@ -53,10 +53,10 @@
               .page-header{style: "margin-top:0;"}
                 = yield :header
               - flash && flash.each do |key, value|
-                .alert-message.fade.in{:class => key}
+                .alert.fade.in{:class => "alert-#{key}"}
                   %a.close{:href => '#', "data-dismiss" => "alert"}×
                   %p= value
               %span.row
               = yield
               %footer
-                %p &copy; FitWit 2011
+                %p &copy; FitWit 2012

@@ -3,4 +3,6 @@ class MedicalCondition
 
   field :name, :type => String
 
+  validates :name, presence: true
+
 end

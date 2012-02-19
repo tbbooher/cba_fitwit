@@ -93,7 +93,7 @@ class Backend::TimeSlotsController < Backend::ResourceController
       end
     end
     if errors.empty?
-    flash[:notice] = "Successfully added #{params[:user_ids].size} members to #{time_slot.short_title}."
+    flash[:success] = "Successfully added #{params[:user_ids].size} members to #{time_slot.short_title}."
     fc = time_slot.fitness_camp
     redirect_to backend_location_fitness_camp_time_slot_path(fc.location.id, fc.id, time_slot.id)
     else

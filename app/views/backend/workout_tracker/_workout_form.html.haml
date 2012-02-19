@@ -2,8 +2,8 @@
 = simple_form_for [:backend, @workout], url: backend_update_workout_for_user_path,id: "workout_form", :html => { :class => 'form-horizontal' } do |f|
   = f.input :meeting_id, as: :hidden, input_html: {value: @meeting.id}
   = f.input :user_id, as: :hidden, input_html: {value: @user.id}
-  = f.input :fit_wit_workout_id, collection: FitWitWorkout.all.map{ |u| [u.name, u.id] }, include_blank: false
-  #workout_description
+  = f.input :fit_wit_workout_id, collection: FitWitWorkout.all.map{ |u| [u.name, u.id] }, include_blank: false, prompt: "Select a FitWit Workout"
+  #workout_description{style: "margin-left:145px;"}
   = f.input :score
   = f.input :user_note
   = f.input :rxd, as: :boolean
