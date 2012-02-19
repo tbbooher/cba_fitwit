@@ -22,6 +22,17 @@ $.validator.setDefaults({
     }
 });
 
+jQuery.validator.addMethod("greaterThan",
+function(value, element, params) {
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (parseFloat(value) > parseFloat($(params).val()));
+},'Must be greater than the start date.');
+
+
 $(function () {
 //    $(".alert-message").alert();
     $(".alert").alert();
@@ -35,6 +46,19 @@ $(function () {
         "event[ends_at]": {
           required: true,
           date: true
+        }
+      }
+    });
+    $(".fc_form").validate({
+      rules: {
+        "fitness_camp[session_start_date]": {
+          required: true,
+          date: true
+        },
+        "fitness_camp[session_end_date]": {
+          required: true,
+          date: true,
+          greaterThan: "#fitness_camp_session_start_date"
         }
       }
     });

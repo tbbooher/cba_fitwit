@@ -1,4 +1,4 @@
-= simple_form_for [ :backend, @location, @fitness_camp ] do |f|
+= simple_form_for [ :backend, @location, @fitness_camp ], :html => { :class => 'fc_form form-horizontal' } do |f|
   %fieldset
     = f.input :title
     = f.input :session_start_date, :input_html => { :class => 'datepicker' }
