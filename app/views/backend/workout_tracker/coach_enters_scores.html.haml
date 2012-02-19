@@ -4,9 +4,9 @@
 = simple_form_for([:backend, @location, @fitness_camp, @time_slot, @meeting], html: { :class => 'form-inline' }, url: backend_update_workouts_for_camp_path(@meeting.id)) do |f|
   %fieldset
     .control-group
-      = label_tag :fit_wit_workout_id, "Workout", class: 'control-label'
+      = label_tag :workout_fit_wit_workout_id, "Workout", class: 'control-label'
       .controls
-        = select_tag :fit_wit_workout_id, options_for_select(@possible_workouts)
+        = select_tag :workout_fit_wit_workout_id, options_for_select(@possible_workouts)
     #workout_description
     .control-group
       = f.simple_fields_for :workouts, @new_workouts do |wo_b|

@@ -6,12 +6,10 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
   def add_workout_for_user
     @user = User.find(params[:user_id])
     @meeting = Meeting.find(params[:meeting_id])
-    @time_slot = @meeting.time_slot
-    @fitness_camp = @time_slot.fitness_camp
-    @location = @fitness_camp.location
     @users_workouts = @meeting.workouts.where(user_id: @user.id).all.to_a
     #@exertions = Exertion.find(:all,:conditions => ['meeting_user_id = ?',@meeting_user_id])
     @other_attendees = @meeting.attendees.to_a - @user.to_a
+    @workout = Workout.new
   end
 
   def coach_enters_scores
@@ -28,15 +26,31 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
 
   def update_workout_for_user
     # action_method
-    @user = User.find(params[:user_id])
-    @w = Workout.new
-    @w.user_id = @user.id
-    @w.rxd = params[:rxd]
-    @w.user_note = params[:user_note]
-    @w.score = params[:score]
-    @w.fit_wit_workout_id = params[:fit_wit_workout_id]
-    @w.meeting_id = params[:meeting_id]
-    @w.save
+    @workout = Workout.new(params[:workout])
+    @meeting = Meeting.find(params[:workout][:meeting_id])
+    if @workout.save
+      ts = @meeting.time_slot
+      fc = ts.fitness_camp
+      l = fc.location.id
+      flash[:notice] = "Successfully created workout"
+      redirect_to backend_location_fitness_camp_time_slot_meeting_path(l, fc.id, ts.id, @meeting.id)
+    else
+      @user = User.find(params[:workout][:user_id])
+      @other_attendees = @meeting.attendees.to_a - @user.to_a
+      @users_workouts = @meeting.workouts.where(user_id: @user.id).all.to_a
+      render action: :add_workout_for_user
+    end
+
+    #
+    #@user = User.find(params[:user_id])
+    #@w = Workout.new
+    #@w.user_id = @user.id
+    #@w.rxd = params[:rxd]
+    #@w.user_note = params[:user_note]
+    #@w.score = params[:score]
+    #@w.fit_wit_workout_id = params[:fit_wit_workout_id]
+    #@w.meeting_id = params[:meeting_id]
+    #@w.save
   end
 
   def update_workouts_for_camp
@@ -48,28 +62,15 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
       flash[:notice] = "Successfully recorded all workouts"
       redirect_to  backend_location_fitness_camp_time_slot_meeting_path(l,fc.id,ts.id,@meeting.id)
     else
-      @fit_wit_workout_id = params[:fit_wit_workout_id]
+      # we can use this to auto-select the workout they selected
+      # probably should, but worried about jquery stuff
+      #@fit_wit_workout_id = params[:fit_wit_workout_id]
+      flash[:notice] = "Error saving workout"
       @new_workouts = @meeting.workouts.select {|w| !w.persisted?}
       @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
       render action: 'coach_enters_scores'
       # and highlight errors
-    end    
-
-    # # workouts_method
-    # @fww = FitWitWorkout.find(params[:fit_wit_workout_id])
-    # params = params
-    # @workouts = []
-    # params[:workouts].each do |s|
-    #   w = Workout.new
-    #   w.user_id    = s[:user_id]
-    #   w.score      = s[:score]
-    #   w.user_note  = s[:note]
-    #   w.rxd        = s[:rxd]
-    #   w.fit_wit_workout_id = params[:fit_wit_workout_id]
-    #   w.meeting_id         = params[:meeting_id]
-    #   w.save
-    #   @workouts << w
-    # end
+    end
   end
 
   def delete_workout

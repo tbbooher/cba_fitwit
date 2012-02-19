@@ -7,17 +7,18 @@ class ScoreHasCommonValueValidator < ActiveModel::EachValidator
       time = /[\d\.]+(?:\:[\d\.]+){,2}/
       float = /\d+(?:\.\d+)?/
       error = false
+      trimmed_score = record.score.strip #gsub(/\s+/,"")
       case record.fit_wit_workout.score_method
         when "sum-slashes"
-          error = true unless record.score.match(/\A#{float}+(?:\/#{float}+)*\z/)
+          error = true unless trimmed_score.match(/\A#{float}+(?:\/#{float}+)*\z/)
         when "sum-commas"
-          error = true unless record.score.match(/\A#{float}+(?:,#{float}+)*\z/)
+          error = true unless trimmed_score.match(/\A#{float}+(?:,#{float}+)*\z/)
         when "simple-rounds"
-          error = true unless record.score.match(/\A\d+\z/)
+          error = true unless trimmed_score.match(/\A\d+\z/)
         when "simple-time", "parse-time"
-          error = true unless record.score.match(/\A#{time}\z/)
+          error = true unless trimmed_score.match(/\A#{time}\z/)
         when "slash-separated-time"
-          error = true unless record.score.match(/\A#{time}+(?:\/#{time}+)*\z/)
+          error = true unless trimmed_score.match(/\A#{time}+(?:\/#{time}+)*\z/)
         else
           error = true
       end

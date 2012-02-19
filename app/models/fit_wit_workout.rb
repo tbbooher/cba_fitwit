@@ -140,7 +140,7 @@ class FitWitWorkout
     case self.score_method
       when "sum-slashes"
         # should be
-       #.inject(:+) { |s,a| s+a.to_f }
+       #.inject { |s,a| s+a.to_f }
         my_common_value = score.split("/").collect { |a| a.to_f }.sum
       when "sum-commas"
         my_common_value = score.split(",").collect { |a| a.to_f }.sum

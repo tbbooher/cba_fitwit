@@ -49,8 +49,8 @@ class Backend::MeetingsController < Backend::ResourceController
     end
   end
 
-  def show_workout_results
-    @meeting = Meeting.find(params[:meeting_id])
-    @workouts = @meeting.workouts.group_by(&:fit_wit_workout_id)
-  end
+  #def show_workout_results
+  #  @meeting = Meeting.find(params[:meeting_id])
+  #  @workouts = @meeting.workouts.group_by(&:fit_wit_workout_id)
+  #end
 end

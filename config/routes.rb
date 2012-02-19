@@ -27,11 +27,11 @@ Cba::Application.routes.draw do
     post "add_meetings/:time_slot_id" => "meetings#add_meetings", as: :add_meetings
     get "add_workout_for_user/:user_id/meeting/:meeting_id" => "workout_tracker#add_workout_for_user", as: :add_workout_for_user
     get "coach_enters_scores/:meeting_id" => "workout_tracker#coach_enters_scores", as: :coach_score_entry
-    get "show_workout_results/:meeting_id" => "meetings#show_workout_results", as: :show_workout_results
+    #get "show_workout_results/:meeting_id" => "meetings#show_workout_results", as: :show_workout_results
     #match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
     match "delete_workout/:workout_id" => "workout_tracker#delete_workout", as: :delete_workout
     #delete_workout
-    post "update_workout_for_user/:user_id" => "workout_tracker#update_workout_for_user", as: :update_workout_for_user
+    post "update_workout_for_user" => "workout_tracker#update_workout_for_user", as: :update_workout_for_user
     put "update_workouts_for_camp/:id" => "workout_tracker#update_workouts_for_camp", as: :update_workouts_for_camp
 
     resources :users do

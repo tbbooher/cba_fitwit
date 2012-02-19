@@ -1,23 +1,11 @@
-= form_tag backend_update_workout_for_user_path(@user.id), id: "workout_form", remote: true do
-  %fieldset
-    = hidden_field_tag :meeting_id, @meeting.id
-    .clearfix
-      = label_tag :fit_wit_workout_id, "Workout"
-      .input
-        = select_tag :fit_wit_workout_id, options_for_select(FitWitWorkout.all.map{ |u| [u.name, u.id] })
-    .clearfix
-      = label_tag :score
-      .input
-        = text_field_tag :score
-        %span.help-block Make sure you enter times like HH:MM:SS
-    .clearfix
-      = label_tag :rxd
-      .input
-        = check_box_tag :rxd
-    .clearfix
-      = label_tag :user_note
-      .input.span4
-        = text_area_tag :user_note
-        %span.help-block Anything of note?
+- # need to remove user id from url and then update the url with a traditional create . . .
+= simple_form_for [:backend, @workout], url: backend_update_workout_for_user_path,id: "workout_form", :html => { :class => 'form-horizontal' } do |f|
+  = f.input :meeting_id, as: :hidden, input_html: {value: @meeting.id}
+  = f.input :user_id, as: :hidden, input_html: {value: @user.id}
+  = f.input :fit_wit_workout_id, collection: FitWitWorkout.all.map{ |u| [u.name, u.id] }, include_blank: false
+  #workout_description
+  = f.input :score
+  = f.input :user_note
+  = f.input :rxd, as: :boolean
   .form-actions
-    = submit_tag "Add Workout", class: "btn btn-primary"
+    = f.button :submit, "Add Workout", class: "btn-primary"

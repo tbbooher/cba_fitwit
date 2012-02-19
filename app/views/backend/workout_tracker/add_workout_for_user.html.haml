@@ -3,8 +3,9 @@
 / Left thumbnail column
 .row
   .span2
-    %h2 Other attendees
-    %ul
+    %h4 Others
+    %p
+    %ul.nav.nav-tabs.nav-stacked
       - @other_attendees.each do |a|
         %li
           = link_to a.full_name, backend_add_workout_for_user_path(a.id,@meeting.id)
@@ -12,6 +13,9 @@
   .span8
     = render "workout_form"
     - unless @users_workouts.empty?
+      %h3
+        Other workouts for
+        = @user.first_name
       %table.table.table-striped#workouts_table
         %thead
           %tr
@@ -26,5 +30,5 @@
     - else
       %p
         No workouts yet recorded for #{@user.full_name} at this meeting.
-    %div= link_to "back to attendance sheet", backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, @meeting.id)
+    %div= link_to "back to meeting", backend_location_fitness_camp_time_slot_meeting_path(@meeting.time_slot.fitness_camp.location.id, @meeting.time_slot.fitness_camp.id, @meeting.time_slot.id, @meeting.id)
 

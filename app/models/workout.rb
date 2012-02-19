@@ -31,6 +31,10 @@ class Workout
     "#{self.score} #{self.exercise.units}"
   end
 
+  def show_rxd
+    self.rxd? ? "<span class='label label-success'>rx</span>".html_safe : ""
+  end
+
   def find_common_value
     if self.fit_wit_workout
       self.common_value = self.fit_wit_workout.common_value(self.score)

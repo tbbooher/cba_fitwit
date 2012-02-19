@@ -13,5 +13,5 @@
           %td
             = "#{workout.user.short_name}."
           %td= workout.score
-          %td= workout.rxd? ? "<span class='label label-success'>rx</span>".html_safe : ""
+          %td= workout.show_rxd
           %td{:cellpadding => "10px"}= workout.user_note

@@ -18,7 +18,7 @@ $(function (){
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
     $(".datetimepicker").datetimepicker({ dateFormat: 'D, dd M yy' });
     $(".input_time").timePicker({ startTime: "5:00", endTime: "19:00", step: 60});
-    $("#fit_wit_workout_id").change(function () {
+    $("#workout_fit_wit_workout_id").change(function () {
         var workout_id = $(this).val();
         $.getJSON('/backend/fit_wit_workouts/' + workout_id + '.json', function(data){
             $("#workout_description").html("<b>Units:</b> " + data.score_method + "<br><b>Description:</b> " + data.description + "</div>");

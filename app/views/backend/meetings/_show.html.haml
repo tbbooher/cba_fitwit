@@ -9,6 +9,5 @@
     = render "show_workouts"
 .row
   .span10
-    .well
+    .form-actions
       = link_to "Enter Scores for Class", backend_coach_score_entry_path(@meeting.id), class: "btn btn-primary"
-      = link_to "See Scores for Class", backend_show_workout_results_path(@meeting.id), class: "btn btn-success"
