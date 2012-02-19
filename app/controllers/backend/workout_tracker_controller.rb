@@ -9,7 +9,7 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
     @time_slot = @meeting.time_slot
     @fitness_camp = @time_slot.fitness_camp
     @location = @fitness_camp.location
-    @users_workouts = @meeting.camp_workouts.map{|cw| cw.workouts}.flatten.where(user_id: @user.id).all.to_a
+    @users_workouts = @meeting.workouts.where(user_id: @user.id).all.to_a
     #@exertions = Exertion.find(:all,:conditions => ['meeting_user_id = ?',@meeting_user_id])
     @other_attendees = @meeting.attendees.to_a - @user.to_a
   end
@@ -19,11 +19,11 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
     @time_slot = @meeting.time_slot
     @fitness_camp = @time_slot.fitness_camp
     @location = @fitness_camp.location
-    @cwo =  @meeting.camp_workouts.new
+    @new_workouts = []
     @meeting.attendees.asc(:first_name).each do |user|
-      @cwo.workouts.build(user_id: user.id)
+      @new_workouts << @meeting.workouts.build(user_id: user.id)
     end
-    #@possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
+    @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
   end
 
   def update_workout_for_user
@@ -40,14 +40,17 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
   end
 
   def update_workouts_for_camp
-    @meeting = Meeting.find(params[:meeting_id])
+    @meeting = Meeting.find(params[:id])
     ts = @meeting.time_slot
     fc = ts.fitness_camp
     l = fc.location.id
     if @meeting.update_attributes(params[:meeting])
       flash[:notice] = "Successfully recorded all workouts"
-      redirect_to  backend_location_fitness_camp_time_slot_meeting(l,fc.id,ts.id,@meeting.id)
+      redirect_to  backend_location_fitness_camp_time_slot_meeting_path(l,fc.id,ts.id,@meeting.id)
     else
+      @fit_wit_workout_id = params[:fit_wit_workout_id]
+      @new_workouts = @meeting.workouts.select {|w| !w.persisted?}
+      @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
       render action: 'coach_enters_scores'
       # and highlight errors
     end    

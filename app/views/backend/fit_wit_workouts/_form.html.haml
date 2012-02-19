@@ -2,7 +2,7 @@
   %fieldset
     = f.input :name
     = f.input :description, :as => :text
-    = f.input :units, collection: FitWitWorkout::EXERCISE_UNITS
-    = f.input :score_method, collection: FitWitWorkout::SCORE_METHODS
+    = f.input :units, collection: FitWitWorkout::EXERCISE_UNITS, include_blank: false
+    = f.input :score_method, collection: FitWitWorkout::SCORE_METHODS, include_blank: false
   .form-actions
     = f.submit :class => "btn btn-primary"

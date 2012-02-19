@@ -8,12 +8,10 @@ class Meeting
 
   belongs_to :time_slot
   has_and_belongs_to_many :attendees, class_name: "User", inverse_of: :attendances
-  has_many :camp_workouts, autosave: true
+  has_many :workouts, autosave: true
 
-  accepts_nested_attributes_for :camp_workouts, allow_destroy: true # , reject_if: lambda {|a| a[:score].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :workouts, allow_destroy: true # , reject_if: lambda {|a| a[:score].blank? }, allow_destroy: true
 
-  # need to get workouts in here
-  
   def meeting_date_f
     self.meeting_date.strftime("%d-%b")
   end

@@ -20,7 +20,7 @@ end
 # Bundle gems needed for Mongoid
 gem 'jquery-rails'
 gem "mongo"
-gem "mongoid", ">= 2.4.3"  #, :path => "/Users/aa/Development/R31/mongoid-1"
+gem "mongoid", ">= 2.4.4"  #, :path => "/Users/aa/Development/R31/mongoid-1"
 gem "bson_ext" #, "1.3.1" #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
@@ -79,7 +79,7 @@ group :development, :test do
   gem 'headless', '0.1.0'  
   # gem 'rspec', '2.6.0'
   gem 'mongoid-rspec', ">= 1.4.4"
-  gem 'rspec-rails', '>= 2.8.1'
+  gem 'rspec-rails', git: 'git://github.com/rspec/rspec-rails.git' # '>= 2.8.1'
   gem 'json_pure'
   gem 'capybara'  # , git: 'git://github.com/jnicklas/capybara.git'
   gem 'database_cleaner'

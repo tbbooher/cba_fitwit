@@ -7,19 +7,21 @@ class Workout
   field :rxd, :type => Boolean
   field :common_value, :type => Float
 
-  validates :score, presence: true
+  validates :score, presence: true, score_has_common_value: true
+  validates :fit_wit_workout_id, presence: true
+
 
   # relations
   belongs_to :user
-  #belongs_to :meeting
   belongs_to :fit_wit_workout
-  belongs_to :camp_workout
+  belongs_to :meeting
 
   # after save callback
   before_create :find_common_value
   after_save :update_prs
 
   # this matches find exercise progress
+
   scope :for_user, ->(user)  { where(user_id: user.id) }
   # we are going to move this to FitnessCamp
   scope :for_camp, ->(camp) { where(:meeting_id.in => camp.time_slots.flatten.map(&:meetings).flatten.map(&:id)) }
@@ -30,8 +32,7 @@ class Workout
   end
 
   def find_common_value
-    if self.camp_workout
-      self.fit_wit_workout_id = self.camp_workout.fit_wit_workout.id
+    if self.fit_wit_workout
       self.common_value = self.fit_wit_workout.common_value(self.score)
     end
   end
@@ -70,20 +71,19 @@ class Workout
     gpr.user_note = self.user_note
     gpr.rxd = self.rxd
     gpr.common_value = self.common_value
-    gpr.date_accomplished = self.camp_workout.meeting.meeting_date
+    gpr.date_accomplished = self.meeting.meeting_date
     gpr.sex = self.user.sex_symbol # :male or :female
     # extra qualifiers for global queries
     gpr.user = self.user
     # all for the love of mongo, our relational database cringes inside
-    gpr.fitness_camp = self.camp_workout.meeting.time_slot.fitness_camp
-    gpr.time_slot = self.camp_workout.meeting.time_slot
-    gpr.meeting = self.camp_workout.meeting
+    gpr.fitness_camp = self.meeting.time_slot.fitness_camp
+    gpr.time_slot = self.meeting.time_slot
+    gpr.meeting = self.meeting
     # embed this in a fww !
     gpr.fit_wit_workout = self.fit_wit_workout
-    # why did we want to save this?
-    #unless self.fit_wit_workout.save!
-    #  raise "can't save the fww"
-    #end
+    unless self.fit_wit_workout.save!
+      raise "can't save the fww"
+    end
   end
 
   def update_user_pr_object(o_pr, u)
@@ -92,8 +92,8 @@ class Workout
     o_pr.rxd = self.rxd
     o_pr.common_value = self.common_value
     o_pr.fit_wit_workout = self.fit_wit_workout
-    o_pr.fitness_camp = self.camp_workout.meeting.time_slot.fitness_camp
-    o_pr.date_accomplished = self.camp_workout.meeting.meeting_date
+    o_pr.fitness_camp = self.meeting.time_slot.fitness_camp
+    o_pr.date_accomplished = self.meeting.meeting_date
     unless u.save
       raise "error with pr"
     end

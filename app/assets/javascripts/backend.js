@@ -18,17 +18,21 @@ $(function (){
     $(".datepicker").datepicker({ dateFormat: 'D, dd M yy' });
     $(".datetimepicker").datetimepicker({ dateFormat: 'D, dd M yy' });
     $(".input_time").timePicker({ startTime: "5:00", endTime: "19:00", step: 60});
-    $(".fit_wit_workout").change(function () {
+    $("#fit_wit_workout_id").change(function () {
         var workout_id = $(this).val();
-        var select_field = $(this);
-        var s_id = select_field.attr("id");
-            $.getJSON('/backend/fit_wit_workouts/' + workout_id + '.json', function(data){
-                if ($("#e_" + s_id).length == 0) {
-                  select_field.parent().append("<div id='e_" + s_id + "'></div>");
-                }
-                $("#e_" + s_id).html("<b>Units:</b> " + data.score_method + "<br><b>Description:</b> " + data.description + "</div>");
-            })
+        $.getJSON('/backend/fit_wit_workouts/' + workout_id + '.json', function(data){
+            $("#workout_description").html("<b>Units:</b> " + data.score_method + "<br><b>Description:</b> " + data.description + "</div>");
+            $(".score_input").attr("placeholder", data.placeholder_hint);
         })
+        // need to set every workout field to the workout id
+        $(".workout_fww_id").val(workout_id)
+    })
+    $("#record_workouts").click(function () {
+        if ($("#fit_wit_workout_id").val() == 0) {
+        alert("You need to select a Fit Wit Workout for these folks.");
+        return false;
+        }
+    })
     if ($("#multiple_date_select").length > 0) {
         var current_dates = [];
         var start_date = "";

@@ -32,7 +32,7 @@ Cba::Application.routes.draw do
     match "delete_workout/:workout_id" => "workout_tracker#delete_workout", as: :delete_workout
     #delete_workout
     post "update_workout_for_user/:user_id" => "workout_tracker#update_workout_for_user", as: :update_workout_for_user
-    post "update_workouts_for_camp" => "workout_tracker#update_workouts_for_camp", as: :update_workouts_for_camp
+    put "update_workouts_for_camp/:id" => "workout_tracker#update_workouts_for_camp", as: :update_workouts_for_camp
 
     resources :users do
       resources :user_prs

@@ -1,15 +1,17 @@
 %h2 Workouts
-- if @meeting.camp_workouts.size == 0
+
+- if @meeting.workouts.size == 0
   There have been no workouts yet for this meeting
 - else
-  - @meeting.camp_workouts.each do |cwo|
+  - @meeting.workouts.group_by(&:fit_wit_workout_id).each do |fww|
     %h4
-      = cwo.fit_wit_workout.name.titleize
+      = FitWitWorkout.find(fww[0]).name
       Results
     %table.table.table-striped{:style => "width:400px;"}
-      - cwo.workouts.each do |workout|
+      - fww[1].sort_by(&:common_value).reverse.each do |workout|
         %tr
           %td
             = "#{workout.user.short_name}."
           %td= workout.score
+          %td= workout.rxd? ? "<span class='label label-success'>rx</span>".html_safe : ""
           %td{:cellpadding => "10px"}= workout.user_note

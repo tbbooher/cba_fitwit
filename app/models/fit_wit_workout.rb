@@ -42,6 +42,34 @@ class FitWitWorkout
     self.prs.where(user_id: user.id).first
   end
 
+  def as_json(options = {})
+    {
+      name: self.name,
+      score_method: self.score_method,
+      description: self.description || "",
+      placeholder_hint: self.placeholder_hint
+    }
+  end
+
+  def placeholder_hint
+    case self.score_method
+      when "sum-slashes"
+        "10/12/13"
+      when "sum-commas"
+        "11,12,15,17"
+      when "simple-rounds"
+        "25"
+      when "simple-time"
+        "1:23 = m:ss"
+      when "parse-time"
+        "0:23:10 = hh:mm:ss"
+      when "slash-separated-time"
+        "1:23/4:23/7:10"
+      else
+        my_common_value = 'no score method defined' # self.score.to_f
+    end
+  end
+
   def top_10_all_fit_wit
     self.prs.desc(:common_value).limit(10)
   end
@@ -54,31 +82,6 @@ class FitWitWorkout
   def find_completed_fit_wit_workouts
     Workout.where(fit_wit_workout_id: self.id).all.to_a
   end
-
-  # these exist only to help with the input process
-
-
-  #def find_10_scores
-  #  # used in exercises_controller (as example)
-  #  Exertion.all(:select => 'score', :conditions => ['fit_wit_workout_id = ?', self.id], :limit => 10, :order => 'created_at DESC').map { |e| e.score }
-  #end
-
-  #def find_10_common_scores
-  #  # used in the exercise controller
-  #  #we want to modify this or create errors
-  #  output = []
-  #  errors = 0
-  #  Exertion.all(:conditions => ['fit_wit_workout_id = ?', self.id], :limit => 400, :order => 'created_at DESC').each do |exertion|
-  #    begin
-  #      output.push([exertion.user.short_name, exertion.score, common_value(exertion.score)])
-  #    rescue Exception=>e
-  #      errors+=1
-  #      output.push([exertion.user.short_name, exertion.score, "<b style=\"color:red;\">error!!</b>"])
-  #    end
-  #  end
-  #  return output, errors
-  #
-  #end
 
   def find_average(sex)
     common_values = self.prs.where(sex: sex).map(&:common_value)
@@ -94,14 +97,6 @@ class FitWitWorkout
     #prs.empty? ? nil : prs.max(:common_value)
     #self.exertions.select { |exu| exu.user.gender == gender_id }.map { |ex| ex.common_value }.max
   end
-
-  #def find_leaders(the_gender)
-  #  if self.score_method.nil?
-  #    return false
-  #  else
-  #    return Exertion.find_by_sql("SELECT * from prs WHERE (fit_wit_workout_id = #{self.id} AND gender = #{the_gender}) ORDER BY common_value DESC LIMIT 10;")
-  #  end
-  #end
 
   def find_competition(user)
     # given a user's pr for this workout -- who are his competitors?
@@ -144,6 +139,8 @@ class FitWitWorkout
     #complicated function -- all times are inverted so the highest score wins!
     case self.score_method
       when "sum-slashes"
+        # should be
+       #.inject(:+) { |s,a| s+a.to_f }
         my_common_value = score.split("/").collect { |a| a.to_f }.sum
       when "sum-commas"
         my_common_value = score.split(",").collect { |a| a.to_f }.sum
@@ -227,7 +224,6 @@ class FitWitWorkout
     # chart specifics
     {scores: scores, dates: dates}
   end
-
 
   private
 
