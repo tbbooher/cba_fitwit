@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
       sign_in @user, bypass: true
       redirect_to profile_path(current_user)
     else
-      Flash.now[:notice] = "Error updating profile."
+      flash.now[:notice] = "Error updating profile."
       render "edit"
     end
 
