@@ -12,24 +12,19 @@
   <%= f.input :allow_comments, as: :boolean %>
   <%= f.input :allow_public_comments, as: :boolean %> 
 
-
-  <%= f.input :synopsis, as: :text, input_html: {rows: 5, cols: 60} %>
+  <%= f.input :synopsis, as: :text, input_html: {rows: 5, style: "width:435px;"} %>
   <%= f.input :location, collection: Location.all.map{|l| [l.name, l.id]}.push(['none',nil]), include_blank: false %>
-
-  <%#= f.simple_fields_for :page do |builder| %>
-     <%#= builder.input :page_tokens, as: :checkbbox, label: builder.object.title, input_html: {value: builder.object.pages.include?(builder.object) }  %>
-  <%# end %>
 
   <div class='control-group'>
     <%= f.label :page_tokens, t(:sidebar_pages) %>
-    <div style='margin-left: 200px;' class="widgets">
+    <div style='margin-left: 160px;' class="well">
       <% for page in Page.asc(:title) %>
         <%= check_box_tag "blog[page_tokens][]", page.id.to_s, blog.pages.include?(page) %> <%= page.title %><br/>
       <% end %>
     </div>
   </div>
   
-  <%= f.input :is_draft, as: :boolean %>
+  <%= f.input :is_draft, as: :boolean, label: "Draft?" %>
   
   <div class="form-actions">
     <%= f.button :submit, class: 'btn-primary' %>

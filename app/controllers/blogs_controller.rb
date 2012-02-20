@@ -33,7 +33,6 @@ class BlogsController < ApplicationController
     end
   end
 
-
   def new
     @blog = Blog.new
   end

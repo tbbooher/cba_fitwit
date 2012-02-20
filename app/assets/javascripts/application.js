@@ -65,6 +65,5 @@
 //= require blog_side_calendar
 
 $(document).ready(function() {
-  alert("foo");
   $("#sign_up_form").validate();
 })
