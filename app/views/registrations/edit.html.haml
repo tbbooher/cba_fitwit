@@ -62,7 +62,6 @@
         .input-prepend
           = text_field_tag "address", "", placeholder: "Start typing your address"
         %p.help-block Just get close if you don't want your exact location to show
-
   .well
     - if @user.authentications.empty?
       = f.input :current_password, as: :password, hint: "We need your current password to confirm your changes", label: false, placeholder: "Your current password"
