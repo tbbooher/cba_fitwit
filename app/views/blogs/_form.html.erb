@@ -1,65 +1,26 @@
-<%= form_for(blog, :html => { :multipart => true } ) do |f| %>
+<%= simple_form_for(blog, :html => { :multipart => true }, :html => { :class => 'form-horizontal' } ) do |f| %>
 
   <%= errors_for(blog)%>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, :size => 80 %>
-  </div>
+  <%= f.input :title %>
 
-  <div class="clear"></div>
+  <%= render(:partial => 'cover_picture', :locals => { :blog => blog, :format => :thumb }) -%>
 
-  <div class="field">
-    <%= f.label :cover_picture %>
-    <%= render(
-          :partial => 'cover_picture',
-          :locals => { :blog => blog, :format => :thumb, :style => 'display: inline; ' }
-        )
-    -%>
-    <%= f.file_field :cover_picture %>
-  </div>
+  <%= f.input :cover_picture, as: :file %>   
 
-  <div class="clear"></div>
+  <%= f.input :user_role, collection: options_for_user_role(f.object.user_role), label: "Role necessary to view"  %>
+  <%= f.input :allow_comments, as: :boolean %>
+  <%= f.input :allow_public_comments, as: :boolean %> 
 
-  <div class='field'>
-    <%= f.label :delete_picture, sc(:nbsp) %>
-    <%= ui_button( 'delete', t(:delete_picture),  delete_cover_picture_blog_path(blog), :remote => true,
-        :confirm => t(:are_you_sure)) unless blog.new_record? %>
-  </div>
 
-  <div class="clear"></div>
+  <%= f.input :synopsis, as: :text, input_html: {rows: 5, cols: 60} %>
+  <%= f.input :location, collection: Location.all.map{|l| [l.name, l.id]}.push(['none',nil]), include_blank: false %>
 
-  <div class="field">
-    <%= f.label :user_role, "Role necessary to view" %>
-    <%= f.select :user_role, options_for_user_role(f.object.user_role) %>
-  </div>
+  <%#= f.simple_fields_for :page do |builder| %>
+     <%#= builder.input :page_tokens, as: :checkbbox, label: builder.object.title, input_html: {value: builder.object.pages.include?(builder.object) }  %>
+  <%# end %>
 
-  <div class="field">
-    <%= f.label :allow_comments %>
-    <%= f.check_box :allow_comments %>
-  </div>
-
-  <br class="clear">
-
-  <div class="field">
-    <%= f.label :allow_public_comments %>
-    <%= f.check_box :allow_public_comments %>
-  </div>
-
-  <br class="clear">
-  
-  <div class="field">
-    <%= f.label :synopsis %>
-    <%= f.text_area :synopsis, :rows => 5, :cols => 60 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :location %>
-    <!-- set default to none -->
-    <%= f.select :location, Location.all.map{|l| [l.name, l.id]}.push(['none',nil]) %>
-  </div>  
-
-  <div class='field'>
+  <div class='control-group'>
     <%= f.label :page_tokens, t(:sidebar_pages) %>
     <div style='margin-left: 200px;' class="widgets">
       <% for page in Page.asc(:title) %>
@@ -68,16 +29,10 @@
     </div>
   </div>
   
-  <div class='field'>
-    <%= f.label :is_draft, t(:save_as_draft) %>
-    <%= f.check_box :is_draft, default: 0 %> &nbsp; &nbsp;
-  </div>
+  <%= f.input :is_draft, as: :boolean %>
   
-  <div class='clear'></div>
-
-
-  <div class="actions">
-    <%= f.label :submit, t(:save_changes) %>
-    <%= f.submit :class => 'medium-btn glass-btn' %>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
   </div>
+
 <% end %>

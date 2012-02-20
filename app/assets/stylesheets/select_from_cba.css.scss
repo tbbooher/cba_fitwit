@@ -187,8 +187,10 @@ padding-left: 0px;
 }
 
 .cover_picture {
-  clear: right;
+  background-color:green;
+  margin: 0 10px 0 160px;
+  width:430px;
   height: auto;
   overflow: wrap;
-  float: right;
+  padding:10px;
 }
