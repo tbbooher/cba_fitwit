@@ -4,10 +4,8 @@
   %p= t(:is_draft_label)
   
 - if blog.cover_picture_exists?
-  = render :partial => '/blogs/cover_picture',          |
-           :locals => { :blog => blog,                  |
-           :format => :thumb,                           |
-           :style => 'float:right;margin-left: 10px'}   |
+  .cover_picture{id: "cover_picture_#{blog.id}", style: "float:right; margin-left: 10px;"}
+    = link_to_function( image_tag( w3c_url(blog.cover_picture.url(:thumb) ), class: "border-img"), "image_popup('#{w3c_url(blog.cover_picture.url(:popup))}')")
 
 - if can? :manage, blog
   %address{ :style=>'width: 400px; font-style: normal;' }

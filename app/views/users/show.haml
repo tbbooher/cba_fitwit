@@ -1,36 +1,45 @@
-- title "Public Profile for #{@user.name}"
+- title "FitWit Profile for #{@user.name}"
 
 - content_for :resource_actions do
     = ui_button 'expand', t(:list_registrations), registrations_path
     - if current_user && @user == current_user # It's you
         = ui_button( 'edit', (t(:edit_profile) + sc(:nbsp,:pr,:nbsp) + t(:you)).html_safe, edit_registration_path(@user)) 
         = ui_button( 'groups', t(:your_groups), user_user_groups_path(@user))
-        
-- if @user.avatar
-    %div=  link_to_function(image_tag( w3c_url(@user.avatar_url(:thumb)), :class => "img-with-shadow" ), "image_popup('#{w3c_url(@user.avatar_url(:popup))}')")
 
+%br.clear
 
-%div{:style => 'clear: right; margin-top: 10px;'}
+.one_third.well
+    - if @user.avatar
+        %div=  link_to_function(image_tag( w3c_url(@user.avatar_url(:thumb)) ), "image_popup('#{w3c_url(@user.avatar_url(:popup))}')")
 
+.one_half.last.well
     - if current_user.gis_location_token
         %div{:id => 'users-gis_location-map'}
 
-    %p 
-        User: 
-        %b= @user.name 
+%br.clear
+
+.full_page
+    - if @user.when_started_fitwit
+        %h3 FitWitting Since
+        %p
+            = @user.when_started_fitwit.stamp("January 2008")
+
+    - if @user.date_of_birth
+        %h3 Birthday
+        %p
+            = @user.date_of_birth.stamp("March 12th")
 
     - unless @user.why_i_fitwit.blank?
-        %h4 Why I FitWit:
+        %h3 Why I FitWit:
         %p
             = @user.why_i_fitwit
 
-    %h4
-        My Camps
-        - unless @user.all_fitness_camps.nil?
-            %ul
-            - @user.all_fitness_camps.each do |fc|
-                %li
-                    = fc.full_title
+    - unless @user.all_fitness_camps.nil?
+        %h3 My Camps
+        %ul
+        - @user.all_fitness_camps.each do |fc|
+            %li
+                = fc.full_title
 
 
 - if user_signed_in? && @user == current_user
@@ -49,9 +58,10 @@
         %br
         
 - if current_user.role?(:maintainer)
-    %h4{:style=>'clear: both'} Details
-    %ul
-        = render 'user_detail', :user => @user
+    .well
+        %h4{:style=>'clear: both'} Details (you see this because you are a maintainer or higher)
+        %ul
+            = render 'user_detail', :user => @user
 
 - content_for :resource_actions do
     %p{style: 'margin-bottom: 20px;'}= "" # make sure some gap

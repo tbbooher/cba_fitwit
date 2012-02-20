@@ -9,7 +9,7 @@ class AttendanceReportPdf < Prawn::Document
       text "No campers registered for this camp"
     else
       text @time_slot.longer_title, size: 20, style: :bold
-      text "Workout:                                                                Week #: "
+      text "Week #: "
       move_down 5
       draw_rows
       number_pages "#{time_slot.short_title} <page> of <total>", {start_count_at: 1, page_filter: :all, at: [bounds.right-250,0], align: :right, size: 14}
@@ -28,6 +28,7 @@ class AttendanceReportPdf < Prawn::Document
 
   def camper_lines
     [["Date/Weekday:", "", "", "", ""]] +
+    [["Workout:", "", "", "", ""]] +
     @campers.map{|c| [c.full_name, "","","",""]}
   end
 
