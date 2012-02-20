@@ -1,5 +1,5 @@
 .widgets.subpages-widget
   %h3 Manage Your FitWit Account
-  - [[:public_profile, edit_user_registration_path], [:fitwit_admin, users_fitwit_admin_path], [:contact_info, users_contact_info_path], [:health_profile, users_health_profile_path]].each do |title, path|
+  - [[:public_profile, edit_user_registration_path], [:fitwit_admin, users_fitwit_admin_path], [:contact_info, users_contact_info_path], [:health_profile, users_health_profile_path], [:passwords_and_credentials, users_authentications_update_path]].each do |title, path|
     %li.page_item{class: path.split("/").last == params[:action] ? "current_page_item" : ""}
       = link_to title.to_s.titleize, path

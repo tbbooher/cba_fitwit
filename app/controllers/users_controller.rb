@@ -97,6 +97,22 @@ class UsersController < ApplicationController
     @notifications = current_user.user_notifications.unscoped.desc(:created_at)
   end
 
+  def authentications_update
+    @user = current_user
+  end
+
+  def update_password
+    @user = User.find(current_user.id)
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Your credentials have been successfully updated."
+      sign_in @user, bypass: true
+      redirect_to profile_path(current_user)
+    else
+      flash.now[:notice] = "Error updating profile."
+      render "authentications_update"
+    end
+  end
+
   def details
     respond_to do |format|
        format.js

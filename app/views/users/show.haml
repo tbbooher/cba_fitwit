@@ -41,7 +41,7 @@
         %ul
         - @user.all_fitness_camps.each do |fc|
             %li
-                = fc.full_title
+                = fc.full_title unless fc.nil?
 
 
 - if user_signed_in? && @user == current_user

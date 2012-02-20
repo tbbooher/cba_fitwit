@@ -229,8 +229,10 @@ Cba::Application.routes.draw do
   get "users/fitwit_admin"
   get "users/contact_info"
   get "users/health_profile"
+  get "users/authentications_update"
   put "users/update_profile/" => "users#update_profile", as: :update_user_profile
   post "users/update_health_history"
+  put "users/update_password"
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
   
