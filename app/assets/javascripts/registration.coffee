@@ -36,6 +36,6 @@ $(document).ready ->
   $(".med_checkbox").click ->
     $("#explanation_div_" + this.id).toggle()
 
-  $("#consent_form").validate();
-  $("#health_status").validate();
-  $("#update_personal_information_form").validate();
+  $("#consent_form").validate
+  $("#health_status").validate
+  $("#update_personal_information_form").validate
