@@ -16,8 +16,6 @@
     %li
       %a.tab{href: '#'} Avatar
     %li
-      %a.tab{href: '#'} Authentication
-    %li
       %a.tab{href: '#'} Location
   .tab_content
     = f.input :first_name
@@ -36,22 +34,6 @@
     = f.input :avatar, as: :file
     = f.input :clear_avatar, as: :boolean
     = f.input :use_gravatar, label: "User Gravatar for #{@user.email.downcase}", as: :boolean, hint: link_button("&nbsp; What is Gravatar?".html_safe, "button link tiny", "http://gravatar.com", :target => :blank)
-  .tab_content{style: "position: absolute; left: -10000px;"}
-    - if @user.authentications.empty?
-      %h2 Password
-      = f.input :password, as: :password, hint: "leave blank if you don't want to change it"
-      = f.input :password_confirmation, as: :password
-    %h2= t(:or_user_omni_auth)
-    = render '/authentications/authentications'
-    %h3= t(:your_associated_accounts)
-    - if @user.authentications.empty?
-      = t(:you_have_no_authentications_yet)
-    - else
-      - for a in @user.authentications
-        = render(:partial => '/authentications/authentication', :locals => {:authentication => a})
-      .clear
-        = link_button( t(:edit_authentication_providers),"button edit small", authentications_path(@user) )
-    .clear
   .tab_content
     #map_well{style: "padding:20px; margin-left:160px;"}
       #gis_location-preview &nbsp;

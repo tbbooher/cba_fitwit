@@ -14,13 +14,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
-    if params[:user][:password].blank?
-      result = @user.update_without_password(params[:user])
-    else
-      result = @user.update_attributes(params[:user])
-    end
-    if result
+    if @user.update_without_password(params[:user])
       # sign in user by passing validation in case his password changed
+      flash[:notice] = "Your profile has been successfully updated"
       sign_in @user, bypass: true
       redirect_to profile_path(current_user)
     else

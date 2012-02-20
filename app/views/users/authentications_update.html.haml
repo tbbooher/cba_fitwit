@@ -1,0 +1,23 @@
+- title "Update Authentication"
+
+- content_for :resource_actions do
+  = render "shared/user_update_nav"
+
+= simple_form_for @user do |f|
+  - if @user.authentications.empty?
+    %h2 Password
+    = f.input :password, as: :password, hint: "leave blank if you don't want to change it"
+    = f.input :password_confirmation, as: :password
+  %h2= t(:or_user_omni_auth)
+  = render '/authentications/authentications'
+  %h3= t(:your_associated_accounts)
+  - if @user.authentications.empty?
+    = t(:you_have_no_authentications_yet)
+  - else
+    - for a in @user.authentications
+      = render(:partial => '/authentications/authentication', :locals => {:authentication => a})
+    .clear
+      = link_button( t(:edit_authentication_providers),"button edit small", authentications_path(@user) )
+  .clear
+  .form-actions
+    = f.button :submit, class: "btn-primary"
