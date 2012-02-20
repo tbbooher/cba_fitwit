@@ -1,8 +1,11 @@
 <% style = '' unless defined? style %>
 <% if blog.cover_picture %>
-  <div class='cover_picture' id='cover_picture_<%= blog.id -%>' style='<%= style -%>'>
+  <div class='cover_picture well' id='cover_picture_<%= blog.id -%>' style='<%= style -%>'>
       <%= link_to_function( image_tag( w3c_url(blog.cover_picture.url(format||:medium) )),
                  "image_popup('#{w3c_url(blog.cover_picture.url(:popup))}')")
       %>
+     <p>
+     <%= link_to("Delete Picture", delete_cover_picture_blog_path(blog), class: "btn btn-small btn-danger", remote: true, confirm: "Are you sure?") unless blog.new_record? %>
+     </p>
   </div>
 <% end %>
