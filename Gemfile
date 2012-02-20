@@ -100,7 +100,7 @@ group :development, :test do
   gem "haml-rails"
   gem 'faker'
   gem 'ruby-prof' # , :git => 'git://github.com/wycats/ruby-prof.git'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  # gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
 # custom FitWit gems
