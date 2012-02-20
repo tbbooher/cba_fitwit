@@ -1,4 +1,6 @@
-#location_blog_box
+#location_blog_box.widgets
+  %a{:name => "Calendar"}
+  %h3 Calendar
   #event_links
     %ul
       %li= link_to blog.title + " events", location_calendar_path(location_id)
