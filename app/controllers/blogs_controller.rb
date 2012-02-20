@@ -53,6 +53,7 @@ class BlogsController < ApplicationController
   def update    
     @blog = scoped_find(params[:id])
     respond_to do |format|
+      params[:blog][:location] = nil if params[:blog][:location].empty?
       if @blog.update_attributes(params[:blog])
         format.html {
            redirect_to(@blog, :notice => t(:blog_successfully_updated))
