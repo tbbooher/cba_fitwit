@@ -17,7 +17,7 @@ loadUserMap = (lng,lat) ->
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   map = new google.maps.Map(document.getElementById("users-gis_location-map"),myOptions)
-  $('#users-gis_location-map').height("300px").width("300px")
+  $('#users-gis_location-map').height("150px").width("300px")
   marker = {
     position: latlng,
     map: map
