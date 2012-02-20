@@ -13,14 +13,24 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    if password_needed?
-      set_flash_message :notice, :updated
-      sign_in resource_name, resource
-      redirect_to after_update_path_for(resource)
+    @user = User.find(current_user.id)
+    if @user.update_attributes(params[:user])
+      # sign in user by passing validation in case his password changed
+      sign_in @user, bypass: true
+      redirect_to profile_path(current_user)
     else
-      clean_up_passwords(resource)
-      render_with_scope :edit
+      Flash.now[:notice] = "Error updating profile."
+      render "edit"
     end
+
+    #if password_needed?
+    #  set_flash_message :notice, :updated
+    #  sign_in resource_name, resource
+    #  redirect_to after_update_path_for(resource)
+    #else
+    #  clean_up_passwords(resource)
+    #  render_with_scope :edit
+    #end
   end
   
   private
