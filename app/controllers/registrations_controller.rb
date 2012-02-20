@@ -14,7 +14,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
-    if @user.update_attributes(params[:user])
+    if params[:user][:password].blank?
+      result = @user.update_without_password(params[:user])
+    else
+      result = @user.update_attributes(params[:user])
+    end
+    if result
       # sign in user by passing validation in case his password changed
       sign_in @user, bypass: true
       redirect_to profile_path(current_user)
