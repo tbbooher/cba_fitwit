@@ -8,7 +8,7 @@
 
   <%= f.input :cover_picture, as: :file %>   
 
-  <%= f.input :user_role, collection: options_for_user_role(f.object.user_role), label: "Role necessary to view"  %>
+  <%= f.input :user_role, collection: (0..5).map{|i| [User::ROLES[i], i]}, label: "Role necessary to view", include_blank: false  %>
   <%= f.input :allow_comments, as: :boolean %>
   <%= f.input :allow_public_comments, as: :boolean %> 
 
