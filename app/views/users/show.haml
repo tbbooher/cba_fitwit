@@ -8,12 +8,14 @@
 
 %br.clear
 
-.one_third.well
-    - if @user.avatar
+- if @user.avatar
+    .one_third.well
+        %h3 Avatar
         %div=  link_to_function(image_tag( w3c_url(@user.avatar_url(:thumb)) ), "image_popup('#{w3c_url(@user.avatar_url(:popup))}')")
 
-.one_half.last.well
-    - if current_user.gis_location_token
+- if current_user.gis_location_token
+    .one_half.last.well
+        %h3 Location Map
         %div{:id => 'users-gis_location-map'}
 
 %br.clear

@@ -110,9 +110,9 @@ gem 'googlecharts'
 gem 'inherited_resources'
 gem 'table_builder', :git => 'git://github.com/raw1z/table_builder.git'
 gem 'stateflow'
-gem 'wkhtmltopdf-binary'
+#gem 'wkhtmltopdf-binary'
 gem "stamp"
-gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
+#gem "pdfkit" #, :git => "git://github.com/huerlisi/PDFKit.git"
 gem 'has_scope', '~> 0.5.1'
 gem 'kaminari'
 gem "responders"
