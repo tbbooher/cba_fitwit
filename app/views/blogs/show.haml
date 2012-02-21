@@ -45,7 +45,7 @@
         = tag_cloud
       %br.clear
 
-    - if @blog.location
+    - if @blog.location  # then is blog is tied to a specific location, show the specifics (events, etc)
       = render partial: 'blogs/location_blog_box', locals: {blog: @blog, location_id: @blog.location.id}
 
   .left_column

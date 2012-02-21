@@ -49,7 +49,7 @@ class PostingPresenter < BasePresenter
 
   def simple_intro
     if interpreter
-      interpreter.render(posting.intro)
+      truncate(interpreter.render(posting.intro), length: 400).html_safe
     else
       posting.intro(false)
     end

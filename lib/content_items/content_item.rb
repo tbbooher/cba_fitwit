@@ -65,7 +65,7 @@ module ContentItem
         field :expire_at, type: Time
   
         # ContentItems marked as 'draft' should not be in the default-scope
-        field :is_draft, :type => Boolean, :default => true
+        field :is_draft, :type => Boolean, :default => false
         scope :drafts, -> { where(is_draft: true ) }
 
         if self.respond_to?(:is_template)

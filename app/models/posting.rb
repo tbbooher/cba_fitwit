@@ -96,7 +96,9 @@ private ################################################## private ####
 
   # Render the intro (which is the first paragraph of the body)
   def content_for_intro
-    body.paragraphs[0]
+    body
+    #p_num = ([body.paragraphs.size, 3].min-1)
+    #body.paragraphs[0..p_num].join("\n")
   end
 
   # Send a notification to admins when a new posting was created
