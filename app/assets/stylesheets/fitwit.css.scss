@@ -178,6 +178,14 @@ table.ui-datepicker-calendar tbody td.highlight > a {
 	font-size: 1.2em;
 }
 
+.bquote {
+	color: #444;
+  margin: 20px 0;
+  background: transparent;
+  padding-left: 0px;
+  border-left: 4px none #eee;
+}
+
 @import "search.css.scss";
 
 @import "cold.css.scss";
