@@ -26,11 +26,6 @@
         %p
             = @user.when_started_fitwit.stamp("January 2008")
 
-    - if @user.date_of_birth
-        %h3 Birthday
-        %p
-            = @user.date_of_birth.stamp("March 12th")
-
     - unless @user.why_i_fitwit.blank?
         %h3 Why I FitWit:
         %p
