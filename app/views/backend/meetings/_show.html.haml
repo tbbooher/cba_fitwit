@@ -1,7 +1,3 @@
-%h4 Attendees
-%p= @potential_users
-= render "other_meetings"
-
 .row
   #attendance_div.span5
     = render "take_attendance"
@@ -11,3 +7,7 @@
   .span10
     .form-actions
       = link_to "Enter Scores for Class", backend_coach_score_entry_path(@meeting.id), class: "btn btn-primary"
+
+- if @meeting.workouts.size > 0
+  %h3 Ready to Paste
+  = workouts_in_textile(@meeting)

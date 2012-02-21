@@ -18,6 +18,23 @@ module Backend::ApplicationHelper
     )
   end
 
+  def workouts_in_textile(m)
+    o = ""
+    if m.workouts.size > 0
+      m.workouts.group_by{|w| w.fit_wit_workout_id}.each do |fww|
+        o += "h3. " +  FitWitWorkout.find(fww[0]).name + "<br><br>\n"
+        o += "table(table table-striped).<br>\n"
+        o += "|_.name|_.score|_.rxd|_.note|<br>\n"
+        content_tag(:div) do
+          fww[1].sort_by{|w| w.user.first_name }.each do |wo|
+            o += wo.textile_output + "<br>\n"
+          end
+        end
+      end
+    end
+    o.html_safe
+  end
+
   #def link_to_remove_fields(name, f)
   #  f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
   #end

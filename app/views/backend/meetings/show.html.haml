@@ -1,7 +1,7 @@
 - content_for :header do
   %h1= "Meeting on #{@meeting.meeting_date.strftime('%e %B')} for #{@meeting.time_slot.short_title}"
 
-%ul.breadcrumb
+%ul.breadcrumb{style: "height:25px;"}
   %li
     = link_to @location.name, backend_location_path(@location.id)
     %span.divider /
@@ -13,6 +13,8 @@
     %span.divider /
   %li.active
     = @meeting.meeting_date.strftime('%e %B')
+  %li{style: 'float:right; clear:both;'}
+    = render "other_meetings"
 
 %ul.nav.nav-tabs
   %li= link_to "Index", collection_path

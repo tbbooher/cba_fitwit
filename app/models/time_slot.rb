@@ -87,13 +87,14 @@ class TimeSlot
   end
   
   def users_going
-    self.registrations.map{|r| r.user}.sort_by{|u| u.first_name}
+    self.registrations.map{|r| r.user}.flatten.sort_by{|u| u.first_name}
   end
   
   def who_is_not_going
     # newer push
     #(User.find(:all) - @attendees)
-    # TODO -- really inefficient -- must delete!
+    # could at least filter by location -- think i might need to
+    # TODO -- really inefficient
     User.all - self.users_going
   end
 

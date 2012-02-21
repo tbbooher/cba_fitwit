@@ -70,6 +70,10 @@ class Workout
     end
   end
 
+  def textile_output
+    "|#{self.user.certain_name}|#{self.score} |#{self.rxd? ? "rxd" : " "}|#{self.user_note} |"
+  end
+
   def update_global_pr_object(gpr)
     gpr.score = self.score
     gpr.user_note = self.user_note

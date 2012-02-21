@@ -1,66 +1,36 @@
-<div class='clear'></div>
-<%= form_for([blog, posting], :html => {:multipart => true}) do |f| %>
+<%= simple_form_for([blog, posting], html: {multipart: true, class: 'form-horizontal'}) do |f| %>
 
     <%= errors_for(posting) %>
 
     <!-- FIELDS ===================================== -->
+    <%= f.input :title %>
 
-    <div class="field">
-      <%= f.label :title %>
-      <%= f.text_field :title, :size => 80 %>
-    </div>
-
-    <div class='posting_cover_picture_box' style="">
-      <div class="field">
-        <strong><%= f.label :cover_picture %></strong>
-        <%= f.file_field :cover_picture %>
-
+    <div class='posting_cover_picture_box'>
         <%= render(
                     :partial => 'cover_picture',
                     :locals => {:posting => posting, :format => :thumb}
             )
         -%>
-        <br>
-      </div>
-      <div class="field" style="padding-left: 200px;">
-        <%= ui_button('delete', t(:delete_picture), delete_cover_picture_blog_posting_path(posting.blog, posting),
-                      :remote => true,
-                      :confirm => t(:are_you_sure), :id => 'delete_cover_picture_link') unless posting.new_record? %>
-      </div>
+        <%= link_to("Delete Picture", delete_cover_picture_blog_posting_path(posting.blog, posting), class: "btn btn-small btn-danger", remote: true, confirm: "Are you sure?", id: 'delete_cover_picture_link') unless blog.new_record? %>
     </div>
+    <%= f.input :cover_picture, as: :file %>
 
-    <div class="field">
-      <%= f.label :tags %>
-      <%= f.text_field :tags, :size => 80, "data-pre" => posting.tags_array.map { |t| {id: t, name: t} }.to_json %>
-    </div>
+    <div class="clear"></div>
 
-    <div class="field">
-      <%= f.label :new_tag %>
-      <%= f.text_field :new_tag, :size => 80, :placeholder => t(:enter_new_tag) %>
-    </div>
+    <%= f.input :tags, data_pre: posting.tags_array.map { |t| {id: t, name: t} }.to_json  %>
+
+    <%= f.input :new_tag, placeholder: t(:enter_new_tag) %>
 
     <% if current_user %>
-        <div class="field">
-          <%= f.label :recipient_tokens, t(:recipients) %>
-          <%= f.text_field :recipient_tokens, :size => 80,
-                           "data-pre" => current_user.user_groups.any_in(_id: posting.recipient_group_ids).map { |t| {id: t.id, name: t.name} }.to_json,
-                           :placeholder => t(:leave_empty_to_make_the_posting_public) %>
-        </div>
+        <%= f.input :recipient_tokens, label: t(:recipients), placeholder: t(:leave_empty_to_make_the_posting_public), data_pre: current_user.user_groups.any_in(_id: posting.recipient_group_ids).map { |t| {id: t.id, name: t.name} }.to_json %>
     <% end %>
 
-    <div class="field">
-      <%= f.label :interpreter %>
-      <%= f.select :interpreter, [['Markdown', :markdown], ['Textile', :textile], [t(:none), :none]] %>
-      <%= render :partial => '/home/interpreter_help' %>
-    </div>
+    <%= f.input :interpreter, collection: [['Markdown', :markdown], ['Textile', :textile], [t(:none), :none]], hint: render(:partial => '/home/interpreter_help') %>
 
-    <div class="field">
-      <%= f.label :body %>
-      <%= f.text_area :body, :rows => 10, :cols => 60 %>
-    </div>
+    <%= f.input :body, as: :text, input_html: {rows: 10, style: "width:400px;"} %>
 
     <!-- ATTACHMENTS ================================ -->
-    <div class="field" style='clear: right;'>
+    <div style='margin-left:160px'>
       <label for="attachments">Attachments</label>
 
       <div class="widgets old_block">
@@ -77,26 +47,26 @@
     <div class='before_save_button'></div>
     <div class='clear'></div>
 
-    <div class='field'>
-      <%= f.label :is_draft, t(:save_as_draft) %>
-      <%= f.check_box :is_draft %> <%= t(:will_be_shown_to_authors_only) %>
-    </div>
+    <%= f.input :is_draft, as: :boolean, hint: t(:will_be_shown_to_authors_only) %>
 
-    <div class='field'>
+    <div class='control-group'>
       <%= f.label :publish_at -%>
+      <div class="controls">
       <%= f.text_field :publish_at_date, :size => 10, style: 'width: 100px', :placeholder => 'yy-mm-dd' -%>
       <%= f.text_field :publish_at_time, :size => 5, style: 'width: 100px', :placeholder => 'hh.mm' -%>
+        </div>
     </div>
 
-    <div class='field'>
+    <div class='control-group'>
       <%= f.label :expire_at -%>
+      <div class="controls">
       <%= f.text_field :expire_at_date, :size => 10, style: 'width: 100px', :placeholder => 'yy-mm-dd' -%>
       <%= f.text_field :expire_at_time, :size => 5, style: 'width: 100px', :placeholder => 'hh.mm' -%>
+      </div>
     </div>
 
-
-    <div class="actions">
-      <%= f.label :submit, t(:save_changes) %>
-      <%= f.submit :class => "medium-btn glass-btn" %>
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn-primary" %>
     </div>
+
 <% end %>
