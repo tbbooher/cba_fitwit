@@ -8,8 +8,8 @@
   %h4 Pick a camp and time to get started.
 
 %p
-  - @fitness_camps.each do |fc|
-    %div{class: "one_third #{@fitness_camps.last == fc ? "last":""}"}
+  - @fitness_camps.each_with_index do |fc, idx|
+    %div{class: "one_third #{(idx+1) % 3 == 0 ? "last":""}"}
       .pricebox
         %h3= fc.full_title
         %p.price-td
