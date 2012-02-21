@@ -15,7 +15,7 @@ Please choose one of the options below to experience your personal FitWit:</p>
 
 <!--
 <div class="clear"></div>
-<% if @my_time_slots.empty? %>
+<% unless @my_time_slots %>
 <p>You are not registered for any upcoming fitness camps</p>
 <% else %>
 <p>You are/have registered for the following FitWit camps:</p>

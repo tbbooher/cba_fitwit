@@ -12,11 +12,11 @@ class MyFitWitController < ApplicationController
     @qtip = true
     if @user
       @my_time_slots = @user.user_time_slots
-      @my_fitness_camps = @my_time_slots.map { |ts| ts.fitness_camp } # ??
+      @my_fitness_camps = @my_time_slots.map { |ts| ts.fitness_camp } if @my_time_slots
       @my_fit_wit_workouts = Workout.where(user: @user).all
     else
       flash[:notice] = "you need to be logged in"
-      # redirect somewhere
+      redirect_to root_path
     end
   end
 
@@ -133,8 +133,10 @@ class MyFitWitController < ApplicationController
   def camp_fit_wit_workout_progress
     @pagetitle = 'Fitness Camp Report'
     @qtip = true
-    @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
-    unless @my_completed_fitnesscamps.empty?
+    if current_user.past_fitness_camps
+      @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
+    end
+    if @my_completed_fitnesscamps
       if params[:fitnesscamp] and request.post?
         fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
       else
@@ -235,7 +237,9 @@ class MyFitWitController < ApplicationController
     @fit_wit_workouts_select_list << ['select a workout', 0]
     # prs
     @prs = @user.find_prs
-    @fitness_camps = @user.past_fitness_camps.collect { |b| [b.title, b.session_start_date.strftime("%b-%Y")] }.uniq
+    if @user.past_fitness_camps
+      @fitness_camps = @user.past_fitness_camps.collect { |b| [b.title, b.session_start_date.strftime("%b-%Y")] }.uniq
+    end
     # measurements
     @my_measurements = @user.measurements
     @measurement = Measurement.new
