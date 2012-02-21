@@ -58,7 +58,7 @@ Camps:
   <% if c.payment_arrangement == :pay_by_session -%>
     For this camp, they paid for <%= c.number_of_sessions -%> sessions.
   <% end -%>
-  Price Paid: <%= number_to_currency(c.camp_price_for_(@user)) %>
+  Price Paid: <%= number_to_currency(c.camp_price_for_(@user)/100) %>
   ------------------------------------
 <% end -%>
 

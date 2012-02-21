@@ -3,10 +3,11 @@
 - content_for :resource_actions do
   = render "shared/user_update_nav"
 
-%p
-  %strong
-    Location:
-  = @user.location.name
+- if @user.location
+  %p
+    %strong
+      Location:
+    = @user.location.name
 %p
   %strong
     Veteran Status:

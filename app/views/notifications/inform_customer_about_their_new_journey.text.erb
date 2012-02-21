@@ -23,7 +23,7 @@ You have successfully registered for the following FitWit fitness <% pluralize(@
   <% if c.payment_arrangement == :pay_by_session -%>
     You have paid for <%= c.number_of_sessions -%> sessions.
   <% end -%>
-  Price Paid: <%= number_to_currency(c.camp_price_for_(@user)) %>
+  Price Paid: <%= number_to_currency(c.camp_price_for_(@user)/100) %>
   Title: <%= TimeSlot.find(c.time_slot_id).short_title %>
   ------------------------------------
 <% end -%>

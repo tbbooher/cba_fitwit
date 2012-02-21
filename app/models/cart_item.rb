@@ -51,6 +51,7 @@ class CartItem
   end
 
   def camp_price_for_(user)
+    # in cents !!!
     case self.payment_arrangement
       when :pay_by_session # depends on the number of sessions
         session_payment(self.number_of_sessions)*100

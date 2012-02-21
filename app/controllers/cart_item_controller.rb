@@ -67,7 +67,7 @@ class CartItemController < ApplicationController
     @session_price = PRICE['pay_by_session'][@session_count]
     @cart_item.payment_arrangement = :pay_by_session
     @cart_item.number_of_sessions = @session_count
-    @updated_camp_price = @cart_item.camp_price_for_(@user)
+    @updated_camp_price = @cart_item.camp_price_for_(@user)/100
   end
 
   def set_payment_arrangement
