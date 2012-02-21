@@ -32,7 +32,6 @@ class Attachment
                                 {
                                    :popup  => "800x600=",
                                    :preview => "450x325=",
-                                   :blog_pic => "275x",
                                    :medium => "300x300>",
                                    :thumb  => "100x100>",
                                    :icon   => "64x64"

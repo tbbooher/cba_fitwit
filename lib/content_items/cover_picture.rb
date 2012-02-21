@@ -15,6 +15,7 @@ module CoverPicture
                                   :styles => {
                                     :popup  => "800x600=",
                                     :medium => "300x500>",
+                                    :blog_pic => "275x",
                                     :thumb  => "100x150>",
                                     :post_style => "450",
                                     :icon   => "64x90"
