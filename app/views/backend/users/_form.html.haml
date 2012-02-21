@@ -25,7 +25,7 @@
         = f.input :company
         = f.input :date_of_birth, label: "Birthday", as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 5
         = f.input :why_i_fitwit, as: :text, input_html: {rows: 5}
-        = f.input :when_started_fitwit, as: :date, :start_year => Date.today.year - 10, :end_year => Date.today.year, :discard_day => true, :order => [:month, :year] %>
+        = f.input :when_started_fitwit, as: :date, :start_year => Date.today.year - 10, :end_year => Date.today.year, :discard_day => true, :order => [:month, :year]
       #contact_info.tab-pane
         = f.input :street_address1
         = f.input :street_address2
