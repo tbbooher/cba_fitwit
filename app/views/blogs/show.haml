@@ -2,13 +2,23 @@
   - content_for :right_column do
     #blog_page_menu.widgets
       %p 
+        %a{:href => "#Description"} Description
+        |
         %a{:href => "#Links"} Links
         | 
         %a{:href => "#Tags"} Tags
         |
-        %a{:href => "#Description"} Description
-        |
         %a{:href =>"#Calendar"} Calendar
+    #action_links_area
+      = ui_button 'back', t(:blog_index), blogs_path unless @blog.location
+      = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
+      - if can? :manage, @blog
+        = ui_button 'edit',  t(:edit), edit_blog_path(@blog)
+        = ui_button 'destroy', t(:destroy), @blog, :confirm => t(:are_you_sure),:method => :delete
+    #blog_description.widgets
+      %a{:name => "Description"}
+      = render :partial => "blog_synopsis", :locals => { :blog => @blog}
+
     #vitals
       - if @blog.is_draft
         %p= t(:is_draft_label)
@@ -34,15 +44,7 @@
       .tags-meta
         = tag_cloud
       %br.clear
-    #action_links_area
-      = ui_button 'back', t(:blog_index), blogs_path unless @blog.location
-      = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
-      - if can? :manage, @blog
-        = ui_button 'edit',  t(:edit), edit_blog_path(@blog)
-        = ui_button 'destroy', t(:destroy), @blog, :confirm => t(:are_you_sure),:method => :delete
-    #blog_description.widgets
-      %a{:name => "Description"}
-      = render :partial => "blog_synopsis", :locals => { :blog => @blog}
+
     - if @blog.location
       = render partial: 'blogs/location_blog_box', locals: {blog: @blog, location_id: @blog.location.id}
 
