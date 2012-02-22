@@ -190,23 +190,20 @@ module FitWitCustomUserMethods
     o.amount = cart.total_price(self)
     o.description = self.health_state
     o
+  end
 
-    # Cart
-    # attr_reader :items
-    # attr_accessor :new_membership
-    # attr_accessor :coupon_code
-    # attr_accessor :consent_updated
-
-    # Cart_item
-    #@time_slot_id = time_slot_id
-    #@camp_price = 0.to_f
-    #@friends = []
-    #@payment_arrangement= nil
-    # @coupon_discount = 0
-    #@coupon_code = 'no coupon'
-    #@number_of_sessions = 0
-    #@unique_id = Digest::SHA1.hexdigest Time.now.to_s
-
+  def all_health_issues
+      health_issues = []
+      MedicalCondition.all.each do |mc|
+        if self.health_issues.map(&:medical_condition_id).include?(mc.id)
+            hc = self.health_issues.where(medical_condition_id: mc.id).first
+            hc.has_it = true
+            health_issues << hc
+          else
+            health_issues << HealthIssue.new(medical_condition_id: mc.id)
+        end
+      end
+      health_issues.sort_by{|hi| hi.medical_condition.name }
   end
 
 end

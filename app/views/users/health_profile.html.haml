@@ -23,20 +23,7 @@
     be protected and only used to help us tailor our program to your fitness needs.
 
   #verify_health_history
-    %h4 Medical Conditions
+    = render "shared/verify_health_history"
 
-    = form_tag users_update_health_history_path, { class: 'simple_form form-horizontal', id: 'health_status' } do |f|
-      %fieldset
-        %p If you have any history or currently have any of the of the following conditions, please update and provide a brief description::
-        .well
-          = hidden_field_tag "user[medical_condition_ids][]", nil
-          = user_presenter.show_medical_conditions(@user)
-        %br.clear
-        #order_details
-          %h4 Current Health Status
-          .well
-            = user_presenter.verify_user_is_healthy(@user)
-      .form-actions
-        = submit_tag "Update Health Profile", class: "btn btn-primary"
 
 

@@ -73,17 +73,7 @@ class FitnessCampRegistrationController < ApplicationController
     else
       flash.now[:notice] = 'User information updated'
       @cart.consent_updated = false
-      health_issues = []
-      MedicalCondition.all.each do |mc|
-        if @user.health_issues.map(&:medical_condition_id).include?(mc.id)
-            hc = @user.health_issues.where(medical_condition_id: mc.id).first
-            hc.has_it = true
-            health_issues << hc
-          else
-            health_issues << HealthIssue.new(medical_condition_id: mc.id)
-        end
-      end
-      @all_health_issues = health_issues.sort_by{|hi| hi.medical_condition.name }
+      @all_health_issues = @user.all_health_issues
     end
   end
 
