@@ -11,7 +11,7 @@
                     :locals => {:posting => posting, :format => :thumb}
             )
         -%>
-        <%= link_to("Delete Picture", delete_cover_picture_blog_posting_path(posting.blog, posting), class: "btn btn-small btn-danger", remote: true, confirm: "Are you sure?", id: 'delete_cover_picture_link') unless blog.new_record? %>
+        <%= link_to("Delete Picture", delete_cover_picture_blog_posting_path(posting.blog.id, posting.id), class: "btn btn-small btn-danger", remote: true, confirm: "Are you sure?", id: 'delete_cover_picture_link') unless blog.new_record? %>
     </div>
     <%= f.input :cover_picture, as: :file %>
 
