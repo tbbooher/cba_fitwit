@@ -20,15 +20,6 @@ class MyFitWitController < ApplicationController
     end
   end
 
-  def profile
-    @pagetitle = "Edit profile information"
-    @include_jquery = true
-    @qtip = true
-    @fit_wit_form = true
-    # TODO
-    @names_of_titles_that_require_more_information = flash[:names_of_titles_that_require_more_information] || []
-  end
-
   def upcoming_fitnesscamps
     @pagetitle = "Upcoming Fitness Camps"
     @mycamps = FitnessCamp.find_upcoming(@user.id)
@@ -103,27 +94,6 @@ class MyFitWitController < ApplicationController
     end
     # @fit_wit_workouts_select_list.delete_if{|e| e[1] == fit_wit_workout_id}
   end
-
-  ## PUT /users/1
-  ## PUT /users/1.xml
-  #def update
-  #  # TODO: any reason we need this?
-  #  #params[:user][:role_ids] ||= []
-  #  #    params[:user][:height] = get_inches_height(params[:my_height][:height_ft],
-  #  #      params[:my_height][:height_in])
-  #  @user = current_user
-  #  respond_to do |format|
-  #    if @user.update_attributes(params[:user])
-  #      flash[:notice] = 'Your profile was successfully updated.'
-  #      format.html { redirect_to '/my_fit_wit/profile#tabs-1' }
-  #      format.xml { head :ok }
-  #    else
-  #      flash[:notice] = 'Sorry, we have some errors.'
-  #      format.html { redirect_to '/my_fit_wit/profile#tabs-1' }
-  #      format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
-  #    end
-  #  end
-  #end
 
   def past_fitnesscamps
     @pagetitle = 'Past Fitness Camps'
@@ -302,74 +272,6 @@ class MyFitWitController < ApplicationController
     #@fit_wit_workout.workouts.select { |e| e.meetings.meeting_date == @workout.meetings.meeting_date }.sort_by { |e| e.common_value }.reverse
     # leader board
     @leaders = @fit_wit_workout.find_leaders(@user.gender)
-  end
-
-  def process_fit_wit_history
-    # @back_page = request.env["HTTP_REFERER"]
-    if @user.update_attributes(params[:user])
-      flash[:notice] = 'FitWit History Updated.'
-      # TODO redirect to referring page
-#      my_referrer = params[:referer] ? params[:referer] : {:controller => 'my_fit_wit', :action => 'profile'}
-      redirect_to('/my_fit_wit/profile#tabs-3')
-    else
-      flash[:notice] = 'error'
-      raise RuntimeError, "fit_wit_history update error"
-    end
-  end
-
-  def health_history
-    # just a process node at this point
-    # @back_page = request.env["HTTP_REFERER"]
-    unless request.put?
-      # needed still? maybe a raise here
-    else
-      # zero out all unchecked explanations
-      user_params = zero_out_all_unchecked_explanations(params[:user])
-      if @user.update_attributes(user_params)
-        if names_of_titles_that_require_more_information = \
- user_has_not_explained_themself(params[:user]) #names_of_titles_that_require_more_information.empty?
-          flash[:notice] = <<-END_OF_STRING
-          You need to provide clarification for all
-          health history items
-          END_OF_STRING
-          flash[:names_of_titles_that_require_more_information] = \
- names_of_titles_that_require_more_information
-          redirect_to '/my_fit_wit/profile#tabs-2'
-        else
-          flash[:notice] = 'Health History Updated.'
-          # TODO NEED TO GET THIS WORKING FROM REGISTRATION
-          my_referrer = !session[:referrer].nil? ? \
- session[:referrer] : {:controller => 'my_fit_wit', :action => 'index'}
-          redirect_to '/my_fit_wit/profile#tabs-2'
-#          redirect_to(my_referrer)
-        end # check for adequate information entered
-      else # error
-        flash[:notice] = 'FitWit history update error'
-        redirect_to '/my_fit_wit/profile#tabs-2'
-        #raise RuntimeError, "fit_wit_history update error"
-      end #user attribute update check
-    end # form submission check
-  end
-
-  def change_password
-    @pagetitle = 'Change password'
-    @user = current_user
-    @fit_wit_form = true
-    if request.put?
-      if User.authenticate(@user.user_name, params[:current_password])
-        if @user.update_attributes(params[:user])
-          flash[:notice] = 'update successful'
-          redirect_to '/my_fit_wit/profile#tabs-4'
-        else
-          flash[:notice] = 'passwords did not match'
-          redirect_to '/my_fit_wit/profile#tabs-4'
-        end
-      else
-        flash[:notice] = 'incorrect initial password'
-        redirect_to '/my_fit_wit/profile#tabs-4'
-      end
-    else # just a normal form
-    end
   end
 
   private
