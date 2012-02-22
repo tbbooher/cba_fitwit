@@ -9,7 +9,7 @@
         = builder.input :has_it, as: :boolean, label: builder.object.medical_condition.name, input_html: { value: e ? '1' : '0', class: 'health_condition'}
         .explain_yourself{style: "display:#{e ? 'block' : 'none'};"}
           = builder.input :explanation, as: :text, input_html: {rows: 3, style: "width:350px;", class: "required"}
-        = builder.input :_destroy, input_html: {class: 'destroy_field', value: e ? '0' : '1'}
+        = builder.input :_destroy, as: :hidden, input_html: {class: 'destroy_field', value: e ? '0' : '1'}
   #order_details
     %h4 Current Health Status
     .well

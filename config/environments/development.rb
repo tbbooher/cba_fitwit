@@ -51,7 +51,6 @@ Cba::Application.configure do
                                                     :ignore_cvv => true,
                                                     :money_format => :dollars
                                                     )
-  #OrderTransaction.gateway = ActiveMerchant::Billing::BogusGateway.new
 end
 
 
