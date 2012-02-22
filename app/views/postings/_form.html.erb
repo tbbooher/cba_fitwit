@@ -5,14 +5,16 @@
     <!-- FIELDS ===================================== -->
     <%= f.input :title %>
 
-    <div class='posting_cover_picture_box'>
-        <%= render(
-                    :partial => 'cover_picture',
-                    :locals => {:posting => posting, :format => :thumb}
-            )
-        -%>
-        <%= link_to("Delete Picture", delete_cover_picture_blog_posting_path(posting.blog.id, posting.id), class: "btn btn-small btn-danger", remote: true, confirm: "Are you sure?", id: 'delete_cover_picture_link') unless blog.new_record? %>
-    </div>
+    <% if posting.cover_picture_exists? %>
+        <div class='posting_cover_picture_box'>
+            <%= render(
+                        :partial => 'cover_picture',
+                        :locals => {:posting => posting, :format => :thumb}
+                )
+            -%>
+            <%= link_to("Delete Picture", delete_cover_picture_blog_posting_path(posting.blog.id, posting.id), class: "btn btn-small btn-danger", remote: true, confirm: "Are you sure?", id: 'delete_cover_picture_link') unless blog.new_record? %>
+        </div>
+    <% end %>
     <%= f.input :cover_picture, as: :file %>
 
     <div class="clear"></div>
