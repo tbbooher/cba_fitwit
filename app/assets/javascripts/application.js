@@ -9,7 +9,6 @@
 // This is just temporary so I don't have to pull from inteweb
 // require plusone
 
-
 // require at_top/l10n
 //= require backend/jquery-1.5.2.min
 // ^^ this is needed for fullcalendar only
@@ -62,6 +61,9 @@
 //= require backend/all_fit_wit_calendar
 //= require backend/location_calendar
 //= require blog_side_calendar
+//= require my_fit_wit
+//= require qtip/jquery.qtip-1.0.0-rc3.min
+//= require calendar_progress
 
 $(document).ready(function() {
   $("#sign_up_form").validate();

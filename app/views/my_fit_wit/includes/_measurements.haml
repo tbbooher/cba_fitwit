@@ -1,6 +1,6 @@
 %h1 My Measurements
 - unless @my_measurements.empty?
-  %table#meas_table.tables.table-light.highlight-row
+  %table#meas_table.table.table-striped.table-bordered
     %thead
       %tr.top_line
         %th.left Date
@@ -22,7 +22,7 @@
 / add measurements form
 = form_for :measurement, :url => { :action => "add_new_measurement" }, :html => { :class => "fitwit", :id => 'measurement_form'} do |f|
   %fieldset
-    .field= desc_label(f, :review_date, "Review Date:", false) + f.text_field(:review_date, :class=>'inputdate required date', :size => 10)
+    .field= desc_label(f, :review_date, "Review Date:", false) + f.text_field(:review_date, :class=>'datepicker required date', :size => 10)
     .field= desc_label(f, :height, "Height: (in)", false) + f.text_field(:height, :class=>'number', :size => 5)
     .field= desc_label(f, :weight, "Weight: (lbs)", false) + f.text_field(:weight, :class=>'number', :size => 5)
     .field
@@ -38,23 +38,3 @@
     = hidden_field(:measurement, :user_id, :value => @user_id)
     .field
       = f.submit "Create", :class=> 'button'
-:javascript
-  $(document).ready(function() {
-      $("#other_measurements").hide();
-      $("#other_selector").toggle(function () {
-          $("#other_measurements").fadeIn(300);
-          $(this).text("Remove additional measurements");
-      }, function () {
-          $(this).text("Add additional measurements");
-          $("#other_measurements").hide('slow');
-      }
-      );
-      $("#measurement_form").validate({
-          submitHandler: function(form) {
-              form.submit(function () {
-                  $.post($(this).attr('action'), $(this).serialize(), null, "script");
-                  return false;
-              });
-          }
-      });
-  });
