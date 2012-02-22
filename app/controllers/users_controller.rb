@@ -164,7 +164,6 @@ class UsersController < ApplicationController
 
   def health_profile
     @user = current_user
-    @all_health_issues = @user.all_health_issues
   end
 
   def update_profile

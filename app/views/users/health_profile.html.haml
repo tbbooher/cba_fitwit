@@ -23,7 +23,7 @@
     be protected and only used to help us tailor our program to your fitness needs.
 
   #verify_health_history
-    = render "shared/verify_health_history"
+    = render partial: "shared/verify_health_history", locals: {url: users_update_health_history_path, user: @user}
 
 
 

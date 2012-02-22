@@ -72,17 +72,12 @@ class FitnessCampRegistrationController < ApplicationController
       render :update_profile
     else
       flash.now[:notice] = 'User information updated'
-      @cart.consent_updated = false
-      @all_health_issues = @user.all_health_issues
+      @cart.consent_updated = false # still needed?
     end
   end
 
   def release_and_waiver_of_liability
     @user = current_user
-    # set delete attribute for all not checked items
-    #params[:user][:health_issues_attributes].each_with_index do |a, i|
-    #  params[:user][:health_issues_attributes][i].merge({:_destroy => 1}) if a[1][:has_it] == "0"
-    #end
     if @user.update_attributes(params[:user])
       flash[:notice] = "Health profile updated"
       render layout: "canvas" # do we really want a diff

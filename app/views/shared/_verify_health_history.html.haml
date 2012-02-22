@@ -1,26 +1,26 @@
-= simple_form_for @user, url: fitness_camp_registration_release_and_waiver_of_liability_path, html:  {class: 'form-horizontal', id: 'health_status'} do |f|
+= simple_form_for user, url: url, html:  {class: 'form-horizontal', id: 'health_status'} do |f|
   %h4 Medical Conditions
   %p In the past, you have reported:
   .well
-    = f.simple_fields_for :health_issues, @all_health_issues do |builder|
+    = f.simple_fields_for :health_issues, user.all_health_issues do |builder|
       .health_issue_parent
-        - e = builder.object.persisted? || @user.errors.size > 0
+        - e = builder.object.persisted? || user.errors.size > 0
         = builder.input :medical_condition_id, as: :hidden
         = builder.input :has_it, as: :boolean, label: builder.object.medical_condition.name, input_html: { value: e ? '1' : '0', class: 'health_condition'}
         .explain_yourself{style: "display:#{e ? 'block' : 'none'};"}
           = builder.input :explanation, as: :text, input_html: {rows: 3, style: "width:350px;", class: "required"}
-        = builder.input :_destroy, as: :hidden, input_html: {class: 'destroy_field', value: e ? 'false' : 'true'}
+        = builder.input :_destroy, input_html: {class: 'destroy_field', value: e ? 'false' : 'true'}
   #order_details
     %h4 Current Health Status
     .well
       = f.input :fitness_level, collection: 1..10, include_blank: false, hint: "10 = highest fitness possible"
       = f.input :has_physician_approval, as: :radio_buttons, label: "Physician approval?", hint: 'Does your physician approve of your participation in this exercise program?', input_html: {id: "physician_approves"}
-      #explain_pa{style: "display:#{@user.has_physician_approval? ? "none" : "block"};"}
+      #explain_pa{style: "display:#{user.has_physician_approval? ? "none" : "block"};"}
         = f.input :has_physician_approval_explanation, as: :text, label: "Please explain", input_html: {rows: 3, style: "width:350px;", class: 'required'}, hint: "Required"
       = f.input :meds_affect_vital_signs, as: :radio_buttons, label: "Meds affect vital signs?", hint: 'List all that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance', input_html: {id: "meds_affect"}
-      #explain_ma{style: "display:#{@user.meds_affect_vital_signs? ? "block" : "none"};"}
+      #explain_ma{style: "display:#{user.meds_affect_vital_signs? ? "block" : "none"};"}
         = f.input :meds_affect_vital_signs_explanation, as: :text, label: "Please explain", input_html: {rows: 3, style: "width:350px;", class: 'required'}, hint: "Required"
-      - if @user.gender == :female
+      - if user.gender == :female
         = f.input :post_menopausal_female, as: :radio_buttons
         = f.input :taking_estrogen, as: :radio_buttons, label: "If yes, are you taking estrogen?"
   .form-actions
