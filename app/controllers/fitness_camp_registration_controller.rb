@@ -61,46 +61,44 @@ class FitnessCampRegistrationController < ApplicationController
     end
   end
 
-  def release_and_waiver_of_liability
-    u = current_user
-    u.health_issues = []
-    if params[:commit]
-      params[:user][:medical_condition_ids].each do |id|
-        unless id.empty?
-          h = HealthIssue.new
-          m = MedicalCondition.find(id)
-          h.medical_condition = m
-          h.explanation = params[:user]["explanation_#{m.id}"]
-          u.health_issues << h
+  def update_profile
+    @user = current_user
+  end
+
+  def consent
+    @user = current_user
+    unless @user.update_attributes(params[:user])
+      flash.now[:notice] = "Error updating your profile"
+      render :update_profile
+    else
+      flash.now[:notice] = 'User information updated'
+      @cart.consent_updated = false
+      health_issues = []
+      MedicalCondition.all.each do |mc|
+        if @user.health_issues.map(&:medical_condition_id).include?(mc.id)
+            hc = @user.health_issues.where(medical_condition_id: mc.id).first
+            hc.has_it = true
+            health_issues << hc
+          else
+            health_issues << HealthIssue.new(medical_condition_id: mc.id)
         end
       end
+      @all_health_issues = health_issues.sort_by{|hi| hi.medical_condition.name }
     end
-    #u.save!
-    #flash[:notice] = "Health History Updated"
-    # some check to make sure we have the right data
-    # save the user data
-    # should we update the user with a notice that they have updated health history 
-    unless @cart.consent_updated
-      pa = params[:has_physician_approval] == "true"
-      pa_exp = params[:has_physician_approval_explanation]
-      ma = params[:meds_affect_vital_signs] == "true"
-      ma_exp = params[:meds_affect_vital_signs_explanation]
-      if ((pa_exp.empty? && !pa) || (ma_exp.empty? && ma))
-        flash[:notice] = 'You must explain'
-        flash[:checked_values] = params[:health_approval]
-        redirect_to :action => 'consent'
-      else
-        u = current_user
-        u.fitness_level = params[:fitness_level]
-        u.has_physician_approval = pa
-        u.has_physician_approval_explanation = pa_exp
-        u.meds_affect_vital_signs = ma
-        u.meds_affect_vital_signs_explanation = ma_exp
-        u.save!
-        @cart.consent_updated = true
-        # we need to think about how we save this . . .
-        render layout: "canvas" # do we really want a diff
-      end
+  end
+
+  def release_and_waiver_of_liability
+    @user = current_user
+    # set delete attribute for all not checked items
+    #params[:user][:health_issues_attributes].each_with_index do |a, i|
+    #  params[:user][:health_issues_attributes][i].merge({:_destroy => 1}) if a[1][:has_it] == "0"
+    #end
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Health profile updated"
+      render layout: "canvas" # do we really want a diff
+    else
+      flash.now[:notice] = "Error updating your health profile (see below)"
+      render :consent
     end
   end
 
@@ -120,20 +118,6 @@ class FitnessCampRegistrationController < ApplicationController
         end
       end # commit check
     end # check to see if we need another chance
-  end
-
-  def update_profile
-    @user = current_user
-  end
-
-  def consent
-    @user = current_user
-    unless @user.update_attributes!(params[:user])
-      redirect_to :back, notice: "Error updating your user account"
-    else
-      flash[:notice] = 'User information updated'
-      @cart.consent_updated = false
-    end
   end
 
   def update_health_items

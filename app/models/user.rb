@@ -57,6 +57,10 @@ class User
   field :post_menopausal_female, type: Boolean, default: false
   field :taking_estrogen, type: Boolean, default: false
 
+  attr_accessible :health_issues_attributes
+
+  accepts_nested_attributes_for :health_issues, autosave: true, allow_destroy: true, reject_if: lambda {|a| a['has_it'] == "0" }, allow_destroy: true
+
   # fitwit
   # validates_numericality_of :weight, :height_feet, :height_inches
   # validates_format_of :primary_phone, :with => /[0-9\-\.]+/i
@@ -138,7 +142,7 @@ class User
   embeds_many :custom_workouts
   embeds_many :goals
   embeds_many :measurements
-  embeds_many :health_issues
+  embeds_many :health_issues # , autosave: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true

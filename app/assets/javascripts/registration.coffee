@@ -1,41 +1,28 @@
 $(document).ready ->
-  $("#vet_status_changer").hide()
-  $("#vet_status").click ->
-    $("#vet_status_changer").dialog
-      autoOpen: false
-      show: "blind"
-      hide: "explode"
-      resizable: false
-      width: 900
-      modal: true
-      title: "Change your FitWit history"
+  $(".health_condition").click ->
+    e = $(this).closest('.health_issue_parent').find(".explain_yourself")
+    (if $(this).is(":checked") then e.show() else e.hide())
 
-    $("#vet_status_changer").dialog "open"
-    false
-
-  $(".approval_field_yes_is_bad").change ->
-    vital_div = $('#' + this.id + '_explanation')
-    text_area = $('#' + this.id + '_explanation_ta')
-    if ($(this).val() is "false")
-      vital_div.hide()
-      text_area.removeClass("required")
+    # df = $(this).parent().parent().parent().parent().children().last().children().last().children().first()
+    df = $(this).closest('.health_issue_parent').find(".destroy_field")
+    if (df.val() is "true")
+      df.val("false")
     else
-      vital_div.show()
-      text_area.addClass("required")
+      df.val("true")
 
-  $(".approval_field_yes_is_good").change ->
-    vital_div = $('#' + this.id + '_explanation')
-    text_area = $('#' + this.id + '_explanation_ta')
-    if ($(this).val() is "true")
-      vital_div.hide()
-      text_area.removeClass("required")
+  $("input[name='user[has_physician_approval]']").change ->
+    if ($("input[name='user[has_physician_approval]']:checked").val() is "false")
+      $("#explain_pa").show()
     else
-      vital_div.show()
-      text_area.addClass("required")
+      $("#explain_pa").hide()
 
-  $(".med_checkbox").click ->
-    $("#explanation_div_" + this.id).toggle()
+  $("input[name='user[meds_affect_vital_signs]']").change ->
+    e = $("#explain_ma")
+    if ($("input[name='user[meds_affect_vital_signs]']:checked").val() is "true")
+      e.show()
+    else
+      e.hide()
 
-  $("#consent_form").validate
-  $("#health_status").validate
-  $("#update_personal_information_form").validate
+  $("#consent_form").validate()
+  $("#health_status").validate()
+  $("#update_personal_information_form").validate()
