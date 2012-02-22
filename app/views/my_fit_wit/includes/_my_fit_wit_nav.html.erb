@@ -1,21 +1,11 @@
-
-
-<ul id="my_fitwit_nav" class="<%= format_class %>">
-  <li><%= link_to image_tag('my_fit_wit/sm_my_fit_wit.png',
-          {:id => 'my_fit_wit_home', :title => 'MyFitWit Home'}), :action => 'index' %></li>
-  <li><%= link_to image_tag('my_fit_wit/sm_progress_log.png',
-          {:id => 'fit_wit_workout_progress', :title => 'Workout progress'}), :action => 'fit_wit_workout_progress' %></li>
-  <li><%= link_to image_tag('my_fit_wit/sm_health_log.png',
-          {:id => 'camp_report', :title => 'See your camp reports'}), :action=>'camp_fit_wit_workout_progress' %></li>
-  <li><%= link_to image_tag('my_fit_wit/sm_goals_log.png',
-          {:id => 'my_goals', :title => 'Your goals'}), :action => 'my_goals' %></li>
-</ul>
-
-<SCRIPT type="text/javascript">
-
-$(document).ready(function() 
-{
-   // Match all link elements with href attributes within the content div
-   $('ul#my_fitwit_nav img[title]').qtip();
-});
-</SCRIPT>
+<div class="widgets subpages-widget">
+    <h3>MyFitWit</h3>
+      <% [["Home", :index],
+          ["Workout Progress", :fit_wit_workout_progress],
+          ["Fitness Camps", :camp_fit_wit_workout_progress],
+          ["Goals", :my_goals]].each do |n,l| %>
+          <li class="page_item <%= params[:action] == l.to_s ? "current_page_item" : "" %>">
+            <%= link_to n, action: l %>
+          </li>
+      <% end %>
+</div>

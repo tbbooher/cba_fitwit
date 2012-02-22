@@ -1,4 +1,6 @@
-= render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'goals'}
+- content_for :resource_actions do
+  = render partial: 'my_fit_wit/includes/my_fit_wit_nav'
+
 #top_notice.message.msg-tip{style: "display:none;"}
 %p
   Set your goals and set them high! You can track your goals below. Check them off when you are done.

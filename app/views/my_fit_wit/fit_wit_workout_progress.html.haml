@@ -1,0 +1,20 @@
+- content_for :resource_actions do
+  = render partial: 'my_fit_wit/includes/my_fit_wit_nav'
+
+%ul.tabs#user_basics{style: "margin:0px;"}
+  %li.current
+    %a.tab{:href => "#"} Calendar
+  %li
+    %a.tab{:href => "#"} By workout
+  %li
+    %a.tab{:href => "#"} Personal Bests
+  %li
+    %a.tab{:href => "#"} Measurements
+.tab_content
+  = render :partial => 'my_fit_wit/includes/calendar_progress'
+.tab_content{style: "position: absolute; left: -10000px;"}
+  = render :partial => 'my_fit_wit/includes/single_fit_wit_workout_progress'
+.tab_content{style: "position: absolute; left: -10000px;"}
+  = render :partial => 'my_fit_wit/includes/personal_records'
+.tab_content{style: "position: absolute; left: -10000px;"}
+  = render :partial => 'my_fit_wit/includes/measurements'

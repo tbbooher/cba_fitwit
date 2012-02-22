@@ -46,7 +46,6 @@
 
 //= require textile
 //= require user
-//= require user_list
 //= require user_notifications
 //= require user_crop_avatar
 

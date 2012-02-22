@@ -27,7 +27,6 @@ class MyFitWitController < ApplicationController
     @date = Date.parse(params[:date])
     @fit_wit_form = true
     @include_jquery = true
-    #@fitwit_fit_wit_workout = true
     @admin = false
     @fit_wit_workout_list = Exercise.find(:all).map { |e| [e.name, e.id] }
     @custom_workout = CustomWorkout.new
