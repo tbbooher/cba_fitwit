@@ -1,9 +1,7 @@
 require 'ostruct'
 
 class MyFitWitController < ApplicationController
-  layout "my_fit_wit"
   before_filter :get_user
-  # TODO Should I activate this again?	
   #ssl_required  :health_history
 
   def index

@@ -1,23 +1,24 @@
 
-<%= render :partial => 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'progress'} %>
+<%= render partial: 'my_fit_wit/includes/my_fit_wit_nav', :locals => {:format_class => 'progress'} %>
 
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Calendar</a></li>
-    <li><a href="#tabs-2">By workout</a></li>
-    <li><a href="#tabs-3">Personal Bests</a></li>
-    <li><a href="#tabs-4">Measurements</a></li>
+  <ul class="tabs">
+    <li class="current"><a href="#tabs-1">Calendar</a></li>
+    <li><a href="#">By workout</a></li>
+    <li><a href="#">Personal Bests</a></li>
+    <li><a href="#">Measurements</a></li>
   </ul>
-  <div id="tabs-1">
+
+  <div class="tab_content">
     <%= render :partial => 'my_fit_wit/includes/calendar_progress' %>
   </div>
-  <div id="tabs-2">
+  <div class="tab_content">
     <%= render :partial => 'my_fit_wit/includes/single_fit_wit_workout_progress' %>
   </div>
-  <div id="tabs-3">
+  <div class="tab_content">
     <%= render :partial => 'my_fit_wit/includes/personal_records' %>
   </div>
-  <div id="tabs-4">
+  <div class="tab_content">
     <%= render :partial => 'my_fit_wit/includes/measurements' %>
   </div>
-</div>
+
+

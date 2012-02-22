@@ -11,17 +11,3 @@ Please choose one of the options below to experience your personal FitWit:</p>
   <li><%= link_to image_tag('my_fit_wit/Full_Camp-Reports.png'), :action => 'camp_fit_wit_workout_progress' %></li>
   <li><%= link_to image_tag('my_fit_wit/Full_Goals.png'), :action => 'my_goals' %></li>
 </ul>
-
-<!--
-<div class="clear"></div>
-<% unless @my_time_slots %>
-<p>You are not registered for any upcoming fitness camps</p>
-<% else %>
-<p>You are/have registered for the following FitWit camps:</p>
-  <% @my_time_slots.each do |time_slot| %>
-  <%= "#{time_slot.fitness_camp.title} starting on" +
-    " #{time_slot.fitness_camp.stdt} at #{time_slot.start_time_f}" %>
-  <br />
-  <% end %>
-<% end %>
--->

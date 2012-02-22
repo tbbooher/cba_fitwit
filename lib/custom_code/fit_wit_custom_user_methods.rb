@@ -2,7 +2,7 @@ module FitWitCustomUserMethods
 
   # TODO -- include this in a module?
   def camper_since
-    self.orders.sort_by { |o| o.created_at }.first.created_at
+    [self.orders.sort_by { |o| o.created_at }.first.created_at, self.when_started_fitwit].min
   end
 
   def certain_name

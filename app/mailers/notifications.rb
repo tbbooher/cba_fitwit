@@ -112,7 +112,7 @@ class Notifications < ActionMailer::Base
     @order = order
     mail( :from => 'messenger@fitwit.com',
           :to   => 'tim@theboohers.org',
-          :subject => "#{user} has just signed up for a camp" )
+          :subject => "#{user.certain_name} has just signed up for a camp" )
   end
 
   def inform_customer_about_their_new_journey(user,cart)
