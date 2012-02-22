@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/rspec/rspec-rails.git
-  revision: 8398bb7cb05d5ff0d854f0ec47a8f64cf8d2f3ee
+  revision: a281271c91b1c17b28fd38176af01645fabd811e
   specs:
     rspec-rails (2.8.1)
       actionpack (>= 3.0)
@@ -36,12 +36,13 @@ GEM
     active_utils (1.0.3)
       activesupport (>= 2.3.11)
       i18n
-    activemerchant (1.20.3)
+    activemerchant (1.20.4)
       active_utils (>= 1.0.2)
       activesupport (>= 2.3.11)
       braintree (>= 2.0.0)
       builder (>= 2.0.0)
       i18n
+      json (>= 1.5.1)
       money (<= 3.7.1)
     activemodel (3.2.0)
       activesupport (= 3.2.0)
@@ -60,13 +61,13 @@ GEM
     addressable (2.2.7)
     albino (1.3.3)
       posix-spawn (>= 0.3.6)
-    arel (3.0.0)
+    arel (3.0.2)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     autotest-growl (0.2.16)
     autotest-rails (4.1.2)
       ZenTest (~> 4.5)
-    aws-sdk (1.3.4)
+    aws-sdk (1.3.5)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -177,7 +178,7 @@ GEM
       rspec (>= 1.3.1)
       selenium-webdriver (>= 0.1.3)
     jasmine-core (1.1.0)
-    journey (1.0.1)
+    journey (1.0.2)
     jquery-rails (2.0.0)
       railties (>= 3.2.0.beta, < 5.0)
       thor (~> 0.14)
@@ -338,9 +339,10 @@ GEM
     simple_form (2.0.0.rc)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.4.2)
-      simplecov-html (~> 0.4.4)
-    simplecov-html (0.4.5)
+    simplecov (0.6.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     spork (0.9.0.rc9)
     spork-testunit (0.0.8)
       spork (>= 0.6.0)
@@ -392,7 +394,7 @@ DEPENDENCIES
   autotest-rails
   aws-sdk
   bootstrap-sass (~> 2.0.0)
-  bson_ext
+  bson_ext (= 1.5.2)
   cancan
   capybara
   coffee-rails (~> 3.2.1)
@@ -423,7 +425,7 @@ DEPENDENCIES
   kaminari
   launchy (= 2.0.5)
   mocha
-  mongo
+  mongo (= 1.5.2)
   mongoid (>= 2.4.4)
   mongoid-paperclip
   mongoid-rspec (>= 1.4.4)

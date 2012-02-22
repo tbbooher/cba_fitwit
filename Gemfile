@@ -18,9 +18,9 @@ end
 
 # Bundle gems needed for Mongoid
 gem 'jquery-rails'
-gem "mongo"
+gem "mongo", "1.5.2"
 gem "mongoid", ">= 2.4.4"  #, :path => "/Users/aa/Development/R31/mongoid-1"
-gem "bson_ext" #, "1.3.1" #, "1.1.5"
+gem "bson_ext", "1.5.2" #, "1.3.1" #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
 gem "devise", ">= 2.0.0" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
