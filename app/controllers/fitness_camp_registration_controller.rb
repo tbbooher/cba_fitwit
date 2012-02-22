@@ -39,9 +39,6 @@ class FitnessCampRegistrationController < ApplicationController
     end
     @existing_time_slots = @user.time_slots
     @vet_status = current_user.veteran_status
-    #delete_existing_camps_from_cart(@cart)
-    # @cart_view = !session[:cart].nil?
-    render layout: "canvas"
   end
 
   def add_to_cart

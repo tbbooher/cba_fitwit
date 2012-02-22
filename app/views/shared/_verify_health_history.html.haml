@@ -1,6 +1,6 @@
 = simple_form_for user, url: url, html:  {class: 'form-horizontal', id: 'health_status'} do |f|
   %h4 Medical Conditions
-  %p In the past, you have reported:
+  %p If you have any history or currently have any of the of the following conditions, please update and provide a brief description:
   .well
     = f.simple_fields_for :health_issues, user.all_health_issues do |builder|
       .health_issue_parent
