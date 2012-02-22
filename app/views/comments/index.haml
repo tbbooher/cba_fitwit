@@ -9,4 +9,4 @@
         %h1= presenter.title_and_link(group)
         %strong= presenter.user_time_and_ip
         %p= presenter.render_comment
-        %p= link_to( t(:destroy), comment, :method => :delete, :remote => true, :confirm => t(:are_you_sure), :class => 'button delete small' ) if can?( :destroy, comment )
+        %p= link_to( t(:destroy), comment, :method => :delete, :remote => true, :confirm => "Are you sure?", :class => 'button delete small' ) if can?( :destroy, comment )

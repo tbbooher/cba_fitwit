@@ -14,7 +14,7 @@
       = ui_button('add', t(:create_new_posting), new_blog_posting_path(@blog) ) if can? :create, Posting
       - if can? :manage, @blog
         = ui_button 'edit',  t(:edit), edit_blog_path(@blog)
-        = ui_button 'destroy', t(:destroy), @blog, :confirm => t(:are_you_sure),:method => :delete
+        = ui_button 'destroy', t(:destroy), @blog, :confirm => "Are you sure?",:method => :delete
     #blog_description.widgets
       %a{:name => "Description"}
       = render :partial => "blog_synopsis", :locals => { :blog => @blog}

@@ -110,7 +110,7 @@ module SiteMenusHelper # :nodoc:
   def site_menu_manage_buttons(menu)
     ("<span style='height: 10px; vertical-align: middle;'>" +
     ui_button( 'edit',t(:edit), edit_site_menu_path(menu)) + sc(:nbsp) +
-    ui_button( 'delete',t(:delete), menu, :method => :delete, :confirm => t(:are_you_sure)) + sc(:nbsp) +
+    ui_button( 'delete',t(:delete), menu, :method => :delete, :confirm => "Are you sure?") + sc(:nbsp) +
     ui_button( 'add', t(:add_submenu_item), new_site_menu_path(:parent => menu.to_param)) +
     "</span>").html_safe
   end

@@ -7,7 +7,7 @@
   %span.item_link_buttons{:id => blog.title.underscore.downcase }
     - if can? :manage, blog
       = ui_button 'edit',  t(:edit), edit_blog_path(blog)
-      = ui_button 'destroy', t(:destroy), blog,:confirm => t(:are_you_sure),:method => :delete
+      = ui_button 'destroy', t(:destroy), blog,:confirm => "Are you sure?",:method => :delete
 
 = ContentItem::markdown(blog.synopsis) if blog.synopsis
 

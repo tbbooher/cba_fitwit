@@ -10,5 +10,5 @@
       %h1= page.title
       %address
         = ui_button 'edit'  , t(:edit), edit_page_path(page)
-        = ui_button 'delete', t(:delete), page, :method => :delete, :confirm => t(:are_you_sure)
+        = ui_button 'delete', t(:delete), page, :method => :delete, :confirm => "Are you sure?"
         = ui_button 'add'   , t(:create_new_article), create_new_article_pages_path(:page => {:template_id => page.id.to_s}), :method => :post

@@ -11,7 +11,7 @@
   %address{ :style=>'width: 400px; font-style: normal;' }
     %span.item_link_buttons{:id => blog.title.underscore.downcase }
       = ui_button 'edit',  t(:edit), edit_blog_path(blog)
-      = ui_button 'destroy', t(:destroy), blog,:confirm => t(:are_you_sure),:method => :delete
+      = ui_button 'destroy', t(:destroy), blog,:confirm => "Are you sure?",:method => :delete
       %div{ :style => 'float: left; margin-left: 30px; width: 300px; padding: 5px; font-size: 0.8em;' }
         = t(:comments_allowed, :yes_or_no => blog.allow_comments ? t(:allowed) : t(:forbidden) )
         %br

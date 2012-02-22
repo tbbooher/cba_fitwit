@@ -4,5 +4,5 @@
 - if can?(:manage,page_template)
   %p
     = ui_button( 'edit', t(:edit), edit_page_template_path(page_template))
-    = ui_button( 'delete', t(:delete), page_template, :method => :delete,  :confirm => t(:are_you_sure))
+    = ui_button( 'delete', t(:delete), page_template, :method => :delete,  :confirm => "Are you sure?")
 = ContentItem::markdown( "\n```html\n"+ page_template.html_template||'EMPTY'  +"\n```\n" )

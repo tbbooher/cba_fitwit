@@ -33,7 +33,7 @@ class UserNotificationPresenter < BasePresenter
     end
     rc += ui_button('destroy', I18n.translate(:destroy),
         user_user_notification_path(current_user, user_notification.id),
-        confirm: I18n.translate(:are_you_sure),
+        confirm: "Are you sure?",
         method: :delete,
         id: 'delete-link') if can? :manage, user_notification
   end

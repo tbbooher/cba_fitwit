@@ -32,7 +32,7 @@
         - if can? :edit, posting
           = ui_button 'edit', t(:edit), edit_blog_posting_path(posting.blog, posting)
         - if can? :manage, posting
-          = ui_button 'delete', t(:delete), blog_posting_path(posting.blog, posting), method: :delete, confirm: t(:are_you_sure)
+          = ui_button 'delete', t(:delete), blog_posting_path(posting.blog, posting), method: :delete, confirm: "Are you sure?"
         = presenter.body
         = presenter.comments
 

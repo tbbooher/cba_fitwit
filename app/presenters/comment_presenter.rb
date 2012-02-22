@@ -59,7 +59,7 @@ class CommentPresenter < BasePresenter
             comment_path(comment, (comment.commentable.class.to_s.underscore.downcase+"_id").to_sym => comment.commentable.id.to_s ),
             :method => :delete,
             :remote => true,
-            :confirm => t(:are_you_sure),
+            :confirm => "Are you sure?",
             :class =>  "button delete tiny"
            ).gsub("rel=\"nofollow\"","") 
     end
