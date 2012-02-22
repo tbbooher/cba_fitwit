@@ -7,7 +7,7 @@ Cba::Application.configure do
   config.cache_classes = false
 
   # I want to debug my javascript in development
-  config.assets.debug = true
+  config.assets.debug = false
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
