@@ -17,9 +17,15 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def all_fitness_camps
-    @fitness_camps = FitnessCamp.upcoming_and_current
-    # if session cart is nil or session cart.items.empty?
-    @cart_view = !(session[:cart].nil? || session[:cart].items.empty?)
+    unless current_user.member
+      @fitness_camps = FitnessCamp.upcoming_and_current
+      # if session cart is nil or session cart.items.empty?
+      @cart_view = !(session[:cart].nil? || session[:cart].items.empty?)
+    else
+      location = current_user.location ? current_user.location.name : "your location"
+      flash[:notice] = "Our records show that you are a FitWit Member and your registration is accomplished automatically. Please see the lead trainer for #{location} if you have any questions."
+      redirect_to :back
+    end
   end
 
   def cart
@@ -43,18 +49,25 @@ class FitnessCampRegistrationController < ApplicationController
 
   def add_to_cart
     # this processes the form when we add a camp to a cart
-    begin
-      timeslot_id = params[:id]
-    rescue ActiveRecord::RecordNotFound
-      logger.error("Attempt to access invalid product #{params[:id]}")
-      flash[:notice] = "That product doesn't exist"
-      redirect_to :back
-    else
-      @current_item = @cart.add_timeslot(timeslot_id)
-      respond_to do |format|
-        format.html { redirect_to :action => "all_fitness_camps" }
-        format.js
+    unless current_user.member
+      begin
+        timeslot_id = params[:id]
+      rescue ActiveRecord::RecordNotFound
+        logger.error("Attempt to access invalid product #{params[:id]}")
+        flash[:notice] = "That product doesn't exist"
+        redirect_to :back
+      else
+        @current_item = @cart.add_timeslot(timeslot_id)
+        respond_to do |format|
+          format.html { redirect_to :action => "all_fitness_camps" }
+          format.js
+        end
       end
+    else
+      @fitness_camps = FitnessCamp.upcoming_and_current
+      location = current_user.location ? current_user.location.name : "your location"
+      flash.now[:notice] = "Our records show that you are a FitWit Member and your registration is accomplished automatically. Please see the lead trainer for #{location} if you have any questions."
+      render :all_fitness_camps
     end
   end
 

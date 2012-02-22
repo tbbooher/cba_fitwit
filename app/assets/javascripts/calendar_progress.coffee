@@ -23,54 +23,42 @@ $(document).ready ->
     content:
       text: false
       title: false
-
     show:
       effect: "slide"
-
     position:
       adjust:
         screen: true
-
     style:
       width:
         min: 200
-
       title:
         "font-size": 12
         height: 20
-
       border:
         width: 5
         radius: 6
         color: "#efefef"
-
       tip: true
 
   $("#calendar div.date_button").qtip
     content:
       text: "Click to add your own workout"
       title: false
-
     show:
       effect: "slide"
-
     position:
       adjust:
         screen: true
-
     style:
       width:
         min: 200
-
       title:
         "font-size": 12
         height: 20
-
       border:
         width: 5
         radius: 6
         color: "#efefef"
-
       tip: true
 
   $("#new_custom_workout").validate()
