@@ -1,4 +1,5 @@
   <% title "Congratulations!" %>
+
   <% if @membership %>
   <p>Congratulations! You are now an official FitWit Club Member. You will
     be automatically enrolled in every camp at the location and time
@@ -7,11 +8,12 @@
     email info@fitwit.com. Thank you for committing to a healthier
     lifestyle!</p>
   <% end %>
+
   <p>You have successfully registered for the following fitness camps:</p>
   <ol>
     <% @registrations.each do |r| %>
-    <li><%= r.time_slot.longer_title %></li>
-    <% end # registrations %>
+      <li><%= r.time_slot.longer_title %></li>
+    <% end  %>
   </ol>
   <p>We will send you a confirmation e-mail to <strong><%= @user.email %></strong>.<p>
     

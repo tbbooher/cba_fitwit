@@ -233,11 +233,6 @@ class Order
     end # items
   end
 
-  #def register_user_to_time_slot(time_slot_id)
-  #  Registration.create(:time_slot_id => time_slot_id,
-  #                      :order_id => self.id)
-  #end
-
   def complete_camp_purchase(params, user, cart)
     credit_card_params = params.except(:billing_address)
     billing_address = params[:billing_address]
@@ -276,6 +271,7 @@ class Order
     if self.authorize_payment(credit_card, options).success?
       "success"
     else
+      # " authorization failed "
       purchase.message + "<br>" + purchase.params['missingField'].to_s
     end
   end

@@ -145,7 +145,7 @@ class FitnessCampRegistrationController < ApplicationController
         redirect_to successful_registration_path(@order.id)
       else
         flash[:error] = payment_errors
-        redirect_to fitness_camp_registration_payment_path
+        render :payment
       end
     else
       "this feature is pending until they need the site to process memberships again"
