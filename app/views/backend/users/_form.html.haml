@@ -38,7 +38,7 @@
         = f.input :emergency_contact_relationship
       #fitwit_info.tab-pane
         = f.input :location_id, collection: Location.all.map{|l| [l.name, l.id]}.push(['none',nil]), include_blank: false, prompt: "Choose a location"
-        = f.input :t_shirt_size, collection: ["Small","Medium","Large"], include_blank: false
+        = f.input :t_shirt_size, collection: User::TSHIRT_SIZES, include_blank: false
         = f.input :fitness_level, collection: 1..10, prompt: "10 is the best", include_blank: false
         = f.input :weight
         = f.input :height_inches
