@@ -116,5 +116,5 @@ gem "stamp"
 gem 'has_scope', '~> 0.5.1'
 gem 'kaminari'
 gem "responders"
-gem 'simple_form', '~> 2.0.0.rc'
+gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
 gem 'bootstrap-sass', '~> 2.0.0'
