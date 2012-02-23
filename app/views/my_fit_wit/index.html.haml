@@ -3,7 +3,7 @@
 
 %h1 Welcome back #{@user.first_name}
 
-- unless @user.orders.empty?
+- if @user.camper_since
   %p
     Glad you've been with us for #{time_ago_in_words(@user.camper_since)}.
 - else

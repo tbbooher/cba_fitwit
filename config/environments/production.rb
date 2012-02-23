@@ -72,7 +72,7 @@ Cba::Application.configure do
     #mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
     ActiveMerchant::Billing::CreditCard.require_verification_value = false
     OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login => 'v9526006',
-                                                                :password => ENV['cybersource_password']                                                                :test => false,
+                                                                :password => ENV['cybersource_password'],                                                                :test => false,
                                                                 :vat_reg_number => 'your VAT registration number',
                                                                 # sets the states/provinces where you have a physical presense for tax purposes
                                                                 :nexus => "GA OH",
@@ -80,8 +80,7 @@ Cba::Application.configure do
                                                                 :ignore_avs => true,
                                                                 # don‘t want to use CVV so continue processing even if CVV would have failed
                                                                 :ignore_cvv => true,
-                                                                :money_format => :dollars
-    )
+                                                                :money_format => :dollars)
   end
 end
 
