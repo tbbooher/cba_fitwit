@@ -1,5 +1,16 @@
   <% title "Congratulations!" %>
 
+  <% content_for :right_column do %>
+
+    <blockquote class="bq-center">
+      <p>
+        <span>Only those who risk going too far can possibly find out how far one can go.</span>
+        <cite>T.S. Eliot</cite>
+      </p>
+    </blockquote>
+
+  <% end %>
+
   <% if @membership %>
   <p>Congratulations! You are now an official FitWit Club Member. You will
     be automatically enrolled in every camp at the location and time
@@ -16,10 +27,3 @@
     <% end  %>
   </ol>
   <p>We will send you a confirmation e-mail to <strong><%= @user.email %></strong>.<p>
-    
-<blockquote>
-  "Only those who risk going too
-  far can possibly find out how far one can go."
-  <br />
-  ~T.S. Eliot
-</blockquote>

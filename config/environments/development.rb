@@ -37,10 +37,10 @@ Cba::Application.configure do
 
   # we need to open an external file to get the password
   # need to update this to use ENV on heroku if we are there
-  #mypassphrase = File.open(File.join(Rails.root, 'passphrase.txt')).read
+  mypassphrase = File.open(File.join(Rails.root, 'passphrase.txt')).read
   ActiveMerchant::Billing::CreditCard.require_verification_value = false
   OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login    => 'v9526006',
-                                                    :password => 'mypassphrase.to_s',
+                                                    :password => mypassphrase.to_s,
                                                     :test => false,
                                                     :vat_reg_number => 'your VAT registration number',
                                                     # sets the states/provinces where you have a physical presense for tax purposes
