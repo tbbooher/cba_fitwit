@@ -5,7 +5,7 @@
     .widgets
       = render(:partial => "fitness_camp_registration/cart/cart", :object => @cart)
 
-- if current_user.member
+- if current_user && current_user.member
 
   %p
     Our records show that you are a FitWit Member and your registration is accomplished automatically. Please see your lead trainer if you have any questions or email us at
