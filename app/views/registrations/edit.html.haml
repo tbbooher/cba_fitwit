@@ -35,11 +35,12 @@
     = f.input :avatar, as: :file
     = f.input :clear_avatar, as: :boolean
     .control-group.check_boxes.optional
-      = f.label
-      = f.check_box :use_gravatar
+      = f.label :use_gravatar, "Use Gravatar for #{@user.email.downcase}", class: "check_boxes optional control-label"
+      .controls
+        = f.check_box :use_gravatar
+        &nbsp;
+        = link_button("What is Gravatar?".html_safe, "button link tiny", "http://gravatar.com", :target => :blank)
 
-    = f.input :use_gravatar, label: "User Gravatar for #{@user.email.downcase}", as: :boolean
-    = link_button("&nbsp; What is Gravatar?".html_safe, "button link tiny", "http://gravatar.com", :target => :blank)
   .tab_content
     #map_well{style: "padding:20px; margin-left:140px;"}
       #gis_location-preview &nbsp;
