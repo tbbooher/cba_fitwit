@@ -45,7 +45,7 @@ Cba::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  config.action_mailer.default_url_options = {:host => ::ENV['DEFAULT_URL']}
+  config.action_mailer.default_url_options = {:host => ENV['DEFAULT_URL']}
 
   # config.action_mailer.raise_delivery_errors = false
 
@@ -56,7 +56,6 @@ Cba::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
-  config.action_mailer.default_url_options = {:host => ENV['DEFAULT_URL']}
   ### ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
@@ -73,8 +72,7 @@ Cba::Application.configure do
     #mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
     ActiveMerchant::Billing::CreditCard.require_verification_value = false
     OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login => 'v9526006',
-                                                                :password => "ETkK7MmfB/7ZVF6wCtLxPsLtFwUgMkLW0AtH/kOuKpSaoME8zZuxWdYZdLnmK1+O8lgP5VEW7UYghSc4lTjgGd/GaTHFu9IcrohPSYrUH7W1+WCXpZXbGqgRobrUUToLnGTlVcUsQPb0bGh+Ud7KOb4TIQxKBfRfvVM5WUtPCbwUXuLcpsgxNHmOXrAK0vE+wu0XBSAyQtbQC0f+Q64qlJqgwTzNm7FZ1hl0ueYrX47yWA/lURbtRiCFJziVOOAZ38ZpMcW70hyuiE9JitQftbX5YJelldsaqBGhutRROgucZOVVxSxA9vRsaH5R3so5vhMhDEoF9F+9UzlZS08JvA==",
-                                                                :test => false,
+                                                                :password => ENV['cybersource_password'],                                                                :test => false,
                                                                 :vat_reg_number => 'your VAT registration number',
                                                                 # sets the states/provinces where you have a physical presense for tax purposes
                                                                 :nexus => "GA OH",
@@ -82,8 +80,7 @@ Cba::Application.configure do
                                                                 :ignore_avs => true,
                                                                 # don‘t want to use CVV so continue processing even if CVV would have failed
                                                                 :ignore_cvv => true,
-                                                                :money_format => :dollars
-    )
+                                                                :money_format => :dollars)
   end
 end
 

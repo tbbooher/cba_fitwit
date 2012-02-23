@@ -1,8 +1,25 @@
 module FitWitCustomUserMethods
 
-  # TODO -- include this in a module?
   def camper_since
-    [self.orders.sort_by { |o| o.created_at }.first.created_at, self.when_started_fitwit].min
+    if self.orders.size > 0 || self.when_started_fitwit
+      if self.orders.size > 0 && self.when_started_fitwit # if we have both, compare them
+        first_order_date = self.orders.sort_by { |o| o.created_at }.first.created_at
+        if first_order_date < self.when_started_fitwit
+          since_date = first_order_date
+        else
+          since_date = self.when_started_fitwit
+        end
+      else # which ever one we have, that's it
+        if self.orders.size > 0
+          since_date = self.orders.sort_by { |o| o.created_at }.first.created_at
+        else
+          since_date = self.when_started_fitwit
+        end
+      end
+    else
+      since_date = nil
+    end
+    since_date
   end
 
   def certain_name

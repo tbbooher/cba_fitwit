@@ -7,13 +7,13 @@ class Registration
   field :payment_arrangement, type: Symbol, default: :traditional
   field :price_paid, type: Float
   field :number_of_sessions, type: Integer
+  field :friends, type: String
 
   # :traditional, :pay_by_session, :initial_member, :member, :staff
 
   belongs_to :user
   belongs_to :time_slot  # , :null => false
   belongs_to :order
-  has_many :friends
   belongs_to :fitness_camp
 
   validates :user_id, presence: true, uniqueness: {scope: :fitness_camp_id}, of_fitness_camp_location: true

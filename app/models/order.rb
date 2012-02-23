@@ -223,9 +223,7 @@ class Order
         rs.coupon_discount = item.coupon_discount
         rs.coupon_code = item.coupon_code
       end
-      item.friends.each do |friend|
-        rs.friends << Friend.create(:name => friend)
-      end # friends
+      rs.friends = item.friends.join(",")
       unless rs.save!
         # TODO need to test!!
         registration_errors.push(rs.errors.messages)
