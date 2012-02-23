@@ -14,6 +14,6 @@
       = f.input :occupation, required: false
       = f.input :company, required: false
       = f.input :t_shirt_size, collection: User::TSHIRT_SIZES, prompt: "Please select a t-shirt size"
-      = f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12
+      = f.input :birthday_string, label: "Birthday"
   .form-actions
     = f.button :submit, "Continue to health consent", class: "btn-primary"

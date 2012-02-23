@@ -59,7 +59,7 @@ class User
 
   attr_accessible :health_issues_attributes
 
-  accepts_nested_attributes_for :health_issues, autosave: true, allow_destroy: true, reject_if: lambda {|a| a['has_it'] == "0" }, allow_destroy: true
+  accepts_nested_attributes_for :health_issues, autosave: true, allow_destroy: true # , reject_if: lambda {|a| a['has_it'] == "0" && a['explanation'].blank? }, allow_destroy: true
 
   # fitwit
   # validates_numericality_of :weight, :height_feet, :height_inches
@@ -104,6 +104,16 @@ class User
 
   def user_name
     self.name
+  end
+
+  def birthday_string
+    date_of_birth.to_s(:db)
+  end
+
+  def birthday_string=(birthday_string)
+    self.date_of_birth = Date.parse(birthday_string)
+  rescue ArgumentError
+    @birthday_invalid = true
   end
 
   def invitation
@@ -164,7 +174,7 @@ class User
                   :weight, :how_did_you_hear_about_us, :fitness_level, :height_inches,
                   :height_feet, :veteran_status, :member, :has_physician_approval,
                   :has_physician_approval_explanation, :post_menopausal_female,
-                  :taking_estrogen, :location_id
+                  :taking_estrogen, :location_id, :birthday_string, :health_issues_attributes
 
   attr_accessor :clear_avatar
 

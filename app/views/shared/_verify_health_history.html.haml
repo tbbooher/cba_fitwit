@@ -3,13 +3,14 @@
   %p If you have any history or currently have any of the of the following conditions, please update and provide a brief description:
   .well
     = f.simple_fields_for :health_issues, user.all_health_issues do |builder|
-      .health_issue_parent
-        - e = builder.object.persisted? || user.errors.size > 0
+      .health_issue_parent{style: "margin-top: -20px;"}
+        - e = builder.object.persisted? || builder.object.errors.size > 0
         = builder.input :medical_condition_id, as: :hidden
         = builder.input :has_it, as: :boolean, label: builder.object.medical_condition.name, input_html: { value: e ? '1' : '0', class: 'health_condition'}
         .explain_yourself{style: "display:#{e ? 'block' : 'none'};"}
           = builder.input :explanation, as: :text, input_html: {rows: 3, style: "width:350px;", class: "required"}
-        = builder.input :_destroy, as: :hidden, input_html: {class: 'destroy_field', value: e ? 'false' : 'true'}
+        .hidden{style: "display:none;"}
+          = builder.input :_destroy, input_html: {class: 'destroy_field', value: e ? 'false' : 'true'}
   #order_details
     %h4 Current Health Status
     .well
