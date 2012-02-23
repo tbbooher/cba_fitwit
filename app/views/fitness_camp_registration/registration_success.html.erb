@@ -20,10 +20,10 @@
     lifestyle!</p>
   <% end %>
 
-  <p>You have successfully registered for the following fitness camps:</p>
+  <p>You have successfully registered for the following fitness <%= @registrations.size > 1 ? "camps" : "camp" %>:</p>
   <ol>
     <% @registrations.each do |r| %>
       <li><%= r.time_slot.longer_title %></li>
     <% end  %>
   </ol>
-  <p>We will send you a confirmation e-mail to <strong><%= @user.email %></strong>.<p>
+  <p>We will send you a confirmation e-mail to <strong><%= @user.email %></strong> with all the details.<p>
