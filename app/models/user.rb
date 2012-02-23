@@ -107,7 +107,11 @@ class User
   end
 
   def birthday_string
-    date_of_birth.to_s(:db)
+    if self.date_of_birth
+      date_of_birth.to_s(:db)
+    else
+      ""
+    end
   end
 
   def birthday_string=(birthday_string)
