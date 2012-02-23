@@ -34,7 +34,12 @@
         = image_tag @user.avatar_url(:thumb)
     = f.input :avatar, as: :file
     = f.input :clear_avatar, as: :boolean
-    = f.input :use_gravatar, label: "User Gravatar for #{@user.email.downcase}", as: :boolean, hint: link_button("&nbsp; What is Gravatar?".html_safe, "button link tiny", "http://gravatar.com", :target => :blank)
+    .control-group.check_boxes.optional
+      = f.label
+      = f.check_box :use_gravatar
+
+    = f.input :use_gravatar, label: "User Gravatar for #{@user.email.downcase}", as: :boolean
+    = link_button("&nbsp; What is Gravatar?".html_safe, "button link tiny", "http://gravatar.com", :target => :blank)
   .tab_content
     #map_well{style: "padding:20px; margin-left:140px;"}
       #gis_location-preview &nbsp;
