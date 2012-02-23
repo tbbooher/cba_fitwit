@@ -17,14 +17,14 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def all_fitness_camps
-    unless current_user.member
-      @fitness_camps = FitnessCamp.upcoming_and_current
-      # if session cart is nil or session cart.items.empty?
-      @cart_view = !(session[:cart].nil? || session[:cart].items.empty?)
-    else
+    if current_user && current_user.member
       location = current_user.location ? current_user.location.name : "your location"
       flash[:notice] = "Our records show that you are a FitWit Member and your registration is accomplished automatically. Please see the lead trainer for #{location} if you have any questions."
       redirect_to :back
+    else
+      @fitness_camps = FitnessCamp.upcoming_and_current
+      # if session cart is nil or session cart.items.empty?
+      @cart_view = !(session[:cart].nil? || session[:cart].items.empty?)
     end
   end
 
