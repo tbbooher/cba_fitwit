@@ -2,8 +2,6 @@
 
 Cba::Application.routes.draw do
 
-  mount Ckeditor::Engine => '/ckeditor'
-
   namespace :backend do resources :offers end
 
   namespace :backend do
