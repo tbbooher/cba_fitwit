@@ -49,7 +49,7 @@ class FitnessCampRegistrationController < ApplicationController
 
   def add_to_cart
     # this processes the form when we add a camp to a cart
-    unless current_user.member
+    unless current_user && current_user.member
       begin
         timeslot_id = params[:id]
       rescue ActiveRecord::RecordNotFound

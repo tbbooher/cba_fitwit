@@ -103,11 +103,11 @@ class MyFitWitController < ApplicationController
     if current_user.past_fitness_camps
       @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
     end
-    if @my_completed_fitnesscamps
+    unless current_user.past_fitness_camps.empty?
       if params[:fitnesscamp] and request.post?
         fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
       else
-        fitness_camp_id = @my_completed_fitnesscamps.first[1]
+        fitness_camp_id = @my_completed_fitnesscamps.first
       end
       @myworkouts = Workout.find_for_user_and_fitness_camp(@user.id, fitness_camp_id)
       @my_fitness_camp = FitnessCamp.find(fitness_camp_id)

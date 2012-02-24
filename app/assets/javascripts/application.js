@@ -63,6 +63,7 @@
 //= require blog_side_calendar
 //= require qtip/jquery.qtip
 //= require calendar_progress
+//= require my_fit_wit
 
 $(document).ready(function() {
   $("#sign_up_form").validate();

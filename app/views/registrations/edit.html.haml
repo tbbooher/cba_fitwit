@@ -23,7 +23,7 @@
     = f.input :email, as: :email, :placeholder => 'user@domain.com'
     = f.input :occupation
     = f.input :company
-    = f.input :date_of_birth, as: :date, :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, hint: "Year is not made public"
+    = f.input :date_of_birth, as: :date, :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12
     = f.input :gender, collection: [:male, :female], include_blank: false
     = f.input :why_i_fitwit, as: :text, :input_html => { rows: 3 }, label: "Why I FitWit"
     = f.input :when_started_fitwit, :input_html => { class: 'datepicker' }, label: "FitWit'ing since"

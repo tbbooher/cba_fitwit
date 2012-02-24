@@ -1,6 +1,6 @@
 $(document).ready ->
   # general code
-  $(".datepicker").datepicker dateFormat: 'D, dd M yy'
+  $(".datepicker").datepicker dateFormat: "D, dd M yy"
   # fit wit measurements
   $("#other_measurements").hide()
   $("#other_selector").toggle (->

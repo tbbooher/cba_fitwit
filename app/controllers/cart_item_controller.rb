@@ -2,15 +2,21 @@ class CartItemController < ApplicationController
   before_filter :find_cart_item, except: [:get_friend_savings]
 
   def add_friend
-    @new_friend = params[:friend_name]
+    friend = params[:friend_name]
     @max_friends = PRICE['friend_discount']['max_vet_friends']
-    unless @cart_item.friends.size > @max_friends
+    first_name, last_name = friend.split(' ',2)
+    if @cart_item.friends.size <= @max_friends && first_name && last_name && last_name.length > 1 && last_name.length > 1
+      @new_friend = friend
       @cart_item.friends << @new_friend
       @updated_camp_price = @cart_item.camp_price_for_(@user)/100
-    else
-      @too_many_friends = true
+      @savings = get_friend_savings(@user)
+    else # error
+      if @cart_item.friends.size > @max_friends
+        @too_many_friends = true
+      else
+        @bad_friend_formatting = true
+      end
     end
-    @savings = get_friend_savings(@user)
   end
 
   def remove_friend

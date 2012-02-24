@@ -46,7 +46,7 @@
           = f.text_area :description, :rows => 2
         .field
           = desc_label(f, :target_date, "Target date:", false)
-          = f.text_field :target_date, {:class=>"datepicker date required", :size => 8}
+          = f.text_field :target_date, {:class=>"datepicker required", :size => 8}
         .field
           %label &nbsp;
           = f.submit "Submit", :class => 'button'

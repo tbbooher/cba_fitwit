@@ -1,3 +1,3 @@
-$("#flashes").html("<div class='message msg-error'><%= @friend %> has been removed</div>");
+$("#flashes").html("<div id='flash_notice'><%= @friend %> has been removed</div>");
 $("#<%= @friend.parameterize %>").remove();
 $('#final_camp_price').html("<%= number_to_currency(@updated_camp_price) %>");
