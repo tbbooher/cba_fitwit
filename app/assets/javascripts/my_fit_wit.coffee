@@ -1,6 +1,7 @@
 $(document).ready ->
   # general code
   $(".datepicker").datepicker dateFormat: "D, dd M yy"
+  $('#new_custom_workout').validate()
   # fit wit measurements
   $("#other_measurements").hide()
   $("#other_selector").toggle (->
