@@ -65,6 +65,7 @@
 //= require calendar_progress
 //= require my_fit_wit
 
+
 $(document).ready(function() {
   $("#sign_up_form").validate();
 })
