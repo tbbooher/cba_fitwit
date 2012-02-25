@@ -1,5 +1,3 @@
-
-
 class MyFitWitController < ApplicationController
   before_filter :get_user
 
@@ -18,12 +16,14 @@ class MyFitWitController < ApplicationController
     @date = Date.parse(params[:date])
     @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
     @custom_workout = @user.custom_workouts.new   # this is generated for the forms
+    @month_param = params[:month]
   end
 
   def show_custom_workout
     @custom_workout = @user.custom_workouts.find(params[:id])
     @date = @custom_workout.workout_date
     @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
+    @month_param = params[:month]
     render :add_custom_workout
   end
 
@@ -143,7 +143,6 @@ class MyFitWitController < ApplicationController
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
     @calendar_events = @user.get_calendar_events
-
     # for single fit_wit_workout
     @fit_wit_workouts_select_list = @user.workouts.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout_id] }.uniq
     # prs

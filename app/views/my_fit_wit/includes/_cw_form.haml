@@ -7,6 +7,7 @@
   #custom_name_region{style: "display: #{f.object.fit_wit_workout_id ? "none" : "block"};"}
     = f.input :custom_name # , input_html: {style: "display:none;"}
   = f.input :workout_date, as: :hidden, input_html: {value: date}
+  = hidden_field_tag :month, @month_param
   = f.input :pr, as: :boolean, label: "Personal Record?"
   %br
   = f.input :description, as: :text, input_html: {rows: 2}
@@ -14,4 +15,5 @@
   .form-actions
     = f.button :submit, class: 'btn-primary'
     - if f.object.persisted?
-      = link_to "Destroy", user_custom_workout_path(f.object.id), method: :delete, confirm: "Are you sure?", class: 'btn btn-danger'
+      = link_to "Destroy", user_custom_workout_path(@user.id, f.object.id), method: :delete, confirm: "Are you sure?",
+       class: 'btn btn-danger', style: "color: white;"

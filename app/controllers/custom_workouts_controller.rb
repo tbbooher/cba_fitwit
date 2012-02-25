@@ -9,7 +9,7 @@ class CustomWorkoutsController < ApplicationController
     respond_to do |format|
       if @custom_workout.save
         # TODO need to get a specific month in there . . .
-        format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path, notice: 'Custom workout was successfully created.' }
+        format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path(month: params[:month]), notice: 'Custom workout was successfully created.' }
         format.json { render json: @custom_workout, status: :created, location: @custom_workout }
       else
         format.html { render controller: "my_fit_wit", action: "add_custom_workout" }
@@ -25,7 +25,7 @@ class CustomWorkoutsController < ApplicationController
 
     respond_to do |format|
       if @custom_workout.update_attributes(params[:custom_workout])
-        format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path, notice: 'Custom workout was successfully updated.' }
+        format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path(month: params[:month]), notice: 'Custom workout was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render controller: "my_fit_wit", action: "show_custom_workout" }
@@ -41,7 +41,8 @@ class CustomWorkoutsController < ApplicationController
     @custom_workout.destroy
 
     respond_to do |format|
-      format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path }
+      flash[:notice] = "Successfully removed your workout."
+      format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path(month: params[:month]) }
       format.json { head :ok }
     end
   end
@@ -51,4 +52,5 @@ class CustomWorkoutsController < ApplicationController
   def get_user
     @user = User.find(params[:user_id])
   end
+
 end
