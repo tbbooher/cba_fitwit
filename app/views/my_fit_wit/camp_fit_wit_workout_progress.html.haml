@@ -1,7 +1,9 @@
+- title "Fitness Camp Reports"
+
 - content_for :resource_actions do
   = render partial: 'my_fit_wit/includes/my_fit_wit_nav'
 
-%h1
+%h3
   Camp report #{"for #{@my_fitness_camp.full_title}" if @my_fitness_camp}
 - if @myexertions.nil? and !params[:fitnesscamp]
   %p
@@ -9,11 +11,10 @@
     You can #{link_to "register here", :controller => "fitness_camp_registration", :action => "all_fitness_camps"}.
 - else
   - unless @my_completed_fitnesscamps.empty?
-    - form_for :fitnesscamp, :url => {:action => 'camp_fit_wit_workout_progress'} do |form|
+    - form_tag :fitnesscamp, :url => {:action => 'camp_fit_wit_workout_progress'} do |form|
       Pick workouts for a specific Fitness Camp:
-      \#{form.select :fitness_camp_id, @my_completed_fitnesscamps}
-      \#{form.submit "Look up"}
-    / fitnesscamp form
+      = form.select :fitness_camp_id, @my_completed_fitnesscamps
+      = form.submit "Look up"
   - else
     %p You have no other Fitness Camps to choose from.
   - attendance_count = 0

@@ -1,50 +1,18 @@
 class CustomWorkoutsController < ApplicationController
-  # GET /custom_workouts
-  # GET /custom_workouts.json
-  def index
-    @custom_workouts = CustomWorkout.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @custom_workouts }
-    end
-  end
-
-  # GET /custom_workouts/1
-  # GET /custom_workouts/1.json
-  def show
-    @custom_workout = CustomWorkout.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @custom_workout }
-    end
-  end
-
-  # GET /custom_workouts/new
-  # GET /custom_workouts/new.json
-  def new
-    @custom_workout = CustomWorkout.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @custom_workout }
-    end
-  end
-
+  before_filter :get_user
   # GET /custom_workouts/1/edit
   def edit
-    @custom_workout = CustomWorkout.find(params[:id])
+    @custom_workout = @user.custom_workouts.find(params[:id])
   end
 
   # POST /custom_workouts
   # POST /custom_workouts.json
   def create
-    @custom_workout = CustomWorkout.new(params[:custom_workout])
+    @custom_workout = @user.custom_workouts.new(params[:custom_workout])
 
     respond_to do |format|
       if @custom_workout.save
-        format.html { redirect_to @custom_workout, notice: 'Custom workout was successfully created.' }
+        format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path, notice: 'Custom workout was successfully created.' }
         format.json { render json: @custom_workout, status: :created, location: @custom_workout }
       else
         format.html { render action: "new" }
@@ -56,7 +24,7 @@ class CustomWorkoutsController < ApplicationController
   # PUT /custom_workouts/1
   # PUT /custom_workouts/1.json
   def update
-    @custom_workout = CustomWorkout.find(params[:id])
+    @custom_workout = @user.custom_workouts.find(params[:id])
 
     respond_to do |format|
       if @custom_workout.update_attributes(params[:custom_workout])
@@ -72,12 +40,18 @@ class CustomWorkoutsController < ApplicationController
   # DELETE /custom_workouts/1
   # DELETE /custom_workouts/1.json
   def destroy
-    @custom_workout = CustomWorkout.find(params[:id])
+    @custom_workout = @user.custom_workouts.find(params[:id])
     @custom_workout.destroy
 
     respond_to do |format|
       format.html { redirect_to custom_workouts_url }
       format.json { head :ok }
     end
+  end
+
+  private
+
+  def get_user
+    @user = User.find(params[:user_id])
   end
 end

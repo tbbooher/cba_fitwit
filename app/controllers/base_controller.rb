@@ -1,5 +1,6 @@
 class BaseController < ApplicationController
-  caches_page :home, :community, :about_us, :not_authorized, :logoff_success, :all_sponsors
+  # need to update this! TODO -- UPDATE
+  caches_page :home, :community, :about_us, :all_sponsors
   layout "canvas"
 
   def posts
@@ -27,10 +28,6 @@ class BaseController < ApplicationController
   def locations
     @locations = Location.all.to_a
     @google_maps = true
-  end
-
-  def not_authorized
-    @pagetitle = "Not Authorized"
   end
 
   def fit_wit_calendar

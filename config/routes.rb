@@ -51,39 +51,31 @@ Cba::Application.routes.draw do
     resources :medical_conditions
   end
 
-  match "my_fit_wit/input_custom_workout"
-
   get "my_fit_wit/index"
-  get "my_fit_wit/profile"
-  get "my_fit_wit/upcoming_fitnesscamps"
-  get "my_fit_wit/add_custom_workout"
-  get "my_fit_wit/leader_board/:id" => "my_fit_wit#leader_board"
-  get "my_fit_wit/get_progress_chart"
-  get "my_fit_wit/fit_wit_workout_details/:id" => "my_fit_wit#fit_wit_workout_details"
-  get "my_fit_wit/update"
-  get "my_fit_wit/past_fitnesscamps"
   get "my_fit_wit/camp_fit_wit_workout_progress"
+  get "add_custom_workout/:date" => "my_fit_wit#add_custom_workout", as: :add_custom_workout
+  get "show_custom_workout/:id" => "my_fit_wit#show_custom_workout", as: :show_custom_workout
+  # goals -- should remove
   get "my_fit_wit/my_goals"
   post "my_fit_wit/add_goal"
   match "my_fit_wit/delete_goal/:goal_id" => "my_fit_wit#delete_goal", as: :my_fit_wit_delete_goal
-  match "my_fit_wit/update_goal/:goal_id" => "my_fit_wit#update_goal", as: :my_fit_wit_update_goal
+  # workout progress
   get "my_fit_wit/fit_wit_workout_progress"
+  # add measurements
   post "my_fit_wit/add_new_measurement"
+
+  #unsure
+  get "my_fit_wit/leader_board/:id" => "my_fit_wit#leader_board"
+  get "my_fit_wit/upcoming_fitnesscamps"
+  get "my_fit_wit/get_progress_chart"
+  get "my_fit_wit/past_fitnesscamps"
   get "my_fit_wit/load_calendar_date"
   get "my_fit_wit/specific_fit_wit_workout"
-  get "my_fit_wit/process_fit_wit_history"
-  get "my_fit_wit/health_history"
   get "my_fit_wit/get_calendar_events"
   get "my_fit_wit/list_fit_wit_workout"
   get "my_fit_wit/find_previous_scores"
-  get "my_fit_wit/get_user_id"
-  get "my_fit_wit/zero_out_all_unchecked_explanations"
-  get "my_fit_wit/user_has_not_explained_themself"
-  get "my_fit_wit/get_inches_height"
-  get "my_fit_wit/get_months_and_years"
 
   # FitWit Routes
-
   get "base/locations", as: "locations"
   get "base/camp_details", as: "camp_details"
   get "base/whats_included", as: "whats_included"
@@ -99,7 +91,6 @@ Cba::Application.routes.draw do
   get "base/team_story", as: "team_story"
   get "base/contact", as: "contact"
   post "base/create_contact_message"
-  get 'base/error'
   get 'base/posts'
 
   # stories
@@ -120,7 +111,6 @@ Cba::Application.routes.draw do
   get "base/stories/carey" => 'base#carey'
 
   # fitness camp registrations
-  # TODO -- change these to post
   match 'fitness_camp_registration/add_to_cart/:id' => "fitness_camp_registration#add_to_cart", as: "add_to_cart"
   match 'fitness_camp_registration/release_and_waiver_of_liability'
   match 'fitness_camp_registration/medical_conditions'
@@ -133,7 +123,6 @@ Cba::Application.routes.draw do
   match "cart_item/add_pay_by_session/:number_of_sessions/:unique_id" => "cart_item#add_pay_by_session", as: :add_sessions_to_cart
   match "cart_item/set_traditional/:unique_id" => "cart_item#set_traditional", as: :set_traditional
   match 'fitness_camp_registration/cart' => "fitness_camp_registration#cart"
-
 
   get 'fitness_camp_registration/index'
   get 'fitness_camp_registration/no_need_to_register'
@@ -235,7 +224,11 @@ Cba::Application.routes.draw do
   put "users/update_password"
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
-  
+
+  resources :users do
+    resources :custom_workouts, only: [:edit, :create, :update, :destroy]
+  end
+
   resources :users, :only => [:show,:destroy] do
     resources :invitations    
     resources :user_groups

@@ -204,6 +204,7 @@ textarea.error, input.error {
 @import "style_10.css.scss";
 @import "select_from_cba.css.scss";
 @import "maps.css.scss";
+// need to remove these -- not compatible with ie 7
 @import "css3buttons.css.scss";
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
@@ -212,6 +213,7 @@ textarea.error, input.error {
 @import "bootstrap/button-groups";
 @import "bootstrap/wells";
 @import "bootstrap/tables";
+@import "bootstrap/popovers";
 @import "my_fit_wit.css.scss";
 @import "flickr.css.scss";
 @import "jquery.tweet.css.scss";

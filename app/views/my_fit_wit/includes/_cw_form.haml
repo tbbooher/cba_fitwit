@@ -1,0 +1,15 @@
+%h1#custom_workout_title
+  Add workout for
+  = compact_date(date)
+
+= simple_form_for([@user, @custom_workout]) do |f|
+  = f.input :fit_wit_workout_id, label: "Workout", collection: @fit_wit_workout_list, prompt: 'Custom'
+  #custom_name_region
+    = f.input :custom_name # , input_html: {style: "display:none;"}
+  = f.input :workout_date, as: :hidden, input_html: {value: date}
+  = f.input :pr, as: :boolean, label: "Personal Record?"
+  %br
+  = f.input :description, as: :text, input_html: {rows: 2}
+  = f.input :score
+  .form-actions
+    = f.button :submit, class: 'btn-primary'

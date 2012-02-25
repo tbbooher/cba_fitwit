@@ -2,12 +2,8 @@ require 'ostruct'
 
 class MyFitWitController < ApplicationController
   before_filter :get_user
-  #ssl_required  :health_history
 
   def index
-    @pagetitle = "My FitWit"
-    @include_jquery = true
-    @qtip = true
     if @user
       @my_time_slots = @user.user_time_slots
       @my_fitness_camps = @my_time_slots.map { |ts| ts.fitness_camp } if @my_time_slots
@@ -18,57 +14,20 @@ class MyFitWitController < ApplicationController
     end
   end
 
-  def upcoming_fitnesscamps
-    @pagetitle = "Upcoming Fitness Camps"
-    @mycamps = FitnessCamp.find_upcoming(@user.id)
-  end
-
   def add_custom_workout
     @date = Date.parse(params[:date])
-    @fit_wit_form = true
-    @include_jquery = true
-    @admin = false
-    @fit_wit_workout_list = Exercise.find(:all).map { |e| [e.name, e.id] }
-    @custom_workout = CustomWorkout.new
-    @action_url = 'input_custom_workout'
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
+    @custom_workout = @user.custom_workouts.new   # this is generated for the forms
   end
 
-  def input_custom_workout
-    cwo = params[:custom_workout]
-    # sample submit
-    if params[:adding_new_workout] == 'false'
-      cwo[:custom_name] = "_a_fit_wit_workout_"
-      cwo[:is_a_fit_wit_workout] = true
-    else
-      cwo[:fit_wit_workout_id] = 0
-      cwo[:is_a_fit_wit_workout] = false # this is the default
-    end
-    begin
-      the_month = Date.parse(cwo[:workout_date]).strftime("%b-%Y")
-    rescue
-      flash[:notice] = "not a valid date"
-      redirect_to :action => :fit_wit_workout_progress
-    end
-    @custom_workout = CustomWorkout.new(cwo)
-    u = current_user
-    u.custom_workouts.push(@custom_workout)
+  def show_custom_workout
+    @custom_workout = @user.custom_workouts.find(params[:id])
+    @date = @custom_workout.workout_date
+    @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
+  end
 
-    respond_to do |format|
-      if u.save!
-        flash[:notice] = 'Custom Workout was successfully created.'
-        format.html { redirect_to :action => :fit_wit_workout_progress, :month => the_month }
-        format.xml { render :xml => @custom_workout, :status => :created, :location => @custom_workout }
-      else
-        format.html { redirect_to :action => :add_custom_workout }
-        format.xml { render :xml => @custom_workout.errors, :status => :unprocessable_entity }
-      end
-    end
-
+  def upcoming_fitnesscamps
+    @mycamps = FitnessCamp.find_upcoming(@user.id)
   end
 
   def leader_board
@@ -93,13 +52,10 @@ class MyFitWitController < ApplicationController
   end
 
   def past_fitnesscamps
-    @pagetitle = 'Past Fitness Camps'
     @mycamps = current_user.past_fitness_camps
   end
 
   def camp_fit_wit_workout_progress
-    @pagetitle = 'Fitness Camp Report'
-    @qtip = true
     if current_user.past_fitness_camps
       @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
     end
@@ -125,10 +81,6 @@ class MyFitWitController < ApplicationController
   end
 
   def my_goals
-    @include_jquery = true
-    @qtip = true
-    @checkbox = true
-    @pagetitle = "Manage Goals"
     goals = @user.goals
     @completed_goals = goals.find_all { |goal| goal if goal.completed? }
     @current_goals = goals-@completed_goals
@@ -186,22 +138,13 @@ class MyFitWitController < ApplicationController
 
   def fit_wit_workout_progress
     # the main page for the different ways folks can see fit_wit_workout . . . by calendar, date, fit_wit_workout
-    @include_jquery = true
-    @qtip = true
-    @fit_wit_form = true
-    @pagetitle = "Fitness Progress"
     # for calendar
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
-    @fit_wit_workout_list = FitWitWorkout.all.map { |e| [e.name, e.id] }
     @calendar_events = get_calendar_events(@user)
-    @custom_workout = @user.custom_workouts.new   # this is generated for the forms
-    @custom_workout.score = ""
-    @custom_workout.description = ""
-    @action_url = 'input_custom_workout'
+
     # for single fit_wit_workout
     @fit_wit_workouts_select_list = @user.workouts.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout_id] }.uniq
-    @fit_wit_workouts_select_list << ['select a workout', 0]
     # prs
     @prs = @user.find_prs
     if @user.past_fitness_camps
@@ -242,17 +185,15 @@ class MyFitWitController < ApplicationController
   end
 
   def specific_fit_wit_workout
-    @pagetitle = "Exercise history"
     @workout = Workout.find(params[:id])
     @fit_wit_workout = @workout.fit_wit_workout
     @meeting = @workout.meeting
-    @include_jquery = true
-    @qtip = true
     meeting_date = @meeting.meeting_date
     @the_date = meeting_date.strftime("%b #{meeting_date.day.ordinalize} %Y")
     @other_scores = find_previous_scores(@user, @fit_wit_workout, @fit_wit_workout.name, @workout.id)
     # now what about other users at the same meetings
     #@other_folks_workouts = Workout.all(:conditions => ["meetings.id = ?", @meetings.id], :joins => [{:meeting_user => :meetings}, :user], :order => "common_value DESC")
+    # MONGOID ! ! !
     @other_folks_workouts = Workout.all(:select => "users.first_name, users.last_name, workouts.score, workouts.rxd",
                                           :conditions => ["meetings.id = ?", @meeting.id],
                                           :joins => [{:meeting_user => :meetings}, {:meeting_user => :user}],
@@ -260,7 +201,7 @@ class MyFitWitController < ApplicationController
 
     #@other_folks_workouts = @workout.meetings.workouts.select { |e| e.fit_wit_workout.id == @fit_wit_workout.id }.sort_by { |e| e.common_value }.reverse
     # and now what about all other folks that day
-
+    # MONGOID ! ! !
     @workouts_that_day = Workout.all(:select => "users.first_name, users.last_name, workouts.score, workouts.rxd",
                                       :conditions => ["meetings.meeting_date = ? AND workouts.fit_wit_workout_id = ?", meeting_date, @fit_wit_workout.id],
                                       :joins => [{:meeting_user => :meetings}, {:meeting_user => :user}],
@@ -272,23 +213,23 @@ class MyFitWitController < ApplicationController
   end
 
   private
-
+  # this is needed here or in the helper?
   def get_calendar_events(user)
-    fit_wit_workouts = user.workouts.map { |w| OpenStruct.new(:exertion_id => w.id,
+    fit_wit_workouts = user.workouts.map { |w| OpenStruct.new(:id => w.id,
                                                                :meeting_date => w.meeting.meeting_date,
                                                                :score => w.score,
                                                                :name => w.fit_wit_workout.name,
                                                                :format_class => 'fit_wit_workout',
                                                                :previous_scores => "<b>Score:</b> " + w.score + "<br />" + find_previous_scores(@user, w.fit_wit_workout, w.fit_wit_workout.name, w.id)) }
 
-    custom_workouts = user.custom_workouts.map { |cw| OpenStruct.new(:exertion_id => cw.fit_wit_workout_id,
+    custom_workouts = user.custom_workouts.map { |cw| OpenStruct.new(:id => cw.fit_wit_workout_id,
                                                                     :meeting_date => cw.workout_date,
                                                                     :score => cw.score,
                                                                     :name => cw.title,
                                                                     :format_class => 'custom_workout',
                                                                     :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + cw.description) }
 
-    goals = user.goals.map { |g| OpenStruct.new(:exertion_id => g.id,
+    goals = user.goals.map { |g| OpenStruct.new(:id => g.id,
                                                 :meeting_date => g.target_date,
                                                 :score => '',
                                                 :name => "Goal: " + g.goal_name,
@@ -327,55 +268,6 @@ class MyFitWitController < ApplicationController
     return prev_scores
   end
 
-  def zero_out_all_unchecked_explanations(user_params)
-    condition_params = user_params.reject { |key, value| \
- key =~ /_explanation$/ || \
- value == "true" || \
- key == "fitness_level" }
-    condition_params.each do |key, value| # for each false condition set the params equal to ""
-      explanation_name = "#{key}_explanation".to_sym
-      user_params[explanation_name] = "" if user_params[explanation_name]
-    end
-    return user_params
-  end
-
-  def user_has_not_explained_themself(user_params)
-    #condition_params = params.keys.map{|k| k.to_s}.grep(/[^(_explanation)]$/)
-    condition_params = user_params.reject { |key, value| key =~ /_explanation$/ || \
- value == "false" || key == 'fitness_level' }
-    names_of_titles_that_require_more_information = [] # initialize
-
-    condition_params.each do |key, value|
-      field_content = user_params["#{key}_explanation".to_sym]
-      if field_content =~ /^\s*$/ || field_content == "Please enter an explanation"
-        names_of_titles_that_require_more_information << key
-      end
-    end
-
-    if names_of_titles_that_require_more_information.empty?
-      return nil
-    else
-      return names_of_titles_that_require_more_information
-    end
-
-  end
-
-  private
-
-  def get_inches_height(my_feet, my_inches)
-    ((my_feet.to_i*12) + my_inches.to_i)
-  end
-
-  #def get_months_and_years(st, ed)
-  #  yr_month_array = []
-  #  date = st
-  #  while date.month <= ed.month do
-  #    yr_month_array << [date.month, date.year]
-  #    date = date.next_month
-  #  end
-  #  yr_month_array
-  #end
-
   def get_months_and_years(st, ed)
     m = []
     d = st.beginning_of_month
@@ -389,7 +281,6 @@ class MyFitWitController < ApplicationController
   def get_user
     authorize! :manage, User, message: "You need to be logged to access MyFitWit"
     @user = current_user
-    @my_fit_wit = true
   end
 
 end

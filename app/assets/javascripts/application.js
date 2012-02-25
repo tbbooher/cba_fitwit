@@ -61,7 +61,6 @@
 //= require backend/all_fit_wit_calendar
 //= require backend/location_calendar
 //= require blog_side_calendar
-//= require qtip/jquery.qtip
 //= require calendar_progress
 //= require my_fit_wit
 

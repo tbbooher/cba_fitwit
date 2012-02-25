@@ -15,53 +15,28 @@ $(document).ready ->
     form.submit ->
       $.post $(this).attr("action"), $(this).serialize(), null, "script"
       false
-  # workout tracker code
-  $("div#the_exercise_progress").hide()
+
+  # tracker code -- single fit_wit_workout_progress
+  $("div#the_fit_wit_workout_progress").hide()
   $("div#moving_image").hide()
-  $("#exercise_id").change ->
-    $("div#the_exercise_progress").hide()
+  $("#fit_wit_workout_id").change ->
+    $("div#the_fit_wit_workout_progress").hide()
     $("div#moving_image").fadeIn 100
-    exercise_id = $(this).val()
-    $.get "/my_fit_wit/leader_board/" + exercise_id, {}, (html) ->
-      $("#the_exercise_progress").html html
+    fit_wit_workout_id = $(this).val()
+    $.get "/my_fit_wit/leader_board/" + fit_wit_workout_id, {}, (html) ->
+      $("#the_fit_wit_workout_progress").html html
       $("div#moving_image").hide()
-      $("div#the_exercise_progress").fadeIn 500
+      $("div#the_fit_wit_workout_progress").fadeIn 500
 
-  change_status = (click) ->
-    plus = "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>"
-    minus = "<span class=\"ui-icon ui-icon-minusthick\" style=\"padding-bottom: 0px;\"></span>"
-    cw = (if $("#adding_new_workout").attr("value") is "false" then false else true)
-    if (not click and cw) or (click and not cw)
-      $("#custom_workout_custom_name").attr "class", "required"
-      $("#custom_workout_exercise_id").attr "class", ""
-      $("#custom_section").show "highlight"
-      $("li#exercise_select").hide()
-      $("li#exercise_description").hide()
-      $("#adding_new_workout").attr "value", "true"
-      $("#custom_workout_button").html "I did a FitWit workout"
-    else
-      $("#custom_workout_custom_name").attr "class", ""
-      $("#custom_workout_exercise_id").attr "class", "required"
-      $("#custom_section").hide()
-      $("li#exercise_select").show "highlight"
-      $("#custom_workout_exercise_id").removeAttr "disabled"
-      $("#exercise_select label").removeAttr "style"
-      $("#adding_new_workout").attr "value", "false"
-      $("#custom_workout_button").html "No thanks, I did my own"
-      $("li#exercise_description").show()
-    false
-
-  $("li#exercise_description").hide()
-  $("#custom_workout_exercise_id").change ->
-    $("li#exercise_description").show()
-    exercise_id = $("#custom_workout_exercise_id").val()
-    $.get "exercise_details/" + exercise_id,
-      id: exercise_id
+  # some code to hide and display the workout details
+  $("li#fit_wit_workout_description").hide()
+  # the following does not exist . . . we can get it ready
+  $("#custom_workout_fit_wit_workout_id").change ->
+    $("li#fit_wit_workout_description").show()
+    fit_wit_workout_id = $("#custom_workout_exercise_id").val()
+    $.get "fit_wit_workout_details/" + fit_wit_workout_id,
+      id: fit_wit_workout_id
     , (html) ->
       $("#the_description").html html
 
-  change_status false
-  $("#custom_workout_button").click ->
-    change_status true
-    false
 

@@ -1,16 +1,8 @@
+<% title "MyFitWit Progress" %>
+
 <% content_for :right_column do %>
-    <div id="dialog-form" title="Add workout">
-      <%= render :partial => 'custom_workouts/cw_form' %>
-    </div>
+  <div id="dialog-form"></div>
 <% end %>
-
-<div id="moving_image">
-  Please wait while we do some big number crunching on your past workouts. (This may take a good bit.)<br/>
-
-  <div style="width:100%; text-align: center;">
-    <%= image_tag "ajax-loader.gif" %>
-  </div>
-</div>
 
 <!-- placeholder for form to load calendar for fitness camp -->
 <% if @user.past_fitness_camps %>
@@ -32,7 +24,7 @@
           <div style="margin:0;padding:0;width:100%; position:relative">
             <%= date.day %>
             <div class="ui-state-default ui-corner-all date_button">
-              <%= link_to "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>".html_safe , {:action => :add_custom_workout, :date => date}, {:class => 'bottom_date'} %>
+              <%= link_to "<span class=\"ui-icon ui-icon-plusthick\" style=\"padding-bottom: 0px;\"></span>".html_safe, add_custom_workout_path(date), remote: true, :class => 'bottom_date' %>
             </div>
             <ul>
               <% for event in events %>
@@ -40,11 +32,11 @@
                   <li>
                     <% type = event.format_class %>
                     <% if type == 'custom_workout' %>
-                        <%= link_to h(event.name), "#", {:title => description, :class => "#{event.format_class} activity"} %>
+                        <%= link_to h(event.name), show_custom_workout_path(event.id), {:title => description, :class => "#{event.format_class} activity"}, remote: true %>
                     <% elsif type == 'goal' %>
                         <%= link_to h(event.name), {:action => :my_goals}, {:title => description, :class => "#{event.format_class} activity"} %>
                     <% else %>
-                        <%= link_to h(event.name), {:action => :specific_fit_wit_workout, :id => event.exertion_id}, {:title => description, :class => "#{event.format_class} activity"} %>
+                        <%= link_to h(event.name), {:action => :specific_fit_wit_workout, :id => event.id}, {:title => description, :class => "#{event.format_class} activity"} %>
                     <% end %>
                   </li>
               <% end %>

@@ -1,0 +1,9 @@
+$("#dialog-form").html("<%= escape_javascript(render(partial: "my_fit_wit/includes/cw_form", locals: {date: @date})) %>");
+$("#custom_workout_title").effect("highlight", {}, 1500);
+$("#custom_workout_fit_wit_workout_id").change(function() {
+    if ($(this).val().length > 0) {
+        $("#custom_name_region").hide();
+    } else {
+        $("#custom_name_region").show();
+    }
+});
