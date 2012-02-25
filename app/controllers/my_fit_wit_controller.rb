@@ -60,7 +60,7 @@ class MyFitWitController < ApplicationController
     if current_user.past_fitness_camps
       @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
     end
-    unless current_user.past_fitness_camps.empty?
+    if current_user.past_fitness_camps
       if params[:fitnesscamp] and request.post?
         fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
       else

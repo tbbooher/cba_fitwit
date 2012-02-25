@@ -19,13 +19,14 @@
 
   - @users.each do |resource|
     %tr
-      %td= link_to resource.first_name, edit_resource_path(resource)
+      %td
+        =link_to resource.first_name, edit_resource_path(resource)
       %td
         = link_to resource.last_name, edit_resource_path(resource)
+      %td
         - if resource.roles_mask == 5
           %span.label.label-success admin
-
-      %td= resource.location.nil? ? 'none' : resource.location.name
+        = resource.location.nil? ? 'none' : resource.location.name
       %td
         - if resource.member
           %span.label.label-success member
