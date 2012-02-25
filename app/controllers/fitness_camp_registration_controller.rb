@@ -17,7 +17,8 @@ class FitnessCampRegistrationController < ApplicationController
   end
 
   def all_fitness_camps
-    if current_user && current_user.member
+    @user = current_user || User.new
+    if @user.member
       location = current_user.location ? current_user.location.name : "your location"
       flash[:notice] = "Our records show that you are a FitWit Member and your registration is accomplished automatically. Please see the lead trainer for #{location} if you have any questions."
       redirect_to :back

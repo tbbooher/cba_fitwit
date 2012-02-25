@@ -66,5 +66,21 @@
 
 
 $(document).ready(function() {
-  $("#sign_up_form").validate();
-})
+  $("#sign_up_form").validate( {
+      rules: {
+        "user[email]": {
+            required: true,
+            email: true
+        },
+        "user[password]": {
+            required: true,
+            minlength: 6
+  		},
+        "user[password_confirmation]": {
+            required: true,
+            minlength: 6,
+            equalTo: "#user_password"
+		}
+      }
+  })
+});

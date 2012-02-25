@@ -1,33 +1,64 @@
 <% title "Getting Started" %>
 
 <div class="full_page">
-    <%= image_tag "headerLarge/splash1.jpg" %>
+  <%= image_tag "headerLarge/splash1.jpg" %>
 </div>
 
 <div class="one_half">
-<p>FitWit is a personalized group-training program that has transformed thousands of lives since 2006. We're NOT your typical boot camp that runs around the park every day. Instead, we offer unique and measurable workouts instructed by expert coaches who care about your progress. AND, perhaps the biggest reason we've had over 150 campers in our program for 2+ years is our ability to effectively program workouts for EVERY fitness level. With a focus on You vs. You, our well-conditioned campers are always pushed to new levels and our new-comers to exercise are NEVER left behind.</p>
-	<p><strong>It’s easy to get started:</strong></p>
+  <p>FitWit is a personalized group-training program that has transformed thousands of lives since 2006. We're NOT your
+    typical boot camp that runs around the park every day. Instead, we offer unique and measurable workouts instructed
+    by expert coaches who care about your progress. AND, perhaps the biggest reason we've had over 150 campers in our
+    program for 2+ years is our ability to effectively program workouts for EVERY fitness level. With a focus on You vs.
+    You, our well-conditioned campers are always pushed to new levels and our new-comers to exercise are NEVER left
+    behind.</p>
 
-	<ol>
-		<li>Want to try us out? Call/email (888-534-8948/<a href="mailto:info@fitwit.com">info@fitwit.com</a>) to join us for a free workout anytime.<br/><br/></li>
-		<li>Is this a right fit for you? Call/email (888-534-8948/<a href="mailto:info@fitwit.com">info@fitwit.com</a>) to set up a free fitness consultation.<br/><br/></li>
-        <li>Ready to change your life?   <%= link_to "Register for your first camp", fitness_camp_registration_all_fitness_camps_path %> or call us to discuss our membership programs. Nearly 80% of FitWitters are enrolled as FitWit Club Members.  We have a variety of membership options to match your motivation and schedule with prices ranging from $135 to $205 per month.  We also offer discounts for couples, teachers, students, military, law enforcement and first-responders.  Contact us now at <%= link_to "888-534-8948", "tel:888-534-8948" %> or <%= link_to "info@fitwit.com", "mailto:info@fitwit.com"  %>.</li>
-	</ol>
+  <p>At FitWit, you receive EVERYTHING you need to completely transform your life - personalized fitness instruction,
+    workout tracking, nutrition coaching, group accountability and a new community of supporters. This community is a
+    vital component of your transformation, and we're very serious about it — group socials, volunteer projects, running
+    clubs, dinner clubs and a yearly FitWit Awards Banquet held at Zoo Atlanta.</p>
 
-<p>At FitWit, you receive EVERYTHING you need to completely transform your life - personalized fitness instruction, workout tracking, nutrition coaching, group accountability and a new community of supporters. This community is a vital component of your transformation, and we're very serious about it — group socials, volunteer projects, running clubs, dinner clubs and a yearly FitWit Awards Banquet held at Zoo Atlanta.</p>
+  <div class="one_half">
+    <h2>It’s easy to get started:</h2>
 
-<p>Finally, not only will you GET FIT, you'll also GIVE FIT, <%= link_to "so our next generation can LIVE FIT", non_profit_path %>.</p>
+    <div class="one_half"><span class="dropcap2">1</span> Want to try us out? Call/email
+      (888-534-8948/<a href="mailto:info@fitwit.com">info@fitwit.com</a>) to join us for a free workout anytime.
+    </div>
+    <br class="clear">
+
+    <div class="one_half"><span class="dropcap2">2</span> Is this a right fit for you? Call/email
+      (888-534-8948/<a href="mailto:info@fitwit.com">info@fitwit.com</a>) to set up a free fitness consultation.
+    </div>
+    <br class="clear">
+
+    <div class="one_half"><span class="dropcap2">3</span>
+      Ready to change your
+      life?   <%= link_to "Register for your first camp", fitness_camp_registration_all_fitness_camps_path %> or call us
+      to discuss our membership programs. Nearly 80% of FitWitters are enrolled as FitWit Club Members. We have a
+      variety of membership options to match your motivation and schedule with prices ranging from $135 to $205 per
+      month. We also offer discounts for couples, teachers, students, military, law enforcement and first-responders.
+      Contact us now at <%= link_to "888-534-8948", "tel:888-534-8948" %>
+      or <%= link_to "info@fitwit.com", "mailto:info@fitwit.com" %>.
+    </div>
+  </div>
+
+  <p>Finally, not only will you GET FIT, you'll also GIVE
+    FIT, <%= link_to "so our next generation can LIVE FIT", non_profit_path %>.</p>
 </div>
 
 <div class="one_half last">
-	<h3>Video: Why FitWit?</h3>
-	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="437" height="311" id="viddler_65f446b1"><param name="movie" value="http://www.viddler.com/simple/65f446b1/" /><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><embed src="http://www.viddler.com/simple/65f446b1/" width="380" height="271" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true" name="viddler_65f446b1"></embed></object>
+  <h3>Video: Why FitWit?</h3>
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="437" height="311" id="viddler_65f446b1">
+    <param name="movie" value="http://www.viddler.com/simple/65f446b1/"/>
+    <param name="allowScriptAccess" value="always"/>
+    <param name="allowFullScreen" value="true"/>
+    <embed src="http://www.viddler.com/simple/65f446b1/" width="380" height="271" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true" name="viddler_65f446b1"></embed>
+  </object>
 
-    <%= render partial: "shared/offer", locals: {width: "380px"} %>
-<br/><br/><br/><br/>
-	<%= link_to "Register Now",
-        fitness_camp_registration_all_fitness_camps_path,
-        class: "btn btn-large"
-     %>
+  <%= render partial: "shared/offer", locals: {width: "380px"} %>
+  <br/><br/><br/><br/>
+  <%= link_to "Register Now",
+              fitness_camp_registration_all_fitness_camps_path,
+              class: "btn btn-large"
+  %>
 
 </div>

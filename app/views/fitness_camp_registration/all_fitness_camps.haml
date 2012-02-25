@@ -6,12 +6,33 @@
       = render(:partial => "fitness_camp_registration/cart/cart", :object => @cart)
 
 - if current_user && current_user.member
-
   %p
     Our records show that you are a FitWit Member and your registration is accomplished automatically. Please see your lead trainer if you have any questions or email us at
     = link_to "info@fitwit.com", "mailto:info@fitwit.com"
 
 - else
+  - unless current_user
+    - content_for :right_column do
+      .widgets
+        %h3 Sign Up
+        %p
+          %strong New to FitWit?
+        %p
+          Welcome, please set up an account to sign up for a camp.
+        %p
+          Fill out the form below
+          and you will receive an email with further instructions.
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { id: "sign_up_form", class: 'form-inline' }) do |f|
+          .control-group
+            = f.text_field :first_name, placeholder: 'First Name', class: 'input-small required', style: "width: 110px;"
+            = f.text_field :last_name, placeholder: 'Last Name', class: 'input-small required', style: "width: 110px;"
+          .control-group
+            = f.text_field :email, placeholder: 'e-mail', style: "width: 232px;", class: "required"
+          .control-group
+            = f.password_field :password, as: :password, class: 'input-small required', placeholder: "Password", style: "width: 110px;"
+            = f.password_field :password_confirmation, as: :password, class: 'input-small required', placeholder: "Confirm", style: "width: 110px;"
+          .control-group
+            = f.submit "Join FitWit", :class => "btn"
 
   .well
     %h4 Pick a camp and time to get started.
@@ -26,13 +47,17 @@
             = "#{fc.description}<br />".html_safe unless fc.description.nil?
           %p.price-foot
           %h4 Times:
-          - fc.time_slots.each do |time_slot|
-            - if time_slot.sold_out
-              %b
-                = time_slot.start_time_f
-                SOLD OUT!
-            - else
-              = form_tag({ :action => :add_to_cart, :id => time_slot }) do
-                = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'btn')
+          - unless current_user
+            %p
+              Sign-in to register
+          - else
+            - fc.time_slots.each do |time_slot|
+              - if time_slot.sold_out
+                %b
+                  = time_slot.start_time_f
+                  SOLD OUT!
+              - else
+                = form_tag({ :action => :add_to_cart, :id => time_slot }) do
+                  = submit_tag(time_slot.start_to_finish, :id => "reg_#{time_slot.id}", :class => 'btn')
       - if (idx+1) % 3 == 0
         %br.clear
