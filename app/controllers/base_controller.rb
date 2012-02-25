@@ -1,6 +1,6 @@
 class BaseController < ApplicationController
   # need to update this! TODO -- UPDATE
-  caches_page :home, :community, :about_us, :all_sponsors
+  caches_page :getting_started, :locations, :fit_wit_calendar, :camp_details, :whats_included, :faq, :price, :non_profit, :team_story, :company_story, :camper_stories, :contact, :amanda, :arthur_and_anna, :brandi, :catherine, :christina, :dawn, :denise, :greg, :jose, :katherine, :lisa, :mary, :mike
   layout "canvas"
 
   def posts
