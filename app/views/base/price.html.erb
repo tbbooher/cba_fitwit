@@ -1,6 +1,7 @@
 <% title "Price &amp; Schedule" %>
 
-<p>We run a 7-week program, year-round – a 6-week fitness camp (24 workouts) with 1 recovery week in between, but new campers can sign up at any time.  Click here for detailed "Getting Started" information.</p>
+<p>We run a 7-week program, year-round – a 6-week fitness camp (24 workouts) with 1 recovery week in between, but new campers can sign up at any time.
+  <%=  link_to "Click here", getting_started_path %> for detailed "Getting Started" information.</p>
 <br class="clear">
 <div class="one_half">
   <h2>It’s easy to get started:</h2>
@@ -13,8 +14,6 @@
   </div>
 </div>
 
-
-
 <div class="one_half last">
   <h2>Individual Camp Pricing:</h2>
 
@@ -22,7 +21,7 @@
 
   <p>Veteran Camper - $259</p>
 
-  <p>We also run 2 Saturday morning workouts/month at each location.</p>
+  <p>We also offer 3 additional Saturday morning workouts each month.</p>
 
   <%= render partial: "shared/offer", locals: {width: "380px"} %>
 

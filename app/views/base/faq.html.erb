@@ -28,7 +28,7 @@
     <dt><strong>Can I join anytime? Or do I have to wait until a new camp starts?</strong></dt>
 
     <dd><p>Though most FitWit newbies join us at the start of a new camp, you are welcome to join us at
-    any time throughout the year. Click here for information on getting started.</p></dd>
+    any time throughout the year. <%= link_to "Click here", getting_started_path  %> for information on getting started.</p></dd>
 
     <dt><strong>How many camps in a year?</strong></dt>
 
@@ -78,8 +78,8 @@
     <dd><p>As mentioned in the answer above, if you're looking for a 30-day quick-fix boot camp where you
     run around the park every workout, there are plenty of boot camps in Atlanta, and some of these
     are less expensive than FitWit. We offer 24 purposeful fitness classes with certified personal
-    trainers (rather than former participants who excelled in camp) and an array of equipment (kettle
-    bells, medicine balls, heavy ropes, sandbags and more). FitWit costs more because we deliver
+    trainers (rather than former participants who excelled in camp) and an array of equipment (kettlebells,
+     medicine balls, heavy ropes, sandbags and more). FitWit costs more because we deliver
     more and guarantee your results.</p></dd>
 
     <dt><strong>Do you offer nutritional support?</strong></dt>
@@ -93,7 +93,7 @@
 
     <dd><p>Most campers begin to notice a difference in how they look and feel in as little as two weeks.
     Though every body is different, campers can expect to lose inches, burn fat and build lean
-    muscle There are numerous success stories from people who have stuck with the FitWit program
+    muscle There are <%= link_to "numerous success stories", camper_stories_path %> from people who have stuck with the FitWit program
     with 40-50 lbs. of weight loss, 15% loss in body fat, minutes faster mile time, a new self-esteem
     that has helped battle depression, lower blood pressure, etc.</p></dd>
 
@@ -112,5 +112,5 @@
 
     <dt><strong>How do I get started?</strong></dt>
 
-    <dd><p>Getting started is easy. <%= link_to "Click here.", getting_started_path %></p></dd></dl>
+    <dd><p>Getting started is easy, <%= link_to "click here", getting_started_path %>.</p></dd></dl>
 </div>
