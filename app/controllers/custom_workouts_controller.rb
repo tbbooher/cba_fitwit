@@ -1,9 +1,5 @@
 class CustomWorkoutsController < ApplicationController
   before_filter :get_user
-  # GET /custom_workouts/1/edit
-  def edit
-    @custom_workout = @user.custom_workouts.find(params[:id])
-  end
 
   # POST /custom_workouts
   # POST /custom_workouts.json
@@ -12,10 +8,11 @@ class CustomWorkoutsController < ApplicationController
 
     respond_to do |format|
       if @custom_workout.save
+        # TODO need to get a specific month in there . . .
         format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path, notice: 'Custom workout was successfully created.' }
         format.json { render json: @custom_workout, status: :created, location: @custom_workout }
       else
-        format.html { render action: "new" }
+        format.html { render controller: "my_fit_wit", action: "add_custom_workout" }
         format.json { render json: @custom_workout.errors, status: :unprocessable_entity }
       end
     end
@@ -28,10 +25,10 @@ class CustomWorkoutsController < ApplicationController
 
     respond_to do |format|
       if @custom_workout.update_attributes(params[:custom_workout])
-        format.html { redirect_to @custom_workout, notice: 'Custom workout was successfully updated.' }
+        format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path, notice: 'Custom workout was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render controller: "my_fit_wit", action: "show_custom_workout" }
         format.json { render json: @custom_workout.errors, status: :unprocessable_entity }
       end
     end
@@ -44,7 +41,7 @@ class CustomWorkoutsController < ApplicationController
     @custom_workout.destroy
 
     respond_to do |format|
-      format.html { redirect_to custom_workouts_url }
+      format.html { redirect_to my_fit_wit_fit_wit_workout_progress_path }
       format.json { head :ok }
     end
   end

@@ -32,11 +32,13 @@
                   <li>
                     <% type = event.format_class %>
                     <% if type == 'custom_workout' %>
-                        <%= link_to h(event.name), show_custom_workout_path(event.id), {:title => description, :class => "#{event.format_class} activity"}, remote: true %>
+                        <%= link_to h(event.name),
+                                    show_custom_workout_path(event.event_id.to_s),
+                                    {:title => description, :class => "#{event.format_class} activity", remote: true} %>
                     <% elsif type == 'goal' %>
                         <%= link_to h(event.name), {:action => :my_goals}, {:title => description, :class => "#{event.format_class} activity"} %>
                     <% else %>
-                        <%= link_to h(event.name), {:action => :specific_fit_wit_workout, :id => event.id}, {:title => description, :class => "#{event.format_class} activity"} %>
+                        <%= link_to h(event.name), {:action => :specific_fit_wit_workout, :id => event.event_id}, {:title => description, :class => "#{event.format_class} activity"} %>
                     <% end %>
                   </li>
               <% end %>

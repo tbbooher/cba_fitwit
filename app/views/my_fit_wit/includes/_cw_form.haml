@@ -1,10 +1,10 @@
 %h1#custom_workout_title
-  Add workout for
+  Custom Workout for
   = compact_date(date)
 
 = simple_form_for([@user, @custom_workout]) do |f|
   = f.input :fit_wit_workout_id, label: "Workout", collection: @fit_wit_workout_list, prompt: 'Custom'
-  #custom_name_region
+  #custom_name_region{style: "display: #{f.object.fit_wit_workout_id ? "none" : "block"};"}
     = f.input :custom_name # , input_html: {style: "display:none;"}
   = f.input :workout_date, as: :hidden, input_html: {value: date}
   = f.input :pr, as: :boolean, label: "Personal Record?"
@@ -13,3 +13,5 @@
   = f.input :score
   .form-actions
     = f.button :submit, class: 'btn-primary'
+    - if f.object.persisted?
+      = link_to "Destroy", user_custom_workout_path(f.object.id), method: :delete, confirm: "Are you sure?", class: 'btn btn-danger'

@@ -172,6 +172,7 @@ Cba::Application.routes.draw do
       resources :comments
     end
   end
+
   resources :postings, only: [:show] do
     collection do
       get :tags
@@ -226,7 +227,7 @@ Cba::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   resources :users do
-    resources :custom_workouts, only: [:edit, :create, :update, :destroy]
+    resources :custom_workouts, only: [:create, :update, :destroy]
   end
 
   resources :users, :only => [:show,:destroy] do

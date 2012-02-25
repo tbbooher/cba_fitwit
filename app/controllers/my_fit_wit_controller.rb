@@ -1,4 +1,4 @@
-require 'ostruct'
+
 
 class MyFitWitController < ApplicationController
   before_filter :get_user
@@ -24,6 +24,7 @@ class MyFitWitController < ApplicationController
     @custom_workout = @user.custom_workouts.find(params[:id])
     @date = @custom_workout.workout_date
     @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
+    render :add_custom_workout
   end
 
   def upcoming_fitnesscamps
@@ -141,7 +142,7 @@ class MyFitWitController < ApplicationController
     # for calendar
     @calendar_date = params[:month] ? Date.parse(params[:month]) : Date.today
     @date = Date.today # params[:date]) # we need to figure this out
-    @calendar_events = get_calendar_events(@user)
+    @calendar_events = @user.get_calendar_events
 
     # for single fit_wit_workout
     @fit_wit_workouts_select_list = @user.workouts.map { |e| [e.fit_wit_workout.name, e.fit_wit_workout_id] }.uniq
@@ -213,32 +214,7 @@ class MyFitWitController < ApplicationController
   end
 
   private
-  # this is needed here or in the helper?
-  def get_calendar_events(user)
-    fit_wit_workouts = user.workouts.map { |w| OpenStruct.new(:id => w.id,
-                                                               :meeting_date => w.meeting.meeting_date,
-                                                               :score => w.score,
-                                                               :name => w.fit_wit_workout.name,
-                                                               :format_class => 'fit_wit_workout',
-                                                               :previous_scores => "<b>Score:</b> " + w.score + "<br />" + find_previous_scores(@user, w.fit_wit_workout, w.fit_wit_workout.name, w.id)) }
-
-    custom_workouts = user.custom_workouts.map { |cw| OpenStruct.new(:id => cw.fit_wit_workout_id,
-                                                                    :meeting_date => cw.workout_date,
-                                                                    :score => cw.score,
-                                                                    :name => cw.title,
-                                                                    :format_class => 'custom_workout',
-                                                                    :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + cw.description) }
-
-    goals = user.goals.map { |g| OpenStruct.new(:id => g.id,
-                                                :meeting_date => g.target_date,
-                                                :score => '',
-                                                :name => "Goal: " + g.goal_name,
-                                                :format_class => 'goal',
-                                                :previous_scores => g.description.empty? ? "no description" : g.description) }
-
-    return fit_wit_workouts + custom_workouts + goals
-  end
-
+  # TODO -- all this needs to be moved to the model layer
 
   def list_fit_wit_workout(e)
     "#{e.name} on #{e.date_accomplished}"

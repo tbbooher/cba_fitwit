@@ -1,5 +1,7 @@
 module FitWitCustomUserMethods
 
+  require 'ostruct'
+
   def camper_since
     if self.orders.size > 0 || self.when_started_fitwit
       if self.orders.size > 0 && self.when_started_fitwit # if we have both, compare them
@@ -221,6 +223,31 @@ module FitWitCustomUserMethods
         end
       end
       health_issues.sort_by{|hi| hi.medical_condition.name }
+  end
+
+  def get_calendar_events
+    fit_wit_workouts = self.workouts.map { |w| OpenStruct.new(:event_id => w.id,
+                                                               :meeting_date => w.meeting.meeting_date,
+                                                               :score => w.score,
+                                                               :name => w.fit_wit_workout.name,
+                                                               :format_class => 'fit_wit_workout',
+                                                               :previous_scores => "<b>Score:</b> " + w.score + "<br />" + find_previous_scores(@user, w.fit_wit_workout, w.fit_wit_workout.name, w.id)) }
+
+    custom_workouts = self.custom_workouts.map { |cw| OpenStruct.new(:event_id => cw.id,
+                                                                    :meeting_date => cw.workout_date,
+                                                                    :score => cw.score,
+                                                                    :name => cw.title,
+                                                                    :format_class => 'custom_workout',
+                                                                    :previous_scores => "<b>Score:</b> " + cw.score + "<br />" + cw.description) }
+
+    goals = self.goals.map { |g| OpenStruct.new(:event_id => g.id,
+                                                :meeting_date => g.target_date,
+                                                :score => '',
+                                                :name => "Goal: " + g.goal_name,
+                                                :format_class => 'goal',
+                                                :previous_scores => g.description.empty? ? "no description" : g.description) }
+
+    fit_wit_workouts + custom_workouts + goals
   end
 
 end
