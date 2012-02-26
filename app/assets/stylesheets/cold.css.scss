@@ -139,7 +139,7 @@ img {
 /* main wrapper */
 #main_wrapper {
     background: #fff;
-    padding: 10px 30px;
+    padding: 30px 30px;
     width: 930px;
     z-index: 2;
     box-shadow: 4px 0 0 rgba(0, 0, 0, 0.02),-4px 0 0 rgba(0, 0, 0, 0.02),0 -4px 0 rgba(0, 0, 0, 0.2);
@@ -742,7 +742,7 @@ code {
 /* footer */
 #footer_wrapper {
     width: 100%;
-    padding-bottom: 40px;
+    /* padding-bottom: 40px; */
     background-position: 50% 0;
 }
 #footer {
