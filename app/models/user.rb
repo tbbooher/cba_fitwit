@@ -278,14 +278,15 @@ class User
   # fetch attributes from the omniauth-record.
   def apply_omniauth(omniauth)
     if omniauth['provider'] == 'twitter'
-      t_first_name, t_last_name = omniauth['info']['name'].split(' ')
+      t_first_name, t_last_name = omniauth['info']['name'].split(' ', 2)
       oa_first_name =  first_name.blank? ? t_first_name : first_name
       oa_last_name = last_name.blank? ? t_last_name : last_name
+      #flash[:notice] = "Twitter does not provide us with your email address." if self.email.blank?
     else
       oa_first_name =  first_name.blank? ? omniauth['info']['first_name'] : first_name
       oa_last_name = last_name.blank? ? omniauth['info']['last_name'] : last_name
+      self.email = omniauth['info']['email'] if email.blank?
     end
-    self.email = omniauth['info']['email'] if email.blank?
     self.first_name = oa_first_name
     self.last_name = oa_last_name
     apply_trusted_services(omniauth) if self.new_record?
