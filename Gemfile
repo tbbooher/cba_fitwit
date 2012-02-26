@@ -26,7 +26,7 @@ gem "bson_ext", "1.5.2" #, "1.3.1" #, "1.1.5"
 gem "devise", ">= 2.0.0" #, :git => 'git://github.com/iboard/devise.git' #:path => "/Users/aa/Development/R31/devise" #'1.2.rc2' #, "~>1.4.0" # ,"1.1.7"
 gem "cancan"
 
-#gem 'omniauth-github' #, :git => 'git://github.com/intridea/omniauth-github.git'
+gem 'omniauth-github' #, :git => 'git://github.com/intridea/omniauth-github.git'
 gem 'omniauth-openid' #, :git => 'git://github.com/intridea/omniauth-openid.git'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
