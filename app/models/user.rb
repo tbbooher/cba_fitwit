@@ -279,11 +279,11 @@ class User
   def apply_omniauth(omniauth)
     if omniauth['provider'] == 'twitter'
       t_first_name, t_last_name = omniauth['info']['name'].split(' ')
-      oa_first_name =  first_name.blank? t_first_name : first_name
-      oa_last_name = last_name.blank? t_last_name : last_name
+      oa_first_name =  first_name.blank? ? t_first_name : first_name
+      oa_last_name = last_name.blank? ? t_last_name : last_name
     else
-      oa_first_name =  first_name.blank? omniauth['info']['first_name'] : first_name
-      oa_last_name = last_name.blank? omniauth['info']['last_name'] : last_name
+      oa_first_name =  first_name.blank? ? omniauth['info']['first_name'] : first_name
+      oa_last_name = last_name.blank? ? omniauth['info']['last_name'] : last_name
     end
     self.email = omniauth['info']['email'] if email.blank?
     self.first_name = oa_first_name
