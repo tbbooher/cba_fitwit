@@ -278,6 +278,8 @@ class User
   # fetch attributes from the omniauth-record.
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email'] if email.blank?
+    self.first_name = omniauth['info']['first_name'] if first_name.blank?
+    self.last_name = omniauth['info']['last_name'] if first_name.blank?
     apply_trusted_services(omniauth) if self.new_record?
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
