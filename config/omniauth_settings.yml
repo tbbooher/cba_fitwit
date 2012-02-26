@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-OMNIAUTH_GITHUB_ID: 'b47c96fec7bf343abb5c'
-OMNIAUTH_GITHUB_SECRET: '7567e1ef9afb9caee87bf3b2292f006c77c25d62'
+OMNIAUTH_GITHUB_ID: 'd07ec76bf981a26fc937'
+OMNIAUTH_GITHUB_SECRET: 'a3df9d3591a06fb716dffa908a2bd6a20e433092'
 
 # todo when we have the main domain setup
 #OMNIAUTH_GOOGLE_KEY: 'fitwit.com'
