@@ -103,6 +103,10 @@ group :development, :test do
   # gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 # custom FitWit gems
 gem 'activemerchant', :require => 'active_merchant' # , :git => 'git://github.com/tbbooher/active_merchant.git'
 gem 'ssl_requirement'
