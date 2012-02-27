@@ -19,7 +19,7 @@
   <% end %>
   <%= yield :head %>
   <%= auto_discovery_link_tag(:atom, "/feed") %>
-  <%= insert_google_analytics_script if  (Rails.env == 'production') %>
+  <%= insert_google_analytics_script if (Rails.env == 'production') %>
   <% if ENV['APPLICATION_CONFIG_twitter_profile'] %>
       <link rel="me" type="text/html" href="<%= ENV['APPLICATION_CONFIG_twitter_profile'] -%>"/>
   <% end %>
