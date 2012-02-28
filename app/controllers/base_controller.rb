@@ -9,7 +9,7 @@ class BaseController < ApplicationController
     if @blog
       @postings = @blog.postings.desc(:created_at).paginate(
         :page => params[:page],
-        :per_page => CONSTANTS['paginate_postings_per_page'].to_i
+        :per_page => ENV['CONSTANTS_paginate_postings_per_page'].to_i
       )
     end
     respond_to do |format|
