@@ -63,7 +63,7 @@
 //= require blog_side_calendar
 //= require calendar_progress
 //= require my_fit_wit
-
+//= require ckeditor/init
 
 $(document).ready(function() {
   $("#sign_up_form").validate( {

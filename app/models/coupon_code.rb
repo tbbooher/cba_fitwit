@@ -22,7 +22,9 @@ class CouponCode
   end
 
   def expired?
-    Time.now >= self.expires_at
+    if self.expires_at
+      Time.now >= self.expires_at
+    end
   end
 
   def used_up?

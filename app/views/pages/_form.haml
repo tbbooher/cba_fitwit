@@ -39,7 +39,7 @@
 
     %div.field
         = f.label :body
-        = f.text_area :body, rows: 8, cols: 80
+        = f.cktext_area :content, input_html: {rows: 8, cols: 80 }
     
     %div.field
         = f.label :cover_picture
