@@ -61,7 +61,7 @@ Cba::Application.routes.draw do
   get "my_fit_wit/my_goals"
   post "my_fit_wit/add_goal"
   match "my_fit_wit/delete_goal/:goal_id" => "my_fit_wit#delete_goal", as: :my_fit_wit_delete_goal
-  # workout progress
+  match "my_fit_wit/update_goal/:goal_id" => "my_fit_wit#update_goal", as: :my_fit_wit_update_goal
   get "my_fit_wit/fit_wit_workout_progress"
   # add measurements
   post "my_fit_wit/add_new_measurement"
