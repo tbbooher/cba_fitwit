@@ -29,25 +29,12 @@
 
     <%= f.input :interpreter, collection: [['Markdown', :markdown], ['Textile', :textile], [t(:none), :none]], hint: render(:partial => '/home/interpreter_help') %>
 
-    <%= f.ckeditor :body, :input_html => { :toolbar => 'Full', rows: 10, style: "width:400px;" }
-
-    <!-- ATTACHMENTS ================================ -->
-    <div style='margin-left:160px'>
-      <label for="attachments">Attachments</label>
-
-      <div class="widgets old_block">
-        <%= f.fields_for :attachments do |builder| %>
-            <%= render '/attachments/attachment_fields', :f => builder %>
-        <% end %>
-        <div id='new_asset'></div>
-        <p>
-          <%= link_to_add_fields(t(:new_attachment).html_safe, f, :attachments) %>
-        </p>
-      </div>
+    <div class='control-group'>
+         <%= f.label :body %>
+         <div class="controls">
+           <%= f.cktext_area :body, width: 750 %>
+         </div>
     </div>
-
-    <div class='before_save_button'></div>
-    <div class='clear'></div>
 
     <%= f.input :is_draft, as: :boolean %>
 
