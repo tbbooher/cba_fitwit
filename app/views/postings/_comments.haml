@@ -5,5 +5,5 @@
 - if posting.blog.allow_public_comments || (posting.blog.allow_comments && user_signed_in?)
   = content_tag :div, :id => 'new_comment_form' do
     %h5= t(:post_a_comment)
-    = form_for [posting.blog,posting,comment = posting.comments.build(:name => current_user_field(:name,''),:email => current_user_field(:email, ''))] do |f| 
+    = simple_form_for [posting.blog,posting,comment = posting.comments.build(:name => current_user_field(:name,''),:email => current_user_field(:email, ''))], html: {class: 'form-horizontal'} do |f|
       = render :partial => '/comments/comment_fields', :locals => { :f => f, :commentable => posting,:comment => comment, :interpreter => interpreter  }

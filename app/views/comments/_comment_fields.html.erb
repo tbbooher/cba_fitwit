@@ -1,20 +1,7 @@
 <%= hidden_field_tag "#{commentable.class.to_s.underscore}_id" , commentable.id.to_s %>
-
-<div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, :size => 40, :placeholder => t(:please_enter_your_name) %>
-</div>
-<div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email, :size => 40, :placeholder => t(:will_not_be_shown_public) %>
-</div>
-<div class="field">
-    <%= f.label :comment %>
-    <%= f.text_area :comment, :rows => 5, :cols => 40, :placeholder => t(:be_polite) %>
-</div>
-<div class="field">
-  <%= f.label :submit %>
-  <%= f.submit t(:post_comment), :class => "medium-btn glass-btn" %>
-  <%= f.submit t(:cancel), :class => "medium-btn glass-btn" %>
-</div>
-
+ <%= f.input :name %>
+ <%= f.input :email  %>
+ <%= f.input :comment, as: :text, input_html: {rows: 5, style: "width:400px;"} %>
+ <div class="form-actions">
+   <%= f.submit "Post comment", class: "btn btn-primary" %>
+ </div>
