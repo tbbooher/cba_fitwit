@@ -14,7 +14,7 @@ class Posting
   field                 :body, :required => true
   validates_presence_of :body
 
-  field                 :interpreter, :default => :markdown
+  field                 :interpreter, :default => :none
 
   # Associations  ================================================
   referenced_in         :blog, :inverse_of => :postings

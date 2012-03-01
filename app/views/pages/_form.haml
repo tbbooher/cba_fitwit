@@ -33,11 +33,6 @@
                :include_blank => t(:no_template))
 
     %div.field
-        = f.label :interpreter
-        = f.select :interpreter, [['Markdown',:markdown], ['Textile', :textile],  ['Simple Text', :simple_text], [t(:none),:none]]
-        = render :partial => '/home/interpreter_help'
-
-    %div.field
         = f.label :body
         = f.cktext_area :body, input_html: {rows: 8, cols: 80 }
     

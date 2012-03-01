@@ -29,7 +29,7 @@
 
     <%= f.input :interpreter, collection: [['Markdown', :markdown], ['Textile', :textile], [t(:none), :none]], hint: render(:partial => '/home/interpreter_help') %>
 
-    <%= f.input :body, as: :text, input_html: {rows: 10, style: "width:400px;"} %>
+    <%= f.ckeditor :body, :input_html => { :toolbar => 'Full', rows: 10, style: "width:400px;" }
 
     <!-- ATTACHMENTS ================================ -->
     <div style='margin-left:160px'>

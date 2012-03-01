@@ -21,7 +21,7 @@ class Page
   field :body, :type => String, :required => true
   validates_presence_of :body
 
-  field :interpreter,                             :default => :markdown
+  field :interpreter,                             :default => :none
   field :allow_comments,        :type => Boolean, :default => true
   field :allow_public_comments, :type => Boolean, :default => true
   field :is_template,           :type => Boolean, :default => false
