@@ -33,6 +33,14 @@ class Backend::TimeSlotsController < Backend::ResourceController
     end
   end
 
+  def attendance
+    @ts = TimeSlot.find(params[:time_slot_id])
+    @meetings = @ts.meetings
+    @campers = @ts.all_campers
+    @prizes = @ts.prizes
+    @possible_meetings = @ts.meetings.where(:meeting_date.lte => Date.today).size.to_f
+  end
+
   def attendance_sheet
     # here we need a list of all users in a time slot
     ts = TimeSlot.find(params[:time_slot_id])

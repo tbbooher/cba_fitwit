@@ -42,3 +42,4 @@ app/views/layouts/disabled_layouts/**/*
 .idea/
 spec/javascripts/generated/*
 passphrase.txt
+routes.txt

@@ -1,0 +1,5 @@
+= simple_form_for [ :backend, @location, @fitness_camp, @time_slot, resource ] do |f|
+  %fieldset
+    = f.input :name
+  .form-actions
+    = f.submit :class => "btn-primary"

@@ -19,6 +19,8 @@ Cba::Application.routes.draw do
           get "attendance_sheet/:time_slot_id" => "time_slots#attendance_sheet", as: :attendance_sheet
           get "emergency_contact/:time_slot_id" => "time_slots#emergency_contact", as: :emergency_contact
           post "register_user"
+          get "attendance"
+          resources :prizes
           resources :meetings do
              match "take_attendance"
           end

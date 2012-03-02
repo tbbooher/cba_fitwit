@@ -16,7 +16,7 @@ class TimeSlot
 
   has_many :registrations
   has_many :meetings
-  embeds_many :prizes
+  has_many :prizes
 
   # what is the most recent timeslot at the same time?
   #scope :previous_camp, ->(fitness_camp_id, start_time) { where(fitness_camp_id: fitness_camp_id).and(start_time:)}  
@@ -49,9 +49,9 @@ class TimeSlot
     end
   end
 
-  def campers
-    self.registrations.map{|r| r.order.user.full_name}
-  end
+  #def campers
+  #  self.registrations.map{|r| r.order.user.full_name}
+  #end
 
   def show_meeting_txt
     "<span class=\"time\">#{self.start_time_f}</span>\n" +

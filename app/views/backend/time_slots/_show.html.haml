@@ -6,6 +6,7 @@
 #reports{style: @time_slot.users_going.size > 0 ? "" : "display:none;"}
   %h4 Reports
   %ul
+    %li= link_to "Current Attendance Report", backend_location_fitness_camp_time_slot_attendance_path(@location.id, @fitness_camp.id, @time_slot.id)
     %li= link_to "Attendance Sheet (PDF)", backend_location_fitness_camp_time_slot_attendance_sheet_path(@location.id, @fitness_camp.id, @time_slot.id, format: "pdf")
     %li
       = link_to "Emergency Contact List", backend_location_fitness_camp_time_slot_emergency_contact_path(@location.id, @fitness_camp.id, @time_slot.id)
@@ -42,5 +43,7 @@
       %li
         = link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
       %span.divider /
-%p= link_to "Edit Meetings", backend_location_fitness_camp_time_slot_meetings_path(@location.id, @fitness_camp.id, @time_slot.id) 
+%p= link_to "Edit Meetings", backend_location_fitness_camp_time_slot_meetings_path(@location.id, @fitness_camp.id, @time_slot.id)
 
+%h4 Prizes
+= link_to "Prizes", backend_location_fitness_camp_time_slot_prizes_path(@location.id, @fitness_camp.id, @time_slot.id)

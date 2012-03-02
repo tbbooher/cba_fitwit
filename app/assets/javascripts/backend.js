@@ -9,6 +9,7 @@
 
 //= require backend/location
 //= require backend/manage_workouts
+//= require d3.v2
 
 // should we add gcal ?
 

@@ -32,6 +32,18 @@ class Meeting
     Time.local(m.year, m.month, m.day, t.hour, t.min)
   end
 
+  def attendance_color(user)
+    if self.attended?(user)
+      "green"
+    else
+      if self.meeting_date > Date.today()
+        "#dedede"
+      else
+        "red"
+      end
+    end
+  end
+
   def as_json(options={})
     {
       :id => 'blank',
