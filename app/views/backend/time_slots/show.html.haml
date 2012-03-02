@@ -19,5 +19,6 @@
   - if @location.find_previous_camp(@time_slot.start_time, @fitness_camp)
     %li= link_to "Reload", backend_location_fitness_camp_time_slot_re_register_path(@location.id,@fitness_camp.id,@time_slot.id)
   %li= link_to "Destroy", resource_path, method: :delete, confirm: "Are you sure?"
+  %li= link_to "Prizes", backend_location_fitness_camp_time_slot_prizes_path(@location.id, @fitness_camp.id, @time_slot.id)
 
 = render "show"
