@@ -35,6 +35,7 @@ class User
   field :t_shirt_size, type: String
   field :emergency_contact_name, type: String
   field :emergency_contact_relationship, type: String
+  field :emergency_contact_phone, type: String
   field :weight, :type => Integer
   field :how_did_you_hear_about_us
   field :fitness_level, :type => Integer
@@ -180,7 +181,7 @@ class User
                   :height_feet, :veteran_status, :member, :has_physician_approval,
                   :has_physician_approval_explanation, :post_menopausal_female,
                   :taking_estrogen, :location_id, :birthday_string, :health_issues_attributes,
-                  :why_i_fitwit, :when_started_fitwit
+                  :why_i_fitwit, :when_started_fitwit, :emergency_contact_phone
 
   attr_accessor :clear_avatar
 
