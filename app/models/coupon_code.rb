@@ -28,7 +28,9 @@ class CouponCode
   end
 
   def used_up?
-    self.uses >= self.max_uses if self.max_uses
+    if self.max_uses
+      self.uses >= self.max_uses
+    end
   end
 
 end
