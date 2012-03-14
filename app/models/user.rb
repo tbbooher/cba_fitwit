@@ -179,7 +179,8 @@ class User
                   :weight, :how_did_you_hear_about_us, :fitness_level, :height_inches,
                   :height_feet, :veteran_status, :member, :has_physician_approval,
                   :has_physician_approval_explanation, :post_menopausal_female,
-                  :taking_estrogen, :location_id, :birthday_string, :health_issues_attributes
+                  :taking_estrogen, :location_id, :birthday_string, :health_issues_attributes,
+                  :why_i_fitwit, :when_started_fitwit
 
   attr_accessor :clear_avatar
 
