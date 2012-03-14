@@ -63,7 +63,7 @@ class CartItem
         vs = user.veteran_status.to_s
         (PRICE['traditional'][vs].to_f -
             PRICE['friend_discount'][vs]*self.friend_count.to_f -
-            self.coupon_discount.to_f/100)*100
+            self.coupon_discount.to_f)*100
     end
   end
 
