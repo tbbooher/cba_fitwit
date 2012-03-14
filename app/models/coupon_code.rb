@@ -4,7 +4,7 @@ class CouponCode
 
   field :code, type: String
   field :price, type: Integer
-  field :active, type: Boolean
+  field :active, type: Boolean, default: true
   field :uses, type: Integer
   field :max_uses, type: Integer
   field :description, type: String
@@ -28,7 +28,9 @@ class CouponCode
   end
 
   def used_up?
-    self.uses >= self.max_uses
+    if self.max_uses
+      self.uses >= self.max_uses
+    end
   end
 
 end

@@ -1,12 +1,12 @@
 # [:veteran, :supervet, :newbie, :staff]
 traditional:
-  newbie: 299
-  veteran: 259
+  newbie: 229
+  veteran: 199
   supervet: 219
 friend_discount:
-  veteran: 25
+  veteran: 20
   supervet: 0
-  newbie: 25
+  newbie: 20
   max_vet_friends: 6
 pay_by_session:
   0:

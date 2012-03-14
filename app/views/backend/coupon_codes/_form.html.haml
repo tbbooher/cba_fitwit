@@ -1,0 +1,12 @@
+= simple_form_for [:backend, resource], html: { :class => 'form-horizontal' } do |f|
+  %fieldset
+    = f.input :code
+    = f.input :price
+    = f.input :active, as: :boolean
+    = f.input :uses
+    = f.input :max_uses
+    = f.input :description
+    = f.input :expires_at, :input_html => { :id => 'end_datetimepicker' }
+  .form-actions
+    = f.submit class: "btn-primary"
+
