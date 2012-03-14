@@ -5,31 +5,30 @@
 </div>
 <div class="one_third">
   <div class="shadow shadow_medium">
-    <%= link_to image_tag("left.jpg", :class =>"border-img"), whats_included_path %>
+    <%= link_to image_tag("left.jpg", :class => "border-img"), whats_included_path %>
   </div>
 </div>
 <div class="one_third">
   <div class="shadow shadow_medium">
-    <%= link_to image_tag("center.jpg", :class =>"border-img"), whats_included_path %>
+    <%= link_to image_tag("center.jpg", :class => "border-img"), whats_included_path %>
   </div>
 </div>
 <div class="one_third last">
   <div class="shadow shadow_medium">
-    <%= link_to image_tag("right.jpg", :class =>"border-img"), whats_included_path %>
+    <%= link_to image_tag("right.jpg", :class => "border-img"), whats_included_path %>
   </div>
 </div>
 <div class="two_third">
   <p>Each of our camps runs 4 days per week for 4 weeks offering 16 power-packed workouts. The camps run year-round at
-    all of our locations. New campers can sign up at any time.     <% link_to "Click here", getting_started_path %> for detailed Getting Started information.
-</p>
+    all of our locations. New campers can sign up at any time.
+    <%= link_to "Click here", getting_started_path %> for detailed Getting Started information.
+  </p>
 
   <p><strong>4-Week Fitness Camp</strong>: 16 fat-burning, muscle-toning workouts with constant variety (from sandbag
-    runs and kettlebell
-    circuits to banana relays and team games). Workouts mostly occur in the great outdoors, but unlike most boot camps,
-    we do go indoors in the winter months. Workouts last for one hour and are held on Monday, Tuesday, Thursday and
-    Friday. See any of our
-    <% link_to "locations", locations_path %> for a taste of our workouts.
-    <% link_to "Click here", getting_started_path %> for detailed Getting Started information.
+    runs and kettlebell circuits to banana relays and team games). Workouts mostly occur in the great outdoors, but
+    unlike most boot camps, we do go indoors in the winter months. Workouts last for one hour and are held on Monday,
+    Tuesday, Thursday and Friday. See any of our
+    <%= link_to "locations", locations_path %> for a taste of our workouts. <%= link_to "Click here", getting_started_path %> for detailed Getting Started information.
   </p>
 
   <p><strong>Fitness Camp Manual:</strong> Includes training tips, homework workouts, inspiration and more.</p>
