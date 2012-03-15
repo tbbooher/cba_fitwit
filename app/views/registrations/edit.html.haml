@@ -29,6 +29,7 @@
     = f.input :when_started_fitwit, :input_html => { class: 'datepicker' }, label: "FitWit'ing since"
 
   .tab_content{style: "position: absolute; left: -10000px;"}
+    %p You can upload a picture, but it will not display if you have have selected to use gravatar.
     - if @user.avatar
       %div{style: "margin-left:140px; padding: 20px;"}
         = image_tag @user.avatar_url(:thumb)
