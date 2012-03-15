@@ -5,8 +5,8 @@
 
 = simple_form_for @user, :url => update_user_profile_url, :html => { :class => 'form-horizontal' } do |f|
   %fieldset
-    = f.input :street_address1, type: String
-    = f.input :street_address2, type: String
+    = f.input :street_address1, label: "Street Address", type: String
+    = f.input :street_address2, label: "(continued)", type: String
     = f.input :city, type: String
     = f.input :us_state, type: String
     = f.input :zip, type: String
