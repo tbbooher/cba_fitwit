@@ -26,7 +26,7 @@
       = render "table_row"
 
 %h4
-  - @unregistered_users =  (@location.users - @time_slot.users_going.to_a).map{|u| [u.certain_name, u.id]}
+  - @unregistered_users =  (@location.users - @time_slot.users_going.to_a).map{|u| [u.certain_name, u.id]}.sort_by{|name, id| name}
   = form_tag backend_location_fitness_camp_time_slot_register_user_path(@location.id, @fitness_camp.id, @time_slot.id), :class => 'form-horizontal', remote: true do
     %fieldset
     .control-group

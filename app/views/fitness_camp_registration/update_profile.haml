@@ -5,7 +5,8 @@
     .well
       = f.input :emergency_contact_name, class: 'required', label: "Name", hint: "First and last name"
       = f.input :emergency_contact_relationship, class: 'required', label: "Relationship", hint: "Wife, Friend, Father, etc."
-      = f.input :primary_phone, label: 'Phone:', class: 'required'
+      = f.input :emergency_contact_phone, label: 'Phone', class: 'required'
+      = f.input :primary_phone, required: false
       = f.input :secondary_phone, required: false
   %fieldset
     %legend Personal Information
