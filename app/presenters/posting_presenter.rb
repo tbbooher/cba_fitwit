@@ -24,8 +24,11 @@ class PostingPresenter < BasePresenter
     concat_or_string _concat, render( :partial => 'postings/cover_picture.html.erb', :locals => { :posting => posting, :style => style, :format => format })
   end
   
-  def title
-    link_to(posting.title, blog_posting_path(posting.blog,posting), title: posting.title, :onmouseover=> "showSideTab($('#posting_#{posting.id.to_s}'));", :onmouseout=>"hideWithDelay('posting_#{posting.id.to_s}',2000);")
+  def title(_concat=true)
+    concat_or_string(_concat,content_tag( :h1, :onmouseover=> "showSideTab($('#posting_#{posting.id.to_s}'));",
+                     :onmouseout=>"hideWithDelay('posting_#{posting.id.to_s}',2000);") do
+      link_to(posting.title, blog_posting_path(posting.blog,posting))
+    end)
   end
   
   def title_and_blog(_concat=true)
