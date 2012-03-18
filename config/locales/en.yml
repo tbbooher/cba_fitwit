@@ -66,9 +66,9 @@ en:
   deleted: 'DELETED!'
   destroyed: 'DELETED!'
   number_of_comments:
-    zero: "No comment yet."
-    one: "One comment"
-    other: "%{count} comments"
+    zero: "No responses yet."
+    one: "One response to "
+    other: "%{count} responses to "
   post_a_comment: 'Post a comment'
   anonymous: 'Anonymous'
   will_not_be_shown_public: 'Will not be shown public'

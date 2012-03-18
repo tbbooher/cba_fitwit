@@ -194,6 +194,10 @@ textarea.error, input.error {
  border:1px solid #B94A48;
 }
 
+#comments-title {
+  color: #454A4F;
+}
+
 @import "search.css.scss";
 
 @import "cold.css.scss";
@@ -218,6 +222,7 @@ textarea.error, input.error {
 @import "flickr.css.scss";
 @import "jquery.tweet.css.scss";
 @import "will_paginate.css.scss";
+@import "comments.css.scss";
 // @import "user.css.scss";
 // @import "jquery-ui-1.8.2.custom.css.scss"
 // @import "fit_wit_forms.css.scss";
