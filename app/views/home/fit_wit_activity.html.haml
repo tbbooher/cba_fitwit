@@ -10,25 +10,42 @@
       %li= link_to "MidTown Workouts", "/blogs/4f4fc97469da250001000b09"
       %li= link_to "Decatur Workouts", "/blogs/4f2fe5f699256100010004ad"
       =# link_to "FitWit Strength", ""
-  %h3 Events
+  %h3 Upcoming Events
   %ul
     %li Event 1
     %li Event 2
 
-- for item in @feed_items
-  - interpret item.object do |presenter|
-    = presenter.title(false) if presenter.respond_to?(:title)
-    - if presenter.respond_to?(:body)
-      = truncate(presenter.body(false), length: 100, omission: ". . . more").html_safe
-    - else
-      = "NO BODY"
-  %p
-    Type:
-    = item.object.class.to_s
-  %p
-    Updated at:
-    = item.updated_at
-  %p
-    Name:
-    = item.name || '-'
+.left_column
+  - for item in @feed_items
+    .well
+      - interpret item.object do |presenter|
+        - case item.object
+          - when Posting
+            %h3
+              Post:
+              = item.title
+          - when Page
+            %h3
+              Page:
+              = item.title
+          - when Comment
+            %h3
+              Comment from
+              = item.name
+            = presenter.avatar
+          - else
+            = presenter.title(false) if presenter.respond_to?(:title)
+        - if presenter.respond_to?(:body)
+          = truncate(strip_tags(presenter.body(false)), length: 150, omission: link_to(". . . more", item.url)).html_safe
+        - else
+          = "NO BODY"
+      %p
+        Type:
+        = item.object.class.to_s
+      %p
+        Updated at:
+        = item.updated_at.stamp("10 March")
+      -unless item.class.to_s == "Posting"
+        %p
+          Name:
 
