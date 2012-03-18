@@ -54,6 +54,7 @@ class HomeController < ApplicationController
   end
 
   def fit_wit_activity
+    @upcoming_five_events
     @feed_items = []
     Blog.public_blogs.each do |blog|
       blog.postings.rss_items.desc(:updated_at).each do |posting|
