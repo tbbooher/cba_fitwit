@@ -19,10 +19,8 @@
 - for item in @feed_items
   - interpret item.object do |presenter|
     = presenter.title(false) if presenter.respond_to?(:title)
-    - if presenter.respond_to?(:cover_picture) && item.object.cover_picture_exists?
-      = presenter.cover_picture('', :medium,false)
     - if presenter.respond_to?(:body)
-      = presenter.body(false)
+      = truncate(presenter.body(false), length: 100, omission: ". . . more")
     - else
       = "NO BODY"
   %p
