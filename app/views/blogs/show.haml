@@ -51,8 +51,6 @@
   .left_column
     - title @blog.title
     
-    - render_pagination_box @postings
-    
     #postings{ style: 'clear: right;'}
       - @postings.each do |posting|
         = render :partial => 'postings/posting', :locals => { :posting => posting, :blog => @blog }
