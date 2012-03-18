@@ -1,26 +1,25 @@
 - title "FitWit Activity Feed"
 
-%div
-  - content_for :right_column do
-    %h3 Blogs
-    #blog_page_menu.widgets
-      %ul
-        %li= link_to "FitWit Nation", "/blogs/4f2d7d558a3c010001000001"
-        %li= link_to "Eat Fit", "/blogs/4f44dd3b3116320001000006"
-        %li= link_to "Grant Park Workouts", "/blogs/4f2fe57599256100010004a9"
-        %li= link_to "MidTown Workouts", "/blogs/4f4fc97469da250001000b09"
-        %li= link_to "Decatur Workouts", "/blogs/4f2fe5f699256100010004ad"
-        =# link_to "FitWit Strength", ""
-    %h3 Events
+- content_for :right_column do
+  %h3 Blogs
+  #blog_page_menu.widgets
     %ul
-      %li Event 1
-      %li Event 2
+      %li= link_to "FitWit Nation", "/blogs/4f2d7d558a3c010001000001"
+      %li= link_to "Eat Fit", "/blogs/4f44dd3b3116320001000006"
+      %li= link_to "Grant Park Workouts", "/blogs/4f2fe57599256100010004a9"
+      %li= link_to "MidTown Workouts", "/blogs/4f4fc97469da250001000b09"
+      %li= link_to "Decatur Workouts", "/blogs/4f2fe5f699256100010004ad"
+      =# link_to "FitWit Strength", ""
+  %h3 Events
+  %ul
+    %li Event 1
+    %li Event 2
 
 - for item in @feed_items
   - interpret item.object do |presenter|
     = presenter.title(false) if presenter.respond_to?(:title)
     - if presenter.respond_to?(:body)
-      = truncate(presenter.body(false), length: 100, omission: ". . . more")
+      = truncate(presenter.body(false), length: 100, omission: ". . . more").html_safe
     - else
       = "NO BODY"
   %p
