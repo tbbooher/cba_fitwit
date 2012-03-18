@@ -2,7 +2,7 @@
 
 class HomeController < ApplicationController
   respond_to :html, :js
-  layout "canvas"
+  layout "canvas", except: :fit_wit_activity
   #caches_page :start_page
 
   include LayoutHelper #TODO: Why we need this here? (otherwise accessible_postings will not be loaded)
