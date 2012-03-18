@@ -43,3 +43,4 @@ app/views/layouts/disabled_layouts/**/*
 spec/javascripts/generated/*
 passphrase.txt
 routes.txt
+pull_data.rake
