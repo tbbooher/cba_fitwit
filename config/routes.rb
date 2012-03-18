@@ -191,6 +191,7 @@ Cba::Application.routes.draw do
   get "calendar/display_event/:event_id" => "calendar#display_event"
 
   match 'feed' => "home#rss_feed", :as => 'feed'
+  match 'activity' => "home#fit_wit_activity", as: 'activity'
 
   # PAGES
   match '/p/:permalink' => 'pages#permalinked', :as => 'permalinked'

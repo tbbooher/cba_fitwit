@@ -1,0 +1,21 @@
+- title "FitWit Activity"
+
+- for item in @feed_items
+  - interpret item.object do |presenter|
+    = presenter.title(false) if presenter.respond_to?(:title)
+    - if presenter.respond_to?(:cover_picture) && item.object.cover_picture_exists?
+      = presenter.cover_picture('', :medium,false)
+    - if presenter.respond_to?(:body)
+      = presenter.body(false)
+    - else
+      = "NO BODY"
+  %p
+    Type:
+    = item.object.class.to_s
+  %p
+    Updated at:
+    = item.updated_at
+  %p
+    Name:
+    = item.name || '-'
+
