@@ -11,10 +11,16 @@
       %li= link_to "Decatur Workouts", "/blogs/4f2fe5f699256100010004ad"
       =# link_to "FitWit Strength", ""
   %h3 Upcoming Events
-  %ul
-    - @upcoming_five_events.each do |event|
-    %li Event 1
-    %li Event 2
+  - @upcoming_five_events.each do |event|
+    %h4{style: "font-weight:bolder;"}
+      = event.title
+    .event_description
+      .event_time
+        = event.starts_at.stamp("10 March at 7:00pm")
+        to
+        = event.ends_at.stamp("8:00pm")
+      = event.description
+    %hr
 
 .left_column
   - for item in @feed_items
@@ -41,3 +47,4 @@
       %p
         Updated at:
         = item.updated_at.stamp("10 March")
+      %br.clear
