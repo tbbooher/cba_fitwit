@@ -14,9 +14,7 @@
         %p
           Invite your friends and receive a
           = number_to_currency(PRICE['friend_discount'][@user.veteran_status.to_s])
-          discount of
-          = PRICE['friend_discount']['max_vet_friends']
-          for each friend (up to six).
+          discount for each friend.
         = cart_item_presenter.show_traditional_options(@user)
     #pay_by_session.tab_content{style: "position: absolute; left: -10000px;"}
       %p
