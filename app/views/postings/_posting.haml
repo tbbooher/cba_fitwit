@@ -34,6 +34,7 @@
         - if can? :manage, posting
           = ui_button 'delete', t(:delete), blog_posting_path(posting.blog, posting), method: :delete, confirm: "Are you sure?"
         = presenter.body
+        .shr_class.shareaholic-show-on-load
         = presenter.comments
 
 = javascript_tag "$('#posting_#{posting.id.to_s}').hide()"
