@@ -142,7 +142,7 @@ Cba::Application.routes.draw do
   post 'fitness_camp_registration/empty_cart'
   get 'fitness_camp_registration/registration_success/:order_id' => "fitness_camp_registration#registration_success", as: :successful_registration
   get 'fitness_camp_registration/all_fitness_camps'
-
+  get 'registration/all_fitness_camps' => "fitness_camp_registration#all_fitness_camps"
   # Switch locales
   match 'switch_locale/:locale' => "home#set_locale", :as => 'switch_locale'
   
