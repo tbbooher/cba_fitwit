@@ -234,14 +234,15 @@ class Order
   def complete_camp_purchase(params, user, cart)
     credit_card_params = params.except(:billing_address)
     billing_address = params[:billing_address]
+    # so the user might have provided new information -- we should save this, right?
     update_user_information(user, billing_address)
     credit_card = ActiveMerchant::Billing::CreditCard.new(credit_card_params)
     purchase_errors = []
     if credit_card.valid?
       # this is very lame
       options = build_options(user, billing_address[:us_state],billing_address[:zip],billing_address[:city],billing_address[:address1],billing_address[:address2])
-      result_msg = authorize(credit_card, options)
-      if result_msg == "success"
+      purchase = self.authorize_payment(credit_card, options)
+      if purchase.success?
         # send relevant emails
         send_emails(user, cart)
         # update user information based on what they submitted
@@ -255,24 +256,16 @@ class Order
           end
         end
       else
-        purchase_errors = [result_msg]
+        purchase_errors = purchase.message + "<br>" + purchase.params['missingField'].to_s
       end
     else
       purchase_errors = "Credit Card not Valid: " + credit_card.errors.full_messages.to_sentence
     end
     purchase_errors # no errors means success
+    # are we trapping these errors?
   end
 
   private
-
-  def authorize(credit_card, options)
-    if self.authorize_payment(credit_card, options).success?
-      "success"
-    else
-      # " authorization failed "
-      purchase.message + "<br>" + purchase.params['missingField'].to_s
-    end
-  end
 
   def send_emails(user, cart)
     Notifications.inform_management_about_a_new_user(user,

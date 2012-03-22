@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'simplecov', :require => false, :group => :test #, '>= 0.4.0'
 
-gem "rails", "3.2.0" #, "3.1.2" #, "~> 3.1.0" # prev was rc8
+gem "rails", "3.2.2" #, "3.1.2" #, "~> 3.1.0" # prev was rc8
 
 # Rails 3.1 - Asset Pipeline
 group :assets do
@@ -20,7 +20,7 @@ end
 gem 'jquery-rails'
 gem 'thin'
 gem "mongo", "1.5.2"
-gem "mongoid", ">= 2.4.4"  #, :path => "/Users/aa/Development/R31/mongoid-1"
+gem "mongoid", ">= 2.4.6"  #, :path => "/Users/aa/Development/R31/mongoid-1"
 gem "bson_ext", "1.5.2" #, "1.3.1" #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan

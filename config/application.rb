@@ -77,7 +77,7 @@ module Cba
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password, :password_confirmation, :card_number, :card_verification]
+    config.filter_parameters += [:password, :password_confirmation, :card_number, :card_verification, :number]
 
     # Configure MongoID (since 2.1.*)
     Mongoid.configure do |config|
