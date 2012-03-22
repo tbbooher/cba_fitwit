@@ -252,8 +252,10 @@ class Order
           # empty the cart
           session[:cart] = nil
           unless capture = @order.capture_payment
-            purchase_errors = [capture]
+            purchase_errors = capture
           end
+        else
+          purchase_errors = registration_errors
         end
       else
         purchase_errors = purchase.message + "<br>" + purchase.params['missingField'].to_s

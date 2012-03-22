@@ -18,7 +18,7 @@
       = f.input :has_physician_approval, as: :radio_buttons, label: "Physician approval?", hint: 'Does your physician approve of your participation in this exercise program?', input_html: {id: "physician_approves"}
       #explain_pa{style: "display:#{user.has_physician_approval? ? "none" : "block"};"}
         = f.input :has_physician_approval_explanation, as: :text, label: "Please explain", input_html: {rows: 3, style: "width:350px;", class: 'required'}, hint: "Required"
-      = f.input :meds_affect_vital_signs, as: :radio_buttons, label: "Meds affect vital signs?", hint: 'List all that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance', input_html: {id: "meds_affect"}
+      = f.input :meds_affect_vital_signs, as: :radio_buttons, label: "Do medications affect your vital signs?", hint: 'List all that affect your vital signs (heart rate, blood pressure, breathing, etc.) or physical performance', input_html: {id: "meds_affect"}
       #explain_ma{style: "display:#{user.meds_affect_vital_signs? ? "block" : "none"};"}
         = f.input :meds_affect_vital_signs_explanation, as: :text, label: "Please explain", input_html: {rows: 3, style: "width:350px;", class: 'required'}, hint: "Required"
       - if user.gender == :female
