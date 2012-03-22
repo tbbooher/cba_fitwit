@@ -155,8 +155,10 @@ class FitnessCampRegistrationController < ApplicationController
       if payment_errors.empty?
         redirect_to successful_registration_path(@order.id)
       else
+        @user = current_user
+        @order_amount = @cart.total_price(@user)
         flash[:error] = payment_errors
-        render :payment
+        render :payment, layout: 'canvas'
       end
     else
       "this feature is pending until they need the site to process memberships again"
