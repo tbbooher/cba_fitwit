@@ -224,7 +224,7 @@ class Order
         rs.coupon_code = item.coupon_code
       end
       rs.friends = item.friends.join(",")
-      if rs.save! # change to unless
+      unless rs.save!
         # TODO need to test!!
         errors.add_to_base(rs.errors.messages)
       end
