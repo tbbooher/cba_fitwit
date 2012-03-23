@@ -8,6 +8,8 @@ class Registration
   field :price_paid, type: Float
   field :number_of_sessions, type: Integer
   field :friends, type: String
+  field :coupon_discount, type: String
+  field :coupon_code, type: String
 
   # :traditional, :pay_by_session, :initial_member, :member, :staff
 
