@@ -41,7 +41,7 @@ Cba::Application.configure do
   ActiveMerchant::Billing::CreditCard.require_verification_value = false
   OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login    => 'v9526006',
                                                     :password => mypassphrase.to_s,
-                                                    :test => true,
+                                                    :test => false,
                                                     :vat_reg_number => 'your VAT registration number',
                                                     # sets the states/provinces where you have a physical presense for tax purposes
                                                     :nexus => "GA OH",
