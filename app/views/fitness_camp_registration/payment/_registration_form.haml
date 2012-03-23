@@ -11,6 +11,6 @@
     = f.input :number, label: "Credit Card Number"
     = f.input :month, collection: 1..12, include_blank: false
     = f.input :year, collection: Date.today.year..9.years.from_now.year, include_blank: false
-    = f.input :type, collection: Order::card_types
+    = f.input :type, collection: Order::card_types, include_blank: false
   .form-actions
     = f.button :submit, "Finalize Registration", class: "btn btn-primary"

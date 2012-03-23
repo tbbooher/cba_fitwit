@@ -52,7 +52,7 @@ Camps:
     <% end -%>
   <% end -%>
   <% if c.coupon_discount > 0 %>
-  Coupon Code: <%= c.coupon_code %>
+  Coupon Code: <%#= c.coupon_code %>
   Coupon Discount: <%= c.coupon_discount %>
   <% end %>
   <% if c.payment_arrangement == :pay_by_session -%>

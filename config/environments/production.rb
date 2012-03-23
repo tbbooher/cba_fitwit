@@ -68,7 +68,8 @@ Cba::Application.configure do
     #mypassphrase = File.open('/var/www/fitwit/shared/passphrase.txt').read
     ActiveMerchant::Billing::CreditCard.require_verification_value = false
     OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login => 'v9526006',
-                                                                :password => ENV['cybersource_password'],                                                                :test => false,
+                                                                :password => ENV['cybersource_password'],
+                                                                :test => false,
                                                                 :vat_reg_number => 'your VAT registration number',
                                                                 # sets the states/provinces where you have a physical presense for tax purposes
                                                                 :nexus => "GA OH",
