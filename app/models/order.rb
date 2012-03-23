@@ -199,6 +199,7 @@ class Order
     # orders are really just to record cash transactions -- the goal
     # is not to use them in the daily operation of the site for workout tracking, etc
     # Registration becomes the key record to connect items
+    registration_errors = []
     cart.items.each do |item|
       rs = Registration.new
       # a user is now joining this location
@@ -225,9 +226,10 @@ class Order
       rs.friends = item.friends.join(",")
       unless rs.save!
         # TODO need to test!!
-        errors.add_to_base(rs.errors.messages)
+        registration_errors = rs.errors.messages
       end
     end # items
+    registration_errors
   end
 
   def complete_camp_purchase(params, user, cart)
