@@ -199,7 +199,6 @@ class Order
     # orders are really just to record cash transactions -- the goal
     # is not to use them in the daily operation of the site for workout tracking, etc
     # Registration becomes the key record to connect items
-    registration_errors = []
     cart.items.each do |item|
       rs = Registration.new
       # a user is now joining this location
