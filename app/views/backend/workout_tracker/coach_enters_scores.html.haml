@@ -20,7 +20,7 @@
           = wo_b.input :score, input_html: {style: "width:100px;", class: "score_input"}, placeholder: "Score", label: false
           = wo_b.input :user_note, input_html: {style: "width:100px;"}, placeholder: "User Note", label: false
           Rx
-          = wo_b.input :rxd, as: :boolean, wrapper: :nested
+          = wo_b.input :rxd, as: :boolean
           = link_to_remove_fields "remove", wo_b
   .form-actions
     = f.button :submit, "Record Workouts", class: "btn-primary", id: "record_workouts"
