@@ -23,7 +23,7 @@
     %hr
 
 .left_column
-  - for item in @feed_items
+  - for item in @activity_items
     .well
       - interpret item.object do |presenter|
         - case item.object
@@ -46,5 +46,7 @@
           = "NO BODY"
       %p
         Updated at:
-        = item.updated_at.stamp("10 March")
+        = item.updated_at.strftime('%B %d, %Y')
       %br.clear
+  -if @activity_items.total_pages > 1
+    .pagination_box= will_paginate @activity_items

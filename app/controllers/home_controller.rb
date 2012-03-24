@@ -55,27 +55,27 @@ class HomeController < ApplicationController
 
   def fit_wit_activity
     @upcoming_five_events = Event.next_five
-    @feed_items = []
+    @items = []
     Blog.public_blogs.each do |blog|
       blog.postings.rss_items.desc(:updated_at).each do |posting|
         if posting.public?
-          @feed_items << FeedItem.new(posting.title, posting.body, posting.updated_at, posting_url(posting), posting)
+          @items << FeedItem.new(posting.title, posting.body, posting.updated_at, posting_url(posting), posting)
           posting.comments.each do |comment|
-            @feed_items << FeedItem.new( ("%s %% %s" % [posting.title,comment.name]), comment.comment, comment.updated_at, posting_url(posting),comment)
+            @items << FeedItem.new( ("%s %% %s" % [posting.title,comment.name]), comment.comment, comment.updated_at, posting_url(posting),comment)
           end
         end
       end
     end
 
     Page.rss_items.asc(:updated_at).each do |page|
-      @feed_items << FeedItem.new(page.title,page.body,page.updated_at,page_url(page),page)
+      @items << FeedItem.new(page.title,page.body,page.updated_at,page_url(page),page)
       page.comments.each do |comment|
-        @feed_items << FeedItem.new( ("%s %% %s" % [page.title,comment.name]), comment.comment, comment.updated_at, page_url(page),comment)
+        @items << FeedItem.new( ("%s %% %s" % [page.title,comment.name]), comment.comment, comment.updated_at, page_url(page),comment)
       end
     end
 
-    @feed_items.sort! {|a,b| a.updated_at <=> b.updated_at}
-    @feed_items
+    @items.sort! {|a,b| a.updated_at <=> b.updated_at}
+    @activity_items = @items.reverse.paginate(:page => params[:page],:per_page => 20)
   end
 
   # GET /switch_locale/:locale

@@ -21,8 +21,8 @@
           = link_to "FAQ", faq_url
         %li.menu-item
           = link_to "Price & Schedule", price_url
-    %li.menu-item{class: params[:action] == 'blogs' ? "current-menu-item" : "" }
-      = link_to "Blogs", blogs_path
+    %li.menu-item{class: params[:action] == 'fit_wit_activity' ? "current-menu-item" : "" }
+      = link_to "Activity", activity_path
     %li.menu-item{class: params[:action] == 'non_profit' ? "current-menu-item" : "" }
       = link_to "Non-profit", non_profit_url
     %li.menu-item{class: @stories ? "current-menu-item" : "" }
