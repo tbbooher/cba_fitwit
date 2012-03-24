@@ -46,7 +46,7 @@
           = "NO BODY"
       %p
         Updated at:
-        = item.updated_at.strftime('%B %d, %Y')
+        = item.updated_at.strftime('%B %d %Y, %l:%M %p')
       %br.clear
   -if @activity_items.total_pages > 1
     .pagination_box= will_paginate @activity_items

@@ -33,6 +33,10 @@ class CommentPresenter < BasePresenter
     " (" +  comment.created_at + ", " +
     I18n.translate(:posted_from_ip, :ip => (comment.from_ip || "n/a") )
   end
+
+  def comment_timestamp
+    comment.updated_at.strftime('%B %d %Y, %l:%M %p')
+  end
   
   def render_comment(_concat=false)
     ContentItem::markdown(comment.comment||'').html_safe
