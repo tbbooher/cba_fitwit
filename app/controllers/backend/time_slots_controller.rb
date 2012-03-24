@@ -35,10 +35,10 @@ class Backend::TimeSlotsController < Backend::ResourceController
 
   def attendance
     @ts = TimeSlot.find(params[:time_slot_id])
-    @meetings = @ts.meetings
+    @meetings = @ts.meetings.asc(:meeting_date)
     @campers = @ts.all_campers
     @prizes = @ts.prizes
-    @possible_meetings = @ts.meetings.where(:meeting_date.lte => Date.today).size.to_f
+    #@possible_meetings = @ts.meetings.where(:meeting_date.lte => Date.today).size.to_f
   end
 
   def attendance_sheet
