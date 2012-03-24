@@ -4,7 +4,7 @@ class CartItem
 
 #  has_many :friends
   attr_reader :time_slot_id, :unique_id
-  attr_accessor :friends, :payment_arrangement, :number_of_sessions, :camp_price, :coupon_discount, :coupon_code_id
+  attr_accessor :friends, :payment_arrangement, :number_of_sessions, :camp_price, :coupon_discount, :coupon_code_id,  :coupon_code
 
   # PRICE = YAML.load_file("#{Rails.root}/config/prices.yml")
 

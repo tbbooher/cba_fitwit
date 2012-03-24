@@ -226,9 +226,10 @@ class Order
       rs.friends = item.friends.join(",")
       unless rs.save!
         # TODO need to test!!
-        errors.add_to_base(rs.errors.messages)
+        registration_errors = rs.errors.messages
       end
     end # items
+    registration_errors
   end
 
   def complete_camp_purchase(params, user, cart)
