@@ -7,15 +7,16 @@
     - @meetings.each do |m|
       %th
         = link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@ts.fitness_camp.location.id, @ts.fitness_camp.id, @ts.id, m.id)
-    %th %
+    %th #
   - @campers.each do |user|
     - attended_count = 0
     %tr
       %td= user.name
       - @meetings.each do |meeting|
-        %td{style: "background-color:#{meeting.attendance_color(user)}"}  &nbsp;
+        %td{style: "background-color:#{meeting.attendance_color(user)}; text-align: center;"}
+          = meeting.attended?(user) ? "✗" : ""
         - attended_count += 1 if meeting.attended?(user)
-      %td= "%2.2g" % ((attended_count.to_f / @possible_meetings)*100) unless @possible_meetings == 0
+      %td= attended_count
 
 %p
   Back to

@@ -34,12 +34,12 @@ class Meeting
 
   def attendance_color(user)
     if self.attended?(user)
-      "green"
+      "#dedede"
     else
       if self.meeting_date > Date.today()
-        "#dedede"
+        "white"
       else
-        "red"
+        "#cecece"
       end
     end
   end
