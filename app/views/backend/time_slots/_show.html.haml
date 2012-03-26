@@ -39,7 +39,7 @@
 %h4 Meetings
 %p
   %ul.breadcrumb
-    - @time_slot.meetings.each do |m|
+    - @time_slot.meetings.asc(:meeting_date).each do |m|
       %li
         = link_to m.meeting_date_f, backend_location_fitness_camp_time_slot_meeting_path(@location.id, @fitness_camp.id, @time_slot.id, m.id)
       %span.divider /
