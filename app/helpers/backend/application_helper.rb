@@ -25,10 +25,8 @@ module Backend::ApplicationHelper
         o += "<h3>" +  FitWitWorkout.find(fww[0]).name + "</h3><br><br>\n"
         o += "<table class=\"table table-striped\">\n"
         o += "<tr><th>name</th><th>score</th><th>rxd</th><th>note</th></tr>\n"
-        content_tag(:div) do
-          fww[1].sort_by{|w| w.user.first_name }.each do |wo|
-            o += wo.html_output + "\n"
-          end
+        fww[1].sort_by{|w| w.user.first_name }.each do |wo|
+          o += "<div>" + wo.html_output + "</div>\n"
         end
       end
     end
