@@ -75,9 +75,7 @@ class Workout
   end
 
   def html_output
-    content_tag(:tr) do
-      "<td>#{self.user.certain_name}</td><td>#{self.score} </td><td>#{self.rxd? ? "rxd" : " "}</td><td>#{self.user_note}</td>"
-    end
+    "<tr><td>#{self.user.certain_name}</td><td>#{self.score} </td><td>#{self.rxd? ? "rxd" : " "}</td><td>#{self.user_note}</td></tr>"
   end
 
   def update_global_pr_object(gpr)
