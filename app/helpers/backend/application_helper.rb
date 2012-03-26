@@ -28,6 +28,7 @@ module Backend::ApplicationHelper
         fww[1].sort_by{|w| w.user.first_name }.each do |wo|
           o += "<div>" + wo.html_output + "</div>\n"
         end
+        o += "</table>\n"
       end
     end
     o
