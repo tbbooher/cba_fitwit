@@ -26,7 +26,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     Ascii85 (1.0.1)
-    RedCloth (4.2.3)
+    RedCloth (4.2.9)
     ZenTest (4.5.0)
     actionmailer (3.2.2)
       actionpack (= 3.2.2)
@@ -398,7 +398,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (= 4.2.3)
+  RedCloth
   ZenTest (= 4.5.0)
   activemerchant
   albino

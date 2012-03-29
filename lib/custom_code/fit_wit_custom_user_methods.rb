@@ -192,7 +192,7 @@ module FitWitCustomUserMethods
     (self.health_issues.map{|h| "#{h.medical_condition.name}: #{h.explanation}"}.join(",")) + " " +
     (self.has_physician_approval ? "has doctor's approval" : "does not have doctor approval") + " | " +
     (self.meds_affect_vital_signs ? "meds affect vitals" : "meds don't affect vitals") + " | " +
-    (self.gender == :female ? "estrogen: #{u.taking_estrogen}, post-menopausal: #{u.post_menopausal_female}" : "")
+    (self.gender == :female ? "estrogen: #{self.taking_estrogen.to_s}, post-menopausal: #{self.post_menopausal_female.to_s}" : "")
   end
 
   def short_health_state
