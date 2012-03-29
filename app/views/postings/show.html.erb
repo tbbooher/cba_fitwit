@@ -1,10 +1,11 @@
-<% title @posting.title, false %>
+<% title @posting.blog.title %>
 
 <%= render @posting %>
+
 <!-- Start Shareaholic Sexybookmark script -->
 
 <script type="text/javascript">
-    var SHRSB_Settings = {"shr_class":{"src":"/assets","link":"","service":"5,7,309,304","apikey":"6ffe2cbf142c45bd4cd03b01ec46b8658","localize":true,"shortener":"google","shortener_key":"","designer_toolTips":true,"twitter_template":"${title} - ${short_link} via @Shareaholic"}};
+    var SHRSB_Settings = {"shr_class":{"src":"/assets","link":"","service":"5,7,304,309,313","apikey":"6ffe2cbf142c45bd4cd03b01ec46b8658","localize":true,"shortener":"google","shortener_key":"","designer_toolTips":true,"twitter_template":"${title} - ${short_link} via @Shareaholic"}};
 </script>
 
 <script type="text/javascript">
@@ -15,3 +16,4 @@
     })();
 </script>
 <!-- End Shareaholic Sexybookmark script -->
+

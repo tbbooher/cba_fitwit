@@ -1,4 +1,4 @@
-- title "FitWit Activity Feed"
+- title "FitWit Activity"
 
 - content_for :right_column do
   %h3 Blogs
@@ -16,9 +16,9 @@
       = event.title
     .event_description
       .event_time
-        = event.starts_at.stamp("10 March at 7:00pm")
+        = event.starts_at.strftime("%A, %e %B from %l:%M %p")
         to
-        = event.ends_at.stamp("8:00pm")
+        = event.ends_at.strftime("%l:%M %p")
       = event.description
     %hr
 
@@ -28,15 +28,18 @@
       - interpret item.object do |presenter|
         - case item.object
           - when Posting
-            %h3= link_to item.title, item.url
+            %h3
+              = item.blog.title + ":"
+              = link_to item.title, item.url
           - when Page
             %h3
               New Page:
               = link_to item.title, item.url
           - when Comment
             %h3
-              Comment from
-              = item.name
+              = "Comment from #{item.name}"
+              on
+              = presenter.title_and_link
             = presenter.avatar
           - else
             = presenter.title(false) if presenter.respond_to?(:title)

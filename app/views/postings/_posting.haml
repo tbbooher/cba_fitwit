@@ -1,3 +1,4 @@
+
 - interpret posting do |presenter|
   %div{:style=>'clear: right;',:id => 'posting', :class => "#{posting.css_class} post"}
     - if can? :edit, posting
@@ -13,9 +14,11 @@
       = presenter.title
     .meta.posted-meta
       by
-      = posting.user.name
+      = posting.user.name if posting.user
     .meta.tags-meta
       = presenter.tags_info
+    .meta.share_links
+      .shr_class.shareaholic-show-on-load
     %br.clear
       - if posting.cover_picture_exists?
         %div.shadow.shadow_large.aligncenter.shadow_center{id: "posting_cover_picture_#{posting.id}"}
@@ -28,13 +31,13 @@
         %p.more
           = presenter.simple_read_more
       - else
-        = presenter.user_time_and_blog
+        = presenter.user_time_and_blog if posting.user
         - if can? :edit, posting
           = ui_button 'edit', t(:edit), edit_blog_posting_path(posting.blog, posting)
         - if can? :manage, posting
           = ui_button 'delete', t(:delete), blog_posting_path(posting.blog, posting), method: :delete, confirm: "Are you sure?"
         = presenter.body
-        .shr_class.shareaholic-show-on-load
+
         = presenter.comments
 
 = javascript_tag "$('#posting_#{posting.id.to_s}').hide()"
