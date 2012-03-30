@@ -47,7 +47,7 @@ class User
   field :member, :type => Boolean
   field :why_i_fitwit, type: String
   field :when_started_fitwit, type: Date
-  field :reset_password_sent_at, type: Date
+  field :reset_password_sent_at, type: Time
 
   # approvals
   field :has_physician_approval, type: Boolean, default: false
