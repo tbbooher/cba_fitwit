@@ -1,4 +1,4 @@
-<h2><%= t(:forgot_your_password) -%>?</h2>
+<% title "Reset your password" %>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
@@ -6,7 +6,7 @@
   <p><%= f.label :email %><br />
   <%= f.text_field :email %></p>
 
-  <p><%= f.submit t(:send_me_reset_password_instructions), :class => "medium-btn glass-btn" %></p>
+  <p><%= f.submit t(:send_me_reset_password_instructions), :class => "btn btn-primary" %></p>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
