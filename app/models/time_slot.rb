@@ -87,9 +87,11 @@ class TimeSlot
   end
   
   def users_going
-    if self.registrations.map{|r| r.user}.size > 0
-      self.registrations.map{|r| r.user}.flatten.sort_by{|u| u.first_name}
+    users = self.registrations.map{|r| r.user}.flatten
+    if users.size > 0
+      ug = users.sort_by{|u| u.first_name}
     end
+    ug
   end
   
   def who_is_not_going
