@@ -20,7 +20,7 @@ end
 gem 'jquery-rails'
 gem 'thin'
 gem "mongo", "1.5.2"
-gem "mongoid", ">= 2.4.6"  #, :path => "/Users/aa/Development/R31/mongoid-1"
+gem "mongoid", ">= 2.4.7"  #, :path => "/Users/aa/Development/R31/mongoid-1"
 gem "bson_ext", "1.5.2" #, "1.3.1" #, "1.1.5"
 
 # Bundle gem needed for Devise and cancan
