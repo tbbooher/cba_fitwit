@@ -42,7 +42,7 @@ class PostingPresenter < BasePresenter
   end
   
   def body(_concat=true)
-    _rc = if interpreter
+    _rc = if false #interpreter
       interpreter.render(posting.body)
     else
       posting.body
