@@ -45,7 +45,7 @@ class PostingPresenter < BasePresenter
     _rc = if false #interpreter
       interpreter.render(posting.body)
     else
-      posting.body
+      posting.body.html_safe
     end
     concat_or_string(_concat, _rc)
   end
