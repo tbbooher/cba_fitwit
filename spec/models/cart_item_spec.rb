@@ -65,7 +65,7 @@ describe CartItem do
         end
         @c.coupon_discount = s[:coupon]*100
         @u.veteran_status = s[:veteran_status].to_sym
-        @c.camp_price_for(@u).should == s[:price]*100
+        @c.camp_price_for_(@u).should == s[:price]*100
       end
     end
   end

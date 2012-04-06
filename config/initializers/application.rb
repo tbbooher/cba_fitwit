@@ -6,7 +6,8 @@
 require "redcloth"
 
 require "string_extensions"
-include StringExtensions
+String.send(:extend, StringExtensions::ClassMethods)
+String.send(:include, StringExtensions::InstanceMethods)
 
 require "special_characters"
 include SpecialCharacters

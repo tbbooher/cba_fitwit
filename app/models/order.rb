@@ -244,19 +244,11 @@ class Order
       options = build_options(user, billing_address[:us_state],billing_address[:zip],billing_address[:city],billing_address[:address1],billing_address[:address2])
       purchase = self.authorize_payment(credit_card, options)
       if purchase.success?
-        # send relevant emails
-        send_emails(user, cart)
-        # update user information based on what they submitted
-        # actually put them in a camp, this should return nil if successful
-        registration_errors = self.register_timeslots_from_cart(cart, user)
-        unless registration_errors
-          # empty the cart
-          session[:cart] = nil
-          unless capture = @order.capture_payment
-            purchase_errors = capture
-          end
+        unless capture = self.capture_payment
+          purchase_errors = capture
         else
-          purchase_errors = registration_errors
+          send_emails(user, cart)
+          purchase_errors = self.register_timeslots_from_cart(cart, user)
         end
       else
         purchase_errors = purchase.message + "<br>" + purchase.params['missingField'].to_s
@@ -265,7 +257,6 @@ class Order
       purchase_errors = "Credit Card not Valid: " + credit_card.errors.full_messages.to_sentence
     end
     purchase_errors # no errors means success
-    # are we trapping these errors?
   end
 
   private

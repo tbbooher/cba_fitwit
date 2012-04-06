@@ -21,7 +21,7 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
     @meeting.attendees.asc(:first_name).each do |user|
       @new_workouts << @meeting.workouts.build(user_id: user.id)
     end
-    @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
+    @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.alphabetical.map{|fww| [fww.name, fww.id]}
   end
 
   def update_workout_for_user
@@ -57,7 +57,7 @@ class Backend::WorkoutTrackerController < Backend::ApplicationController
       #@fit_wit_workout_id = params[:fit_wit_workout_id]
       flash.now[:error] = "Error saving workout"
       @new_workouts = @meeting.workouts.select {|w| !w.persisted?}
-      @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.all.map{|fww| [fww.name, fww.id]}
+      @possible_workouts = [["You must select a workout", 0]] +  FitWitWorkout.alphabetical.map{|fww| [fww.name, fww.id]}
       render action: 'coach_enters_scores'
       # and highlight errors
     end

@@ -16,6 +16,8 @@ class FitWitWorkout
   validates :score_method, presence: true
   validates :name, presence: true
 
+  scope :alphabetical, asc(:name)
+
   # methods
 
   EXERCISE_UNITS = [

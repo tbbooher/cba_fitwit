@@ -39,18 +39,19 @@ Cba::Application.configure do
   # need to update this to use ENV on heroku if we are there
   mypassphrase = File.open(File.join(Rails.root, 'passphrase.txt')).read
   ActiveMerchant::Billing::CreditCard.require_verification_value = false
-  OrderTransaction.gateway = ActiveMerchant::Billing::CyberSourceGateway.new(:login    => 'v9526006',
-                                                    :password => mypassphrase.to_s,
-                                                    :test => false,
-                                                    :vat_reg_number => 'your VAT registration number',
-                                                    # sets the states/provinces where you have a physical presense for tax purposes
-                                                    :nexus => "GA OH",
-                                                    # don‘t want to use AVS so continue processing even if AVS would have failed
-                                                    :ignore_avs => true,
-                                                    # don‘t want to use CVV so continue processing even if CVV would have failed
-                                                    :ignore_cvv => true,
-                                                    :money_format => :dollars
-                                                    )
+  gw = ActiveMerchant::Billing::CyberSourceGateway.new(:login    => 'v9526006',
+                                                       :password => mypassphrase.to_s,
+                                                       :test => true,
+                                                       :vat_reg_number => 'your VAT registration number',
+                                                       # sets the states/provinces where you have a physical presense for tax purposes
+                                                       :nexus => "GA OH",
+                                                       # don‘t want to use AVS so continue processing even if AVS would have failed
+                                                       :ignore_avs => true,
+                                                       # don‘t want to use CVV so continue processing even if CVV would have failed
+                                                       :ignore_cvv => true,
+                                                       :money_format => :dollars
+  )
+  OrderTransaction.gateway = gw
 end
 
 

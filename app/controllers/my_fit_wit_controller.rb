@@ -14,7 +14,7 @@ class MyFitWitController < ApplicationController
 
   def add_custom_workout
     @date = Date.parse(params[:date])
-    @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
+    @fit_wit_workout_list = FitWitWorkout.alphabetical # .map { |e| [e.name, e.id] }
     @custom_workout = @user.custom_workouts.new   # this is generated for the forms
     @month_param = params[:month]
   end
@@ -22,7 +22,7 @@ class MyFitWitController < ApplicationController
   def show_custom_workout
     @custom_workout = @user.custom_workouts.find(params[:id])
     @date = @custom_workout.workout_date
-    @fit_wit_workout_list = FitWitWorkout.all # .map { |e| [e.name, e.id] }
+    @fit_wit_workout_list = FitWitWorkout.alphabetical # .map { |e| [e.name, e.id] }
     @month_param = params[:month]
     render :add_custom_workout
   end
