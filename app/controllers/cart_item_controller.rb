@@ -56,6 +56,7 @@ class CartItemController < ApplicationController
               @category = 'message msg-tip'
               @cart_item.coupon_discount = @coupon.price
               @cart_item.coupon_code_id = @coupon.id
+              @cart_item.coupon_code = @coupon.code
               @cart_item
               @updated_camp_price = @cart_item.camp_price_for_(@user)/100
             end

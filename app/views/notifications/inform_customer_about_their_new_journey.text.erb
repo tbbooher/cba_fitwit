@@ -14,15 +14,15 @@ If you have any questions, please give us a call at 1-888-5-FITWIT or reach us b
 You have successfully registered for the following FitWit Fitness camp:
 <% @cart.items.each do |c| -%>
   ------------------------------------
-  <% unless c.friends.empty? -%>
+  <% unless c.friends.empty? %>
     Friends:
       <% c.friends.each do |f| -%>
-        <%= f -%>
+        <%= f %>
       <% end -%>
   <% end -%>
   <% if c.payment_arrangement == :pay_by_session -%>
     You have paid for <%= c.number_of_sessions -%> sessions.
-  <% end -%>
+  <% end %>
   Price Paid: <%= number_to_currency(c.camp_price_for_(@user)/100) %>
   Title: <%= TimeSlot.find(c.time_slot_id).short_title %>
   ------------------------------------
