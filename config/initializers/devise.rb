@@ -111,6 +111,8 @@ Devise.setup do |config|
   # are using only default views.
   # config.scoped_views = true
 
+  config.reset_password_within = 1.hour
+
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes.
   # config.default_scope = :user
