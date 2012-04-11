@@ -341,6 +341,7 @@ private
   def load_user_name
     self.name = "#{self.first_name} #{self.last_name}"
     self.last_name = self.last_name.capitalize
+    self.first_name = self.first_name.capitalize
   end
 
   def reprocess_avatar
