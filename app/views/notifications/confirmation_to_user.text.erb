@@ -1,0 +1,17 @@
+
+Dear <%= @message.name %>,
+
+Your message has been received, and someone from our staff will respond as soon as possible to answer your questions and help you in any way that we can.
+
+Many thanks,
+The FitWit Team
+
+Your message to FitWit:
+
+    Name: <%= @message.name %>
+    Email: <%= @message.email %>
+    Phone:  <%= @message.phone %>
+    How they heard: <%= @message.how_they_heard %>
+    <%= "Other: #{@message.other}" unless @message.other.blank? %>
+    Body:
+    <%= @message.question %>

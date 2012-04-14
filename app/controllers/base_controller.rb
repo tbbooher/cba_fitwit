@@ -83,6 +83,7 @@ class BaseController < ApplicationController
     @message = Message.new(params[:message])
 
     if @message.valid?
+      Notifications.confirmation_to_user(@message).deliver
       Notifications.send_contact_message(@message).deliver
       redirect_to(root_path, :notice => "Thank you, your message was successfully sent.")
     else

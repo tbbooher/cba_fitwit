@@ -103,7 +103,14 @@ class Notifications < ActionMailer::Base
     @message = message
     mail( from: message.email,
           subject: "[FitWit: Contact Form Inquiry]",
-          to: "messenger@fitwit.com")
+          to: "info@fitwit.com")
+  end
+
+  def confirmation_to_user(message)
+    @message = message
+    mail( from: "info@fitwit.com",
+          subject: "Thank you for contacting FitWit!",
+          to: message.email)
   end
 
   def inform_management_about_a_new_user(user, cart, order)
