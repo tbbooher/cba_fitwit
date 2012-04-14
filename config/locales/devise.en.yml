@@ -35,7 +35,7 @@ en:
       unlocked: 'Your account was successfully unlocked. You are now signed in.'
     mailer:
       confirmation_instructions:
-        subject: 'Confirmation instructions'
+        subject: 'Confirm your FitWit account'
       reset_password_instructions:
         subject: 'Reset password instructions'
       unlock_instructions:

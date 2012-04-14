@@ -12,14 +12,20 @@ class Notifications < ActionMailer::Base
   def sign_up(new_user)
     @user = new_user
     @notify_subject = strip_tags "NEW SIGN UP AT #{APPLICATION_CONFIG['name']}"
-    mail( :to => APPLICATION_CONFIG['admin_notification_address'], :subject => @notify_subject)
+    mail( :to => ENV['APPLICATION_CONFIG_admin_notification_address'], :subject => @notify_subject)
+  end
+
+  def account_created(user)
+    @user = user
+    attachments['WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf'] = File.read("#{Rails.root}/public/WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf" )
+    mail( to: @user.email, subject: "Thank you for registering at FitWit.com!", from: "info@fitwit.com" )
   end
 
   # Inform the admin when a user cancel an account.
   def cancel_account(user_info)
     @user_info = user_info
     @notify_subject = strip_tags "USER CANCELED ACCOUNT AT #{APPLICATION_CONFIG['name']}"
-    mail( :to => APPLICATION_CONFIG['admin_notification_address'], :subject => @notify_subject)
+    mail( :to => ENV['APPLICATION_CONFIG_admin_notification_address'], :subject => @notify_subject)
   end
 
   # Inform the admin if a user confirms an account

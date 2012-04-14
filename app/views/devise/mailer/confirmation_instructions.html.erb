@@ -1,5 +1,8 @@
-<p>Welcome <%= @resource.email %>!</p>
+<p><%= @resource.email %>, welcome to FitWit</p>
 
-<p>You can confirm your account through the link below:</p>
+<p>Please confirm your FitWit account through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>This will give you the ability to register for upcoming camps, track your workouts and
+  participate in our online community.</p>
