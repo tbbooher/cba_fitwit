@@ -1,0 +1,41 @@
+<p><%= @user.first_name %>,</p>
+
+<p>Congratulations on committing to a new healthier you!</p>
+
+<p>You’ll soon be receiving an email from your Location Lead Trainer.  That email will outline the details for your specific location including where to meet and what to bring to camp.</p>
+
+<p>Attached to this email are the FitWit Liability Release, Fitness Camp Manual, and Nutrition Guide. Please print out the liability release, sign it, and bring it with you on your first day of camp.  You'll find a lot of useful information in the Fitness Camp Manual and Nutrition Guide, so please read them before camp starts.</p>
+
+<p>Also, please do check out the calendar on the location blogs of our website at fitwit.com.  Here you’ll find information on our upcoming nutrition talks, measurements and assessments, camp socials and other FitWit events.</p>
+
+<p>Do you know anyone else who is interested in joining FitWit?  We offer a pretty cool referral program that rewards campers directly for any of their friends who sign up for FitWit too.  Check out the referral rewards page
+  <a href="http://fitwit.com/p/referral_rewards_program">here</a>.</p>
+
+<p>We’re very excited that you have joined  the FitWit family, and we look forward to working with you!
+  If you have any questions at all, please contact info@fitwit.com.</p>
+
+<p>Many thanks,<br>
+Josh Guerrieri<br>
+Founder and President<br>
+FitWit LLC</p>
+
+You have successfully registered for the following FitWit Fitness camp:
+<% @cart.items.each do |c| -%>
+  ------------------------------------
+  <% unless c.friends.empty? %>
+    <ul>
+    Friends:
+      <% c.friends.each do |f| -%>
+        <li><%= f %></li>
+      <% end -%>
+    </ul>
+  <% end -%>
+  <% if c.payment_arrangement == :pay_by_session -%>
+    <p>You have paid for <%= c.number_of_sessions -%> sessions.</p>
+  <% end %>
+  <p>
+    Price Paid: <%= number_to_currency(c.camp_price_for_(@user)/100) %><br>
+    Title: <%= TimeSlot.find(c.time_slot_id).short_title %><br>
+  </p>
+  ------------------------------------
+<% end -%>
