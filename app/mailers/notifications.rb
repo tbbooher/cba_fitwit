@@ -128,10 +128,10 @@ class Notifications < ActionMailer::Base
     @cart = cart
     @user = user
     @order = order
-    time_slot_info = TimeSlot.find(cart.items.first.time_slot_id).longer_title
+    time_slot_info = TimeSlot.find(cart.items.first.time_slot_id).short_title
     mail( :from => 'messenger@fitwit.com',
           :to   => 'management@fitwit.com',
-          :subject => "New Camper: #{time_slot_info},#{@order.amount/100}" )
+          :subject => "New Camper: #{time_slot_info},$#{@order.amount/100}" )
   end
 
   def inform_customer_about_their_new_journey(user,cart)
