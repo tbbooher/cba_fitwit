@@ -138,7 +138,7 @@ class Notifications < ActionMailer::Base
     @cart = cart
     @user = user
     ['FitWitFitnessCampManual120301.pdf','FitWitNutritionGuide.pdf','GeneralWaiverandRelease2012.pdf'].each do |a|
-     attachments[a] = File.read("#{Rails.root}/public/#{a}" )
+     attachments[a] = File.read("http://s3.amazonaws.com/bucketname/FitWitSite/pdfs/#{a}" )
     end
     mail( :from => 'messenger@fitwit.com',
           :to   => user.email,
