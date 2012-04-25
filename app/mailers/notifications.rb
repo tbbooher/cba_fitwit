@@ -22,7 +22,7 @@ class Notifications < ActionMailer::Base
 
   def account_created(user)
     @user = user
-    attachments['WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf'] = File.read("#{Rails.root}/public/WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf" )
+    attachments['WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf'] = File.read("http://s3.amazonaws.com/bucketname/FitWitSite/pdfs/WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf")
     mail( to: @user.email, subject: "Thank you for registering at FitWit.com!", from: "info@fitwit.com" )
   end
 
