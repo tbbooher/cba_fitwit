@@ -3,6 +3,8 @@
 # Use this mailer to send notifications eg for newly created pages, sign ups
 # and so on.
 
+require 'open-uri'
+
 class Notifications < ActionMailer::Base
   include ActionView::Helpers::SanitizeHelper
 
@@ -22,7 +24,7 @@ class Notifications < ActionMailer::Base
 
   def account_created(user)
     @user = user
-    attachments['WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf'] = File.read("http://s3.amazonaws.com/FitWitSite/pdfs/WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf")
+    attachments['WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf'] = open("https://s3.amazonaws.com/FitWitSite/pdfs/WhyYourWorkoutIsNotWorking7StepstoFixIt.pdf").read
     mail( to: @user.email, subject: "Thank you for registering at FitWit.com!", from: "info@fitwit.com" )
   end
 
@@ -138,7 +140,7 @@ class Notifications < ActionMailer::Base
     @cart = cart
     @user = user
     ['FitWitFitnessCampManual120301.pdf','FitWitNutritionGuide.pdf','GeneralWaiverandRelease2012.pdf'].each do |a|
-     attachments[a] = File.read("http://s3.amazonaws.com/FitWitSite/pdfs/#{a}" )
+     attachments[a] = open("https://s3.amazonaws.com/FitWitSite/pdfs/#{a}").read
     end
     mail( :from => 'messenger@fitwit.com',
           :to   => user.email,
