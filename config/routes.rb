@@ -55,6 +55,7 @@ Cba::Application.routes.draw do
     resources :medical_conditions
   end
 
+  get "home/file_test"
   get "my_fit_wit/index"
   get "my_fit_wit/camp_fit_wit_workout_progress"
   get "add_custom_workout/:date" => "my_fit_wit#add_custom_workout", as: :add_custom_workout
