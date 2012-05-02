@@ -97,7 +97,7 @@ class Location
     # we want the matching time slot at the same location for the most recent camp
     last_camp = self.fitness_camps.where(:session_start_date.lt => current_camp.session_start_date).and(:id.ne => current_camp.id).desc(:session_start_date).first
     # really wish i could do this all with mongoid . . .
-    ts = TimeSlot.where(fitness_camp_id: last_camp.id).select{|t| t.start_time.hour == start_time.hour && t.start_time.min == start_time.min}.first
+    TimeSlot.where(fitness_camp_id: last_camp.id).select{|t| t.start_time.hour == start_time.hour && t.start_time.min == start_time.min}.first if last_camp
   end
 
   def future_fitness_camps
