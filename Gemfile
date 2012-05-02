@@ -74,7 +74,7 @@ group :development, :test do
   gem 'json_pure'
   gem 'capybara'  # , git: 'git://github.com/jnicklas/capybara.git'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'cucumber'
   gem 'spork', '0.9.0.rc9'
   gem 'guard-rspec'
