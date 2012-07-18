@@ -9,12 +9,12 @@ class FitnessCampRegistrationController < ApplicationController
   before_filter :find_cart, :except => :empty_cart
   before_filter :ensure_items_in_cart, :only => [:view_cart, :consent, :payment]
 
-  def index
+  #def index
     #@location_id = params[:id]
     #@location = Location.find(@location_id)
-    @fitnesscamps = FitnessCamp.future # can work in location
+    #@fitnesscamps = FitnessCamp.future # can work in location
     #@locations = Location.where(_id: @location_id)
-  end
+  #end
 
   def all_fitness_camps
     @user = current_user || User.new

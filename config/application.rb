@@ -62,6 +62,10 @@ module Cba
     #config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
 
+    # no more spam . . . 21 May 2012 -- tim booher
+    config.rakismet.key = '2f46d823e74d'
+    config.rakismet.url = 'http://fitwit.com/'
+
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 

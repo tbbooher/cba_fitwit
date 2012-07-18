@@ -124,3 +124,4 @@ gem "responders"
 gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
 gem 'bootstrap-sass', '~> 2.0.0'
 gem "ckeditor", "3.7.0.rc3"
+gem "rakismet"

@@ -24,7 +24,7 @@ class FitnessCamp
   ################################################
   # SCOPES                                       #
   ################################################
-  scope :future, where(:session_start_date.gt => Date.today).and(session_active: true)
+  #scope :future, where(:session_start_date.gt => Date.today).and(session_active: true)
   scope :upcoming_and_current, ->() { where(:session_end_date.gte => Date.today).and(session_active: true) }
   scope :all_camps_in_year, ->(my_year) { where(start_year: my_year).or(end_year: my_year) }
 

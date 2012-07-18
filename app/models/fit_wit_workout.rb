@@ -31,7 +31,7 @@ class FitWitWorkout
   #  Displayed        stored in db
   ["Sum Slashes", "sum-slashes"],
   ["Sum Commas", "sum-commas"],
-  ["Rounds", "simple-rounds"],
+  ["Rounds/Reps", "simple-rounds"],
   ["Time", "simple-time"],
   ["Parse Time", "parse-time"],
   ["Slash-separated Time", "slash-separated-time"],

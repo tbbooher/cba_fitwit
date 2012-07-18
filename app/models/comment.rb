@@ -4,18 +4,34 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Rakismet::Model
   cache
 
-  field  :name
-  field  :email
-  field  :comment
-  field  :from_ip
+  field :name
+  field :email
+  field :comment
+  field :from_ip
+  # tim added
+  #field :referrer
 
   validates             :email, :presence => true, :email => true
   validates_presence_of :name
   validates_length_of   :name, :minimum => 1
   validates_presence_of :comment
   validates_length_of   :comment, :minimum => 1
+
+  #attr_accessor :commenter_name, :commenter_email
+  rakismet_attrs :author => :name, :author_email => :email, :user_ip => :from_ip
+
+  # author        : name submitted with the comment
+  # author_url    : URL submitted with the comment
+  # author_email  : email submitted with the comment
+  # comment_type  : Defaults to comment but you can set it to trackback, pingback, or something more appropriate
+  # content       : the content submitted
+  # permalink     : the permanent URL for the entry the comment belongs to
+  # user_ip       : IP address used to submit this comment
+  # user_agent    : user agent string
+  # referrer      : referring URL (note the spelling)
 
   referenced_in :commentable, :inverse_of => :comments, :polymorphic => true
 
@@ -34,7 +50,7 @@ class Comment
 
   def self.build_and_validate_comment(commentable, form_params)
     comment = commentable.comments.build(form_params)
-    if comment.valid?
+    if comment.valid? # and comment not spam . . .
       comment.save
     else
       errors =  comment.errors.full_messages.join("<br/>").html_safe

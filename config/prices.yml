@@ -2,11 +2,13 @@
 traditional:
   newbie: 229
   veteran: 199
+  staff: 199
   supervet: 219
 friend_discount:
   veteran: 20
   supervet: 0
   newbie: 20
+  staff: 20
   max_vet_friends: 6
 pay_by_session:
   0:
