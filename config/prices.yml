@@ -1,7 +1,7 @@
 # [:veteran, :supervet, :newbie, :staff]
 traditional:
-  newbie: 229
-  veteran: 199
+  newbie: 249
+  veteran: 219
   staff: 199
   supervet: 219
 friend_discount:

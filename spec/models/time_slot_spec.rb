@@ -78,4 +78,19 @@ describe TimeSlot do
     @six_am.users_going.count.should eq(10) 
   end
 
+  it "should be able to register a user and that user should have a saved reservation" do
+    # still need to run this
+    @user = FactoryGirl.create(:user)
+    @registration = @six_am.create_user_registration(@user.id)
+    @user.registrations.size.should eq(1)
+  end
+
+  it "should reject a user who attempts to register twice" do
+    @user = FactoryGirl.create(:user)
+    @registration1 = @six_am.create_user_registration(@user.id)
+    @registration2 = @six_am.create_user_registration(@user.id)
+    # second registration should result in an error
+
+  end
+
 end

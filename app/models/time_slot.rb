@@ -8,6 +8,8 @@ class TimeSlot
   field :sold_out, :type => Boolean
 
   validates_presence_of :start_time, :end_time
+
+
   #validates_format_of :start_time,
   #                    with: /^(20|21|22|23|[01]\d|\d)(([:][0-5]\d){1,2})$/,
   #                    message: "Must be a time"
@@ -23,9 +25,17 @@ class TimeSlot
 
   def create_user_registration(user_id)
     r = Registration.new
-    r.user_id = user_id
-    r.time_slot_id = self.id
-    r
+    # since we are registering a user, let's assign them the appropriate location
+    # need to silently fail if this user is already registered
+    u = User.find(user_id)
+    unless self.registrations.map(&:user_id).include?(user_id)
+      u.location_id = self.fitness_camp.location.id
+      u.save!
+      r.user_id = user_id
+      r.time_slot_id = self.id
+      r.save
+      r
+    end
   end
 
   def start_time_f
