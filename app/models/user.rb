@@ -20,6 +20,18 @@ class User
   field :use_gravatar, :type => Boolean, :default => true
   field :invitation_id, :type => BSON::ObjectId
 
+  # later fields
+  field :contract_months, type: Integer
+  field :sessions_per_week, type: Integer
+  field :monthly_price, type: Integer # in cents
+  field :start_date_for_contract, type: Date
+  field :end_date_for_contract, type: Date
+  field :last_charge_date, type: Date
+  field :notes, type: String
+  field :payment_method, type: String
+  field :paid_in_full, type: Boolean
+  field :on_pause, type: Boolean
+
   field :first_name, type: String
   field :last_name, type: String
   field :gender, type: Symbol, default: :male

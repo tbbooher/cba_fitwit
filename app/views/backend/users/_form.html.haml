@@ -15,6 +15,8 @@
         %a{"data-toggle" => "tab", :href => "#medical_stuff"} Medical
       %li
         %a{"data-toggle" => "tab", :href => "#site_info"} Site Admin
+      %li
+        %a{"data-toggle" => "tab", :href => "#membership"} Membership
     .tab-content
       #basic_info.tab-pane.active
         = f.input :first_name
@@ -54,6 +56,17 @@
         = f.input :meds_affect_vital_signs_explanation, as: :text, :input_html => { rows: 3 }
         = f.input :post_menopausal_female, as: :boolean, default: false
         = f.input :taking_estrogen, as: :boolean, default: false
+      #membership.tab-pane
+        = f.input :contract_months, collection: 1..13
+        = f.input :sessions_per_week, collection: 2..4
+        = f.input :monthly_price
+        = f.input :start_date_for_contract, as: :date
+        = f.input :end_date_for_contract, as: :date
+        = f.input :last_charge_date, as: :date
+        = f.input :notes
+        = f.input :payment_method, collection: ['cash','check','ach','credit card', 'first born']
+        = f.input :paid_in_full, as: :boolean
+        = f.input :on_pause, as: :boolean
       #site_info.tab-pane
         = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index.map{|r,i| [r,i]}, include_blank: false
   .form-actions
