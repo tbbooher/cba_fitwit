@@ -194,7 +194,10 @@ class User
                   :height_feet, :veteran_status, :member, :has_physician_approval,
                   :has_physician_approval_explanation, :post_menopausal_female,
                   :taking_estrogen, :location_id, :birthday_string, :health_issues_attributes,
-                  :why_i_fitwit, :when_started_fitwit, :emergency_contact_phone
+                  :why_i_fitwit, :when_started_fitwit, :emergency_contact_phone, :contract_months,
+                  :sessions_per_week,:monthly_price,:start_date_for_contract,
+                  :end_date_for_contract,:last_charge_date,:notes,:payment_method,
+                  :paid_in_full,:on_pause,:total_value_of_contract
 
   attr_accessor :clear_avatar
 
