@@ -14,7 +14,7 @@ class Backend::UsersController < Backend::ResourceController
       users_at_location = User.all
     end
 
-    @users = users_at_location.order_by([params[:order].to_sym,params[:direction].to_sym]).page params[:page]
+    @users = users_at_location.order_by([params[:order].to_sym,params[:direction].to_sym]).page(params[:page]).per(200)
 
     respond_to do |format|
        format.js
