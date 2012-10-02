@@ -66,6 +66,7 @@
         = f.input :notes
         = f.input :payment_method, collection: ['cash','check','ach','credit card', 'first born']
         = f.input :paid_in_full, as: :boolean
+        = f.input :total_value_of_contract
         = f.input :on_pause, as: :boolean
       #site_info.tab-pane
         = f.input :roles_mask, collection: [:guest, :confirmed_user, :author, :moderator, :maintainer, :admin].each_with_index.map{|r,i| [r,i]}, include_blank: false

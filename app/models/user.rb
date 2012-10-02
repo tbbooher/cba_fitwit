@@ -31,6 +31,7 @@ class User
   field :payment_method, type: String
   field :paid_in_full, type: Boolean
   field :on_pause, type: Boolean
+  field :total_value_of_contract, type: Integer
 
   field :first_name, type: String
   field :last_name, type: String
