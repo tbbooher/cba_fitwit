@@ -9,6 +9,7 @@ Cba::Application.routes.draw do
   namespace :backend do
     root to: "locations#index"
     get "remove_user/:time_slot_id/user/:user_id" => "time_slots#delete_user", as: :remove_user
+    get "reports"
     resources :locations do
       get "calendar"
       resources :events
