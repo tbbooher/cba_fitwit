@@ -9,7 +9,7 @@ Cba::Application.routes.draw do
   namespace :backend do
     root to: "locations#index"
     get "remove_user/:time_slot_id/user/:user_id" => "time_slots#delete_user", as: :remove_user
-    get "reports"
+
     resources :locations do
       get "calendar"
       resources :events
@@ -47,8 +47,9 @@ Cba::Application.routes.draw do
       resources :health_issues
     end
 
-    get "fitwit_member_info" => "users#fitwit_member_info"
-    get "all_fitwit_users_info" => "users#all_fitwit_users_info"
+    get "reports" => "reports#index"
+    get "reports/fitwit_member_info" => "reports#fitwit_member_info"
+    get "reports/all_fitwit_users_info" => "reports#all_fitwit_users_info"
 
     resources :friends
     resources :fit_wit_workouts

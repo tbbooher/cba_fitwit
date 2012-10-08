@@ -241,6 +241,8 @@ class User
 
   scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
 
+  scope :last_name_first, order_by([:last_name => :asc], [:first_name => :asc])
+
   #def time_slots
   #  self.registrations.map(&:orders).map(&:time_slots)
   #end
@@ -250,6 +252,25 @@ class User
   # FitWit Custom methods   #
   #                         #
   ###########################
+
+  def self.member_info_to_csv
+    CSV.generate do |csv|
+      csv << ['name','location','contract months', 'sessions per week', 'start date', 'end date', 'last charge date', 'notes', 'payment_method', 'paid in full', 'total value', 'on pause', 'email', 'address', 'phone']
+      all.each do |u|
+        total_value = u.total_value_of_contract.dollars unless u.total_value_of_contract.nil?
+        csv << [u.name,u.location_name,u.contract_months,u.sessions_per_week,u.start_date_for_contract,u.end_date_for_contract,u.last_charge_date,u.notes,u.payment_method, u.paid_in_full ? "T" : "F", total_value, u.on_pause ? "T" : "F",u.email, u.one_line_address, u.primary_phone]
+      end
+    end
+  end
+
+  def self.all_fitwit_users_info_to_csv
+    CSV.generate do |c|
+      c << ["name", "location", "email", "address", "phone", "camps_completed","previous"]
+      all.each do |u|
+        c << [u.name, u.location_name, u.email, u.one_line_address, u.primary_phone, 'camps completed', 'previous']
+      end
+    end
+  end
 
   include FitWitCustomUserMethods
 

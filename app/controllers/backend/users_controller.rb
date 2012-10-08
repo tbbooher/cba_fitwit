@@ -29,12 +29,4 @@ class Backend::UsersController < Backend::ResourceController
     super
   end
 
-  def fitwit_member_info
-    @users = User.all
-  end
-
-  def all_fitwit_users_info
-    @users = User.all
-  end
-
 end

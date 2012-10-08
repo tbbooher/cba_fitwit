@@ -1,12 +1,13 @@
-%h1 All FitWit Users Info
-
-= link_to 'FitWit Member Info', backend_fitwit_member_info_path
-
-%h3 Fields:
+%h1 Reports: All FitWit Users Info
 
 %p
-  %em
-    Name, Location, Member (T/F), email, address, phone, previous rosters appearances? (or something that would show maybe last camp enrolled in?)
+  You can also view the
+  = link_to 'FitWit Member Info', backend_reports_fitwit_member_info_path
+  report.
+
+%p
+  Get this report as a
+  = link_to 'CSV', backend_reports_all_fitwit_users_info_path(:csv)
 
 %table.table.table-striped
   %thead
@@ -20,7 +21,6 @@
       %th camps completed
       %th previous?
   %tbody
-
   - @users.each do |u|
     %tr
       %td= link_to u.name, edit_backend_user_path(u.id)
