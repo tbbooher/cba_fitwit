@@ -162,9 +162,13 @@ module FitWitCustomUserMethods
   end
 
   def one_line_address
-    ma = self.street_address1 || "no street address"
-    ma += self.street_address2 unless self.street_address2.nil?
-    ma += ",#{self.city}, #{self.us_state} #{self.zip}\n"
+    unless self.street_address1.nil? || self.street_address1.empty?
+      ma = self.street_address1
+      ma += self.street_address2 unless self.street_address2.nil?
+      ma += ",#{self.city}, #{self.us_state} #{self.zip}\n"
+    else
+      ma = '&nbsp;'.html_safe
+    end
     ma
   end
 

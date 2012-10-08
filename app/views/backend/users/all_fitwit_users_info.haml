@@ -23,7 +23,7 @@
 
   - @users.each do |u|
     %tr
-      %td= u.name
+      %td= link_to u.name, edit_backend_user_path(u.id)
       %td= u.location_name
       %td= u.email
       %td= u.one_line_address
