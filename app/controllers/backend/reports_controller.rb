@@ -1,4 +1,4 @@
-class Backend::FriendsController <  Backend::ResourceController
+class Backend::ReportsController <  Backend::ResourceController
 
   def membership_report
     #

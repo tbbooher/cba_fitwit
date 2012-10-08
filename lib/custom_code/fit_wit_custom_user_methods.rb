@@ -24,6 +24,10 @@ module FitWitCustomUserMethods
     since_date
   end
 
+  def location_name
+    self.location ? self.location.name : ""
+  end
+
   def certain_name
     self.last_name.blank? ? self.name : self.full_name
   end
@@ -154,6 +158,13 @@ module FitWitCustomUserMethods
     ma = self.street_address1 + "\n"
     ma += self.street_address2 + "\n" unless self.street_address2.nil? || self.street_address2.nil?
     ma += "#{self.city}, #{self.us_state} #{self.zip}\n"
+    ma
+  end
+
+  def one_line_address
+    ma = self.street_address1 || "no street address"
+    ma += self.street_address2 unless self.street_address2.nil?
+    ma += ",#{self.city}, #{self.us_state} #{self.zip}\n"
     ma
   end
 

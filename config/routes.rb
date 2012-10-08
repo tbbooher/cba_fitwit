@@ -47,6 +47,9 @@ Cba::Application.routes.draw do
       resources :health_issues
     end
 
+    get "fitwit_member_info" => "users#fitwit_member_info"
+    get "all_fitwit_users_info" => "users#all_fitwit_users_info"
+
     resources :friends
     resources :fit_wit_workouts
     resources :workouts

@@ -28,4 +28,13 @@ class Backend::UsersController < Backend::ResourceController
     params[:user][:password_confirmation] = "iluvfitwit"
     super
   end
+
+  def fitwit_member_info
+    @users = User.all
+  end
+
+  def all_fitwit_users_info
+    @users = User.all
+  end
+
 end

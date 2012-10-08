@@ -23,7 +23,7 @@ class User
   # later fields
   field :contract_months, type: Integer
   field :sessions_per_week, type: Integer
-  field :monthly_price, type: Integer # in cents
+  field :monthly_price, type: Money # in cents
   field :start_date_for_contract, type: Date
   field :end_date_for_contract, type: Date
   field :last_charge_date, type: Date
@@ -31,7 +31,7 @@ class User
   field :payment_method, type: String
   field :paid_in_full, type: Boolean
   field :on_pause, type: Boolean
-  field :total_value_of_contract, type: Integer
+  field :total_value_of_contract, type: Money
 
   field :first_name, type: String
   field :last_name, type: String
@@ -116,6 +116,14 @@ class User
   end
 
   # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  def monthly_price=(dollars)
+    write_attribute(:monthly_price, dollars.to_money)
+  end
+
+  def total_value_of_contract=(dollars)
+    write_attribute(:total_value_of_contract, dollars.to_money)
+  end
 
   def user_name
     self.name
