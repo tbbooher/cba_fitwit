@@ -8,7 +8,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: fitwit_development
+  database: timshel
 
 test:
   <<: *defaults

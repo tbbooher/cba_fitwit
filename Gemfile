@@ -64,6 +64,7 @@ gem "nokogiri", "1.4.6"
 # tim booher custom gems
 
 gem 'heroku'
+gem 'money-rails'
 
 # Testing
 group :development, :test do
