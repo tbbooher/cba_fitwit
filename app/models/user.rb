@@ -23,7 +23,7 @@ class User
   # later fields
   field :contract_months, type: Integer
   field :sessions_per_week, type: Integer
-  field :monthly_price, type: Money # in cents
+  field :monthly_price, type: Money
   field :start_date_for_contract, type: Date
   field :end_date_for_contract, type: Date
   field :last_charge_date, type: Date

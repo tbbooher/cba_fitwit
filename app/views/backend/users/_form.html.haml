@@ -60,9 +60,9 @@
         = f.input :contract_months, collection: 1..13
         = f.input :sessions_per_week, collection: 2..4
         = f.input :monthly_price
-        = f.input :start_date_for_contract, as: :date
-        = f.input :end_date_for_contract, as: :date
-        = f.input :last_charge_date, as: :date
+        = f.input :start_date_for_contract, as: :date, required: false
+        = f.input :end_date_for_contract, as: :date, required: false
+        = f.input :last_charge_date, as: :date, required: false
         = f.input :notes
         = f.input :payment_method, collection: ['cash','check','ach','credit card', 'first born']
         = f.input :paid_in_full, as: :boolean

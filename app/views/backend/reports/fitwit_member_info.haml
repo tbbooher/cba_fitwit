@@ -22,6 +22,7 @@
       %th Last Charge
       %th Notes
       %th Payment Method
+      %th Monthly Price
       %th Paid in Full
       %th Total Value
       %th On Pause
@@ -40,6 +41,7 @@
         %td= u.last_charge_date
         %td= u.notes
         %td= u.payment_method
+        %td= humanized_money_with_symbol u.monthly_price
         %td= u.paid_in_full ? "T" : "F"
         %td= humanized_money_with_symbol u.total_value_of_contract
         %td= u.on_pause ? "T" : "F"
