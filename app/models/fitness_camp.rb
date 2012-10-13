@@ -57,5 +57,7 @@ class FitnessCamp
   def potential_dates_simple
     (self.session_start_date..self.session_end_date).map{|d| [d,d.strftime("%a, %d %b")]}
   end
+
+
   
 end

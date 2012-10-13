@@ -38,7 +38,7 @@
             .block.notice
               %h4 Manage Camps
               %ul
-                - FitnessCamp.all.each do |fc|
+                - FitnessCamp.upcoming_and_current.each do |fc|
                   %li
                     = link_to fc.title, backend_location_fitness_camp_path(fc.location.id, fc.id)
                     %ul
