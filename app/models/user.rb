@@ -246,7 +246,7 @@ class User
   scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
 
   scope :last_name_first, order_by([:last_name => :asc], [:first_name => :asc])
-  scope :sort_by_camps_then_name, order_by([:location_id => :asc], [:first_name => :asc])
+  scope :sort_by_location_then_name, order_by([[:location_id, :asc], [:first_name, :asc], [:last_name, :asc]])
 
   #def time_slots
   #  self.registrations.map(&:orders).map(&:time_slots)

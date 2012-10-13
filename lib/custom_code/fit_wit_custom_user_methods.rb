@@ -54,7 +54,11 @@ module FitWitCustomUserMethods
   end
 
   def camps_completed
-    self.past_fitness_camps.size
+    if self.past_fitness_camps
+      self.past_fitness_camps.size
+    else
+      ""
+    end
   end
 
   def future_fitness_camps
