@@ -171,7 +171,7 @@ module FitWitCustomUserMethods
       ma += self.street_address2 unless self.street_address2.nil?
       ma += ",#{self.city}, #{self.us_state} #{self.zip}\n"
     else
-      ma = '&nbsp;'.html_safe
+      ma = ''
     end
     ma
   end

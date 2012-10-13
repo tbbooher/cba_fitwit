@@ -18,6 +18,9 @@
           %th Relationship
           %th Phone
           %th Health Report
+          %th Email
+          %th Address
+          %th Emergency Contact Phone
       %tbody
         - @campers.each do |camper|
           %tr
@@ -26,3 +29,6 @@
             %td= camper.emergency_contact_relationship
             %td= camper.primary_phone
             %td= camper.short_health_state
+            %td= camper.email
+            %td= camper.one_line_address
+            %td= camper.emergency_contact_phone

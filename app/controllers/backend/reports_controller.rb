@@ -5,7 +5,7 @@ class Backend::ReportsController <  Backend::ApplicationController
   end
 
   def fitwit_member_info
-    @users = User.camps_than_name.where(:member => true)
+    @users = User.sort_by_camps_then_name.where(:member => true)
 
     respond_to do |format|
       format.html
@@ -14,7 +14,7 @@ class Backend::ReportsController <  Backend::ApplicationController
   end
 
   def all_fitwit_users_info
-    @users = User.camps_than_name
+    @users = User.sort_by_camps_then_name
 
     respond_to do |format|
       format.html

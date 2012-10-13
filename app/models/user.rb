@@ -112,7 +112,11 @@ class User
        "Contact Name" => self.emergency_contact_name,
        "Relationship" => self.emergency_contact_relationship,
        "Phone" => self.primary_phone,
-       "Health Report" => self.short_health_state}
+       "Health Report" => self.short_health_state,
+       "Email" => self.email,
+       "Address" => self.one_line_address,
+       "Emergency Contact Phone" => self.emergency_contact_phone
+      }
   end
 
   # end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -242,7 +246,7 @@ class User
   scope :with_role, lambda { |role| { :where => {:roles_mask.gte => ROLES.index(role) } } }
 
   scope :last_name_first, order_by([:last_name => :asc], [:first_name => :asc])
-  scope :camps_than_name, order_by([:location_id => :asc], [:first_name => :asc])
+  scope :sort_by_camps_then_name, order_by([:location_id => :asc], [:first_name => :asc])
 
   #def time_slots
   #  self.registrations.map(&:orders).map(&:time_slots)
