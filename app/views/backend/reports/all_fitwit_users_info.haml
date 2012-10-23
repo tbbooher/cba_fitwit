@@ -19,16 +19,17 @@
       %th Address
       %th Phone
       %th Camps Completed
-      %th Previous?
+      %th Terminated
   %tbody
   - @users.each do |u|
     %tr
       %td= link_to u.name, edit_backend_user_path(u.id)
       %td= u.location_name
+      %td= u.member
       %td= u.email
       %td= u.one_line_address
       %td= u.primary_phone
       %td= u.camps_completed
-      %td previous
+      %td= u.date_membership_terminated
 
 %hr
