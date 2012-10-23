@@ -30,10 +30,10 @@ class CampRosterPdf < Prawn::Document
   end
 
   def camper_lines
-    [["Camper", "Contact Name", "Relationship", "Phone", "Health Report", "Email", "Address", "Emergency Phone"]] +
+    [["Camper", "Contact Name", "Emergency Phone", "Relationship", "Phone", "Health Report", "Email", "Address"]] +
     @campers.map do |c|
-      [c.full_name, c.emergency_contact_name, c.emergency_contact_relationship, c.primary_phone, c.short_health_state,
-      c.email, c.one_line_address, c.emergency_contact_phone]
+      [c.full_name, c.emergency_contact_name, c.emergency_contact_phone, c.emergency_contact_relationship, c.primary_phone, c.short_health_state,
+      c.email, c.one_line_address]
     end
   end
 

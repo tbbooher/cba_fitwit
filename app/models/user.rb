@@ -123,12 +123,12 @@ class User
   def as_csv
       {"Camper" => self.full_name,
        "Contact Name" => self.emergency_contact_name,
+       "Emergency Contact Phone" => self.emergency_contact_phone,
        "Relationship" => self.emergency_contact_relationship,
        "Phone" => self.primary_phone,
        "Health Report" => self.short_health_state,
        "Email" => self.email,
-       "Address" => self.one_line_address,
-       "Emergency Contact Phone" => self.emergency_contact_phone
+       "Address" => self.one_line_address
       }
   end
 
