@@ -58,6 +58,7 @@ class User
   field :veteran_status, type: Symbol, default: :newbie # [:veteran, :supervet, :newbie, :staff]
   field :number_of_logins, :type => Integer
   field :member, :type => Boolean
+  field :date_membership_terminated, type: Date
   field :why_i_fitwit, type: String
   field :when_started_fitwit, type: Date
   field :reset_password_sent_at, type: Time
@@ -71,6 +72,18 @@ class User
   # female specific
   field :post_menopausal_female, type: Boolean, default: false
   field :taking_estrogen, type: Boolean, default: false
+
+  before_update :save_last_member_info
+
+  def save_last_member_info
+    if self.member_changed?
+      if self.member_was
+        self.date_membership_terminated = Date.today
+      else
+        self.date_membership_terminated = nil
+      end
+    end
+  end
 
   attr_accessible :health_issues_attributes
 
@@ -110,12 +123,12 @@ class User
   def as_csv
       {"Camper" => self.full_name,
        "Contact Name" => self.emergency_contact_name,
+       "Emergency Contact Phone" => self.emergency_contact_phone,
        "Relationship" => self.emergency_contact_relationship,
        "Phone" => self.primary_phone,
        "Health Report" => self.short_health_state,
        "Email" => self.email,
-       "Address" => self.one_line_address,
-       "Emergency Contact Phone" => self.emergency_contact_phone
+       "Address" => self.one_line_address
       }
   end
 
