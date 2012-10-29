@@ -10,6 +10,14 @@
   Get this report as a
   = link_to 'CSV', backend_reports_fitwit_member_info_path(:csv)
 
+%h3 Filter by Location
+.navbar
+  .navbar-inner
+    %ul.nav
+      - Location.all.each do |l|
+        %li
+          =link_to l.name, backend_member_info_report_path(l.id)
+
 %table.table.table-striped
   %thead
     %tr

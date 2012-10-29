@@ -48,7 +48,6 @@
         = f.input :height_feet, as: :integer
         = f.input :how_did_you_hear_about_us
         = f.input :veteran_status, collection: [:veteran, :supervet, :newbie, :staff], include_blank: false
-        = f.input :member, as: :boolean
       #medical_stuff.tab-pane
         = f.input :has_physician_approval, as: :boolean
         = f.input :has_physician_approval_explanation, as: :text, :input_html => { rows: 3 }
@@ -57,6 +56,7 @@
         = f.input :post_menopausal_female, as: :boolean, default: false
         = f.input :taking_estrogen, as: :boolean, default: false
       #membership.tab-pane
+        = f.input :member, as: :boolean
         = f.input :contract_months, collection: 1..13
         = f.input :sessions_per_week, collection: 2..4
         = f.input :monthly_price
