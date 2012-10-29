@@ -120,6 +120,13 @@ class User
   ["Extra Large", :xl]
   ]
 
+  def other_workouts(workout_id)
+    w = Workout.find(workout_id)
+    fww_id = w.fit_wit_workout_id
+    self.workouts.where(fit_wit_workout_id: fww_id).excludes(id: w.id).map{ |w| w.score }
+    # add date and put into table
+  end
+
   def as_csv
       {"Camper" => self.full_name,
        "Contact Name" => self.emergency_contact_name,

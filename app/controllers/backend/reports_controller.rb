@@ -11,7 +11,6 @@ class Backend::ReportsController <  Backend::ApplicationController
       @users = User.sort_by_location_then_name.where(:member => true)
     end
 
-
     respond_to do |format|
       format.html
       format.csv { render text: @users.member_info_to_csv}

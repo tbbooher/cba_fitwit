@@ -2,6 +2,12 @@
 
 %h3= link_to "FitWit Member Info", backend_reports_fitwit_member_info_path
 
+%h3 Locations
+%ul.nav
+  - Location.all.each do |l|
+    %li
+      =link_to l.name, backend_member_info_report_path(l.id)
+
 %p This report details all information regarding members.
 
 %h3= link_to "FitWit Users Info", backend_reports_all_fitwit_users_info_path

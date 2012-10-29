@@ -1,12 +1,12 @@
 - content_for :resource_actions do
   = render partial: 'my_fit_wit/includes/my_fit_wit_nav'
 
-%h1 Workout details for #{@exercise.name} on #{@the_date}
+%h1 Workout details for #{@fit_wit_workout.name} on #{@the_date}
 
 %h2{:style => "display:inline"} Your score:
-%span{:style => "padding:5px; margin-left:20px; font-weight:bold;"}= @exertion.score
-%br/
-= @exertion.notes.empty? ? "" : "<h2>Note: </h2>" + @exertion.notes + "<br />"
+%span{:style => "padding:5px; margin-left:20px; font-weight:bold;"}= @workout.score
+%br
+/=# @workout.notes.empty? ? "" : "<h2>Note: </h2>" + @workout.notes + "<br />"
 #accordion
   %h3
     %a{:href => "#"} Personal Progress
@@ -16,17 +16,17 @@
     %a{:href => "#"}
       Other camper's in your time slot on #{@the_date}
   %div
-    - unless @other_folks_exertions.empty?
+    - unless @other_folks_workouts.empty?
       %div{:style => "height:200px; overflow:auto;"}
         %table{:style => "width:100%; border:1px solid gray;"}
-          - @other_folks_exertions.each do |e|
+          - @other_folks_workouts.each do |e|
             %tr{:class => cycle('light', 'dark')}
               %td= e.first_name + " " + e.last_name
               %td= e.score
               %td= image_tag("rx.gif") if e.rxd
     - else
       %p
-        You were the only camper at this meeting to do a #{@exercise.name}
+        You were the only camper at this meeting to do a #{@fit_wit_workout.name}
   %h3
     %a{:href => "#"} Other camper's that day
   %div
@@ -40,9 +40,9 @@
               %td= image_tag("rx.gif") if e.rxd
     - else
       %p
-        You were the only camper at this meeting to do a #{@exercise.name}
+        You were the only camper at this meeting to do a #{@fit_wit_workout.name}
   %h3
     %a{:href => "#"} All time leader board
   %div
     = render :partial => 'my_fit_wit/includes/leader_board', :locals => {:leaders => @leaders}
-= link_to "Back to calendar", {:action => :fit_wit_workout_progress, :month => @exertion.meeting.meeting_date.strftime('%b-%Y')}
+= link_to "Back to calendar", {:action => :fit_wit_workout_progress, :month => @workout.meeting.meeting_date.strftime('%b-%Y')}
