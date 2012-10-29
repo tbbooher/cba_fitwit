@@ -3,10 +3,11 @@
 
 %h1 Workout details for #{@fit_wit_workout.name} on #{@the_date}
 
-%h2{:style => "display:inline"} Your score:
-%span{:style => "padding:5px; margin-left:20px; font-weight:bold;"}= @workout.score
+%h2
+  Your score:
+  = @workout.score
 %br
-/=# @workout.notes.empty? ? "" : "<h2>Note: </h2>" + @workout.notes + "<br />"
+= @workout.user_note.empty? ? "" : "<h2>Note: </h2>".html_safe + @workout.user_note + "<br />".html_safe
 #accordion
   %h3
     %a{:href => "#"} Personal Progress
@@ -21,7 +22,7 @@
         %table{:style => "width:100%; border:1px solid gray;"}
           - @other_folks_workouts.each do |e|
             %tr{:class => cycle('light', 'dark')}
-              %td= e.first_name + " " + e.last_name
+              %td= e.user.name
               %td= e.score
               %td= image_tag("rx.gif") if e.rxd
     - else
@@ -35,7 +36,7 @@
         %table{:style => "width:100%; border:1px solid gray;"}
           - @workouts_that_day.each do |e|
             %tr{:class => cycle('light', 'dark')}
-              %td= e.first_name + " " + e.last_name
+              %td= e.user.name
               %td= e.score
               %td= image_tag("rx.gif") if e.rxd
     - else

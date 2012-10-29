@@ -196,7 +196,7 @@ class MyFitWitController < ApplicationController
 
     meeting_ids = Meeting.where(meeting_date: @workout.meeting.meeting_date).map(&:id)
 
-    @workouts_that_day = Workout.any_in(meeting_id: meeting_ids).where(fit_wit_workout_id: @fit_wit_workout.id)
+    @workouts_that_day = Workout.any_in(meeting_id: meeting_ids).where(fit_wit_workout_id: @fit_wit_workout.id).desc(:common_value)
     
     # @leaders = @fit_wit_workout.find_leaders(@user.gender)
   end
