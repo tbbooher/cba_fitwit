@@ -70,7 +70,7 @@
           = camper.name
           %br/
           - camp_count += 1
-          = "</div><div class=\"floatLeft\" style=\"padding-left:20px;\">" if (camp_count % 25 == 0)
+          = "</div><div class=\"floatLeft\" style=\"padding-left:20px;\">".html_safe if (camp_count % 25 == 0)
     - else
       %p No campers
     .clear
