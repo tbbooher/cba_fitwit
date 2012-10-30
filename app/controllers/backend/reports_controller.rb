@@ -5,7 +5,11 @@ class Backend::ReportsController <  Backend::ApplicationController
   end
 
   def fitwit_member_info
-    @users = User.sort_by_location_then_name.where(:member => true)
+    if params[:location_id]
+      @users = User.sort_by_location_then_name.where(:member => true).and(location_id: params[:location_id])
+    else
+      @users = User.sort_by_location_then_name.where(:member => true)
+    end
 
     respond_to do |format|
       format.html

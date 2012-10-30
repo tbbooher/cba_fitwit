@@ -1,11 +1,11 @@
-<div class="floatLeft" style="width:350px">
+<div>
   <h1>
     <%= "<span class=\"dark\">#{@fit_wit_workout_title}</span>" if @exercise_title %>
   </h1>
 
   <p>
     <%= @fit_wit_workout.description %>
-    <br/>
+    <br>
     <%= @fit_wit_workout.score_method %>
   </p>
 
@@ -31,7 +31,8 @@
       <p>Please choose a workout.</p>
   <% end %>
 </div>
-<div class="floatRight" style="width:400px; padding-right:10px;">
+<div style="clear: both;"></div>
+<div style="width:400px; padding:30px; margin-left: auto; margin-right: auto;">
   <%= image_tag(@chart, alt: "Workout Progress Chart") if @chart %>
 </div>
 <div class="clear"></div>

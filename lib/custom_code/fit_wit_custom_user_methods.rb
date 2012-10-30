@@ -254,7 +254,7 @@ module FitWitCustomUserMethods
                                                                :score => w.score,
                                                                :name => w.fit_wit_workout.name,
                                                                :format_class => 'fit_wit_workout',
-                                                               :previous_scores => "Score: " + w.score + "\n" + find_previous_scores(@user, w.fit_wit_workout, w.fit_wit_workout.name, w.id)) }
+                                                               :previous_scores => "Score: " + w.score + "\n" + "Previous Scores:\n" + self.other_workouts(w.id).join(",") ) }
 
     custom_workouts = self.custom_workouts.map { |cw| OpenStruct.new(:event_id => cw.id,
                                                                     :meeting_date => cw.workout_date,

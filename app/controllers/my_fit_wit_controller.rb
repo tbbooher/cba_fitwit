@@ -190,26 +190,15 @@ class MyFitWitController < ApplicationController
     @meeting = @workout.meeting
     meeting_date = @meeting.meeting_date
     @the_date = meeting_date.strftime("%b #{meeting_date.day.ordinalize} %Y")
-    @other_scores = find_previous_scores(@user, @fit_wit_workout, @fit_wit_workout.name, @workout.id)
-    # now what about other users at the same meetings
-    #@other_folks_workouts = Workout.all(:conditions => ["meetings.id = ?", @meetings.id], :joins => [{:meeting_user => :meetings}, :user], :order => "common_value DESC")
-    # MONGOID ! ! !
-    @other_folks_workouts = Workout.all(:select => "users.first_name, users.last_name, workouts.score, workouts.rxd",
-                                          :conditions => ["meetings.id = ?", @meeting.id],
-                                          :joins => [{:meeting_user => :meetings}, {:meeting_user => :user}],
-                                          :order => "common_value DESC")
+    @other_scores = current_user.other_workouts(@workout.id).join(",")
 
-    #@other_folks_workouts = @workout.meetings.workouts.select { |e| e.fit_wit_workout.id == @fit_wit_workout.id }.sort_by { |e| e.common_value }.reverse
-    # and now what about all other folks that day
-    # MONGOID ! ! !
-    @workouts_that_day = Workout.all(:select => "users.first_name, users.last_name, workouts.score, workouts.rxd",
-                                      :conditions => ["meetings.meeting_date = ? AND workouts.fit_wit_workout_id = ?", meeting_date, @fit_wit_workout.id],
-                                      :joins => [{:meeting_user => :meetings}, {:meeting_user => :user}],
-                                      :order => "common_value DESC")
+    @other_folks_workouts =  @workout.meeting.workouts.where(fit_wit_workout_id: @fit_wit_workout.id).excludes(id: @workout.id).desc(:common_value)
+
+    meeting_ids = Meeting.where(meeting_date: @workout.meeting.meeting_date).map(&:id)
+
+    @workouts_that_day = Workout.any_in(meeting_id: meeting_ids).where(fit_wit_workout_id: @fit_wit_workout.id).desc(:common_value)
     
-    #@fit_wit_workout.workouts.select { |e| e.meetings.meeting_date == @workout.meetings.meeting_date }.sort_by { |e| e.common_value }.reverse
-    # leader board
-    @leaders = @fit_wit_workout.find_leaders(@user.gender)
+    # @leaders = @fit_wit_workout.find_leaders(@user.gender)
   end
 
   private
@@ -217,30 +206,6 @@ class MyFitWitController < ApplicationController
 
   def list_fit_wit_workout(e)
     "#{e.name} on #{e.date_accomplished}"
-  end
-
-  def find_previous_scores(user, fit_wit_workout, fit_wit_workout_name, workout_id)
-    prev_workouts = Workout.for_user(user).for_fww(fit_wit_workout).all.to_a.delete_if { |w| w.id == workout_id }
-    unless prev_workouts.empty?
-      prev_scores = "<p><b>Previous Scores:</b></p><table style='width:100%'>\n"
-      odd = true
-      myear_old = ""
-      prev_workouts.each do |e|
-        color = odd ? 'light' :'dark'
-        odd = !odd
-        mdate = e.meeting.meeting_date
-        myear = mdate.year
-        if myear != myear_old
-          myear_old = myear
-          prev_scores += "<tr class='#{color}'><td><b>#{myear.to_s}</b></td><td>&nbsp;</td></tr>\n"
-        end
-        prev_scores += "<tr class='#{color}'><td>#{mdate.strftime('%d-%b')}</td><td>#{e.score}</td></tr>\n"
-      end
-      prev_scores += "</table>\n"
-    else
-      prev_scores = "No previous #{fit_wit_workout_name} workouts\n"
-    end
-    return prev_scores
   end
 
   def get_months_and_years(st, ed)

@@ -48,8 +48,8 @@ Cba::Application.routes.draw do
     end
 
     get "reports" => "reports#index"
-    get "reports/fitwit_member_info" => "reports#fitwit_member_info"
-    get "reports/all_fitwit_users_info" => "reports#all_fitwit_users_info"
+    get "reports/fitwit_member_info(/:location_id)" => "reports#fitwit_member_info", as: :member_info_report
+    get "reports/all_fitwit_users_info(/:location_id)" => "reports#all_fitwit_users_info", as: :users_report
 
     resources :friends
     resources :fit_wit_workouts
