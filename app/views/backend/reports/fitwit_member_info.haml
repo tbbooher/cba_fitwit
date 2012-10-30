@@ -3,12 +3,12 @@
 
 %p
   You can also view the
-  = link_to 'All FitWit Users Info', backend_reports_all_fitwit_users_info_path
+  = link_to 'All FitWit Users Info', backend_users_report_path
   report.
 
 %p
   Get this report as a
-  = link_to 'CSV', backend_reports_fitwit_member_info_path(:csv)
+  = link_to 'CSV', backend_member_info_report_path(format: :csv)
 
 %h3 Filter by Location
 .navbar
