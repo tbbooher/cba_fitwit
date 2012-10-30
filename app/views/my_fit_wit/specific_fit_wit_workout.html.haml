@@ -1,49 +1,73 @@
 - content_for :resource_actions do
   = render partial: 'my_fit_wit/includes/my_fit_wit_nav'
+  %h2 Description
+  %p.well
+    = @workout.fit_wit_workout.description
 
-%h1 Workout details for #{@fit_wit_workout.name} on #{@the_date}
+- title "Workout details for <b>#{@fit_wit_workout.name}</b>".html_safe
 
 %h2
-  Your score:
-  = @workout.score
-%br
-= @workout.user_note.empty? ? "" : "<h2>Note: </h2>".html_safe + @workout.user_note + "<br />".html_safe
-#accordion
-  %h3
-    %a{:href => "#"} Personal Progress
+  Your score on #{@the_date}:
+  %b
+    = @workout.score_with_units
+- unless @workout.user_note.empty?
+  %p.well
+    %b Note:
+    = @workout.user_note
+
+
+- unless @other_scores.empty?
+  %h3 Personal Progress
   %div
-    = @other_scores
-  %h3
-    %a{:href => "#"}
-      Other camper's in your time slot on #{@the_date}
-  %div
-    - unless @other_folks_workouts.empty?
-      %div{:style => "height:200px; overflow:auto;"}
-        %table{:style => "width:100%; border:1px solid gray;"}
-          - @other_folks_workouts.each do |e|
-            %tr{:class => cycle('light', 'dark')}
-              %td= e.user.name
-              %td= e.score
-              %td= image_tag("rx.gif") if e.rxd
-    - else
-      %p
-        You were the only camper at this meeting to do a #{@fit_wit_workout.name}
-  %h3
-    %a{:href => "#"} Other camper's that day
-  %div
-    - unless @workouts_that_day.empty?
-      %div{:style => "height:200px; overflow:auto;"}
-        %table{:style => "width:100%; border:1px solid gray;"}
-          - @workouts_that_day.each do |e|
-            %tr{:class => cycle('light', 'dark')}
-              %td= e.user.name
-              %td= e.score
-              %td= image_tag("rx.gif") if e.rxd
-    - else
-      %p
-        You were the only camper at this meeting to do a #{@fit_wit_workout.name}
-  %h3
-    %a{:href => "#"} All time leader board
-  %div
-    = render :partial => 'my_fit_wit/includes/leader_board', :locals => {:leaders => @leaders}
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Date
+          %th
+            Score
+            (#{@fit_wit_workout.units})
+      - @other_scores.each do |w|
+        %tr
+          %td= w.meeting.meeting_date
+          %td= w.score
+%h3
+  Other camper's in your time slot on #{@the_date}
+%div
+  - unless @other_folks_workouts.empty?
+    %div{:style => "height:200px; overflow:auto;"}
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Name
+            %th Score
+            %th Rx'd
+        - @other_folks_workouts.each do |e|
+          %tr
+            %td= e.user.name
+            %td= e.score
+            %td= e.show_rxd
+  - else
+    %p
+      You were the only camper at this meeting to do a #{@fit_wit_workout.name}
+%h3 Other camper's that day
+%div
+  - unless @workouts_that_day.empty?
+    %div{:style => "height:200px; overflow:auto;"}
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Name
+            %th Score
+            %th Rx'd
+        - @workouts_that_day.each do |e|
+          %tr
+            %td= e.user.name
+            %td= e.score
+            %td= e.show_rxd
+  - else
+    %p
+      You were the only camper at this meeting to do a #{@fit_wit_workout.name}
+%h3 All time leader board
+%div
+  = render :partial => 'my_fit_wit/includes/leader_board', :locals => {:leaders => @leaders}
 = link_to "Back to calendar", {:action => :fit_wit_workout_progress, :month => @workout.meeting.meeting_date.strftime('%b-%Y')}

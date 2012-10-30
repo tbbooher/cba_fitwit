@@ -61,7 +61,7 @@ Cba::Application.routes.draw do
   end
 
   get "my_fit_wit/index"
-  get "my_fit_wit/camp_fit_wit_workout_progress"
+  match "my_fit_wit/camp_fit_wit_workout_progress(/:camp_id)" => "my_fit_wit#camp_fit_wit_workout_progress", as: :camp_report
   get "add_custom_workout/:date" => "my_fit_wit#add_custom_workout", as: :add_custom_workout
   get "show_custom_workout/:id" => "my_fit_wit#show_custom_workout", as: :show_custom_workout
   # goals -- should remove

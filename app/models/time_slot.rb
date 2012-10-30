@@ -59,9 +59,9 @@ class TimeSlot
     end
   end
 
-  #def campers
-  #  self.registrations.map{|r| r.order.user.full_name}
-  #end
+  def campers
+    self.registrations.map{|r| r.user}
+  end
 
   def show_meeting_txt
     "<span class=\"time\">#{self.start_time_f}</span>\n" +
