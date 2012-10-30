@@ -1,0 +1,14 @@
+- if leaders
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Name
+        %th Date
+        %th Score (#{units})
+    - leaders.each do |pr|
+      %tr
+        %td= pr.user.name
+        %td= pr.date_accomplished
+        %td= pr.score
+- else
+  %p No leaders yet (or no method defined)

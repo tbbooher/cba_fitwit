@@ -35,8 +35,9 @@
         %h3 My Camps
         %ul
         - @user.all_fitness_camps.each do |fc|
-            %li
-                = fc.full_title unless fc.nil?
+            - unless fc.nil?
+                %li
+                    = link_to fc.full_title, camp_report_path(fc.id)
 
 
 - if user_signed_in? && @user == current_user

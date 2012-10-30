@@ -73,11 +73,11 @@ class FitWitWorkout
   end
 
   def top_10_all_fit_wit
-    self.prs.desc(:common_value).limit(10)
+    self.prs.desc(:common_value).and(rxd: true).limit(10)
   end
 
   def top_10_all_fit_wit_by_gender(sex)
-    self.prs.where(sex: sex).desc(:common_value).limit(10).all.to_a
+    self.prs.where(sex: sex).and(rxd: true).desc(:common_value).limit(10)
   end
 
   # this is used in the admin controller for calendar_progress
