@@ -9,7 +9,6 @@ class TimeSlot
 
   validates_presence_of :start_time, :end_time
 
-
   #validates_format_of :start_time,
   #                    with: /^(20|21|22|23|[01]\d|\d)(([:][0-5]\d){1,2})$/,
   #                    message: "Must be a time"
@@ -57,6 +56,25 @@ class TimeSlot
     else
       ""
     end
+  end
+
+  def attendance_report(user)
+    a = []
+    self.meetings.each do |m|
+      a.push([m.meeting_date, m.attended?(user)])
+    end
+    a
+  end
+
+  def stats(user)
+    attended_count = 0
+    self.meetings.each do |m|
+      attended_count += 1 if m.attended?(user)
+    end
+    total = self.meetings.size.to_f
+    {total: total,
+     attended: attended_count.to_f,
+     percent: (attended_count.to_f/total)*100}
   end
 
   def campers

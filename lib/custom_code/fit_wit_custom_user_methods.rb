@@ -283,6 +283,10 @@ module FitWitCustomUserMethods
     fit_wit_workouts + custom_workouts + goals
   end
 
+  def all_workouts_accomplished
+    self.workouts.map{|w| w.fit_wit_workout_id}.uniq
+  end
+
   def previous_scores(w)
     other_workouts = self.other_workouts(w.id)
     unless other_workouts.empty?

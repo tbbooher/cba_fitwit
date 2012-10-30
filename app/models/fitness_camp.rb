@@ -58,6 +58,15 @@ class FitnessCamp
     (self.session_start_date..self.session_end_date).map{|d| [d,d.strftime("%a, %d %b")]}
   end
 
+  def months_and_years
+    m = []
+    d = self.session_start_date.beginning_of_month
+    while d <= self.session_end_date.beginning_of_month
+      m << [d.month, d.year]
+      d = d.next_month
+    end
+    return m
+  end
 
   
 end

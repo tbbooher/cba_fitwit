@@ -41,7 +41,7 @@
                     <% elsif type == 'goal' %>
                         <%= link_to h(event.name), {:action => :my_goals}, {:title => description, :class => "#{event.format_class} activity"} %>
                     <% else %>
-                        <%= link_to h(event.name), {:action => :specific_fit_wit_workout, :id => event.event_id}, {:title => description, :class => "#{event.format_class} activity"} %>
+                        <%= link_to h(event.name), specific_workout_path(event.event_id), {:title => description, :class => "#{event.format_class} activity"} %>
                     <% end %>
                   </li>
               <% end %>

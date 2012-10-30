@@ -31,6 +31,10 @@ class Workout
     "#{self.score} #{self.exercise.units}"
   end
 
+  def easy_name
+    "#{self.fit_wit_workout.name} on #{self.meeting.meeting_date}"
+  end
+
   def show_rxd
     self.rxd? ? "<span class='label label-success'>rx</span>".html_safe : ""
   end

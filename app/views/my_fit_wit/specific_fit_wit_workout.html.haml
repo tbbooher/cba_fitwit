@@ -1,8 +1,14 @@
 - content_for :resource_actions do
   = render partial: 'my_fit_wit/includes/my_fit_wit_nav'
+  %p
+    = link_to "Back to calendar", {:action => :fit_wit_workout_progress, :month => @workout.meeting.meeting_date.strftime('%b-%Y')}
   %h2 Description
-  %p.well
+  %p.well{style: "width:278px;"}
     = @workout.fit_wit_workout.description
+  %h2 Other Workouts
+  %ul
+    - @user.workouts.desc(:created_at).limit(20).each do |wo|
+      %li= link_to wo.easy_name, specific_workout_path(wo.id)
 
 - title "Workout details for <b>#{@fit_wit_workout.name}</b>".html_safe
 
@@ -34,7 +40,7 @@
   Other camper's in your time slot on #{@the_date}
 %div
   - unless @other_folks_workouts.empty?
-    %div{:style => "height:200px; overflow:auto;"}
+    %div.fixed_table
       %table.table.table-striped
         %thead
           %tr
@@ -52,7 +58,7 @@
 %h3 Other camper's that day
 %div
   - unless @workouts_that_day.empty?
-    %div{:style => "height:200px; overflow:auto;"}
+    %div.fixed_table
       %table.table.table-striped
         %thead
           %tr
@@ -68,6 +74,6 @@
     %p
       You were the only camper at this meeting to do a #{@fit_wit_workout.name}
 %h3 All time leader board
+%p Only workouts accomplished as prescribed make the leaderboard.
 %div
-  = render :partial => 'my_fit_wit/includes/leader_board', :locals => {:leaders => @leaders}
-= link_to "Back to calendar", {:action => :fit_wit_workout_progress, :month => @workout.meeting.meeting_date.strftime('%b-%Y')}
+  = render :partial => 'my_fit_wit/includes/leader_board', locals: {leaders: @leaders, units: @fit_wit_workout.units}

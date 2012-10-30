@@ -33,16 +33,14 @@ class MyFitWitController < ApplicationController
 
   def leader_board
     @fit_wit_workout_id = params[:id]
-    user = current_user
     unless @fit_wit_workout_id == 0
       @fit_wit_workout = FitWitWorkout.find(@fit_wit_workout_id)
       @fit_wit_workout_title = @fit_wit_workout.name
-      @workouts = Workout.for_user(user).for_fww(@fit_wit_workout)
-      @leaders = @fit_wit_workout.top_10_all_fit_wit_by_gender(user.sex_symbol)
-          #find_by_sql("select * from prs where fit_wit_workout_id = #{@fit_wit_workout_id} order by common_value DESC limit 10;")
+      @workouts = Workout.for_user(@user).for_fww(@fit_wit_workout)
+      @leaders = @fit_wit_workout.top_10_all_fit_wit_by_gender(@user.sex_symbol)
       unless @fit_wit_workout.score_method.nil?
-        @peers = @fit_wit_workout.find_competition(user)
-        @chart = @fit_wit_workout.get_progress_chart(user, @workouts)
+        @peers = @fit_wit_workout.find_competition(@user)
+        @chart = @fit_wit_workout.get_progress_chart(@user, @workouts)
       else
         @chart = nil
       end
@@ -53,35 +51,27 @@ class MyFitWitController < ApplicationController
   end
 
   def past_fitnesscamps
-    @mycamps = current_user.past_fitness_camps
+    @mycamps = @user.past_fitness_camps
   end
 
   def camp_fit_wit_workout_progress
-    @u = current_user
-#    if current_user.past_fitness_camps
-#      @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
-#    end
-    unless @u.past_fitness_camps.empty?
-      #if params[:fitnesscamp] and request.post?
-      #  fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
-      #else
-      #  fitness_camp_id = @my_completed_fitnesscamps.first
-      #end
-      # find fitness camp -- start with first
+    unless @user.past_fitness_camps.empty?
       if params[:camp_id]
         @current_camp = FitnessCamp.find(params[:camp_id])
       else
-        @current_camp = @u.past_fitness_camps.first
+        @current_camp = @user.past_fitness_camps.first
       end
-      @past_camps = @u.past_camps.excludes(_id: @current_camp.id)
-      @time_slot = @u.get_time_slot(@current_camp.id)
+      @past_camps = @user.past_camps.excludes(_id: @current_camp.id)
+      @time_slot = @user.get_time_slot(@current_camp.id)
       meeting_ids = @time_slot.meetings.map(&:id)
       @myworkouts = Workout.any_in(meeting_id: meeting_ids).where(user_id: current_user.id)
       unless @time_slot.nil?
         @meetings = @time_slot.meetings
         @meeting_count = @meetings.length
         @campers = @time_slot.campers
-        @dates = get_months_and_years(@current_camp.session_start_date, @current_camp.session_end_date)
+        @dates = @current_camp.months_and_years
+        @attendance = @time_slot.attendance_report(@user)
+        @stats = @time_slot.stats(@user)
       end
     else
       # no fitnesscamps
@@ -192,7 +182,7 @@ class MyFitWitController < ApplicationController
   end
 
   def specific_fit_wit_workout
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find(params[:workout_id])
     @fit_wit_workout = @workout.fit_wit_workout
     @meeting = @workout.meeting
     meeting_date = @meeting.meeting_date
@@ -205,25 +195,11 @@ class MyFitWitController < ApplicationController
 
     @workouts_that_day = Workout.any_in(meeting_id: meeting_ids).where(fit_wit_workout_id: @fit_wit_workout.id).desc(:common_value)
     
-    # @leaders = @fit_wit_workout.find_leaders(@user.gender)
+    @leaders = @fit_wit_workout.top_10_all_fit_wit_by_gender(@user.sex_symbol)
   end
 
   private
   # TODO -- all this needs to be moved to the model layer
-
-  def list_fit_wit_workout(e)
-    "#{e.name} on #{e.date_accomplished}"
-  end
-
-  def get_months_and_years(st, ed)
-    m = []
-    d = st.beginning_of_month
-    while d <= ed.beginning_of_month
-      m << [d.month, d.year]
-      d = d.next_month
-    end
-    return m
-  end
 
   def get_user
     authorize! :manage, User, message: "You need to be logged to access MyFitWit"

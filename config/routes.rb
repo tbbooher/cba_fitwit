@@ -63,6 +63,7 @@ Cba::Application.routes.draw do
   get "my_fit_wit/index"
   match "my_fit_wit/camp_fit_wit_workout_progress(/:camp_id)" => "my_fit_wit#camp_fit_wit_workout_progress", as: :camp_report
   get "add_custom_workout/:date" => "my_fit_wit#add_custom_workout", as: :add_custom_workout
+  # might need to delete this . . .
   get "show_custom_workout/:id" => "my_fit_wit#show_custom_workout", as: :show_custom_workout
   # goals -- should remove
   get "my_fit_wit/my_goals"
@@ -79,7 +80,7 @@ Cba::Application.routes.draw do
   get "my_fit_wit/get_progress_chart"
   get "my_fit_wit/past_fitnesscamps"
   get "my_fit_wit/load_calendar_date"
-  get "my_fit_wit/specific_fit_wit_workout"
+  match "my_fit_wit/specific_fit_wit_workout/:workout_id" => "my_fit_wit#specific_fit_wit_workout", as: :specific_workout
   get "my_fit_wit/get_calendar_events"
   get "my_fit_wit/list_fit_wit_workout"
   get "my_fit_wit/find_previous_scores"
