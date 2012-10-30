@@ -57,24 +57,31 @@ class MyFitWitController < ApplicationController
   end
 
   def camp_fit_wit_workout_progress
-    if current_user.past_fitness_camps
-      @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
-    end
-    if current_user.past_fitness_camps
-      if params[:fitnesscamp] and request.post?
-        fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
+    @u = current_user
+#    if current_user.past_fitness_camps
+#      @my_completed_fitnesscamps = current_user.past_fitness_camps.collect { |b| [b.title, b.id] }.uniq
+#    end
+    unless @u.past_fitness_camps.empty?
+      #if params[:fitnesscamp] and request.post?
+      #  fitness_camp_id = params[:fitnesscamp][:fitness_camp_id].to_i
+      #else
+      #  fitness_camp_id = @my_completed_fitnesscamps.first
+      #end
+      # find fitness camp -- start with first
+      if params[:camp_id]
+        @current_camp = FitnessCamp.find(params[:camp_id])
       else
-        fitness_camp_id = @my_completed_fitnesscamps.first
+        @current_camp = @u.past_fitness_camps.first
       end
-      @myworkouts = Workout.find_for_user_and_fitness_camp(@user.id, fitness_camp_id)
-      @my_fitness_camp = FitnessCamp.find(fitness_camp_id)
-      @my_completed_fitnesscamps.delete_if { |bc_title, bc_id| bc_id == fitness_camp_id }
-      @time_slot = @user.get_time_slot(@my_fitness_camp.id)
+      @past_camps = @u.past_camps.excludes(_id: @current_camp.id)
+      @time_slot = @u.get_time_slot(@current_camp.id)
+      meeting_ids = @time_slot.meetings.map(&:id)
+      @myworkouts = Workout.any_in(meeting_id: meeting_ids).where(user_id: current_user.id)
       unless @time_slot.nil?
         @meetings = @time_slot.meetings
         @meeting_count = @meetings.length
         @campers = @time_slot.campers
-        @dates = get_months_and_years(@my_fitness_camp.session_start_date, @my_fitness_camp.session_end_date)
+        @dates = get_months_and_years(@current_camp.session_start_date, @current_camp.session_end_date)
       end
     else
       # no fitnesscamps
@@ -190,7 +197,7 @@ class MyFitWitController < ApplicationController
     @meeting = @workout.meeting
     meeting_date = @meeting.meeting_date
     @the_date = meeting_date.strftime("%b #{meeting_date.day.ordinalize} %Y")
-    @other_scores = current_user.other_workouts(@workout.id).join(",")
+    @other_scores = current_user.other_workouts(@workout.id)
 
     @other_folks_workouts =  @workout.meeting.workouts.where(fit_wit_workout_id: @fit_wit_workout.id).excludes(id: @workout.id).desc(:common_value)
 

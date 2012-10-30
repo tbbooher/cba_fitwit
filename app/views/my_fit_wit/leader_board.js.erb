@@ -1,35 +1,39 @@
 <div>
-  <h1>
+    <h1>
     <%= "<span class=\"dark\">#{@fit_wit_workout_title}</span>" if @exercise_title %>
-  </h1>
+    </h1>
+    <% unless @fit_wit_workout.description.empty? %>
+    <div class="well">
+        <h3>Description</h3>
+        <%= @fit_wit_workout.description %>
+    </div>
+    <% end %>
 
-  <p>
-    <%= @fit_wit_workout.description %>
-    <br>
-    <%= @fit_wit_workout.score_method %>
-  </p>
-
-  <% unless @workouts.nil? %>
-      <% if @workouts.empty? and @fit_wit_workout_title %>
-          <p>You haven't accomplished any <%= @fit_wit_workout_title %> workouts.</p>
-      <% else %>
-          <h2>Your historical scores</h2>
-          <table>
-            <tr>
-              <th style="width:100px;">Date</th>
-              <th style="width:200px;">Score</th>
-            </tr>
-            <% @workouts.each do |w| %>
-                <tr class="<%= cycle('dark', 'light') %>">
-                  <td><%= compact_date(w.meeting.meeting_date) %></td>
-                  <td><%= "#{w.score} #{w.fit_wit_workout.units}" %></td>
+<% unless @workouts.nil? %>
+    <% if @workouts.empty? and @fit_wit_workout_title %>
+        <p>You haven't accomplished any <%= @fit_wit_workout_title %> workouts.</p>
+    <% else %>
+        <h2>Your historical scores</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Rx'd</th>
                 </tr>
-            <% end %>
-          </table>
-      <% end %>
-  <% else %>
-      <p>Please choose a workout.</p>
-  <% end %>
+            </thead>
+        <% @workouts.each do |w| %>
+            <tr>
+                <td><%= compact_date(w.meeting.meeting_date) %></td>
+                <td><%= w.score_with_units %></td>
+                <td><%= w.show_rxd %></td>
+            </tr>
+        <% end %>
+        </table>
+    <% end %>
+<% else %>
+    <p>Please choose a workout.</p>
+<% end %>
 </div>
 <div style="clear: both;"></div>
 <div style="width:400px; padding:30px; margin-left: auto; margin-right: auto;">
@@ -38,12 +42,14 @@
 <div class="clear"></div>
 <h2>Peers</h2>
 <% if @peers %>
-    <table style="width:100%">
-        <tr>
-    	  <th>Name</th>
-	  <th>Date</th>
-      	  <th>Score</th>
-    	</tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Score</th>
+            </tr>
+        </thead>
 	<% draw_peer_collection(@peers[:above]) %>
 	<% draw_row(@peers[:me]) %>
 	<% draw_peer_collection(@peers[:below]) %>
@@ -52,12 +58,14 @@
     <p>No peers yet (or no method defined)</p>
 <% end %>
 <h2>All-time leader board</h2>
-<table style="width:100%">
+<table class="table table-striped">
+  <thead>
   <tr>
-    <td>Name</td>
-    <td>Date</td>
-    <td>Score</td>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Score</th>
   </tr>
+  </thead>
   <% draw_peer_collection(@leaders) %>
 </table>
 

@@ -41,6 +41,10 @@ class Workout
     end
   end
 
+  def score_with_units
+    "#{self.score} #{self.fit_wit_workout.units}"
+  end
+
   def update_prs
     # if the common_value is better than the users previous value, put this value in
     # and update the global pr table for that workout . . .

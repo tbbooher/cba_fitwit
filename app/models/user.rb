@@ -123,7 +123,7 @@ class User
   def other_workouts(workout_id)
     w = Workout.find(workout_id)
     fww_id = w.fit_wit_workout_id
-    self.workouts.where(fit_wit_workout_id: fww_id).excludes(id: w.id).map{ |w| w.score }
+    self.workouts.where(fit_wit_workout_id: fww_id).excludes(id: w.id)
     # add date and put into table
   end
 

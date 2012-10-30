@@ -47,6 +47,12 @@ module FitWitCustomUserMethods
     #self.user_time_slots.map{|ts| ts.fitness_camp}.uniq
   end
 
+  def past_camps
+    #mongoid to the rescue!
+    camp_ids = self.registrations.map(&:fitness_camp_id)
+    FitnessCamp.any_in(_id: camp_ids).where(:session_end_date.lt => Date.today)
+  end
+
   def past_fitness_camps
     unless self.registrations.size == 0
       self.registrations.map(&:fitness_camp).select{|c| c.session_end_date <= Date.today}
@@ -248,13 +254,17 @@ module FitWitCustomUserMethods
       health_issues.sort_by{|hi| hi.medical_condition.name }
   end
 
+  def get_time_slot(camp_id)
+    self.registrations.where(fitness_camp_id: camp_id).first.time_slot
+  end
+
   def get_calendar_events
     fit_wit_workouts = self.workouts.map { |w| OpenStruct.new(:event_id => w.id,
                                                                :meeting_date => w.meeting.meeting_date,
                                                                :score => w.score,
                                                                :name => w.fit_wit_workout.name,
                                                                :format_class => 'fit_wit_workout',
-                                                               :previous_scores => "Score: " + w.score + "\n" + "Previous Scores:\n" + self.other_workouts(w.id).join(",") ) }
+                                                               :previous_scores => "Score: " + w.score + "\n" + previous_scores(w) ) }
 
     custom_workouts = self.custom_workouts.map { |cw| OpenStruct.new(:event_id => cw.id,
                                                                     :meeting_date => cw.workout_date,
@@ -271,6 +281,15 @@ module FitWitCustomUserMethods
                                                 :previous_scores => g.description.empty? ? "no description" : g.description) }
 
     fit_wit_workouts + custom_workouts + goals
+  end
+
+  def previous_scores(w)
+    other_workouts = self.other_workouts(w.id)
+    unless other_workouts.empty?
+      "Previous:\n" + other_workouts.map(&:score).join(",")
+    else
+      ""
+    end
   end
 
 end
