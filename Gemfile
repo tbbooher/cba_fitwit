@@ -114,7 +114,7 @@ gem 'activemerchant', :require => 'active_merchant' # , :git => 'git://github.co
 gem 'ssl_requirement'
 gem 'googlecharts'
 gem 'inherited_resources'
-gem 'table_builder', :git => 'git://github.com/raw1z/table_builder.git'
+gem 'watu_table_builder', require: "table_builder"
 gem 'stateflow'
 #gem 'wkhtmltopdf-binary'
 gem "stamp"

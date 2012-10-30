@@ -7,12 +7,6 @@ GIT
       activemodel (~> 3.0)
 
 GIT
-  remote: git://github.com/raw1z/table_builder.git
-  revision: bf21f0e4a0ae2bdbff47d17323bc34c8ea49e2b6
-  specs:
-    table_builder (0.2.0)
-
-GIT
   remote: git://github.com/rspec/rspec-rails.git
   revision: 6b7adaf960f759a8fd21f611dcd82a21f528a6a6
   specs:
@@ -396,6 +390,7 @@ GEM
     uuidtools (2.1.2)
     warden (1.1.1)
       rack (>= 1.0)
+    watu_table_builder (0.3.0)
     will_paginate (3.0.pre4)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -486,11 +481,11 @@ DEPENDENCIES
   stamp
   stateflow
   syntax
-  table_builder!
   test-unit
   therubyracer
   thin
   uglifier (>= 1.0.3)
   unicorn
+  watu_table_builder
   will_paginate (= 3.0.pre4)
   yard

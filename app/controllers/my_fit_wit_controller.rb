@@ -47,7 +47,6 @@ class MyFitWitController < ApplicationController
     else
       @workouts = nil
     end
-    # @fit_wit_workouts_select_list.delete_if{|e| e[1] == fit_wit_workout_id}
   end
 
   def past_fitnesscamps
