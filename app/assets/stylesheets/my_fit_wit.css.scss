@@ -32,7 +32,9 @@ ul#main_my_fitwit {
     height: 35px; }
   td {
     border: 1px solid #999;
-    height: 10px; }
+    height: 10px;
+    text-align: center;
+  }
   float: left;
   padding: 10px;
   th {
@@ -131,3 +133,13 @@ div#tabs ul li {
 .new_goal {
   padding:10px;
 }
+
+.there {
+  background-color:#006400;
+}
+
+.absent {
+  background-color: #dc143c;
+}
+
+

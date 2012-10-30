@@ -71,10 +71,10 @@ class TimeSlot
     self.meetings.each do |m|
       attended_count += 1 if m.attended?(user)
     end
-    total = self.meetings.size.to_f
+    total = self.meetings.size
     {total: total,
-     attended: attended_count.to_f,
-     percent: (attended_count.to_f/total)*100}
+     attended: attended_count,
+     percent: (attended_count.to_f/total.to_f)*100}
   end
 
   def campers
