@@ -3,6 +3,7 @@
 class BlogsController < ApplicationController
 
   before_filter :ensure_page_tokens, :only => [:update,:create]
+  include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
 
   def index
     # this only finds blogs without a location
