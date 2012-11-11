@@ -4,9 +4,9 @@ class BlogsController < ApplicationController
 
   before_filter :ensure_page_tokens, :only => [:update,:create]
 
-  include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+  #include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
 
-  add_transaction_tracer :show
+  #add_transaction_tracer :show
 
   def index
     # this only finds blogs without a location
