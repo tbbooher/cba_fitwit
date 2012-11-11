@@ -10,6 +10,9 @@ class Blog
   acts_as_content_item
   has_cover_picture
 
+  #include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+  #add_transaction_tracer :postings_for_user_and_mode, :category => :task
+
   field :allow_comments,        :type => Boolean, :default => true
   field :allow_public_comments, :type => Boolean, :default => true
   field :synopsis
@@ -78,8 +81,14 @@ class Blog
   # @param [Boolean] _draft_mode - select for draft-mode if true
   # @return [Criteria] for all visible postings for this user
   def postings_for_user_and_mode(_user,_draft_mode=false)
+    return self.postings.all
+=begin
     # if no user is given then return only public and online postings
+    logger.debug "postings called"
     unless _user
+      logger.debug "***********************************************"
+      logger.debug "****************  BADDIE  *********************"
+      logger.debug "***********************************************"
       _online =  self.postings.online.only(:id).map(&:id)
       _public =  self.postings.publics.only(:id).map(&:id) 
       _published=self.postings.published.only(:id).map(&:id) 
@@ -119,6 +128,7 @@ class Blog
     end
 
     self.postings.for_ids( _visible_ids )
+=end
   end
   
 
