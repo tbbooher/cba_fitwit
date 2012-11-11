@@ -30,7 +30,7 @@
         %p &nbsp;
     - if @blog.pages.any?
       #blog_pages
-        - for page in @blog.pages.where(is_draft: draft_mode)
+        - for page in @blog.pages # .where(is_draft: draft_mode)
           .widgets.subpages-widget
             = render :partial => 'pages/page_intro', :locals => { :page => page }
             /%p.content_separator

@@ -23,18 +23,21 @@ class BlogsController < ApplicationController
 
   # Show all postings for this blog
   def show
-    @blog = scoped_find(params[:id])
+    #@blog = scoped_find(params[:id])
 
-    _postings = @blog.postings_for_user_and_mode(current_user,draft_mode)
+    #_postings = @blog.postings_for_user_and_mode(current_user,draft_mode)
 
-    @postings = _postings.desc(:created_at).paginate(:page => params[:page],:per_page => ENV['CONSTANTS_paginate_postings_per_page'].to_i)
-    respond_to do |format|
-      format.js {
-         @path = blog_path(@blog, :page => (params[:page] ? (params[:page].to_i+1) : 2) )
-      }
-      format.html # index.html.erb
-      format.xml  { render :xml => @blog }
-    end
+    #@postings = _postings.desc(:created_at).paginate(:page => params[:page],:per_page => ENV['CONSTANTS_paginate_postings_per_page'].to_i)
+    @blog = Blog.find(params[:id])
+    @postings = @blog.postings.desc(:created_at).paginate(:page => params[:page],:per_page => 5)
+
+    #respond_to do |format|
+    #  format.js {
+    #     @path = blog_path(@blog, :page => (params[:page] ? (params[:page].to_i+1) : 2) )
+    #  }
+    #  format.html # index.html.erb
+    #  format.xml  { render :xml => @blog }
+    #end
   end
 
   def new
