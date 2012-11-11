@@ -18,6 +18,7 @@ test:
 # TODO not sure if we need to set these . . .
 production:
  uri: <%= ENV['MONGOHQ_URL'] %>
+ logger: false
 #  database: polco_production
 #  host: <%= ENV['MONGOID_HOST'] %>
 #  port: <%= ENV['MONGOID_PORT'] %>
