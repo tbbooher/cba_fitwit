@@ -280,10 +280,10 @@ class User
 
   def self.member_info_to_csv
     CSV.generate do |csv|
-      csv << ['name','location','contract months', 'sessions per week', 'start date', 'end date', 'last charge date', 'notes', 'payment_method', 'paid in full', 'total value', 'on pause', 'email', 'address', 'phone']
+      csv << ['name','location','contract months', 'sessions per week', 'start date', 'end date', 'last charge date', 'notes', 'payment_method', 'monthly price', 'paid in full', 'total value', 'on pause', 'email', 'address', 'phone']
       all.each do |u|
         total_value = u.total_value_of_contract.dollars unless u.total_value_of_contract.nil?
-        csv << [u.name,u.location_name,u.contract_months,u.sessions_per_week,u.start_date_for_contract,u.end_date_for_contract,u.last_charge_date,u.notes,u.payment_method, u.paid_in_full ? "T" : "F", total_value, u.on_pause ? "T" : "F",u.email, u.one_line_address, u.primary_phone]
+        csv << [u.name,u.location_name,u.contract_months,u.sessions_per_week,u.start_date_for_contract,u.end_date_for_contract,u.last_charge_date,u.notes,u.payment_method, u.monthly_price, u.paid_in_full ? "T" : "F", total_value, u.on_pause ? "T" : "F",u.email, u.one_line_address, u.primary_phone]
       end
     end
   end
