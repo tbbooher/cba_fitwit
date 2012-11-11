@@ -1,5 +1,5 @@
  ---
- <%= ENV["RACK_ENV"] %>:
+ <%= Rails.env %>:
    error_collector:
      capture_source: true
      enabled: true
